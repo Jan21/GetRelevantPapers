@@ -1,0 +1,75 @@
+asta:
+  url: https://asta-tools.allen.ai/mcp/v1
+  api_key: ${oc.env:ASTA_API_KEY}
+  search_keyword: graph neural networks for sat solving
+  fields: title,authors,abstract,url,year,openAccessPdf
+  limit: 100
+  output: search_results.json
+vllm:
+  url: http://0.0.0.0:8000
+  model_name: Qwen/Qwen3-4B-Instruct-2507-FP8
+  max_tokens: 10
+  temperature: 0.1
+  timeout: 30
+  stop_tokens:
+  - <|im_end|>
+  - '
+
+
+    '
+openrouter:
+  api_key: ${oc.env:OPENROUTER_API_KEY}
+  model_name: deepseek/deepseek-v3.2
+  max_tokens: 10
+  temperature: 0.1
+  timeout: 30
+search:
+  query: graph neural networks for SAT solving
+  limit: 1000
+  output: search_results.json
+  show_abstract: true
+  batch_size: 100
+  delay: 2.0
+  api_url: https://api.semanticscholar.org/graph/v1/paper/search
+  api_key: ${oc.env:SEMANTIC_SCHOLAR_API_KEY,null}
+  fields:
+  - paperId
+  - title
+  - abstract
+  - year
+  - authors
+  - citationCount
+  - url
+  - openAccessPdf
+classification:
+  research_description: Papers that apply graph neural networks to Boolean satisfiability
+    problems, including SAT solving, MAXSAT, or constraint satisfaction. Papers should
+    focus on using GNNs for solution prediction, search guidance, or formula representation.
+  output_prefix: classified
+  display_limit: 10
+  display_results: true
+  use_vllm: true
+  use_openrouter: false
+prompt:
+  template: 'You job is to classify whether the following paper matches the research
+    criteria. Answer with a single word only: YES or NO.
+
+
+    Research Criteria:
+
+    {research_description}
+
+
+    Paper Title:
+
+    {title}
+
+
+    Paper Abstract:
+
+    {abstract}
+
+
+    Answer with a single word only: YES or NO.
+
+    '
