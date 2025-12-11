@@ -1,0 +1,39 @@
+define the degree \(d_{i} \coloneqq \sum_{(i,j) \in E} w_{ij}\) and the neighborhood \(\mathcal{N}(i) \coloneqq \{j \in V: (i,j) \in E\}\) . For each \(i \in V\) define a probability measure  
+
+\[m_{i}(j) = \left\{ \begin{array}{ll} \frac{w_{i,j}}{d_{i}}, & \mathrm{if} j \in \mathcal{N}(i) \\ 0, & \mathrm{otherwise.} \end{array} \right.\]  
+
+Note that these are just the transition probabilities of a weighted random walk on the vertices of \(G\) . If \(m_{G} = \{m_{i}: i \in V\}\) , then considering the metric measure space \(\mathcal{M}_{G} \coloneqq (V, d_{G}, m_{G})\) , we can define the OC curvature for any edge \((i,j) \in E\) as \(\kappa (\mathbf{i},\mathbf{j}) \coloneqq \mathbf{1} - \mathbf{W}_{1}^{G}(\mathbf{m}_{i}, \mathbf{m}_{j})\) , where \(W_{1}^{G}(m_{i}, m_{j})\) is obtained by discretizing Equation (12) on \(\mathcal{M}_{G}\) :  
+
+\[W_{1}^{G}(m_{i}, m_{j}) = \inf_{\nu \in \mathcal{A}} \sum_{z_{1} \in \mathcal{N}(i)} \sum_{z_{2} \in \mathcal{N}(j)} \nu (z_{1}, z_{2}) d(z_{1}, z_{2}). \quad (14)\]  
+
+\(\mathcal{A}\) denotes the set of all \(d_{i} \times d_{j}\) matrices with entries indexed by \(\mathcal{N}(i) \times \mathcal{N}(j)\) such that \(\nu (i', j') \geq 0\) , \(\sum_{z \in \mathcal{N}(j)} \nu (i', z) = \frac{w_{i,i'}}{d_{i}}\) , and \(\sum_{z \in \mathcal{N}(i)} \nu (z, j') = \frac{w_{j,j'}}{d_{j}}\) , for all \(i' \in \mathcal{N}(i)\) and \(j' \in \mathcal{N}(j)\) . For a matrix \(\nu \in \mathcal{A}\) , \(\nu (i', j')\) represents the mass moving from \(i' \in \mathcal{N}(i)\) to \(j' \in \mathcal{N}(j)\) . For this reason, the matrix \(\nu\) is often called the transfer plan.  
+
+## A.1.2 Balanced Forman curvature (BFC)  
+
+The Forman- Ricci Curvature (FC) is a discretization of Ricci curvature that holds for a broad class of topological objects, namely so called (regular) cellular (CW) complexes [44]. The original definition [18] is both extremely technical and out of the scope of this paper. Given that graphs edges are 1- dimensional cells (topologically), the definition simplifies greatly making use of very simple graph properties. Consider a simple, unweighted graph for simplicity, then the FC of edge \((i,j)\) is defined as \(\kappa_{G}^{f}(i,j) = 4 - d_{i} - d_{j}\) . The main issue of this definition is that it ignores higher order correlations in terms of triangles and 4- cycles, which prove crucial to discriminate positively, flat, and negatively curved graphs. Inspired by these issues, Topping et al. [47] propose an extension of the FC dubbed Balanced Forman Curvature (BFC), such that it is both fast to compute and encodes accurate curvature information.  
+
+Let us start by defining the sphere and ball of radius \(r\) centered at a node \(i\) of the graph by:  
+
+\[S_{r}(i) \coloneqq \{j \in V: d_{G}(i,j) = r\} , \quad B_{r}(i) \coloneqq \{j \in V: d_{G}(i,j) \leq r\} . \quad (15)\]  
+
+The BFC is then defined using three combinatorial components:  
+
+(i) \(\sharp_{\Delta}(i,j)\) , the number of triangles based at the edge \(i \sim j\) .  
+
+(ii) \(\sharp_{\square}^{i}(i,j) \coloneqq\) , the number of nodes \(k \in S_{1}(i)\) forming a 4- cycle based at \(i \sim j\) without diagonals inside.  
+
+(iii) \(Q_{i}(j) \coloneqq S_{1}(i) \setminus (\{j\} \cup \sharp_{\Delta}(i,j) \cup \sharp_{\square}^{i}(i,j))\) , simply the complement of the neighbours of \(i\) with respect to the sets introduced in (i) and (ii) once we also exclude \(j\) .  
+
+Definition A.2 (Topping et al. [47]). For any edge \(i \sim j\) in a simple, unweighted graph \(G = (V, E)\) with adjacency matrix \(A\) let:  
+
+\(S_{1}(i) \coloneqq \{j \in V: i \sim j \in E\}\) be the set of 1- hop neighbors of \(i\) .  
+
+\(\sharp_{\Delta}(i,j) \coloneqq S_{1}(i) \cap S_{1}(j)\) be the set of triangles based at \(i \sim j\) .  
+
+\(\sharp_{\square}^{i}(i,j) \coloneqq \{k \in S_{1}(i) \setminus S_{1}(j), k \neq j: \exists w \in (S_{1}(k) \cap S_{1}(j)) \setminus S_{1}(i)\}\) be the neighbors of \(i\) forming a 4- cycle based at \(i \sim j\) without diagonals inside.  
+
+\(\gamma_{\max}(i,j) \coloneqq \max \left\{\max_{k \in \sharp_{\square}^{i}} \{(A_{k} \cdot (A_{j} - A_{i} \odot A_{j})) - 1\} , \max_{w \in \sharp_{\square}^{i}} \{(A_{w} \cdot (A_{i} - A_{j} \odot A_{i})) - 1\} \right\}\) , with \(\cdot\) being the dot product and \(\odot\) the elementwise product, be the maximal number of 4- cycles based at \(i \sim j\) traversing a common node.  
+
+The BFC \(Ric(i,j)\) is zero if \(\min \{d_{i}, d_{j}\} = 1\) and alternatively:  
+
+\[R i c(i,j) \coloneqq \frac{2}{d_{i}} + \frac{2}{d_{j}} -2 + 2\frac{|\sharp_{\Delta}(i,j)|}{\max \{d_{i},d_{j}\}} +\frac{|\sharp_{\Delta}(i,j)|}{\min \{d_{i},d_{j}\}} +\frac{(\gamma_{m a x}(i,j))^{-1}}{\max \{d_{i},d_{j}\}} (|\sharp_{\square}^{i}| + |\sharp_{\square}^{j}|). \quad (16)\]

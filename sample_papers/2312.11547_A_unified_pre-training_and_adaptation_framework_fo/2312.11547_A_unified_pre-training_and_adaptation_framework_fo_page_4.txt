@@ -1,0 +1,23 @@
+CO problems [30,31]. By incorporating learning- based heuristics into traditional optimization algorithms, better- quality solutions can be obtained with reduced computational effort.  
+
+### 2.2 Graph Neural Networks  
+
+GNNs belong to a typical deep- learning framework for graphs that follow a message- passing mechanism [8]. Graph convolution networks (GCNs) [10] define graph convolutions on the spectral domain so that the structural information from neighbors can be aggregated. GraphSAGE [32] proposes an inductive representation learning method based on aggregation and sampling directly on the spatial domain. Graph attention networks (GATs) [33] utilize self- attention mechanisms to learn node features where the importance of neighbors can be considered during the aggregation of information. More recently, prompt tuning has been used to generalize GNNs [34,35]. GPPT [34] proposes a graph prompting function for GNNs so that the pre- trained models can predict labels without fine- tuning. Since GNNs have been successfully used in various downstream tasks, researchers pay attention to the theories behind GNNs. For example, over- smoothing [36] and over- squashing [37] are the two main issues for GNNs. BORF [38] proposes a rewiring algorithm based on Ollivier- Ricci curvature to relieve both over- smoothing and over- squashing problems for GNNs. The expressive abilities of GNNs have also been studied to demonstrate why GNNs perform well in many tasks [9,39,40].  
+
+Recently, GNNs have been used in graph domain adaptation to address the domain shift on graphs [41]. Domain adaptation on graphs aims at leveraging knowledge learned from the source domain to improve the performance of a GNN model on a different target domain. Adversarial training is often used to build the alignment framework [42,43]. For example, TFLG [43] utilizes instance and class levels of structures and leverages adversarial training to learn domain- invariant features. Except for the features that can be easily used for domain alignment, many researchers seek to learn invariant information from different levels. GCAN [44] is a graph convolutional adversarial network introduced for unsupervised domain adaptation by jointly modeling structures, domain labels, and class labels. StruRW [45] presents a structural re- weighting method to address the conditional structure shift problem. Since spectral properties play an important role in graph structures, many works also attempt to explore the alignment of spectral information [46,47].  
+
+## 3 Methodology  
+
+### 3.1 CO Problems on Graphs  
+
+Given a graph \(\mathcal{G} = (\mathcal{V},\mathcal{E})\) , where \(\nu\) is a set of nodes and \(\mathcal{E}\) is a set of edges between nodes. The CO problems on graphs are to find a subset of nodes \(\mathcal{S}\) under given constraint conditions so that the number of edges between the nodes in \(\mathcal{S}\) satisfies a specific condition and the objective function can be maximized or minimized. Generally, the CO can be expressed as:  
+
+\[\begin{array}{r}{\max f(\mathcal{S}),}\\ {g_{i}(\mathcal{S})\leqslant b_{i},b_{i}\in \Omega ,} \end{array} \quad (3.1b)\]  
+
+where \(f(\mathcal{S})\) is the objective function, \(g_{i}(\mathcal{S})\) is the constraint condition function, \(b_{i}\) is the boundary of the constraint condition, and \(\Omega\) is the set of constraint indicators. In the following part, we give three concrete CO problems on graphs.  
+
+Max- Cut Problem Given a graph \(\mathcal{G} = (\mathcal{V},\mathcal{E})\) , the goal of the Max- Cut problem is to find a partition that divides \(\nu\) into subset \(\mathcal{S}\) and its complementary set \(\mathcal{S}^{\prime} = \mathcal{V} - \mathcal{S}\) where the number of cuts between \(\mathcal{S}\) and \(\mathcal{S}^{\prime}\) is maximized. The cuts refer to the edges between \(\mathcal{S}\) and \(\mathcal{S}^{\prime}\) . The objective function of Max- Cut can be denoted as:  
+
+\[f(\mathcal{S}) = \sum_{e_{i,j}\in \mathcal{E}}\big(v_{i} + v_{j} - 2v_{i}v_{j}\big), \quad (3.2)\]  
+
+where \(v_{i} = 1\) when \(v_{i}\in \mathcal{S}\) and \(v_{i} = 0\) otherwise, and \(e_{i,j}\) is the edge between nodes \(v_{i}\) and \(v_{j}\)

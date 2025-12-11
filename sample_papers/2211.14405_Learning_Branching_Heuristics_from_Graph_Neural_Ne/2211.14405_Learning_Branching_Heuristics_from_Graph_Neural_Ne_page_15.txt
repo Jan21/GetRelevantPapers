@@ -1,0 +1,15 @@
+[11] Maximilian Bother, Otto Kißig, Martin Taraz, Sarel Cohen, Karen Seidel, and Tobias Friedrich. What's wrong with deep learning in tree search for combinatorial optimization. In International Conference on Learning Representations, 2022. URL https://openreview.net/forum?id=mk0HzdqY7i1.  
+
+[12] Noga Alon and Joel H. Spencer. The probabilistic method. 2nd edition, 2000.  
+
+[13] Gurobi Optimization, LLC. Gurobi Optimizer Reference Manual, 2022. URL https://www.gurobi.com.  
+
+[14] Keyulu Xu, Weihua Hu, Jure Leskovec, and Stefanie Jegelka. How powerful are graph neural networks? In International Conference on Learning Representations, 2019.  
+
+[15] Sergey Ioffe and Christian Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift. In Proceedings of the 32nd International Conference on Machine Learning, volume 37, pages 448- 456, 2015.  
+
+[16] Yoshua Bengio. Practical recommendations for gradient- based training of deep architectures. In Neural networks: Tricks of the trade, pages 437- 478. Springer, 2012.  
+
+## A Neural Network Architecture of GNN Model for Dominating Cliques  
+
+We implement our GNN model by PyTorch 1.9.1 and PyTorch Geometric 2.0.1. We set the node features of an input graph as 1- dimensional vectors. As shown above, we interpret these features as the Bernoulli distributions associated with vertices. Our GNN model consists of 8 layers: 6 graph- isomorphism- network (GIN) layers and 2 linear layers followed. The reason of using GINs is that the properties of sub- structures of the graphs containing dominating cliques are similar. For example, the diameters of the graphs containing dominating cliques are at most 3, and they all have a clique as a kernel. GIN is a good option here because it has the most powerful ability in GNN layers to detect isomorphic subgraphs [14]. We apply the batch normalization on the output of each layer as it is a standard operation in GNNs, see [15]. In addition, we set the batch size as 32 because this number has a good practice in real applications [16]. Furthermore, our dominating- clique solvers are implemented by the programming language C and run on Ubuntu 20.04.4 LTS with Intel CPU i7- 11700F and 48GB RAM.

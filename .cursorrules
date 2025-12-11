@@ -1,0 +1,46 @@
+# Cursor Rules for Paper Analysis Pipeline
+
+## Web UI Configuration
+- **Default Port**: 3444
+- **Web UI Command**: `python minimal_web_ui.py`
+- **Access URL**: http://localhost:3444
+
+## Project Structure
+- Main pipeline: `main.py`
+- Interactive UI: `simple_ui.py` 
+- Web UI: `minimal_web_ui.py` (PORT 3444)
+- Analysis: `analyzer.py` (regex) + `llm_evaluator.py` (LLM)
+- Data: `markdown_db/` + `vector_store/` + `converted_papers/`
+
+## Development Commands
+```bash
+# Start Web UI on port 3444
+python minimal_web_ui.py
+
+# Terminal UI
+python simple_ui.py
+
+# CLI Analysis
+python main.py --input-dir converted_papers
+
+# Process sample papers
+python main.py --input-dir sample_papers --output sample_analysis.json
+```
+
+## Key Features
+- 22 converted sample papers in `converted_papers/`
+- 5 Deep Researcher criteria evaluation
+- Dual analysis methods (regex + LLM)
+- Interactive web interface on port 3444
+- Vector search for section relevance
+- Persistent document database
+
+## API Endpoints (Port 3444)
+- GET `/` - Dashboard
+- GET `/papers` - Papers list
+- GET `/results` - Analysis results
+- POST `/analyze` - Run analysis
+- GET `/api/stats` - System stats
+- GET `/api/analyze/{method}/{doc_id}` - Single paper analysis
+
+## Always use port 3444 for web UI development and testing.

@@ -1,0 +1,27 @@
+{
+  "image": "2312.11547_A_unified_pre-training_and_adaptation_framework_fo_page_19.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "text",
+      "boxes": [
+        [
+          130.0,
+          91.0,
+          870.0,
+          730.0
+        ]
+      ],
+      "raw": "[[130, 91, 870, 730]]",
+      "pixel_boxes": [
+        [
+          331,
+          300,
+          2220,
+          2411
+        ]
+      ]
+    }
+  ]
+}

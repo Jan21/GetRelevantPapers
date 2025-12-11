@@ -1,0 +1,27 @@
+4. Battaglia, P.W., Hamrick, J.B., Bapst, V., Sanchez-Gonzalez, A., Zambaldi, V.F., Malinowski, M., Tacchetti, A., Raposo, D., Santoro, A., Faulkner, R., Gulcehre, C., Song, H.F., Ballard, A.J., Gilmer, J., Dahl, G.E., Vaswani, A., Allen, K.R., Nash, C., Langston, V., Dyer, C., Heess, N., Wierstra, D., Kohli, P., Botvinick, M.M., Vinyals, O., Li, Y., Pascanu, R.: Relational inductive biases, deep learning, and graph networks. CoRR abs/1806.01261 (2018), http://arxiv.org/abs/1806.01261  
+
+5. Bengio, Y., Lodi, A., Prouvost, A.: Machine learning for combinatorial optimization: A methodological tour d'horizon. Eur. J. Oper. Res. 290(2), 405-421 (2021). https://doi.org/10.1016/j.ejor.2020.07.063, https://doi.org/10.1016/j.ejor.2020.07.063  
+
+6. Bethe, H.A.: Statistical Theory of Superlattices. Proceedings of the Royal Society of London. Series A, Mathematical and Physical Sciences 150(871), 552-575 (1935)  
+
+7. Biere, A., Heule, M., Maaren, H.v., Walsh, T. (eds.): Handbook of Satisfiability, Frontiers in Artificial Intelligence and Applications, vol. 185. IOS Press (2009)  
+
+8. Cappart, Q., Chetelat, D., Khalil, E.B., Lodi, A., Morris, C., Velickovic, P.: Combinatorial optimization and reasoning with graph neural networks. CoRR abs/2102.09544 (2021), https://arxiv.org/abs/2102.09544  
+
+9. Chakraborty, S., Meel, K.S., Vardi, M.Y.: Algorithmic improvements in approximate counting for probabilistic inference: From linear to logarithmic SAT calls. In: Kambhampati, S. (ed.) Proceedings of the Twenty-Fifth International Joint Conference on Artificial Intelligence, IJCAI 2016, New York, NY, USA, 9-15 July 2016. pp. 3569-3576. IJCAI/AAAI Press (2016), http://www.ijcai.org/Abstract/16/503  
+
+10. Eén, N., Sörensson, N.: An extensible sat-solver. In: Giunchiglia, E., Tacchella, A. (eds.) Theory and Applications of Satisfiability Testing, 6th International Conference, SAT 2003. Santa Margherita Ligure, Italy, May 5-8, 2003 Selected Revised Papers. Lecture Notes in Computer Science, vol. 2919, pp. 502-518. Springer (2003). https://doi.org/10.1007/978-3-540-24605-3_37, https://doi.org/10.1007/978-3-540-24605-3_37  
+
+11. Gilmer, J., Schoenholz, S.S., Riley, P.F., Vinyals, O., Dahl, G.E.: Neural message passing for quantum chemistry. In: Precup, D., Teh, Y.W. (eds.) Proceedings of the 34th International Conference on Machine Learning, ICML 2017, Sydney, NSW, Australia, 6-11 August 2017. Proceedings of Machine Learning Research, vol. 70, pp. 1263-1272. PMLR (2017), http://proceedings.mlr.press/v70/gilmer17a.html  
+
+12. Kingma, D.P., Ba, J.: Adam: A method for stochastic optimization. In: Bengio, Y., LeCun, Y. (eds.) 3rd International Conference on Learning Representations, ICLR 2015, San Diego, CA, USA, May 7-9, 2015, Conference Track Proceedings (2015), http://arxiv.org/abs/1412. 6980  
+
+13. Kool, W., van Hoof, H., Welling, M.: Attention, learn to solve routing problems! In: 7th International Conference on Learning Representations, ICLR 2019, New Orleans, LA, USA, May 6-9, 2019. OpenReview.net (2019), https://openreview.net/forum?id=ByxBFsRqYm  
+
+14. Kroc, L., Sabharwal, A., Selman, B.: Leveraging belief propagation, backtrack search, and statistics for model counting. Ann. Oper. Res. 184(1), 209-231 (2011)  
+
+15. Kuck, J., Chakraborty, S., Tang, H., Luo, R., Song, J., Sabharwal, A., Ermon, S.: Belief propagation neural networks. In: Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., Lin, H. (eds.) Advances in Neural Information Processing Systems 33: Annual Conference on Neural Information Processing Systems 2020, NeurIPS 2020, December 6-12, 2020, virtual (2020)  
+
+16. Kurin, V., Godil, S., Whiteson, S., Catanzaro, B.: Can q-learning with graph networks learn a generalizable branching heuristic for a SAT solver? In: Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., Lin, H. (eds.) Advances in Neural Information Processing Systems 33: Annual Conference on Neural Information Processing Systems 2020, NeurIPS 2020, December 6-12, 2020, virtual (2020), https://proceedings.neurips.cc/paper/2020/hash/6d70cb65d15211726dcc4c0e971e21c-Abstract.html  
+
+17. Kurin, V., Godil, S., Whiteson, S., Catanzaro, B.: Can q-learning with graph networks learn a generalizable branching heuristic for a SAT solver? In: Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., Lin, H. (eds.) Advances in Neural Information Processing Systems 33: Annual Conference on Neural Information Processing Systems 2020, NeurIPS 2020, December 6-12, 2020, virtual (2020), https://proceedings.neurips.cc/paper/2020/hash/6d70cb65d15211726dcc4c0e971e21c-Abstract.html

@@ -1,0 +1,33 @@
+<center>Figure 1: Model Overview </center>  
+
+\(A'\) is the normalized adjacency matrix which encapsulates aggregation operations, and values in \(A'\) also carry weights to apply in the WGCN. \(A'\) is computed as follows to avoid gradient explosion:  
+
+\[A' = \frac{A}{\sum_{i = 1}^{N}\sum_{j = 1}^{N}A_{ij}}. \quad (3)\]  
+
+Function \(F l i p\) and linear transformation \(L_{out}:\mathbf{R}^{1\times 4d}\to\) \(\mathbf{R}^{1\times 2d}\) concatenate features of literal nodes with the corresponding negated literal nodes, forming a comprehensive representation of variables.  
+
+\[\mathrm{Flip}(H) = [h_{\frac{N}{2} +1},\ldots ,h_{N},h_{1},\ldots ,h_{\frac{N}{2}}]^{T} \quad (4)\]  
+
+After \(L\) iterations of WGCN, we obtain the vectors representing structural information of literals, and feed it to MLP for the UNSAT- core possibility of each variable:  
+
+\[p_{i} = \mathrm{softmax}(L_{2}\cdot \mathrm{ReLU}(L_{1}\cdot (h_{i}\oplus h_{N + 1 - i}) + b_{1}) + b_{2}) \quad (5)\]  
+
+### 3.4 Training  
+
+As we regard the UNSAT- core prediction as a classification task, the Cross- Entropy loss should be originally applied. However, due to the potential imbalance distribution (the large UNSAT- core in LEC UNSAT Problem), we utilize Focal loss [Lin et al., 2020] as the loss function. The major difference between Focal loss and traditional Cross- Entropy loss would be the additional parameters \(\alpha \& \beta\) to balance the importance of the class with a small portion. For \(p\) stands for prediction possibility and \(y\) is truth, the loss is computed as:  
+
+\[\begin{array}{l}{FL = \sum_{i = 1}^{n}(y_{i}(-\alpha (1 - p_{i})^{\gamma}\log (p_{i}))}\\ {+(1 - y_{i})(-(1 - \alpha)p_{i}^{\gamma}\log (1 - p_{i}))),} \end{array} \quad (6)\]  
+
+where \(n\) is the number of variables in the target CNF.  
+
+### 3.5 Interaction with Solver  
+
+In this section, we first introduce the CDCL process and the crucial role of variable decision within it. Then we show how our model targets these stages and interacts with the process.  
+
+<center>Figure 2: CDCL Process </center>  
+
+## CDCL WorkFlow  
+
+The Conflict- Driven Clause Learning algorithm, a prevailing methodology used by modern SAT solvers, functions through a combination of decision- making, unit propagation, conflict analysis, and non- chronological backtracking.  
+
+Fig. 2 provides a detailed workflow for the CDCL process. From Fig 2, it can be found that the algorithm begins with a decision- making process where Boolean values are assigned to variables according to a decision queue. This is succeeded by unit propagation, whereby necessary assignments of other variables are deduced based on the current partial assignment. Conflicts, however, can occur if a clause in the problem becomes unsatisfiable with these assignments. In response to conflicts, the CDCL flow initiates a conflict analysis, learning and adding a new clause representing the conflict reason to the problem to avoid repetition of the same error in fu

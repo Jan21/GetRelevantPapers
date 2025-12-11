@@ -1,0 +1,39 @@
+Proof. We first prove the construction of the upper bound, which we can then use to prove the convergence of the expectation via sandwiching, similarly to the proof of Proposition 3.1. Please note that the definitions for each component of the graph BFC are given in Appendix A.1.2 and we will not be restating them here to avoid repetition.  
+
+To start, notice that the BFC on \(G\) takes a simpler form compared to the more general, original definition A.2:  
+
+\[R i c(i,j)\coloneqq \frac{2}{d_{i}} +\frac{2}{d_{j}} -2 + \frac{(\gamma_{\mathrm{max}}(i,j))^{-1}}{\max \{d_{i},d_{j}\}} (|\sharp_{\square}^{i}| + |\sharp_{\square}^{j}|), \quad (24)\]  
+
+This result follows from the fact that bipartite graphs have no triangles, i.e., \(\sharp_{\Delta}(i,j) = 0 \forall (i,j) \in E\) . Our main focus for now will the rightmost term, which constitutes the difference between \(\mathrm{Ric}(i,j)\) and \(\underline{{R}}(i,j)\) (Equation 8). Firstly note that this term is, by definition, non- negative. This implies that \(\underline{{R}}(i,j)\) of \(\mathrm{Ric}(i,j)\) .  
+
+We can simplify the definitions of the 4- cycle forming neighbors to match the bipartite topology of \(G\) :  
+
+\[\begin{array}{r l} & {\sharp_{\square}^{i}(i,j)\coloneqq \{k\in S_{1}(i)\setminus \{k\} :\exists w\in (S_{1}(k)\cap S_{1}(j))\setminus \{i\} \} ,}\\ & {\sharp_{\square}^{j}(i,j)\coloneqq \{k\in S_{1}(j)\setminus \{k\} :\exists w\in (S_{1}(k)\cap S_{1}(i))\setminus \{j\} \} .} \end{array} \quad (25)\]  
+
+By definition of \(S_{1}(\cdot)\) it follows immediately that the cardinality of both sets is bounded above by the node degrees:  
+
+\[\begin{array}{r l} & {|\sharp_{\square}^{i}(i,j)|\leq d_{i} - 1,}\\ & {|\sharp_{\square}^{j}(i,j)|\leq d_{j} - 1 = k - 1.} \end{array} \quad (28)\]  
+
+We now turn to the term \(\gamma_{\mathrm{max}}(i,j)\) , whose definition can also be simplified, as a consequence of the topology of \(G\) . Consider first the symmetric adjacency matrix of a bipartite graph, given by:  
+
+\[A = \left[ \begin{array}{ll}0 & B\\ B^{T} & 0 \end{array} \right]\in \{0,1\}^{N + M\times N + M}, \quad (29)\]  
+
+where \(B\) is an \(N\times M\) incidence matrix with \(B_{i j} = 1\) if there if \(i\sim j\in E\) , and \(B_{i j} = 0\) otherwise, \(B^{T}\) is the transpose of \(B\) (which ensures that \(A\) is symmetric), and \(\mathbf{0}\) are zero blocks of size \(N\times N\) and \(M\times N\) corresponding to the absence of edges within the partitions. We can thus express \(\gamma_{\mathrm{max}}(i,j)\) as:  
+
+\[\gamma_{\mathrm{max}}(i,j)\coloneqq \max \left\{\max_{k\in \sharp_{\square}^{i}}\{A_{k}\cdot A_{j} - 1\} ,\max_{w\in \sharp_{\square}^{j}}\{A_{w}\cdot A_{i} - 1\} \right\} , \quad (30)\]  
+
+since \(A_{i}\odot A_{j} = \mathbf{0}\) . The operation \(A_{k}\cdot A_{j} = \nu \in \mathbb{N}_{0}\) returns the number of common neighbors \(\nu\) that nodes \(k\) and \(j\) have, with \(k\) and \(j\) being in the same partition. Therefore, we have the following inequalities that can be used to derive an upper bound for \(\gamma_{\mathrm{max}}(i,j)\) :  
+
+\[\begin{array}{r l} & {\max_{k\in \sharp_{\square}^{i}}\{A_{k}\cdot A_{j} - 1\} \leq k - 1,}\\ & {\max_{w\in \sharp_{\square}^{j}}\{A_{w}\cdot A_{i} - 1\} \leq M - 1,}\\ & {\gamma_{\mathrm{max}}(i,j)\leq \max \{k - 1,M - 1\} .} \end{array} \quad (31)\]  
+
+Putting everything together we obtain:  
+
+\[0\leq \frac{(\gamma_{\mathrm{max}}(i,j))^{-1}}{\max \{d_{i},d_{j}\}} (|\sharp_{\square}^{i}| + |\sharp_{\square}^{j}|)\leq \frac{d_{i} + k - 2}{\max \{k - 1,M - 1\} \cdot \max \{d_{i},d_{j}\}}, \quad (34)\]  
+
+so that we can write:  
+
+\[-2< \underline{{R}} (i,j)\leq R i c(i,j)\leq \bar{R} (i,j)\leq 0. \quad (35)\]  
+
+In Proposition 3.2), we have previously that as \(\alpha \to \infty\) \(\mathbb{E}_{(i\sim j)}[\underline{{R}} (i,j)]\to \frac{2}{k} - 2\) , due to the fact that the literal degree becomes a dominant term. Therefore \(\max \{d_{i},d_{j}\} = d_{i}\) , and under the same limiting assumption we have that \(\max \{k - 1,M - 1\} = M - 1\) . Given that the expected value is a linear operation, we obtain that:  
+
+\[\lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = \frac{2}{\lim_{\alpha \to \infty}\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}]} +\frac{2}{k} -2 + \frac{1}{\lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[M - 1]} = \frac{2}{k} -2. \quad (36)\]

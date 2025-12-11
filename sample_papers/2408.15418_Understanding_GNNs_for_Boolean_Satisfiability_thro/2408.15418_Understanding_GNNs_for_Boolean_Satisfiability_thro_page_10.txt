@@ -1,0 +1,25 @@
+## S Supplementary Material  
+
+## S.1 Derivation of the SDP relaxation for MAX-2-SAT  
+
+Here we provide further details about the definition of SDP relaxation for MAX- 2- SAT. The goal is to write an objective function for 2- CNF formulae, which consist of clauses \(c_{1},\ldots ,c_{k}\) over variables \(x_{1},\ldots ,x_{n}\) with at most two literals per clause.  
+
+For each Boolean variable \(x_{i}\) (where \(i\in \{1,2,\ldots ,n\}\) ) a new variable \(y_{i}\in \{- 1,1\}\) is first instantiated and one additional variable \(y_{0}\in \{- 1,1\}\) is introduced. The additional variable is introduced to unambiguously assign the truth value in the original problem from values of relaxed problem. It is not possible to just assign True (False) to \(x_{i}\) if \(y_{i} = 1(0)\) because quadratic terms cannot distinguish between \(y_{i}\cdot y_{j}\) and \((- y_{i})\cdot (- y_{j})\) . Instead, the truth value of \(x_{i}\) is assigned by comparing \(y_{i}\) with \(y_{0}\colon x_{i}\) is True if and only if \(y_{i} = y_{0}\) otherwise it is False. The assignment is therefore invariant to negating all variables.  
+
+To determine the value of a formula, we sum the value of its clauses \(c\) which are given by the value function \(v(c)\) . Here are examples of the value function for 3 different clauses:  
+
+\[v(x_{i}) = \frac{1 + y_{0}\cdot y_{i}}{2}\] \[v(\neg x_{i}) = 1 - v(x_{i}) = \frac{1 - y_{0}\cdot y_{i}}{2}\] \[v(x_{i}\vee \neg x_{j}) = 1 - v(\neg x_{i}\wedge x_{j})\] \[\qquad = 1 - \frac{1 - y_{0}\cdot y_{i}}{2}\frac{1 + y_{0}\cdot y_{j}}{2}\] \[\qquad = \frac{1}{4} (1 + y_{0}\cdot y_{i}) + \frac{1}{4} (1 - y_{0}\cdot y_{j}) + \frac{1}{4} (1 + y_{i}\cdot y_{j})\]  
+
+By summing over all clauses \(c\) in in the Boolean formula, the following integer quadratic program for MAX- 2- SAT is obtained:  
+
+\[\mathrm{Maximize:}\quad \sum_{c\in C}v(c)\] \[\mathrm{Subject~to:}\quad y_{i}\in \{-1,1\} \mathrm{~for~all~}i\in \{0,1,\ldots ,n\} ,\]  
+
+this can be rewritten by collecting coefficients of \(y_{i}\cdot y_{j}\) for \(i,j\in \{0,1,\ldots ,n\}\) and putting them symmetrically into a \((n + 1)\times (n + 1)\) coefficient matrix \(W\) . The terms \(y_{i}\cdot y_{j}\) can be collected in a matrix \(Y\) with same dimensions as \(W\) . The elements \(Y_{ij}\) correspond to \(y_{i}\cdot y_{j}\) for \(i,j\in \{0,1,\ldots ,n\}\) . Both matrices are symmetric, hence the sum of all elements in their element- wise product (which is the objective function) can be compactly expressed by using trace operation. This leads to the following version of the same integer program:  
+
+\[\mathrm{Maximize:}\quad \mathrm{Tr}(W Y)\] \[\mathrm{Subject~to:}\quad Y_{ij}\in \{-1,1\} \mathrm{~for~all~}i,j\in \{0,1,\ldots ,n\} ,i\neq j.\]  
+
+So far no relaxation has been made. To make the discrete program continuous, the value of the variables \(y_{i}\) is allowed to be any real number between \(- 1\) and 1. After solving a quadratic program with this relaxation, rounding can be used to obtain a value from \(\{- 1,1\}\) .  
+
+Semi- definite programming goes further and allows variables to be \((n + 1)\) - dimensional unit vectors \((y_{0},\ldots ,y_{n})\longrightarrow (y_{0},\ldots ,y_{n})\) . schematically depicted in figure 5. This directly leads to the relaxation used in the main part of this study.  
+
+Our aim was to show that solving SDP relaxation by optimization and rounding by separating the high- dimensional vectors closely resembles the behavior of GNN.

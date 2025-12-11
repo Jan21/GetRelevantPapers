@@ -1,0 +1,23 @@
+# Neural Approaches to SAT Solving: Design Choices and Interpretability  
+
+David Mojžíšek \(^{2}\) , Jan Hůla \(^{1,2}\) , Ziwei Li \(^{1}\) , Ziyu Zhou \(^{1}\) , Mikoláš Janota \(^{1}\)  
+
+\(^{1}\) Czech Institute of Informatics, Robotics and Cybernetics, Czech Technical University in Prague, Czechia  
+
+\(^{2}\) University of Ostrava, Ostrava, Czechia  
+
+david.mojzisek@osu.cz  
+
+## Abstract  
+
+In this contribution, we provide a comprehensive evaluation of graph neural networks applied to Boolean satisfiability problems, accompanied by an intuitive explanation of the mechanisms enabling the model to generalize to different instances. We introduce several training improvements, particularly a novel closest assignment supervision method that dynamically adapts to the model's current state, significantly enhancing performance on problems with larger solution spaces. Our experiments demonstrate the suitability of variable- clause graph representations with recurrent neural network updates, which achieve good accuracy on SAT assignment prediction while reducing computational demands. We extend the base graph neural network into a diffusion model that facilitates incremental sampling and can be effectively combined with classical techniques like unit propagation. Through analysis of embedding space patterns and optimization trajectories, we show how these networks implicitly perform a process very similar to continuous relaxations of MaxSAT, offering an interpretable view of their reasoning process. This understanding guides our design choices and explains the ability of recurrent architectures to scale effectively at inference time beyond their training distribution, which we demonstrate with test- time scaling experiments.  
+
+Keywords: Graph Neural Networks, Boolean Satisfiability, Diffusion Models, Test- time scaling, Interpretability  
+
+## 1 Introduction  
+
+Reasoning is a cognitive ability which allows humans to solve problems with previously unseen combinations of constraints. For a long time, it has been debated whether artificial neural networks can obtain such generalization skills or whether they can only learn to detect superficial patterns Fodor and Pylyshyn [1988], Marcus [2003, 2018] without being able to generalize to novel combinations of constraints. With the arrival of Large Language Models (LLMs) specially trained for reasoning Guo et al. [2025], Jaech et al. [2024], it became harder and harder to claim that these models can only detect superficial patterns. Nevertheless, the exact mechanism by which they are able to solve tasks that typically require reasoning is largely unknown and the robustness of the solving process is also not understood.  
+
+In this contribution, we focus on a restricted class of problems that require reasoning, concretely on solving Boolean formulas in CNF form. This could be viewed as a prototypical task where the goal is to solve problems with novel combinations of constraints, and where detecting superficial patterns seen during training would be insufficient. It has already been demonstrated that Graph Neural Networks (GNNs) can successfully learn to solve such problems and generalize to larger problems Selsam et al. [2018], even though they are still not competitive when compared to state of the art SAT solvers.  
+
+Understanding the underlying mechanisms GNNs employ to successfully solve problems, as well as their limitations, would offer significant practical and theoretical value. On the practical side, the trained model can be used as a guessing heuristic inside classical solvers, improving

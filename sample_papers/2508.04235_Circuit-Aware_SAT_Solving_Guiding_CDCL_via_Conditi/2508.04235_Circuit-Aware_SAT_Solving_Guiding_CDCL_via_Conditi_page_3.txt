@@ -1,0 +1,39 @@
+Modern SAT solvers, such as Kissat (Armin et al. 2024), and CaDiCal (Fleury and Heisinger 2020), have demonstrated remarkable success in handling CNF- based instances. The de- facto standard workflow for solving CSAT problems is to translate circuit into the CNF formulas to be processed by highly- optimized SAT solvers. However, their performance on circuit- based problems is severely bottlenecked by the circuit- to- CNF transformation, which disrupts the structural properties of circuits and produces solver- unfriendly representations. Previous efforts, such as applying EDA- driven circuit optimization techniques (Eén, Mishchenko, and Sörensson 2007; Shi et al. 2025c) and extracting XOR logic on raw circuit (Qian et al. 2025) to reformat the problem into solver- friendly representations before solving, have shown attractive improvements. However, these approaches remain static—they have no impact on solving heuristics and are inactive during the inprocessing phase, a critical period where search decisions and analysis routines are dynamically adjusted. As a result, the rich structural intelligence of circuits remains untapped precisely when it could be most beneficial.  
+
+## 3 Methodology  
+
+### 3.1 Problem Definition  
+
+During CDCL solving, the CNF formula evolves dynamically through decision making, conflict analysis, and clause management routines. Two core heuristics—phase selection and clause filtering—play a central role in guiding the search and maintaining solver efficiency. Phase selection determines polarity (true/false) of variable assignments during the search process, aiming to minimize conflicts and accelerate convergence. Meanwhile, clause filtering focuses on evaluating and managing learned clauses derived from conflict analysis, retaining high- quality ones that improve propagation efficiency while discarding low- value clauses to reduce memory overhead.  
+
+We reformulate both heuristics as conditional probability prediction tasks over circuit structures.  
+
+Phase Selection Given a Boolean circuit \(C\) with primary output (PO), we formulate phase selection as a probability inference problem over the circuit graph. Let \(s\in V\) denote a variable corresponding to a gate in the circuit. At each decision step \(t\) , the solver selects a variable \(s\in V\) and estimates the conditional probability: \(P(s = 1\mid \mathrm{PO} = 1)\) which measures the likelihood that setting \(s = 1\) helps satisfy the output. By leveraging these probabilities to guide phase assignments, the solver implicitly favors value choices that are more aligned with satisfying assignments—often leading to stronger propagation and fewer conflicts.  
+
+A threshold \(\tau \in (0,0.5)\) governs the phase assignment:  
+
+\[v_{s} = \left\{ \begin{array}{ll}0, & \mathrm{if~}P(s = 1\mid \mathrm{PO} = 1)< \tau ,\\ 1, & \mathrm{if~}P(s = 1\mid \mathrm{PO} = 1) > 1 - \tau ,\\ \mathrm{default,} & \mathrm{otherwise.} \end{array} \right. \quad (1)\]  
+
+This probability inference strategy biases phase decisions toward values more likely to satisfy downstream logic, improving propagation and reducing conflicts.  
+
+<center>Figure 2: Augmented graph with virtual and and div gates. </center>  
+
+Clause Management Existing metrics for clause quality like LBD and clause length rely solely on CNF- level features, ignoring structural insights from the original circuit, thus hindering performance on circuit- derived problems.  
+
+We propose a new metric, clause probability, to evaluate the quality of learned clauses by estimating their likelihood of being satisfied under structural semantics. Consider a learned clause \(C = l_{1}\lor l_{2}\lor \dots \lor l_{k}\) , which is semantically equivalent to a \(k\) - input OR gate over its literals. The probability that this clause is satisfied can be expressed as:  
+
+\[P(C) = P(l_{1}\lor l_{2}\lor \dots \lor l_{k}). \quad (2)\]  
+
+where \(P(l_{i})\) is the estimated probability of literal \(l_{i}\) being true, derived from circuit- level signal estimation.  
+
+This probabilistic view provides an intuitive interpretation: a clause with high probability \(P(C)\) is likely to be satisfied easily, implying that it encodes a weak constraint and has limited impact on restricting the search space. In contrast, a clause with low \(P(C)\) represents a strong constraint that is harder to satisfy, hence has higher potential to prune large infeasible regions in the search space. Therefore, we regard clauses with lower \(P(C)\) as more informative and prioritize them during inprocessing.  
+
+Concretely, during periodic clause database elimination, the solver evaluates \(P(C)\) for all learned clauses and retains those with the lowest probabilities. This filtering mechanism allows the solver to preserve high- quality constraints that are more aligned with the underlying circuit semantics.  
+
+We adopt the DEEPGATE4 framework (Zheng et al. 2025) as our encoder \(E\) , which generates structure and function embeddings for each gate in the circuit graph \(G\) . We use these embeddings to estimate conditional probabilities that guide inprocessing heuristics, enabling more efficient, probability- aware Circuit SAT solving.  
+
+### 3.2 Graph Construction  
+
+To enable probability- aware learning on circuit graphs, we construct directed acyclic graphs (DAGs) where each node represents a logical gate, and further augment with virtual gates for better probability modeling, as shown in Figure 2.  
+
+DAG Construction with and and not Gates Following prior work (Shi et al. 2023, 2024; Zheng et al. 2025; Liu et al. 2024), we begin by constructing a standard DAG representation of the input circuit. Each logic gate is represented as a node, and edges represent signal propagation between gates. Specifically, for a given circuit graph \(G\) , we construct

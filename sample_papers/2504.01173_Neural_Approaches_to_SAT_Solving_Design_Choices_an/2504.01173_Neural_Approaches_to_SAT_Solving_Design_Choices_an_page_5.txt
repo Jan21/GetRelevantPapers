@@ -1,0 +1,27 @@
+The guarantees can be improved by lifting the variables into a high- dimensional vector space and optimizing vectors instead of scalar values. The optimized vectors are finally rounded to discrete values.  
+
+Semidefinite Programming (SDP) relaxation, particularly for MAX- 2- SAT or MAX- 3- SAT, illustrates this approach elegantly. In SDP relaxation, Boolean variables \(x_{i} \in \{0,1\}\) are transformed into unit vectors \(\mathbf{y}_{i}\) in a high- dimensional space. An additional vector \(\mathbf{y}_{0}\) is introduced to represent the value "true." The Boolean variable \(x_{i}\) is considered true if \(\mathbf{y}_{i}\) is close to \(\mathbf{y}_{0}\) (positive inner product) and false if it is far from \(\mathbf{y}_{0}\) (negative inner product).  
+
+The optimization process for these vectors follows a pattern:  
+
+1. Initialize random unit vectors for each variable  
+
+2. Optimize these vectors to maximize the number of satisfied clauses, expressed as a function of inner products between vectors  
+
+3. Round the resulting vectors to discrete assignments (typically based on the sign of inner products with \(\mathbf{y}_{0}\) )  
+
+This relaxation enables the application of powerful continuous optimization techniques while providing approximation guarantees. For MAX- 2- SAT, this approach yields an approximation ratio of 0.878, meaning the solution will satisfy at least 87.8% of the maximum possible number of clauses.  
+
+#### 3.2.2 Learning-Based Approaches  
+
+Machine learning (ML) is also being heavily utilized for SAT solving. Many approaches have been developed to guide traditional solvers Selsam and Bjørner [2019], Yolcu and Póczos [2019] or to solve SAT problems directly Selsam et al. [2018], Li and Si [2022]. To guide a solver, a neural network can be used to replace heuristics such as variable selection or restart policies. Importantly, Graph Neural Networks (GNNs) can also be trained to solve SAT problems end- to- end without relying on traditional algorithmic solvers Amizadeh et al. [2018]. These GNN- based approaches can operate directly on the graph representation of Boolean formulas, with variables and clauses forming nodes in a bipartite graph, and learn to predict satisfiability or produce satisfying assignments Li et al. [2023]. In this work, we focus on variants of GNNs that are recurrent and this allows us to scale the computation during inference or adapt the number of iterations for each instance separately.  
+
+In Section 6 we will show an evidence that one can view the end- to- end ML approaches as bi- level optimization methods because during inference, the GNN behaves as a continuous solver trying to maximize the number of satisfied clauses. Therefore, during training, the outer loop of the bi- level optimization optimizes the weights of the network which then runs an inner loop that optimizes the values of variables to maximize the number of satisfiable clauses.  
+
+### 3.3 Graph Neural Networks  
+
+Graph Neural Networks (GNNs) extend deep learning to graph- structured data, enabling learning on irregular data structures that classical neural architectures cannot directly process. A graph \(G = (V,E)\) consists of nodes \(V\) and edges \(E\) , where each node \(v\in V\) may have associated features \(x_{v}\) .  
+
+GNNs compute node representations through message passing, where each node iteratively aggregates information from its neighbors and updates its features. Formally, at layer \(l\) , a node \(v\) updates its representation \(h_{v}^{l}\) , according to:  
+
+\[h_{v}^{l + 1} = \mathrm{UPDATE}(h_{v}^{l},\mathrm{AGGREGATE}(\{h_{u}^{l}:u\in \mathcal{N}(v)\}))\]

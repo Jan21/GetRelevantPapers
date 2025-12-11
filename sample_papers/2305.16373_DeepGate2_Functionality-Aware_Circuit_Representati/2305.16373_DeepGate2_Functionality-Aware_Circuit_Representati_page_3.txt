@@ -1,0 +1,41 @@
+<center>Fig. 2. Problem statement: the embedding vectors should be close if circuit functions are similar </center>  
+
+A and B is equal to the distance between A and D. Nonetheless, as indicated in the truth table, Circuit A is equivalent to Circuit C, similar to Circuit B (with only 2 different bits), but dissimilar to Circuit D (with 5 different bits).  
+
+We expect that the model will bring together or separate the circuits in embedding space according to their truth tables. Therefore, the expected DeepGate2 model not only identifies the logic equivalent nodes, but also predicts the functional similarity. Thus, we can apply such functionality- aware circuit learning model to provide benefits for the real- world applications.  
+
+### B. Dataset Preparation  
+
+To train the circuit representation learning model, we need to find a supervision contains rich functional information and prepare an effective dataset at first. Truth table, which records the complete logic computational mapping, provides the most direct supervision. However, the length of the truth table increases exponentially with the number of primary inputs, and obtaining a complete truth table requires an immeasurable amount of time. Therefore, a reasonable supervision should be easily obtained and closely related to the truth table.  
+
+Firstly, we use the Hamming distance between truth tables of two logic gates as supervision. That is, in a way similar to metric learning [19], we map nodes to an embedding space and hope that the distance of the embedding vectors is positive correlated with the Hamming distance of the truth table. Formally, we denote the truth table vector of node \(i\) is \(T_{i}\) and the embedding vector of node \(i\) is \(h_{i}\) .  
+
+\[distance(h_{i},h_{j})\propto distance(T_{i},T_{j}) \quad (1)\]  
+
+Secondly, to improve the data efficiency, we regard the each logic gate in circuit as a new circuit (logic cone) with the current gate as output and the original PIs as inputs. By parsing a single original circuit, we obtain a large number of new circuits. Therefore, the task of graph learning becomes the task of learning node- level representation, and the difficulty of data collection is reduced.  
+
+Thirdly, to ensure the quality of sample pairs and limit the number of sample pairs, we impose the following constraints during sampling node pairs: (1) Two logic cones of the two nodes should have the same PI, which is a necessary condition for comparing the truth table difference. (2) The logic probability, which is the number of logic- 1 percentage in the truth table, should be similar (distance within \(5\%\) ). This is because if the logic probability of two nodes is not consistent, their functions are definitely not consistent. If the logic probability of two nodes is consistent, their functions may be consistent. (3) The difference in logic levels between two nodes should be within 5, because when the two nodes are far apart, their functions are unlikely to be correlated. (4) We only consider the extreme cases, namely, the difference between truth tables is within \(20\%\) or above \(80\%\) .   
+
+We do not perform the complete simulation, but set a maximum simulation time to obtain the response of each node as an incomplete truth table. It should be noted that we utilize the And- Inverter Graph (AIG) as the circuit netlist format, which is only composed of AND gate and NOT gate. Any other logic gates, including OR, XOR and MUX, can be transformed into a combination of AND and NOT gates in linear time.  
+
+### C. Functionality-Aware Loss Function  
+
+The primary objective of our purposed functionality- aware circuit learning model is to learn node embeddings, where two embedding vectors will be similar if the corresponding two node function are similar. As we sample node pairs \(\mathcal{N}\) in the Section III- B, we can obtain the Hamming distance of truth table \(D^{T}\) of each node pair.  
+
+\[D_{(i,j)}^{T} = \frac{HammingDistance(T_{i},T_{j})}{length(T_{i})},(i,j)\in \mathcal{N} \quad (2)\]  
+
+According to Eq. (1), the distance of embedding vectors \(D^{H}\) should be proportional to the Hamming distance of the truth table \(D^{T}\) . We define the distance of embedding vectors in Eq. (3), where is calculated based on cosine similarity. In other word, the similarity of embedding vectors \(S_{(i,j)}\) should be negative related to distance \(D_{(i,j)}^{T}\) .  
+
+\[\begin{array}{l}{S_{(i,j)} = CosineSimilarity(h_i,h_j)}\\ {D_{(i,j)}^H = 1 - S_{(i,j)}} \end{array} \quad (3)\]  
+
+Therefore, the training objective is to minimize the difference between \(D^{H}\) and \(D^{T}\) . We purpose the functionality- aware loss function \(L_{func}\) as below.  
+
+\[\begin{array}{l}{D_{(i,j)}^{T^{\prime}} = ZeroNorm(D_{(i,j)}^{T})}\\ {D_{(i,j)}^{H^{\prime}} = ZeroNorm(D_{(i,j)}^{H})}\\ {L_{func} = \sum_{(i,j)\in \mathcal{N}}(L1Loss(D_{(i,j)}^{T^{\prime}},D_{(i,j)}^{H^{\prime}}))} \end{array} \quad (4)\]  
+
+### D. One-round GNN Model  
+
+In this subsection, we propose a GNN model that can capture both functional and structural information for each logic gate through one- round forward propagation.  
+
+First, we propose to separate the functional embeddings \(hf\) and structural embeddings \(hs\) , and initialize them in difference ways. We assign the uniform initial functional embeddings to primary inputs (PI), as they all have equivalent logic probability under random simulation. However, we design a PI encoding (PIE) strategy by assigning a unique identification to each PI as its initial structural embedding. Specifically, the initial PI structural embeddings \(hs_{i}, i \in PI\) are orthogonal vectors. This means that the dot product of any two PIs' embeddings is zero.  
+
+Second, we design four aggregators: \(agg_{AND}^{r}\) aggregates the message for structural embedding \(hs\) of an AND gate, \(agg_{AND}^{r}\) aggregates the message for functional embedding \(hf\) of an AND

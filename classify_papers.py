@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Classify papers from a JSON file using dual classifiers (VLLM + OpenRouter).
+Classify papers from a JSON file using AWS Bedrock with Deepseek.
 """
 
 import json
@@ -10,7 +10,7 @@ from typing import List, Dict
 import hydra
 from omegaconf import DictConfig
 
-from classifiers import VLLMClassifier, OpenRouterClassifier
+from classifiers import BedrockClassifier
 
 
 def load_papers(filename: str) -> List[Dict]:
@@ -35,7 +35,7 @@ def classify_papers(
     cfg: DictConfig
 ) -> List[Dict]:
     """
-    Classify papers using configured classifiers (VLLM, OpenRouter, or both).
+    Classify papers using AWS Bedrock with Deepseek.
 
     Args:
         papers: List of paper dictionaries
@@ -44,29 +44,13 @@ def classify_papers(
     Returns:
         List of papers with classification labels added
     """
-    # Check which classifiers are enabled
-    use_vllm = cfg.classification.get('use_vllm', True)
-    use_openrouter = cfg.classification.get('use_openrouter', True)
-
-    if not use_vllm and not use_openrouter:
-        raise ValueError("At least one classifier must be enabled. Set use_vllm or use_openrouter to true in config.")
-
-    # Initialize enabled classifiers
-    vllm_classifier = VLLMClassifier(cfg) if use_vllm else None
-    openrouter_classifier = OpenRouterClassifier(cfg) if use_openrouter else None
+    # Initialize Bedrock classifier
+    bedrock_classifier = BedrockClassifier(cfg)
 
     classified_papers = []
 
-    # Build classifier list string for display
-    classifier_names = []
-    if use_vllm:
-        classifier_names.append("VLLM")
-    if use_openrouter:
-        classifier_names.append("OpenRouter")
-    classifier_str = " + ".join(classifier_names)
-
     print(f"\n{'='*80}")
-    print(f"CLASSIFYING {len(papers)} PAPERS WITH: {classifier_str}")
+    print(f"CLASSIFYING {len(papers)} PAPERS WITH: AWS Bedrock (Deepseek)")
     print(f"{'='*80}\n")
 
     for i, paper in enumerate(papers, 1):
@@ -77,36 +61,15 @@ def classify_papers(
         classified_paper = paper.copy()
 
         try:
-            # Classify with VLLM if enabled
-            if use_vllm:
-                print(f"  VLLM: ", end='')
-                vllm_relevant = vllm_classifier.classify_paper(paper)
-                classified_paper['vllm_relevant'] = vllm_relevant
-                print(f"{'✓ YES' if vllm_relevant else '✗ NO'}")
-
-            # Classify with OpenRouter if enabled
-            if use_openrouter:
-                print(f"  OpenRouter: ", end='')
-                openrouter_relevant = openrouter_classifier.classify_paper(paper)
-                classified_paper['openrouter_relevant'] = openrouter_relevant
-                print(f"{'✓ YES' if openrouter_relevant else '✗ NO'}")
-
-            # Add agreement flag only if both classifiers are used
-            if use_vllm and use_openrouter:
-                classified_paper['models_agree'] = (vllm_relevant == openrouter_relevant)
-                if classified_paper['models_agree']:
-                    print(f"  Agreement: ✓")
-                else:
-                    print(f"  Agreement: ✗ DISAGREE")
+            # Classify with Bedrock
+            print(f"  Bedrock: ", end='')
+            relevant = bedrock_classifier.classify_paper(paper)
+            classified_paper['relevant'] = relevant
+            print(f"{'✓ YES' if relevant else '✗ NO'}")
 
         except Exception as e:
             print(f"  ERROR: {e}")
-            if use_vllm:
-                classified_paper['vllm_relevant'] = False
-            if use_openrouter:
-                classified_paper['openrouter_relevant'] = False
-            if use_vllm and use_openrouter:
-                classified_paper['models_agree'] = True
+            classified_paper['relevant'] = False
             classified_paper['error'] = str(e)
 
         classified_papers.append(classified_paper)
@@ -118,19 +81,8 @@ def classify_papers(
     print(f"{'='*80}")
     print(f"Total papers: {len(papers)}")
 
-    if use_vllm:
-        vllm_relevant_count = sum(1 for p in classified_papers if p.get('vllm_relevant', False))
-        print(f"VLLM relevant: {vllm_relevant_count} ({100 * vllm_relevant_count / len(papers):.1f}%)")
-
-    if use_openrouter:
-        openrouter_relevant_count = sum(1 for p in classified_papers if p.get('openrouter_relevant', False))
-        print(f"OpenRouter relevant: {openrouter_relevant_count} ({100 * openrouter_relevant_count / len(papers):.1f}%)")
-
-    if use_vllm and use_openrouter:
-        both_relevant = sum(1 for p in classified_papers if p.get('vllm_relevant', False) and p.get('openrouter_relevant', False))
-        agreement_count = sum(1 for p in classified_papers if p.get('models_agree', False))
-        print(f"Both relevant: {both_relevant} ({100 * both_relevant / len(papers):.1f}%)")
-        print(f"Models agree: {agreement_count} ({100 * agreement_count / len(papers):.1f}%)")
+    relevant_count = sum(1 for p in classified_papers if p.get('relevant', False))
+    print(f"Relevant: {relevant_count} ({100 * relevant_count / len(papers):.1f}%)")
 
     print(f"{'='*80}\n")
 
@@ -155,32 +107,17 @@ def save_classified_papers(
 
 def display_relevant_papers(papers: List[Dict], cfg: DictConfig, limit: int = 10):
     """
-    Display summary of relevant papers based on enabled classifiers.
+    Display summary of relevant papers.
 
     Args:
         papers: List of paper dictionaries with classification labels
         cfg: Hydra configuration object
         limit: Maximum number to display
     """
-    use_vllm = cfg.classification.get('use_vllm', True)
-    use_openrouter = cfg.classification.get('use_openrouter', True)
-
-    # Determine which papers are relevant based on enabled classifiers
-    if use_vllm and use_openrouter:
-        # Both classifiers enabled: show papers where both agree
-        relevant_papers = [p for p in papers if p.get('vllm_relevant', False) and p.get('openrouter_relevant', False)]
-        header = "PAPERS RELEVANT BY BOTH MODELS"
-    elif use_vllm:
-        # Only VLLM enabled
-        relevant_papers = [p for p in papers if p.get('vllm_relevant', False)]
-        header = "PAPERS RELEVANT BY VLLM"
-    else:
-        # Only OpenRouter enabled
-        relevant_papers = [p for p in papers if p.get('openrouter_relevant', False)]
-        header = "PAPERS RELEVANT BY OPENROUTER"
+    relevant_papers = [p for p in papers if p.get('relevant', False)]
 
     print(f"\n{'='*80}")
-    print(f"{header} (showing {min(limit, len(relevant_papers))} of {len(relevant_papers)})")
+    print(f"RELEVANT PAPERS (showing {min(limit, len(relevant_papers))} of {len(relevant_papers)})")
     print(f"{'='*80}\n")
 
     for i, paper in enumerate(relevant_papers[:limit], 1):
@@ -192,22 +129,6 @@ def display_relevant_papers(papers: List[Dict], cfg: DictConfig, limit: int = 10
 
     if len(relevant_papers) > limit:
         print(f"... and {len(relevant_papers) - limit} more papers")
-
-    # Show disagreements only if both classifiers are enabled
-    if use_vllm and use_openrouter:
-        disagreements = [p for p in papers if not p.get('models_agree', False)]
-        if disagreements:
-            print(f"\n{'='*80}")
-            print(f"DISAGREEMENTS: {len(disagreements)} papers")
-            print(f"{'='*80}\n")
-            for i, paper in enumerate(disagreements[:5], 1):
-                title = paper.get('title', 'N/A')
-                vllm = '✓' if paper.get('vllm_relevant', False) else '✗'
-                openrouter = '✓' if paper.get('openrouter_relevant', False) else '✗'
-                print(f"[{i}] {title[:70]}")
-                print(f"    VLLM: {vllm} | OpenRouter: {openrouter}\n")
-            if len(disagreements) > 5:
-                print(f"... and {len(disagreements) - 5} more disagreements")
 
 
 @hydra.main(version_base=None, config_path=".", config_name="config")
@@ -221,7 +142,7 @@ def main(cfg: DictConfig):
         print("No papers to classify.")
         return
 
-    # Classify papers with both models
+    # Classify papers
     classified_papers = classify_papers(papers, cfg)
 
     # Save results to a single file with all labels

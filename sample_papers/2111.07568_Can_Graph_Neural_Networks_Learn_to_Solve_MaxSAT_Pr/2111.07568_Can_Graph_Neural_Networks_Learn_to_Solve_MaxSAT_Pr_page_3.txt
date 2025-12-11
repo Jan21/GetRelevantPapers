@@ -1,0 +1,37 @@
+to MaxSAT, such as lazy data structures and variable selection heuristics. Accordingly, SAT can also benefit from the progress of MaxSAT.  
+
+## Graph Neural Networks  
+
+Graph neural networks (GNNs) are a family of neural network architectures that operate on graphs, which have shown great power on many tasks across domains, such as protein interface prediction, recommendation systems and traffic prediction (Zhou et al. 2020). For a graph \(G = \langle V,E\rangle\) where \(V\) is a set of nodes and \(E\subseteq V\times V\) is a set of edges, GNN models accept \(G\) as input, and represent each node \(v\) as an embedding vector \(h_v^{(0)}\) . Most popular GNN models follow the message passing process that updates the embedding of a node by aggregating the information of its neighbors iteratively. The operation of the \(k\) - th iteration (layer) of GNNs can be formalized as  
+
+\[\begin{array}{r l} & {s_{v}^{(k)} = \mathrm{AGG}^{(k)}(\{h_{v}^{(k - 1)}|u\in \mathcal{N}(v)\} ,}\\ & {h_{v}^{(k)} = \mathrm{UPD}^{(k)}(h_{v}^{(k - 1)},s_{v}^{(k)}),} \end{array} \quad (1)\]  
+
+where \(h_v^{(k)}\) is the embedding vector of node \(v\) after the \(k\) - th iteration. In the aggregating (messaging) step, a message \(s_v^{(k)}\) is generated for each node \(v\) by collecting the embeddings from its neighbors \(\mathcal{N}(v)\) . Next, in the updating (combining) step, the embedding of each node is updated combined with the message generated above. After \(T\) iterations, the final embedding \(h_v^{(T)}\) for each node \(v\) is obtained. If the task GNNs need to handle is at the graph level such as graph classification, an embedding vector of the entire graph should be generated from that of all the nodes:  
+
+\[h_{G} = \mathrm{READOUT}(\{h_{u}^{(T)}|u\in V\}). \quad (2)\]  
+
+The final embeddings can be decoded into the outputs by a learnable function such as multi- layer perceptron (MLP), whether for node- level or graph- level tasks. The modern GNN variants have made different choices of aggregating, updating and readout functions, such as concatenation, summation, max- pooling and mean- pooling. A more comprehensive review of GNNs can be found in (Wu et al. 2021).  
+
+## GNN Models for MaxSAT  
+
+As described in Section 1, there have been several attempts that learn to solve SAT problem with GNNs in recent years.  
+
+<center>Figure 2: Two kinds of factor graphs to represent the CNF formula \((x_{1}\lor x_{2}\lor x_{3})\land (x_{1}\lor \neg x_{3})\land (\neg x_{1}\lor \neg x_{2}\lor \neg x_{3})\) with 3 variables and 3 clauses. </center>  
+
+The pipeline of such work generally consists of three parts. Firstly, a CNF formula is transformed to a graph through some rules. Next, a GNN variant is employed that maps the graph representation to the labels, e.g., the satisfiability of a problem or the assignment of a variable. Finally, the prediction results are further analyzed and utilized after the training converges. Intuitively, they can almost be transfered to work on MaxSAT problem without much modification, since these two problems have the same form of input.  
+
+Factor graph is a common representation for CNF formulas, which is a bipartite structure to represent the relationship between literals and clauses. There are mainly two kinds of factor graphs that have appeared in the previous work. The first one is node- splitting factor graph (NSFG), which splits the two literals \((x_{i},\neg x_{i})\) corresponding to a variable \(x_{i}\) into two nodes. NSFG is used by many work such as (Selsam et al. 2019) and (Zhang et al. 2020). The other one is edge- splitting factor graph (ESFG), which establishes two types of edges, connected the clauses with positive and negative literals separately. (Yolcu and Póczos 2019) uses ESFG with a pair of biadjacency matrices. An example that represents a CNF formula with these two kinds of factor graphs is illustrated in Figure 2.  
+
+The models generally follow the message passing process of GNNs. Considering the bipartite structure of graph, in each layer the process is divided in two directions executed in sequence. For NSFG, the operation of the \(k\) - th layer of GNNs can be formalized as  
+
+\[\begin{array}{r l} & {C_{j}^{(k)} = \mathrm{UPD}_{C}(C_{j}^{(k - 1)},\mathrm{AGG}_{L}(L_{i}^{(k - 1)}|(i,j)\in E)),}\\ & {(L_{i}^{(k)},\widetilde{L}_{i}^{(k)}) = \mathrm{UPD}_{L}(L_{i}^{(k - 1)},\widetilde{L}_{i}^{(k - 1)},}\\ & {\qquad \mathrm{AGG}_{C}(C_{j}^{(k - 1)}|(i,j)\in E)),} \end{array} \quad (3)\]  
+
+where \(L_{i}^{(k)},C_{j}^{(k)}\) is the embedding of literal \(i\) and clause \(j\) in the \(k\) - th layer. The message is firstly collected from the literals in clause \(j\) , and the embedding of \(j\) is updated by that of the last layer and the message. Next, the embedding of literal \(i\) is updated in almost the same way, except that the embedding of literal \(i\) is updated with that of its negation together (denoted by \(\widetilde{L}_{i}^{(k)}\) ). This operation maintains the consistency of positive and negative literals of the same variable.  
+
+For ESFG, there are two types of edges, which can be denoted as \(E^{+}\) and \(E^{- }\) . If a positive literal \(i_{1}\) appears in clause \(j\) , we have \((i_{1},j)\in E^{+}\) , and similarly have \((i_{2},j)\in E^{- }\) if \(i_{2}\) is a negative literal. The operation of the \(k\) - th layer of GNNs can be formalized as  
+
+\[\begin{array}{r l} & {C_{j}^{(k)} = \mathrm{UPD}_{C}(C_{j}^{(k - 1)},\mathrm{AGG}_{L}^{+}(L_{i}^{(k - 1)}|(i,j)\in E^{+}),}\\ & {\qquad \mathrm{AGG}_{L}^{-}(L_{i}^{(k - 1)}|(i,j)\in E^{- })),}\\ & {L_{i}^{(k)} = \mathrm{UPD}_{L}(L_{i}^{(k - 1)},\mathrm{AGG}_{C}^{+}(C_{j}^{(k - 1)}|(i,j)\in E^{+}),}\\ & {\qquad \mathrm{AGG}_{C}^{-}(C_{j}^{(k - 1)}|(i,j)\in E^{- })).} \end{array} \quad (4)\]  
+
+Finally, for both NSFG and ESFG, a binary classifier is applied to map the embedding of each variable to its assignment. We use the binary cross entropy (BCE) as loss function, which can be written as  
+
+\[B C E(y,p) = -(y\log (p) + (1 - y)\log (1 - p)), \quad (5)\]

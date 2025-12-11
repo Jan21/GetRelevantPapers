@@ -1,0 +1,47 @@
+{
+  "image": "2508.21513_On_the_Hardness_of_Learning_GNN-based_SAT_Solvers__page_21.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "image",
+      "boxes": [
+        [
+          245.0,
+          272.0,
+          747.0,
+          558.0
+        ]
+      ],
+      "raw": "[[245, 272, 747, 558]]",
+      "pixel_boxes": [
+        [
+          625,
+          898,
+          1906,
+          1843
+        ]
+      ]
+    },
+    {
+      "label": "image_caption",
+      "boxes": [
+        [
+          173.0,
+          572.0,
+          825.0,
+          725.0
+        ]
+      ],
+      "raw": "[[173, 572, 825, 725]]",
+      "pixel_boxes": [
+        [
+          441,
+          1889,
+          2105,
+          2394
+        ]
+      ]
+    }
+  ]
+}

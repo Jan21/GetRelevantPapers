@@ -155,37 +155,17 @@ def download_arxiv_pdf(arxiv_id: str, output_dir: Path, paper_title: str = None)
         return None
 
 
-def get_relevant_papers(papers: List[Dict], cfg: DictConfig) -> List[Dict]:
+def get_relevant_papers(papers: List[Dict]) -> List[Dict]:
     """
     Filter papers based on classifier results.
 
     Args:
         papers: List of classified papers
-        cfg: Hydra configuration
 
     Returns:
         List of relevant papers
     """
-    use_vllm = cfg.classification.get('use_vllm', True)
-    use_openrouter = cfg.classification.get('use_openrouter', True)
-
-    relevant = []
-
-    for paper in papers:
-        is_relevant = False
-
-        if use_vllm and use_openrouter:
-            # Both classifiers: require both to agree
-            is_relevant = paper.get('vllm_relevant', False) and paper.get('openrouter_relevant', False)
-        elif use_vllm:
-            is_relevant = paper.get('vllm_relevant', False)
-        elif use_openrouter:
-            is_relevant = paper.get('openrouter_relevant', False)
-
-        if is_relevant:
-            relevant.append(paper)
-
-    return relevant
+    return [p for p in papers if p.get('relevant', False)]
 
 
 @hydra.main(version_base=None, config_path=".", config_name="config")
@@ -206,7 +186,7 @@ def main(cfg: DictConfig):
     print(f"Loaded {len(papers)} classified papers from {input_file}")
 
     # Filter relevant papers
-    relevant_papers = get_relevant_papers(papers, cfg)
+    relevant_papers = get_relevant_papers(papers)
 
     print(f"\n{'='*80}")
     print(f"DOWNLOADING PDFS FOR {len(relevant_papers)} RELEVANT PAPERS")

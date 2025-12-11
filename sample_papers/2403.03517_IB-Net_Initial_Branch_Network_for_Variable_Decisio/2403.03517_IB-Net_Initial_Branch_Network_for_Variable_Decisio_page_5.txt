@@ -1,0 +1,33 @@
+Table 2: Average running time of different CDCL solvers targeting random 100-sample UNSAT problems from LEC dataset and SAT Comp dataset   
+
+<table><tr><td>Original Solvers</td><td>LEC</td><td colspan="2">SAT Comp</td></tr><tr><td>CaDiCaL</td><td>350s</td><td>209s</td><td></td></tr><tr><td>MiniSAT</td><td>810s</td><td>450s</td><td></td></tr><tr><td>Glucose</td><td>529s</td><td>308s</td><td></td></tr><tr><td>Kissat</td><td>335s</td><td>195s</td><td></td></tr></table>  
+
+Table 3: Model UNSAT-core prediction performance on LEC dataset and SAT Competition dataset   
+
+<table><tr><td rowspan="2">Approach</td><td colspan="3">LEC Circuit</td><td colspan="3">SAT Comp</td></tr><tr><td>Acc</td><td>Pos.F1</td><td>Neg.F1</td><td>Acc</td><td>Pos.F1</td><td>Neg.F1</td></tr><tr><td>NeuroCore</td><td>89%</td><td>94%</td><td>27%</td><td>85%</td><td>77%</td><td>88%</td></tr><tr><td>NeuroSAT</td><td>90%</td><td>93%</td><td>8%</td><td>77%</td><td>62%</td><td>82%</td></tr><tr><td>NLocalSAT</td><td>89%</td><td>94%</td><td>11%</td><td>74%</td><td>60%</td><td>80%</td></tr><tr><td>IB-Net</td><td>95%</td><td>97%</td><td>71%</td><td>91%</td><td>84%</td><td>93%</td></tr></table>  
+
+We adopted the official implementation but changed the output to UNSAT- core prediction. Overall, we adopt the setting for each model according to their official codes or publications but change the target output to UNSAT- core prediction.  
+
+Our choice of the Kissat SAT solver, a top- performing Conflict- Driven Clause Learning based solver, as the collaborating solver, is guided by the comparative analysis with other CDCL solvers. From Table 2, the superior performance exhibited by Kissat in comparison with other CDCL peers justifies the selection for our study[Biere, 2019][Sorensson and Een, 2005][Audemard and Simon, 2018]. As we just maintain an interaction with Kissat, instead of recompiling the Kissat solver, our work can be transfered to future top- performing solvers.  
+
+### 4.3 Evaluation metrics  
+
+For evaluation metrics, we aim to evaluate: (1) the efficacy of UNSAT- core prediction for UNSAT problems on test datasets. (2) end- to- end time efficiency of models in interaction with Kissat solver, compared with the standalone performance of the original Kissat solver. We use evaluation metrics as: (1) A.RT means the average runtime among all CNFs. (2) Imp. means the efficiency improvement (reduction in seconds) compared with the original Kissat solver. (3) Halted represents the number of halted (time- out) CNFs within the given time (1,000 seconds). Please note that all the runtimes for NN- based solutions are network construction and inference time inclusive.  
+
+## 5 Experimental Results  
+
+### 5.1 Main Results  
+
+## UNSAT-core Prediction  
+
+In Table 3, we focus on the outcomes of UNSAT- core prediction. It showcases the performance of IB- Net, in comparison with other methodologies on the LEC dataset and SAT Competition dataset, which indicates that IB- Net leads the pack across both datasets. Remarkably, both F1 scores on the LEC dataset suggest IB- Net correctly identifies variables  
+
+<center>(a) Percentage of UNSAT-core in samples with different variable sizes for LEC dataset </center>  
+
+<center>(b) Percentage of UNSAT-core in samples with different variable sizes for SAT Comp dataset </center>  
+
+in and outside UNSAT- core. Though alternative approaches exhibit reasonable performance in SAT Competition dataset, they significantly lag behind IB- Net in LEC dataset, signifying their struggles with predicting variables in UNSAT- core accurately. This may be due to the imbalance nature of UNSAT- core in LEC UNSAT problems showed in Fig. 3: Over \(90\%\) of variables are in UNSAT- core for LEC in Fig. 3(a) while around \(40\%\) of variables are in UNSAT- core for UNSAT problems in SAT Competition in Fig. 3(b). These results underscore the efficiency of IB- Net as a potent model for UNSAT- core prediction, with its adeptness in both balance and imbalance datasets.  
+
+## Runtime Reduction Performance  
+
+Table 4 provides a comparative analysis of end- to- end runtime performance for various approaches. The original Kissat is set to be the baseline. IB- Net achieves the shortest average runtime and shows improvement over the benchmark Kissat on both datasets. Specifically, IB- Net improves the average runtime by 19 seconds, accounting for \(5\%\) , and 15 seconds, accounting for \(8.3\%\) , on the LEC Circuit and SAT Competition respectively. Other methods exhibit much longer average runtime compared to Kissat and face additional halted

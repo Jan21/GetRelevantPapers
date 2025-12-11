@@ -1,0 +1,47 @@
+{
+  "image": "2505.16053_Learning_from_Algorithm_Feedback_One-Shot_SAT_Solv_page_19.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "text",
+      "boxes": [
+        [
+          173.0,
+          396.0,
+          824.0,
+          452.0
+        ]
+      ],
+      "raw": "[[173, 396, 824, 452]]",
+      "pixel_boxes": [
+        [
+          441,
+          1308,
+          2103,
+          1493
+        ]
+      ]
+    },
+    {
+      "label": "table",
+      "boxes": [
+        [
+          175.0,
+          452.0,
+          822.0,
+          608.0
+        ]
+      ],
+      "raw": "[[175, 452, 822, 608]]",
+      "pixel_boxes": [
+        [
+          446,
+          1493,
+          2098,
+          2008
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+## A.2 Proofs  
+
+For the sake of clarity and exposition, we report here both the formal statements alongside their respective proofs.  
+
+Proposition 3.1. Let \(i\sim j\) be an edge from the Literal- Clause Graph (LCG) representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. Then \(\mathbb{E}_{(i\sim j)}[\kappa (i,j)]\to 0\) and \(\mathbb{E}_{(i\sim j)}[R i c(i,j)]\to 0\) as \(\alpha = \frac{M}{N}\to 0\)  
+
+Proof. As \(\alpha \to 0\) the expected value of the literal degree becomes:  
+
+\[\lim_{\alpha \to 0}\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}] = \lim_{\alpha \to 0}\frac{\lambda e^{\lambda}}{e^{\lambda} - 1} = \lim_{\alpha \to 0}e^{\lambda}\cdot \lim_{\alpha \to 0}\frac{\lambda}{e^{\lambda} - 1} = 1\cdot \lim_{\alpha \to 0}\frac{1}{\frac{e^{\lambda} - 1}{\lambda}} = 1, \quad (17)\]  
+
+where the last equality is obtained due to the fact that \(\begin{array}{r}{\lim_{\alpha \to 0}\lambda = \lim_{\alpha \to 0}\frac{1}{2}\alpha k = 0} \end{array}\) and the limit formula \(\begin{array}{r}{\lim_{x\to 0}\frac{a^{x} - 1}{x} = \ln \left(a\right)} \end{array}\)  
+
+Given the average degree of the literals that act as an endpoint of at least one edge is 1 in this limiting case, by definition of the lower bound in Equation 8, we obtain that \(\begin{array}{r}{\lim_{\alpha \to 0}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = 0} \end{array}\) . As a lower bound, \(\bar{R} (i,j)\) satisfies the following inequality [5, 47]:  
+
+\[-2< \bar{R} (i,j)\leq R i c(i,j)\leq \kappa (i,j)\leq 0 \quad (18)\]  
+
+Given that both limits and expectations preserve weak inequalities, by sandwiching we obtain:  
+
+\[\begin{array}{r l} & {\underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = 0\leq \underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[R i c(i,j)]\leq \underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[\kappa (i,j)]\leq 0}\\ & {\underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[\kappa (i,j)] = \underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[R i c(i,j)] = 0} \end{array} \quad (20)\]  
+
+Proposition 3.2. Let \(i\sim j\) be an edge from the LCG representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. Then \(\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)]\to \frac{2}{k} - 2\) as \(\alpha = \frac{M}{N}\to \infty\)  
+
+Proof. As \(\alpha \to \infty\) the expected value of the literal degree becomes:  
+
+\[\lim_{\alpha \to \infty}\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}] = \lim_{\alpha \to \infty}\frac{\lambda e^{\lambda}}{e^{\lambda} - 1} = \lim_{\alpha \to \infty}\frac{1}{\frac{1}{\lambda} - \frac{1}{\lambda e^{\lambda}}} = \infty , \quad (21)\]  
+
+therefore we can consider the lower bound as consisting only of \(\begin{array}{r}{\underline{{R}} (i,j)] = \frac{2}{d_{i}} +\frac{2}{d_{j}} - 2} \end{array}\) (ignoring the uninteresting case when \(k = 1\) ). Given that the expected value is a linear operation, we obtain that:  
+
+\[\lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = \frac{2}{\lim_{\alpha \to \infty}\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}]} +\frac{2}{k} -2 = \frac{2}{k} -2 \quad (22)\]  
+
+Theorem 3.1. Let \(i\sim j\) be an edge from the LCG representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. The BFC at \(i\sim j\) is bounded from above by the quantity:  
+
+\[\bar{R} (i,j)\coloneqq \frac{2}{d_{i}} +\frac{2}{d_{j}} -2 + \frac{d_{i} + k - 2}{\max \{k - 1,M - 1\} \max \{d_{i},d_{j}\}}. \quad (23)\]  
+
+Furthermore, as \(\begin{array}{r}{\alpha = \frac{M}{N}\to \infty ,\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)]\to \frac{2}{k} - 2} \end{array}\) and therefore the average BFC over the edges of \(G\) converges to \(\mathbb{E}_{(i\sim j)}[R i c(i,j)]\to \frac{2}{k} - 2\)

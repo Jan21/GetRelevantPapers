@@ -1,0 +1,13 @@
+# Attn-JGNN: Attention Enhanced Join-Graph Neural Networks  
+
+Jixin Zhang[0009- 0006- 9758- 7793] and Yong Lai[0000- 0002- 6882- 0107]  
+
+Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education, Jilin University, Changchun, 130012, China laiy@jlu.edu.cn  
+
+Abstract. We propose an Attention Enhanced Join- Graph Neural Networks(Attn- JGNN) model for solving #SAT problems, which significantly improves the solving accuracy. Inspired by the Iterative Join Graph Propagation (IJGP) algorithm, Attn- JGNN uses tree decomposition to encode the CNF formula into a join- graph, then performs iterative message passing on the join- graph, and finally approximates the model number by learning partition functions. In order to further improve the accuracy of the solution, we apply the attention mechanism in and between clusters of the join- graphs, which makes Attn- JGNN pay more attention to the key variables and clusters in probabilistic inference, and reduces the redundant calculation. Finally, our experiments show that our Attn- JGNN model achieves better results than other neural network methods.  
+
+## 1 Introduction  
+
+Given a propositional formula, the model counting problem (#SAT) aims to compute the number of satisfying assignments. As a fundamental problem in computer science, model counting has a wide range of practical applications, including probabilistic inference [26, 9], probabilistic databases [12], probabilistic programming [16], neural network verification [4], network reliability [4]. However, most of these model counting problems are #P- hard [34], posing significant challenges to computation. Although the scalability of exact model counters has been substantially improved, the inherent difficulty of this problem remains unchanged. Consequently, researchers have turned to exploring approximate methods to address model counting problems in real- world scenarios. The state- of- the- art approximate counting methods, such as ApproxMC [6], satss [17], STS [15], PartialKC [21], have improved computational efficiency, yet they usually require invoking external SAT solvers in practical applications. Since the SAT problem itself is NP- hard, how to further enhance computational efficiency and scalability remains a major challenge in this field.  
+
+With neural networks demonstrating excellent learning abilities, various machine learning especially deep learning methods have been proposed for proposition model count [33, 25, 35], including independent neural solver, directly predict the satisfaction of a given task distribution in implementing occuring [2, 3]. Another research focus is to construct a general neural network framework by

@@ -1,0 +1,45 @@
+<center>Figure 3: Example of conditional probability calculation for three conditions </center>  
+
+The overall loss for stage- 2 is defined as:  
+
+\[\begin{array}{rl} & {\mathcal{L}_{\mathrm{stage2}} = w_1\cdot \frac{1}{|\mathcal{S}_{\mathrm{all}}|}\sum_{i\in \mathcal{S}_{\mathrm{all}}}L1(P_i - \hat{P}_i)}\\ & {\qquad +w_2\cdot \frac{1}{|\mathcal{S}_{\mathrm{div}}|}\sum_{j\in \mathcal{S}_{\mathrm{div}}}L1(P_j - \hat{P}_j)}\\ & {\qquad +w_3\cdot \frac{1}{|\mathcal{S}_{\mathrm{polar}}|}\sum_{k\in \mathcal{S}_{\mathrm{polar}}}L1(P_k - \hat{P}_k)} \end{array} \quad (10)\]  
+
+Here, Sall denotes all internal nodes in the circuit, Sdiv refers to div nodes, and Spolar includes polarized nodes with low probability \((P< 0.1)\)  
+
+Higher weights \(w_{2}\) and \(w_{3}\) prioritize structurally and semantically critical nodes: div nodes reflect key conditional probabilities, while polarized nodes are harder to predict but crucial for tasks like Circuit SAT.  
+
+### 3.4 Multiple Condition Probability  
+
+Through Equation 5, our model can estimate the probability of a target node conditioned on a single other node. However, in practical Circuit SAT scenarios, it is often more useful to infer the most likely value of a node given that multiple other nodes have already been assigned.  
+
+As illustrated in Figure 3, when multiple condition nodes (denoted as \(C_1, C_2, \ldots , C_k\) ) are involved, we combine them using a chain of two- input and gates to construct a single aggregated condition node \(C\) . This transformation enables the model to capture the joint condition \(C = C_1 \wedge C_2 \wedge \ldots \wedge C_k\) through logical conjunction.  
+
+Once the final condition node \(C\) is obtained, we apply Equation 5 in the same manner as with a single condition node, treating \(P(A | C)\) as the target. This allows the model to generalize single- condition inference to multi- condition scenarios in a structurally consistent way.  
+
+## 4 Experiments  
+
+### 4.1 Dataset Generation  
+
+In most cases, conditioning on a specific node \(C\) primarily affects a local subregion of the circuit rather than its entirety. We define this subregion as the influence area of \(C\) , constructed in three steps. First, we identify the fanin cone of  
+
+\(C\) . Within this cone, we then locate an ancestor node \(P\) that satisfies two conditions: it has multiple fanouts, and it differs from \(C\) by no more than 10 logic levels. Finally, starting from \(P\) , we collect all nodes within its fanout cone, bounded to a depth of 10 logic levels downstream.  
+
+We use a dataset of 10,824 AIGs from ITC99 (Davidson 1999), EPFL (Amaru et al. 2019), and OpenCore (OpenCore 1999), with circuit sizes ranging from 36 to 3,214 gates. To make conditional information explicitly available to the model, we insert and and div gates within each node's influence area. For supervision, we conduct 20,000 random simulations per circuit to record full truth assignments.  
+
+### 4.2 Experiment Setting  
+
+In the one- round GNN model configuration, both the structural embedding \(h^s\) and the functional embedding \(h^f\) are set to a dimension of 128. The task head, \(\phi\) , has 3 hidden layers with 32 neurons and utilizes the SiLU activation function.  
+
+The model is trained for 60 epochs to ensure convergence with a batch size of 512 using a single NVIDIA RTX 4090 GPU. The Adam optimizer (Kingma and Ba 2014) is used with a learning rate of \(10^{- 4}\) .  
+
+### 4.3 Performance on Conditional Probability Prediction  
+
+Table 2: Conditional probability prediction performance (MAE) under varying condition counts and circuit sizes.   
+
+<table><tr><td>#Condition Nodes</td><td>#Nodes=928</td><td>#Nodes=6428</td><td>#Nodes=17796</td></tr><tr><td>1</td><td>0.0243</td><td>0.0372</td><td>0.0457</td></tr><tr><td>2</td><td>0.0267</td><td>0.0401</td><td>0.0496</td></tr><tr><td>5</td><td>0.0314</td><td>0.0479</td><td>0.0532</td></tr></table>  
+
+We train the model on small circuits and evaluate its conditional probability prediction accuracy on both small and large- scale benchmarks. In the single- condition setting, the average L1 loss on the validation set reaches as low as 0.0331. To illustrate generalizability, we select representative circuits of varying sizes. As shown in Table 2, the model maintains low prediction error across all scales, with L1 loss as low as 0.0243 for small circuits and remaining below 0.05 even for circuits with over 17K nodes. As the number of conditions increases from 1 to 5, prediction error rises slightly yet remains within acceptable bounds, demonstrating strong robustness. Importantly, inference overhead under multi- condition settings is negligible, thanks to the lightweight design of the aggregator functions of and gates.  
+
+### 4.4 Ablation Study  
+
+Effectiveness of div Gate Table 3 compares our div gate- based model with direct division for conditional probability prediction. Across all settings, div gates yield consistently lower MAE, e.g., reducing error from 0.1173 to 0.0312 with one moderate condition. This highlights their advantage in numerical stability and learning robustness, while direct division suffers from unstable gradients and sensitivity to small denominators.

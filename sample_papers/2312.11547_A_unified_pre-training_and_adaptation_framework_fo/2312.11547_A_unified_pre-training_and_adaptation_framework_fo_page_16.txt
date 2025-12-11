@@ -1,0 +1,7 @@
+<center>Figure 5 Parameter analysis for feature dimension \(d\) , number of attention heads \(h\) , weight of loss \(\lambda\) , and number of layers \(L\) . </center>  
+
+From the heat maps, we can observe that Max- SAT \(\rightarrow\) MIS always obtained the best results compared with the other two types of knowledge transfer, which showed that Max- SAT was more general and had the strongest transferability across different CO problems. Moreover, MDS is a more relevant CO problem to MIS compared with Max- Cut. Therefore, we observed better results from MDS \(\rightarrow\) MIS than Max- Cut \(\rightarrow\) MIS. This observation answered Q3 where different source domains do affect the performance of the target domain. From a practical viewpoint, selecting an appropriate source domain was always hard, and irrelevant tasks would generate negative transfers and eventually affect the performance of the target domain.  
+
+### 4.5 Parameter Analysis  
+
+In this subsection, we analyzed the influence of several significant hyper- parameters on the model performance: the dimension of features \(d\) , the number of attention heads \(h\) , the weight of losses \(\lambda\) , and the number of pertaining layers \(L\) . We recorded the performance of different \(d\) , \(h\) , \(\lambda\) , \(L\) values on Max- CUT. The results were reported in Figure 5. It can be observed that with different dimensions of features, our model exhibited relatively stable performance when \(d\) was greater than or equal to 16. Our

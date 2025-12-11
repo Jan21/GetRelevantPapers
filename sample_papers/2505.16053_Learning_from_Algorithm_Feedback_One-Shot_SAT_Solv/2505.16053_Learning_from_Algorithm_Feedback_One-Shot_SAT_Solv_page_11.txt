@@ -1,0 +1,31 @@
+Kurin, V., Godil, S., Whiteson, S., and Catanzaro, B. (2020). Can q- learning with graph networks learn a generalizable branching heuristic for a sat solver? In Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., and Lin, H., editors, Advances in Neural Information Processing Systems, volume 33, pages 9608- 9621. Curran Associates, Inc.  
+
+Lambert, N., Morrison, J., Pyatkin, V., Huang, S., Ivison, H., Brahman, F., Miranda, L. J. V., Liu, A., Dziri, N., Lyu, S., et al. (2024). Tulu 3: Pushing frontiers in open language model post- training. arXiv preprint arXiv:2411.15124.  
+
+Liu, H., Xu, P., Pu, Y., Yin, L., Zhen, H.- L., Yuan, M., Ho, T.- Y., and Yu, B. (2024). Neuroselect: Learning to select clauses in sat solvers. In Proceedings of the 61st ACM/IEEE Design Automation Conference, DAC '24, New York, NY, USA. Association for Computing Machinery.  
+
+Morris, C., Ritzert, M., Fey, M., Hamilton, W. L., Lenssen, J. E., Rattan, G., and Grohe, M. (2019). Weisfeiler and Leman go neural: Higher- order graph neural networks. In Proceedings of the Thirty- Third AAAI Conference on Artificial Intelligence (AAAI), pages 4602- 4609.  
+
+Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., et al. (2022). Training language models to follow instructions with human feedback. Advances in neural information processing systems, 35:27730- 27744.  
+
+Schulman, J., Wolski, F., Dhariwal, P., Radford, A., and Klimov, O. (2017). Proximal policy optimization algorithms. arXiv preprint arXiv:1707.06347.  
+
+Selsam, D. and Bjørner, N. (2019). Guiding high- performance sat solvers with unsat- core predictions. In Theory and Applications of Satisfiability Testing- SAT 2019: 22nd International Conference, SAT 2019, Lisbon, Portugal, July 9- 12, 2019, Proceedings 22, pages 336- 353. Springer.  
+
+Selsam, D., Lamm, M., Bünz, B., Liang, P., de Moura, L., and Dill, D. L. (2019). Learning a SAT solver from single- bit supervision. In International Conference on Learning Representations.  
+
+Shao, Z., Wang, P., Zhu, Q., Xu, R., Song, J., Bi, X., Zhang, H., Zhang, M., Li, Y., Wu, Y., et al. (2024). Deepseekmath: Pushing the limits of mathematical reasoning in open language models. arXiv preprint arXiv:2402.03300.  
+
+Soos, M. (2010). Grain of salt — an automated way to test stream ciphers through sat solvers.  
+
+Soos, M., Nohl, K., and Castelluccia, C. (2009). Extending sat solvers to cryptographic problems. In Kullmann, O., editor, Theory and Applications of Satisfiability Testing - SAT 2009, pages 244- 257, Berlin, Heidelberg. Springer Berlin Heidelberg.  
+
+Tönshoff, J., Kisin, B., Lindner, J., and Grohe, M. (2023). One model, any csp: Graph neural networks as fast global search heuristics for constraint satisfaction. In Proceedings of the Thirty- Second International Joint Conference on Artificial Intelligence, IJCAI- 23, pages 4280- 4288.  
+
+Wang, W., Hu, Y., Tiwari, M., Khurshid, S., McMillan, K., and Miikkulainen, R. (2024). Neuroback: Improving CDCL SAT solving using graph neural networks. In The Twelfth International Conference on Learning Representations.  
+
+Xu, K., Hu, W., Leskovec, J., and Jegelka, S. (2019). How powerful are graph neural networks? In Proceedings of the Seventh International Conference on Learning Representations (ICLR).  
+
+Zdeborová, L. and Krząkała, F. (2007). Phase transitions in the coloring of random graphs. Phys. Rev. E, 76:031131.  
+
+Zhai, S. and Ge, N. (2025). Learning splitting heuristics in divide- and- conquer SAT solvers with reinforcement learning. In The Thirteenth International Conference on Learning Representations.

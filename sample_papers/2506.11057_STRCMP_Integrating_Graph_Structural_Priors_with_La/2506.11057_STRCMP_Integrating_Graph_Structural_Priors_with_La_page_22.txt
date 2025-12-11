@@ -1,0 +1,29 @@
+Table 4: The statistical description of used MILP datasets.   
+
+<table><tr><td>Dataset</td><td># Constraints (mean)</td><td># Variables (mean)</td></tr><tr><td>Set Covering (SC)</td><td>500</td><td>1,000</td></tr><tr><td>Maximum Independent Set (MIS)</td><td>1,953</td><td>500</td></tr><tr><td>Knapsack</td><td>72</td><td>720</td></tr><tr><td>MIK</td><td>346</td><td>413</td></tr><tr><td>CORLAT</td><td>486</td><td>466</td></tr><tr><td>Load Balancing</td><td>64,304</td><td>61,000</td></tr></table>  
+
+## E Metric Details  
+
+## E.1 Metrics related to MILP  
+
+For fair comparison, our evaluation employs metrics aligned with HEM [15, 16, 14], which are well- established in the MILP community.  
+
+Solving Time. For MILP instances solved to optimality within time limit \(T\) , we measure the solver runtime \(t\) required to obtain certifiably optimal solutions. For those MILP instances that cannot be solved to optimality within time limit \(T\) , we utilize the following metrics.  
+
+Primal- Dual Gap. During the execution of MILP solvers, two critical bounds are maintained: the global primal bound and the global dual bound. The global primal bound represents the objective value of the incumbent feasible solution, serving as the tightest upper bound for the MILP. The global dual bound corresponds to the minimal lower bound among all active nodes in the search tree, constituting the strongest lower bound for the problem. The primal- dual gap is defined as the absolute difference between these two bounds. In SCIP 8.0.0 [52], the initial primal- dual gap is initialized to a constant value of 100.  
+
+Primal- Dual (PD) Integral. The primal- dual gap integral is defined as the area enclosed between the primal and dual bound trajectories during solver execution. Formally, given a time limit \(T\) , this integral is expressed as:  
+
+\[\int_{t = 0}^{T}(\pmb{w}^{T}\pmb{x}_{t}^{*} - \pmb{z}_{t}^{*})\mathrm{d}t, \quad (20)\]  
+
+where \(\mathbf{w}\) denotes the objective coefficient vector of the MILP instance; \(\pmb{x}_{t}^{*}\) represents the incumbent feasible solution at time \(t\) , \(\mathbf{z}_{t}^{*}\) corresponds to the tightest dual bound at time \(t\) . This metric quantifies the cumulative optimality gap over the solving horizon and serves as an established performance benchmark for MILP solvers. Notably, the primal- dual gap integral was adopted as the primary evaluation criterion in the NeurIPS 2021 ML4CO competition [48].  
+
+## E.2 Metrics related to SAT  
+
+To ensure fair comparison, our evaluation adopts metrics consistent with AutoSAT [29], which are widely recognized in the SAT community.  
+
+Solving Time. For SAT instances that can be solved/proved within a timeout limitation \(\tau\) , we record the running time \(t\) of a SAT solver solving/proving these instances. For those SAT instances that cannot be solved/proved within timeout limitation \(\tau\) , we measure the two following metrics.  
+
+Number of Timeout. Given a timeout limitation \(\tau\) and a set of SAT instances, we record the number of SAT instances that cannot be solved/proved within \(\tau\) for different compared methods. The \(\tau\) is set as 5000 seconds, same as [29].  
+
+Penalized Average Runtime with a factor of 2 score (PAR- 2). PAR- 2 is a standard evaluation metric in SAT solver competitions and benchmarks, employed to assess and compare solver performance under incomplete executions or timeout scenarios. Specifically, the PAR- 2 score aggregates runtime across test instances as follows: 1) For solved instances, record the solver's runtime; 2) For instances where the solver exceeds the timeout limitation \(\tau\) , assign twice the timeout threshold \(\tau\) as the penalty—this is why we call this metric as PAR- 2; 3) Compute the average across all instances by summing these values and dividing by the instance count. Lower PAR- 2 scores indicate better overall solver efficiency.

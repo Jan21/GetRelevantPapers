@@ -1,0 +1,33 @@
+to 22 billion parameters. In International Conference on Machine Learning, pp. 7480- 7512. PMLR, 2023.  
+
+Feng, Y., You, H., Zhang, Z., Ji, R., and Gao, Y. Hypergraph neural networks. In Proceedings of the AAAI conference on artificial intelligence, volume 33, pp. 3558- 3565, 2019.  
+
+Guo, W., Zhen, H.- L., Li, X., Luo, W., Yuan, M., Jin, Y., and Yan, J. Machine learning methods in solving the boolean satisfiability problem. Machine Intelligence Research, 20 (5):640- 655, 2023.  
+
+Heydaribeni, N., Zhan, X., Zhang, R., Eliassi- Rad, T., and Koushanfar, F. Distributed constrained combinatorial optimization leveraging hypergraph neural networks. Nature Machine Intelligence, pp. 1- 9, 2024.  
+
+Hoos, H. H. and Stützle, T. SATLIB: An online resource for research on sat. Sat, 2000:283- 292, 2000.  
+
+Kautz, H. A., Selman, B., et al. Planning as satisfiability. In ECAI, volume 92, pp. 359- 363. Citeseer, 1992.  
+
+Kingma, D. P. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.  
+
+Liu, M., Huang, P., Jia, F., Zhang, F., Sun, Y., Cai, S., Ma, F., and Zhang, J. Can graph neural networks learn to solve the maxsat problem? In Proceedings of the AAAI Conference on Artificial Intelligence, volume 37, pp. 16264- 16265, 2023.  
+
+Ozolins, E., Freivalds, K., Draguns, A., Gaile, E., Zakovskis, R., and Kozlovics, S. Goal- aware neural sat solver. In 2022 International Joint Conference on Neural Networks, pp. 1- 8. IEEE, 2022.  
+
+Selsam, D. and Bjørner, N. Guiding high- performance sat solvers with unsat- core predictions. In Theory and Applications of Satisfiability Testing- SAT 2019: 22nd International Conference, SAT 2019, pp. 336- 353. Springer, 2019.  
+
+Selsam, D., Lamm, M., Bünz, B., Liang, P., de Moura, L., and Dill, D. L. Learning a sat solver from single- bit supervision. In 7th International Conference on Learning Representations, 2019.  
+
+Sun, L., Gerault, D., Benamira, A., and Peyrin, T. Neurogift: Using a machine learning based sat solver for cryptanalysis. In Cyber Security Cryptography and Machine Learning: Fourth International Symposium, Proceedings 4, pp. 62- 84. Springer, 2020.  
+
+Thornton, J. and Sattar, A. Dynamic constraint weighting for over- constrained problems. In Pacific Rim International Conference on Artificial Intelligence, pp. 377- 388. Springer, 1998.  
+
+Timm, N. and Botha, J. Synthesis of cost- optimal multiagent systems for resource allocation. arXiv preprint arXiv:2209.09473, 2022.  
+
+Wang, W., Hu, Y., Tiwari, M., Khurshid, S., McMillan, K., and Miikkulainen, R. Neuroback: Improving CDCL SAT solving using graph neural networks. In The Twelfth International Conference on Learning Representations, 2024.  
+
+Yang, Q., Wu, K., and Jiang, Y. Learning action models from plan examples using weighted max- sat. Artificial Intelligence, 171(2- 3):107- 143, 2007.  
+
+Zhang, W., Sun, Z., Zhu, Q., Li, G., Cai, S., Xiong, Y., and Zhang, L. Nlocalsat: boosting local search with solution prediction. In Proceedings of the Twenty- Ninth International Conference on International Joint Conferences on Artificial Intelligence, pp. 1177- 1183, 2021.

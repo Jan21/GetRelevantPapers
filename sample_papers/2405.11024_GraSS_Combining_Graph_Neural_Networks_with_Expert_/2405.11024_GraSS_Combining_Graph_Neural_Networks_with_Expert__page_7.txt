@@ -1,0 +1,23 @@
+Table 2: Main results on the LEC and SC benchmarks. We report the average and standard deviation over 5 train-test folds. For every best result, we bold the number and conduct a Wilcoxon signed-rank test to test whether the distribution of the differences in results between this method and the next best method for every instance and fold is equally distributed around zero. An asterisk (\\*) next to the number denotes a p-value lower than 0.05. †The CNN on the LEC dataset predicted bulky for every instance, giving identical results to "Best base solver".  
+
+Table 3: Detailed comparison of the performance of GraSS and the next best method, SATzilla12, over best-runtime quantiles. Results are averaged over 5 folds, and measured in seconds.   
+
+<table><tr><td rowspan="2"></td><td colspan="2">Avg Runtime (s) ↓</td><td>Solved (%) ↑</td><td>ACC ↑</td></tr><tr><td colspan="4">LEC</td></tr><tr><td>Best base solver</td><td>382.783±1.877</td><td>74.7±0.2</td><td>0.424±0.001</td><td></td></tr><tr><td>SATzilla07</td><td>346.492±1.516</td><td>76.8±0.2</td><td>0.467±0.001</td><td></td></tr><tr><td>SATzilla12</td><td>344.290±1.115</td><td>77.2±0.1</td><td>*0.487±0.004</td><td></td></tr><tr><td>ArgoSmArT</td><td>353.241±1.093</td><td>76.3±0.2</td><td>0.457±0.002</td><td></td></tr><tr><td>CNN†</td><td>382.783±1.877</td><td>74.7±0.2</td><td>0.424±0.001</td><td></td></tr><tr><td>GraSS (ours)</td><td>*341.549±1.440</td><td>*77.7±0.2</td><td>0.480±0.006</td><td></td></tr><tr><td colspan="4">SC</td><td></td></tr><tr><td>Best base solver</td><td>250.902±21.669</td><td>82.9±1.7</td><td>0.210±0.013</td><td></td></tr><tr><td>SATzilla07</td><td>227.643±11.955</td><td>83.5±2.2</td><td>0.330±0.018</td><td></td></tr><tr><td>SATzilla12</td><td>222.146±18.311</td><td>84.0±2.0</td><td>0.366±0.009</td><td></td></tr><tr><td>ArgoSmArT</td><td>227.121±14.312</td><td>83.9±1.7</td><td>*0.449±0.023</td><td></td></tr><tr><td>CNN</td><td>253.832±11.985</td><td>82.4±0.8</td><td>0.296±0.016</td><td></td></tr><tr><td>GraSS (ours)</td><td>*220.251±16.360</td><td>84.6±1.8</td><td>0.259±0.026</td><td></td></tr></table>  
+
+<table><tr><td rowspan="2">Best-Runtime Quantile</td><td colspan="2">LEC</td><td colspan="2">SC</td></tr><tr><td>SATzilla12</td><td>GraSS</td><td>SATzilla12</td><td>GraSS</td></tr><tr><td>[0, 0.25]</td><td>103.387</td><td>104.575</td><td>0.440</td><td>0.673</td></tr><tr><td>(0.25, 0.50]</td><td>231.500</td><td>229.448</td><td>14.541</td><td>18.691</td></tr><tr><td>(0.50, 0.75]</td><td>390.999</td><td>386.567</td><td>143.847</td><td>142.970</td></tr><tr><td>(0.75, 1]</td><td>653.293</td><td>647.625</td><td>736.697</td><td>721.190</td></tr></table>  
+
+Percentage of Solved Instances (Solved). The percentage of instances that can be solved by the selected solver within a cutoff time of 500s. Higher is better.  
+
+Classification Accuracy (ACC). The accuracy of selecting the optimal solver for a given instance. This measures how efficient a method is in selecting the optimal solver. Higher is better.  
+
+### 4.5 Main Results  
+
+We report in Table 2 the main results of our experiments on the Logic Equivalence Checking (LEC) and SAT Competition (SAT) datasets, respectively. As can be seen, our proposed GraSS method outperform competing approaches in average runtime, as well as  
+
+<center>Figure 4: Cost of wrong prediction: the runtime difference between predicted solver and the optimal solver, when the selector has made a mistake. Average across five folds are shown, with standard deviation as error bar. Lower is better. </center>  
+
+in percentage of problems solved within our 500s cutoff time. Interestingly, this is true despite the method not being as accurate in selecting the optimal solver for every instance, as measured by the accuracy metric. This suggests that an important component of its success lies in its improved robustness to error: when the method makes mistakes, they impact runtime less than competing methods.  
+
+To understand this phenomenon further, we looked at the runtime difference between the predicted solver and the optimal solver, whenever a mistake is made. As can be seen in Figure 4, the average cost of wrong prediction is substantially lower for our method than for competitors, especially for the SC dataset.  
+
+We further analyze the performance difference between our approach and the next best method in average runtime, SATzilla12. Table 3 regroups the instances by rough measure of difficulty, namely

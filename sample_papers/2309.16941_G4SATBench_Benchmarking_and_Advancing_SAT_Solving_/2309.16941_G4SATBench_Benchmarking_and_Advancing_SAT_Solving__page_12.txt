@@ -1,0 +1,37 @@
+Jesús Giráldez- Cru and Jordi Levy. A modularity- based random SAT instances generator. In International Joint Conference on Artificial Intelligence (IJCAI), 2015.  
+
+Jesús Giráldez- Cru and Jordi Levy. Locality in random SAT instances. In International Joint Conference on Artificial Intelligence (IJCAI), 2017.  
+
+Wenxuan Guo, Junchi Yan, Hui- Ling Zhen, Xijun Li, Mingxuan Yuan, and Yaohui Jin. Machine learning methods in solving the boolean satisfiability problem. arXiv preprint arXiv:2203.04755, 2022.  
+
+Jesse Michael Han. Enhancing SAT solvers with glue variable predictions. arXiv preprint arXiv:2007.02559, 2020.  
+
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Delving deep into rectifiers: Surpassing human- level performance on imagenet classification. In IEEE International Conference on Computer Vision (ICCV), 2015.  
+
+Sean B Holden et al. Machine learning for automated theorem proving: Learning to solve SAT and QSAT. Foundations and Trends® in Machine Learning, 14(6):807- 989, 2021.  
+
+Holger H Hoos and Thomas Stützle. SATLIB: An online resource for research on SAT. Workshop on Satisfiability (SAT), 2000.  
+
+Sebastian Jaszczur, Michal Łuszczyk, and Henryk Michalewski. Neural heuristics for SAT solving. arXiv preprint arXiv:2005.13406, 2020.  
+
+Diederik P. Kingma and Jimmy Ba. Adam: A method for stochastic optimization. In International Conference on Learning Representations (ICLR), 2015.  
+
+Thomas N. Kipf and Max Welling. Semi- supervised classification with graph convolutional networks. In International Conference on Learning Representations (ICLR), 2017.  
+
+Vitaly Kurin, Saad Godil, Shimon Whiteson, and Bryan Catanzaro. Can q- learning with graph networks learn a generalizable branching heuristic for a SAT solver? In Advances in Neural Information Processing Systems (NeurIPS), 2020.  
+
+Massimo Lauria, Jan Elffers, Jakob Nordström, and Marc Vinyals. Cnfen: A generator of crafted benchmarks. In Theory and Applications of Satisfiability Testing (SAT), 2017.  
+
+Min Li, Zhengyuan Shi, Qiuxia Lai, Sadaf Khan, Shaowei Cai, and Qiang Xu. On eda- driven learning for sat solving. In Design Automation Conference (DAC), 2023.  
+
+Yujia Li, Daniel Tarlow, Marc Brockschmidt, and Richard S. Zemel. Gated graph sequence neural networks. In International Conference on Learning Representations (ICLR), 2016.  
+
+Zhaoyu Li and Xujie Si. NSNet: A general neural probabilistic framework for satisfiability problems. In Advances in Neural Information Processing Systems (NeurIPS), 2022.  
+
+Vinod Nair and Geoffrey E. Hinton. Rectified linear units improve restricted boltzmann machines. In International Conference on Machine Learning (ICML), 2010.  
+
+Emils Ozolins, Karlis Freivalds, Andis Draguns, Eliza Gaile, Ronalds Zakovskis, and Sergejs Kozlovics. Goal- aware neural SAT solver. In International Joint Conference on Neural Networks (IJCNN), 2022.  
+
+Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Kopf, Edward Z. Yang, Zachary DeVito, Martin Raison, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. Pytorch: An imperative style, high- performance deep learning library. In Advances in Neural Information Processing Systems (NeurIPS), 2019.  
+
+Bart Selman, Hector J. Levesque, and David G. Mitchell. A new method for solving hard satisfiability problems. In National Conference on Artificial Intelligence (AAAI), 1992.

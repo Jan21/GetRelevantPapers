@@ -1,0 +1,33 @@
+MaxSAT problem, which is guaranteed to have an approximation ratio of \(1 / 2\) .  
+
+Proof. We give a proof sketch here because of the space limitation, and the full proof is available in Appendix. Firstly, we show that there exists a single- layer GNN model that can align with the proposed distributed local algorithm (Algorithm 1), so that every part of the algorithm can be effectively approximated by a component of GNN. This implies that the GNN model can achieve the same performance with the algorithm when solving MaxSAT problem. Next, we prove that it is a \(1 / 2\) - approximation algorithm. The picking operation of literal (line 6) is equivalent to transforming the original problem into another, where each clause only contains one literal. Given a solution, the number of satisfied clauses of the original problem is at least as large as that of the new one, so we get the approximation ratio by analyzing the new Max1SAT problem. It is not hard to find that the algorithm has a guarantee that at least half of the clauses are satisfied for any Max1SAT instance. \(\square\)  
+
+The proposed DLA can be considered as a candidate explanation for why a single- layer GNN model works and generalizes on the MaxSAT instances. The methodologies and results may also serve as a basis for future work to make theoretical progress on this task, such as explaining the improvement of capability as the number of GNN layers increases in the experiments and finding a tighter bound.  
+
+## Experimental Evaluation  
+
+Although the GNN models have shown their capability on many reasoning tasks such as SAT problem, the experimental evidence of whether GNNs can learn to solve MaxSAT problem is still under exploration. In order to demonstrate the capability of GNNs on this task, we firstly build two models, using NSFG and ESFG separately. After constructing the datasets with a commonly used generator for random MaxSAT instances, the GNN models are trained and tested in different settings, so that we can obtain a comprehensive understanding of their capabilities. The experimental results show that GNNs have attractive potential in learning to solve MaxSAT problem with good performance and generalization.  
+
+## Building the Models  
+
+In Section 3, we have described the general GNN frameworks that can learn to solve MaxSAT problem. Based on the successful early attempts, we build two GNN models that accept a CNF formula as input, and output the assignment of literals. We abbreviate them to MS- NSFG and MS- ESFG, because they use NSFG and ESFG as the graph representation, respectively. The structures of models follow those in Eq. (3) and (4). Here we only describe the implementation of some key components, and the complete frameworks are shown in Appendix.  
+
+Aggregating functions. The implementation of aggregating functions: \(\mathrm{AGG_L}\) , \(\mathrm{AGG_C}\) in MS- NSFG, and \(\mathrm{AGG_L}^+\) , \(\mathrm{AGG_L}^-\) , \(\mathrm{AGG_C}^+\) , \(\mathrm{AGG_C}^-\) in MS- ESFG, consists of two steps. First, an MLP module maps the embedding of each node  
+
+to a message vector. After that, the messages from relevant nodes are summed up to get the final output. For example, the function \(\mathrm{AGG_L}\) in MS- NSFG which generates the message from literals and sends it to clause \(j\) , can be formalized as \(\sum_{(i,j)\in E} \mathrm{MLP}(L_i)\) , where \(L_i\) is the embedding of literal \(i\) .  
+
+Updating functions. The updating functions: \(\mathrm{UPD_L}\) and \(\mathrm{UPD_C}\) in both MS- NSFG and MS- ESFG can be implemented by the LSTM module (Hochreiter and Schmidhuber 1997). For example, to implement the function \(\mathrm{UPD_C}\) , the embedding of clause \(j\) (denoted as \(C_j\) ) is taken as the hidden state, and the message generated from aggregation is taken as the input of LSTM.  
+
+## Data Generation  
+
+For data- driven approaches, a large number of labeled instances are necessary. So, the dataset should be easy to solve by off- the- shelf MaxSAT solvers to ensure the size of dataset, meanwhile it should also have the ability to produce larger instances in the same distribution to test the generalization. As a result, we construct the datasets of random MaxSAT instances by running a generator proposed by (Mitchell, Selman, and Levesque 1992), which is also used to provide benchmarks for the random track of MaxSAT competitions<sup>1</sup>. The generator can produce CNF formulas with three parameters: the number of literals in each clause \(k\) , the number of variables \(n\) , and the number of clauses \(m\) .  
+
+In order to better observe the performance of GNN models, we generate multiple datasets with different distributions, which are listed in Table 1. For R2 (60, 600), R2 (60, 800) and R3 (30, 300), we generate 20K instances, and divide them into training set, validation set and testing set according to the ratio of 8:1:1. For R2 (80, 800) and R3 (50, 500), we only generate 2K instances as testing sets. Then we call MaxHS (Bacchus 2020), a state- of- the- art MaxSAT solver, to find an optimal solution for each instance as the labels of variables. The average time MaxHS spends to solve the instances in each dataset is also presented, so that we can know about their difficulty.  
+
+Table 1: The parameters and difficulty of the datasets.   
+
+<table><tr><td>Dataset</td><td>k</td><td>n</td><td>m</td><td>Time(s)</td></tr><tr><td>R2 (60, 600)</td><td>2</td><td>60</td><td>600</td><td>4.01</td></tr><tr><td>R2 (60, 800)</td><td>2</td><td>60</td><td>800</td><td>18.21</td></tr><tr><td>R2 (80, 800)</td><td>2</td><td>80</td><td>800</td><td>105.19</td></tr><tr><td>R3 (30, 300)</td><td>3</td><td>30</td><td>300</td><td>1.92</td></tr><tr><td>R3 (50, 500)</td><td>3</td><td>50</td><td>500</td><td>216.26</td></tr></table>  
+
+## Implementation Details  
+
+We implement the models MS- NSFG and MS- ESFG in Python, and examine their practical performance to solve MaxSAT problem<sup>2</sup>. The models are trained by the Adam optimizer (Kingma and Ba 2015). All the experiments are run

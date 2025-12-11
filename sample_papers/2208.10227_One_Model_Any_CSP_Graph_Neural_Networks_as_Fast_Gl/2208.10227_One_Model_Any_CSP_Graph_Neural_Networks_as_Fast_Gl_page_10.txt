@@ -1,0 +1,51 @@
+## A Method Details  
+
+Here, we will provide a formal definition of our architecture and training procedure. We also give information on model selection and hyperparameters and discuss some implementation details.  
+
+## A.1 Architecture  
+
+Let us formalize the architecture of our policy GNN \(\pi_{\theta}\) . Recall that the main hyperparameters of \(\pi_{\theta}\) are the latent dimension \(d\in \mathbb{N}\) and the aggregation function \(\bigoplus\) which we either choose as an element- wise SUM, MEAN or MAX function. Our GNN is then composed of the following trainable components:  
+
+A GRU- Cell \(\mathbf{G}:\mathbb{R}^{d}\times \mathbb{R}^{d}\to \mathbb{R}^{d}\) and its trainable initial state \(\mathbf{h}\in \mathbb{R}^{d}\) . This cell is used to update the recurrent value states. A value encoder \(\mathrm{MLP}\mathbf{E}:\mathbb{R}^{d + 1}\to \mathbb{R}^{d}\) which merges the information of the recurrent state and the binary label of each value. Two linear perceptrons \(\mathbf{M}_{\mathcal{V}},\mathbf{M}_{\mathcal{E}}:\mathbb{R}^{d}\to \mathbb{R}^{2d}\) . These functions are used to generate the messages that are sent from values to constraints and from constraints to values, respectively. Three MLPs \(\mathbf{U}_{\mathcal{V}},\mathbf{U}_{\mathcal{E}},\mathbf{U}_{\mathcal{X}}:\mathbb{R}^{d}\to \mathbb{R}^{d}\) for combining aggregated messages for values, constraints and variables, respectively. The output MLP \(\mathbf{O}:\mathbb{R}^{d}\to \mathbb{R}\) which generates the logit scores for each value before we apply the domain- wise softmax.  
+
+The combined trainable weights of these functions form the parameter vector \(\theta\) . The MLPs \(\mathbf{E},\mathbf{U}_{\mathcal{V}},\mathbf{U}_{\mathcal{E}},\mathbf{U}_{\mathcal{X}}\) and \(\mathbf{O}\) all have two layers. The hidden layer is ReLU- activated and has dimension \(d\) while the second layer is linear. We also note that \(\mathbf{E},\mathbf{M}_{\mathcal{V}},\mathbf{M}_{\mathcal{E}},\mathbf{U}_{\mathcal{V}},\mathbf{U}_{\mathcal{E}}\) and \(\mathbf{U}_{\mathcal{X}}\) each apply LayerNorm to their output, which we found to significantly improve convergence during training.  
+
+In iteration \(t\) we associate a recurrent state \(h^{(t)}(\nu)\in \mathbb{R}^{d}\) with each value \(\nu \in \mathcal{V}\) . These states are passed on from the previous iteration \(t - 1\) and initialized as \(h^{(0)}(\nu) = \mathbf{h}\) . \(\pi_{\theta}\) then performs the following message passing procedure in each iteration \(t\) : First, each value \(\nu \in \mathcal{V}\) generates a latent state \(x^{(t)}(\nu)\) by applying the encoder \(\mathbf{E}\) to its recurrent state and its binary label:  
+
+\[x^{(t)}(\nu) = \mathbf{E}\Big(\big[h^{(t - 1)}(\nu),L_{V}^{(t - 1)}(\nu)\big]\Big) \quad (5)\]  
+
+Here, [...] denotes concatenation of vectors. The latent state is then used to generate two messages for each value by applying the message generation MLP \(\mathbf{M}_{\mathcal{V}}\) :  
+
+\[m^{(t)}(\nu ,0),m^{(t)}(\nu ,1) = \mathbf{M}_{\mathcal{V}}\big(x^{(t)}(\nu)\big) \quad (6)\]  
+
+Note that the output of \(\mathbf{M}_{\mathcal{V}}\) has dimension \(2d\) and is the stack of both \(d\) - dimensional messages. The message \(m^{(t)}(\nu ,i)\) is send along all constraint edges \((C,\nu)\) with label \(L_{E}(C,\nu) =\) \(i\) . Hence, the edge labels are incorporated by generating different messages for each label. The constraints aggregate  
+
+these messages and process the result with their message generation function \(\mathbf{M}_{\mathcal{E}}\) :  
+
+\[\begin{array}{r l} & {y^{(t)}(C) = \bigoplus_{v\in \mathcal{N}(C)}m^{(t)}\big(\nu ,L_{E}(C,\nu)\big)}\\ & {m^{(t)}(C,0),m^{(t)}(C,1) = \mathbf{M}_{\mathcal{E}}\big(y^{(t)}(C)\big)} \end{array} \quad (7)\]  
+
+These messages are then aggregated by the values that combine the information with their latent state \(x\) by applying the update MLP \(\mathbf{U}_{\mathcal{V}}\) :  
+
+\[y^{(t)}(\nu) = \bigoplus_{C\in \mathcal{N}(\nu)\cap \mathcal{C}}m^{(t)}(C,L_{E}(C,\nu)) \quad (9)\]  
+
+\[z^{(t)}(\nu) = \mathbf{U}_{\mathcal{V}}\big(x^{(t)}(\nu) + y^{(t)}(\nu)\big) + x^{(t)}(\nu) \quad (10)\]  
+
+Note that we added a residual connection around \(\mathbf{U}_{\mathcal{V}}\) for better gradient flow. In the next phase of our message passing procedure values exchange messages with their respective variables. To this end, each variable \(X\in \mathcal{X}\) pools the latent states of their respective values and applies \(\mathbf{U}_{\mathcal{X}}\) to obtain a variable- level latent representation \(z^{(t)}(X)\) :  
+
+\[z^{(t)}(X) = \mathbf{U}_{\mathcal{X}}\Big(\bigoplus_{\nu \in D_{X}}z^{(t)}(\nu)\Big) \quad (11)\]  
+
+This representation is send back to each value \(\nu \in \mathcal{V}_{X}\) of \(X\) , where it is combined with the value- level latent state by a simple addition. Note that this final message pass needs no aggregation as every value is connected to exactly one variable. The result is used as input to the GRU- Cell \(\mathbf{G}\) , which updates the recurrent states of the values:  
+
+\[h^{(t)}(\nu) = \mathbf{G}\Big(h^{(t - 1)}(\nu),z^{(t)}(\nu) + z^{(t)}(X)\Big) \quad (12)\]  
+
+Finally, \(\pi_{\theta}\) computes a soft assignment \(\phi^{(t)}\) for \(\mathcal{I}\) . To this end, the MLP \(\mathbf{O}\) maps the new recurrent state of each value \(\nu \in \mathcal{V}_{X}\) of each variable \(X\) to a scalar real number \(o^{(t)}(\nu) = \mathbf{O}(h^{(t)}(\nu))\) . We can then apply the softmax function within each domain to produce a soft value assignment:  
+
+\[\phi^{(t)}(\nu) = \frac{\exp\left(o^{(t)}(\nu)\right)}{\sum_{\nu^{\prime}\in\mathcal{V}_{X}}\exp\left(o^{(t)}(\nu^{\prime})\right)} \quad (13)\]  
+
+Figure 5 provides a visual representation of our message passing procedure. We also provide the forward pass of ANYCSP as pseudocode in Algorithm 1. Figure 6 visualizes a run of a trained ANYCSP model on a 2- coloring problem for a grid graph.  
+
+## A.2 Training  
+
+Let us formalize how we apply REINFORCE when training an ANYCSP model. Recall that our action space is extremely large as we choose one assignment from the set of all possible assignments in each step. We can handle this action space efficiently because we model probability distributions over this space as soft assignments from which a new value is sampled independently for every variable. The probability with which a hard assignment \(\alpha\) is sampled from a soft assignment \(\phi\) is therefore given by  
+
+\[\mathbf{P}(\alpha |\phi) = \prod_{X\in \mathcal{X}}\phi (\alpha (X)). \quad (14)\]

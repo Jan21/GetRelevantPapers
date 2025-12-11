@@ -1,0 +1,47 @@
+{
+  "image": "2506.11057_STRCMP_Integrating_Graph_Structural_Priors_with_La_page_26.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "image",
+      "boxes": [
+        [
+          171.0,
+          99.0,
+          825.0,
+          655.0
+        ]
+      ],
+      "raw": "[[171, 99, 825, 655]]",
+      "pixel_boxes": [
+        [
+          436,
+          327,
+          2105,
+          2163
+        ]
+      ]
+    },
+    {
+      "label": "image_caption",
+      "boxes": [
+        [
+          172.0,
+          658.0,
+          825.0,
+          688.0
+        ]
+      ],
+      "raw": "[[172, 658, 825, 688]]",
+      "pixel_boxes": [
+        [
+          439,
+          2173,
+          2105,
+          2272
+        ]
+      ]
+    }
+  ]
+}

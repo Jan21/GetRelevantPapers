@@ -1,0 +1,21 @@
+<center>Figure 7: The convergence curve of post-training composite model for SAT domain. </center>  
+
+The resulting input_embeds and attention_mask are then passed to the decoder layers and subsequent model structures for standard forward propagation.  
+
+\(\bullet\) Parameter- Efficient Finetuning. We adopt LoRA for parameter- efficient fine- tuning on an autoregressive language model task. Key hyperparameters are configured as: rank dimension \(r = 16\) controlling the latent dimension of low- rank adaptation matrices; scaling factor \(l o r a\_ a l p h a = 32\) for output normalization; dropout probability 0.05 for regularization; trainable low- rank adaptation layers injected exclusively into query \((q\_ p r o j)\) and value \((v\_ p r o j)\) projection submodules of the Transformer architecture while keeping other parameters frozen; bias parameters set to "none" to preserve original model biases. The adapted LLM is trained with AdamW optimizer and cosine decay learning rate. An illustrative training curve of the model for SAT domain is given in Figure 7.  
+
+\(\bullet\) Adapted Inference Framework. Based on this modified architecture, we further adapt the LLM inference framework with structure- prior feature vector integration. During each autoregressive forward pass, logits are obtained via the feature- enhanced forward propagation, ensuring persistent influence of the structure- prior feature vector throughout the generation process rather than only affecting the initial output. We employ a hybrid sampling strategy with Top- k set to 20, Top- p to 0.8, and repetition penalty to 1.0.  
+
+## C Baseline Details  
+
+## C.1 Solver Adoption  
+
+MILP Solver. In all experiments related to MILP domain, we employ SCIP 8.0.0 [52] as the MILP solver backend—a leading open- source solver widely adopted in machine learning research for combinatorial optimization [44, 53]. To ensure reproducibility and fair comparisons, all SCIP parameters remain at default values. We retain the solver's advanced features (e.g., presolve, heuristics), aligning our experimental setup with real- world applications.  
+
+SAT Solver. In all experiments related to SAT domain, we use EasySAT \(^5\) to ensure direct comparability with AutoSAT[29]. The solver incorporates modern Conflict- Driven Clause Learning (CDCL) techniques including Literal Block Distance (LBD) heuristics, and VSIDS variable selection, and conflict- driven clause learning. All configurations (compiler versions, interfaces, time budgets) maintain parity with [29] for reproducibility.  
+
+## C.2 Baselines Setting  
+
+## C.2.1 Neural Combinatorial Optimization  
+
+L2B [14]. The paper addresses the challenge of variable selection in the branch- and- bound (B&B) algorithm for solving mixed- integer linear programs (MILPs), where traditional expert- designed heuristics like strong branching incur prohibitive computational costs. To overcome this, the authors propose a graph convolutional neural network (GCNN) framework that leverages the natural bipartite

@@ -1,0 +1,23 @@
+## 6 Interpreting the Trained Model  
+
+### 6.1 Embedding Space Analysis  
+
+Our analysis of variable embeddings reveals patterns that explain how GNNs learn to solve SAT problems. When visualizing these embeddings using dimensionality reduction McInnes et al. [2018], we observe that they form distinct clusters corresponding to optimal variable assignments.  
+
+As shown in Figure 5, variable embeddings start randomly distributed but gradually organize into two clusters through message passing iterations. By applying k- means clustering ( \(k = 2\) ) to these embeddings, we can recover variable assignments that approximate optimal solutions, even from networks trained only to predict satisfiability status.  
+
+### 6.2 Iterative Optimization Behavior  
+
+By tracking clause satisfaction across iterations, we observe that GNNs solve SAT problems through progressive local refinement. The gap (number of unsatisfied clauses) decreases following a trajectory typical of iterative optimization methods: rapid initial improvement followed by gradual refinement.  
+
+This behavior supports the interpretation that GNNs implicitly learn to perform continuous optimization in a high- dimensional space similar to SDP relaxations for SAT. The effectiveness of additional message passing iterations during inference further strengthens this connection. A difference from the SDP relaxation is that the objective function which the GNN implicitely optimizes is non- convex because we observed that it can get stuck in local optima or converge to different solutions when initialized multiple times by different random embeddings.  
+
+Figure 3 illustrates how the average gap decreases with increasing iterations. The trajectory suggests a rapid improvement phase followed by more gradual refinement. Individual instance trajectories reveal that while most instances show steady improvement toward optimal solutions, some exhibit fluctuations, particularly unsatisfiable instances. This observation supports the potential value of early stopping techniques, as in rare cases, the gap at later iterations might be higher than a previously achieved minimum gap.  
+
+The bi- level optimization perspective—where message passing performs an inner optimization loop (finding variable assignments) guided by network parameters optimized at the outer level (during training)—helps explain the network's ability to generalize to novel problem instances and larger problems than those seen during training. In Section 7, we discuss more details about a possibility of manual derivation of the GNN equations from and explicit objective function.  
+
+## 7 Discussion  
+
+In this section, we discuss the limitations of our work along with an outlook for future research. The primary limitation of the methods presented here is that they are not competitive with state- of- the- art SAT solvers on benchmarks derived from real- world problems. Current SAT solvers can handle formulas with millions of variables, which is not feasible for the GNN in its current form. However, as mentioned in the introduction, our motivation for studying these models is to better understand the reasoning capabilities of neural networks in a simplified context.  
+
+The test- time scaling experiments clearly demonstrate that the GNNs can successfully generalize beyond their training distribution and do not merely learn superficial statistical patterns. The qualitative results presented in Section 6 further suggest that it is possible to fully understand the mechanisms by which the GNN solves a given formula. Figure 3 illustrates that the trained GNN functions as an implicit MaxSAT solver, incrementally maximizing the number

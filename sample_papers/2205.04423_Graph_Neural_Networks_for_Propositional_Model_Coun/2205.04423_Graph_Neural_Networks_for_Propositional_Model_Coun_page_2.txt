@@ -1,0 +1,19 @@
+a fast approximation of the computations performed by non- learned solvers, without the need of specifying distribution- specific hand- crafted heuristics.  
+
+In order to be practically exploited in combinatorial tasks, deep learning models should satisfy some desiderata [8], that we address in the experimental evaluation of this work. These properties are: scalability (i.e. the model should be able to perform well on graph instances which are from the same data generating distribution than the ones seen during training, but of larger size), generalization (i.e. the model should perform well on unseen instances), data- efficiency (i.e. the model should not require a large amount of labeled data for training, as it may be costly to obtain) and time- efficiency (i.e. the performance of the model should be close to that of optimal solvers, but faster).  
+
+In this work we investigate whether GNNs can be meaningfully applied to approximately solve the #SAT problem, an objective that, to the best of our knowledge, is only tackled in [15]. To this end, we extend the architecture presented in [15], that aims at generalizing the Belief Propagation algorithm (BP) [20] using Message Passing Neural Networks (MPNNs) [11], by augmenting the model with a self- attention mechanism.  
+
+The rationale behind keeping the algorithmic structure of BP as in [15] is that the estimate of the partition function given by BP has been proven to be a good approximation of the number of solutions of a Boolean formula [14], and also because the dynamics of MPNNs reflects the way in which information is propagated throughout the graphical model by BP. The motivation for introducing an attention mechanism inside the architecture is instead that of enhancing generalization capabilities of the model, while preserving the relational inductive biases needed in this context.  
+
+We carry out a careful and extensive experimental investigation of our proposed model, addressing in particular the already mentioned scalability and generalization properties. We show that our architecture, trained on a small set of synthetically generated random Boolean formulae, is able to scale- up to larger problem sizes, outperforming state- of- the art approximate #SAT solver. Moreover we describe a simple yet effective fine- tuning strategy, that allows the model to generalize across diverse data distributions, with only a few tens of labeled formulae required.  
+
+## 2 Background  
+
+### 2.1 Belief Propagation and #SAT  
+
+Belief Propagation [20] is an approximate inference algorithm for computing marginals of a probability distribution, exploiting the factor graph arising from its factorization. If we consider a discrete probability distribution over variables \(V = \{x_{1},\ldots ,x_{n}\}\) (below \(x_{\mathcal{N}(f_{j})}\) indicates the set of variables each factor \(f_{j}\) depends on):  
+
+\[P(x_{1},\ldots ,x_{n}) = \frac{1}{Z}\prod_{j = 1}^{m}f_{j}(x_{\mathcal{N}(f_{j})}),Z = \sum_{x\in V}\prod_{j = 1}^{m}f_{j}(x_{\mathcal{N}(f_{j})}) \quad (1)\]  
+
+then belief propagation computes an approximation of the factor marginals (also called beliefs) \(\{b_{j}(x_{\mathcal{N}(f_{j})})\}_{j = 1}^{m}\) and of the variable marginals \(\{b_{i}(x_{i})\}_{i = 1}^{n}\) by passing mes

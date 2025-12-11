@@ -1,0 +1,83 @@
+Input: A bipartite graph \(\tilde{\mathcal{G}} = (\tilde{\mathcal{V}}_{x},\tilde{\mathcal{V}}_{c},\tilde{\mathcal{E}})\) from Max- SAT,  
+
+True assignment \(\mathcal{V}\)  
+
+Number of pre- training layers \(L\)  
+
+Number of iterations iters.  
+
+Output: Pre- trained parameters \(\Theta_{p}\) for MLP, Bip- GNN, and FC.  
+
+1: Initialize node attributes \(\mathbf{X}_{ini}\) and \(\mathbf{C}_{ini}\)  
+
+2: for iter \(\leqslant\) iters do  
+
+3: Obtain features \(\mathbf{X}^{(0)} = \mathrm{MLP}(\mathbf{X}_{ini})\) and \(\mathbf{C}^{(0)} = \mathrm{MLP}(\mathbf{C}_{ini})\) for nodes of variables and clauses;  
+
+4: for \(l\leqslant L\) do  
+
+5: Extract features for clauses \(\mathbf{C}^{(l)}\) via clause- wise aggregation Eqs. (3.10) and (3.11);  
+
+6: Extract features for variables \(\mathbf{X}^{(l)}\) via variable- wise aggregation Eqs. (3.12) and (3.13);  
+
+7: end for  
+
+8: Map variable features to the predictions via \(\mathrm{FC}(\mathbf{X}^{(L)})\)  
+
+9: Compute the loss \(\mathcal{L}_{c}\) in Eq. (3.14);  
+
+10: Backward and update parameters;  
+
+11: end for  
+
+12: Obtain the updated parameters \(\Theta_{p}\)  
+
+Algorithm 3 Fine- tuning Based on Domain Adaptation  
+
+Input: A bipartite graph \(\tilde{\mathcal{G}} = (\tilde{\mathcal{V}}_{x},\tilde{\mathcal{V}}_{c},\tilde{\mathcal{E}})\) from Max- SAT,  
+
+Number of fine- tuning layers \(L\)  
+
+Number of iterations iters,  
+
+True assignment \(\mathcal{V}\)  
+
+Output: Predicted feasible solutions \(\mathcal{P} = \{p_{i}\}_{i = 1}^{n}\)  
+
+Fine- tuned parameters \(\Theta_{ft}\) for MLP, Bip- GNN, FC, and Dis.  
+
+1: Initialize node attributes of both domains \(\mathbf{X}_{ini}\) and \(\mathbf{C}_{ini}\)  
+
+2: for iter \(\leqslant\) iters do  
+
+3: Obtain features \(\mathbf{X}_{S}^{(0)} = \mathrm{MLP}(\mathbf{X}_{ini})\) and \(\mathbf{C}_{S}^{(0)} = \mathrm{MLP}(\mathbf{C}_{ini})\) for source variables and clauses;  
+
+4: Obtain features \(\mathbf{X}_{T}^{(0)} = \mathrm{MLP}(\mathbf{X}_{ini})\) and \(\mathbf{C}_{T}^{(0)} = \mathrm{MLP}(\mathbf{C}_{ini})\) for target variables and clauses;  
+
+5: for \(l\leqslant L\) do  
+
+6: Extract features for clauses \(\mathbf{C}_{S}^{(l)}\) and \(\mathbf{C}_{T}^{(l)}\) via clause- wise aggregation Eqs. (3.10) and (3.11);  
+
+7: Extract features for variables \(\mathbf{X}_{S}^{(l)}\) and \(\mathbf{X}_{T}^{(l)}\) via variable- wise aggregation Eqs. (3.12) and (3.13);  
+
+8: end for  
+
+9: Map variable features to the assignment labels via \(\mathrm{FC}(\mathbf{X}_{S}^{(L)})\) and \(\mathrm{FC}(\mathbf{X}_{T}^{(L)})\)  
+
+10: Map variable features to the domain labels via \(\mathrm{Dis}(\mathbf{X}_{S}^{(L)})\) and \(\mathrm{Dis}(\mathbf{X}_{T}^{(L)})\)  
+
+11: Compute the loss \(\mathcal{L}_{ft}\) in Eq. (3.15);  
+
+12: Updated parameters \(\Theta_{ft}\) for MLP, Bip- GNN, Dis, and FC;  
+
+13: end for  
+
+14: Obtain the optimal parameters \(\Theta_{ft}\)  
+
+15: Predict feasible solutions \(\mathcal{P}\)  
+
+into the pipelines of GNN- based learning frameworks to fully utilize the information of Max- SAT? Q3: Do different pre- training and domain adaptation strategies matter for the ability of solving COs?  
+
+### 4.1 Experimental Setup  
+
+Datasets We introduce the datasets that were used in our experiments in this part. In the pretraining stage, a large number of Max- SAT instances were required. We generated the clauses by running three representative generators with different distributions: the uniform distribution, the power- law distribution, and the double power- law distribution. A total number of 20,000 Max- SAT instances

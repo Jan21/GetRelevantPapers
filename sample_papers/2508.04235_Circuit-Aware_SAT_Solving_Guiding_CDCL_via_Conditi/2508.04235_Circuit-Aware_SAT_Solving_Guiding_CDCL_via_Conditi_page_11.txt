@@ -1,0 +1,11 @@
+probability is more beneficial for subsequent solving, even though they are fewer in number. In fact, keeping only high- probability clauses can negatively impact solver performance. Second, we observe that the probability distribution of clauses closely matches the distribution of LBD: among clauses with lower LBD, a larger proportion have low probability. We further find that clause probability is a more informative metric than LBD alone. As a baseline, CaDiCaL simply discards all learnt clauses with LBD greater than 2. However, by filtering \(LBD = 3\) clauses based on probability and retaining only those with low probability, we can still achieve a positive effect on solving performance.  
+
+## A6 Applying Probability-Based Phase Selection for UNSAT Case  
+
+The proposed phase selection method prioritizes variable assignments that are more likely to satisfy the circuit, effectively accelerating SAT solving, reducing solving time by up to \(10\times\) on SAT instances.  
+
+Leveraging this property, we regard the method as a lightweight classifier: for a given instance for solving, if the solver fails to find a solution within a predefined time budget under our phase selection heuristic, the instance is likely to be UNSAT. In such cases, we dynamically switch the solver to a configuration tuned specifically for UNSAT problems.  
+
+We implement this strategy on top of CaDiCaL, using a simple timeout- based switching mechanism. We set the time budget as 5 seconds. Figure A2 summarizes the performance on the LECUNSAT dataset. On this dataset, the average solving time is reduced from 166.26 seconds (raw CaDiCaL) to 80.36 seconds using our adaptive strategy. As shown in Figure A2, the adaptive strategy consistently reduces solving time across all selected UNSAT- prone cases. This demonstrates that early- stage solver behavior under the SAT- oriented phase heuristic provides useful signals for unsatisfiability prediction, enabling effective and low- overhead adaptation to more suitable solving strategies.  
+
+<center>Figure A2: Number of solved instances as a function of solving time using probability-based phase selection. A total of 150 UNSAT case in LECSAT dataset. TIMEOUT = 300s. </center>

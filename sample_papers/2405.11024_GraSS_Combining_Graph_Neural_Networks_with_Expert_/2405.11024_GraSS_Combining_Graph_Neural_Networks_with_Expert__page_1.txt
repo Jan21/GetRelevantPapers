@@ -1,0 +1,43 @@
+# GraSS: Combining Graph Neural Networks with Expert Knowledge for SAT Solver Selection  
+
+Zhuanguang Zhang  Huawei Noah's Ark Lab  Montreal, Canada  zhuanguang.zhang@huawei.com  
+
+Didier Chetelat  Huawei Noah's Ark Lab  Montreal, Canada  
+
+Joseph Cotnareanu  McGill University  Montreal, Canada  
+
+Amur Ghose  Huawei Noah's Ark Lab  Montreal, Canada  
+
+Wenyi Xiao  Huawei Noah's Ark Lab  Hong Kong, China  
+
+Hui- Ling Zhen  Huawei Noah's Ark Lab  Hong Kong, China  
+
+Yingxue Zhang  Huawei Noah's Ark Lab  Montreal, Canada  
+
+Jianye Hao  Huawei Noah's Ark Lab  Beijing, China  
+
+Mark Coates  McGill University  Montreal, Canada  
+
+Mingxuan Yuan  Huawei Noah's Ark Lab  Hong Kong, China  
+
+## ABSTRACT  
+
+Boolean satisfiability (SAT) problems are routinely solved by SAT solvers in real- life applications, yet solving time can vary drastically between solvers for the same instance. This has motivated research into machine learning models that can predict, for a given SAT instance, which solver to select among several options. Existing SAT solver selection methods all rely on some hand- picked instance features, which are costly to compute and ignore the structural information in SAT graphs. In this paper we present GraSS, a novel approach for automatic SAT solver selection based on tripartite graph representations of instances and a heterogeneous graph neural network (GNN) model. While GNNs have been previously adopted in other SAT- related tasks, they do not incorporate any domain- specific knowledge and ignore the runtime variation introduced by different clause orders. We enrich the graph representation with domain- specific decisions, such as novel node feature design, positional encodings for clauses in the graph, a GNN architecture tailored to our tripartite graphs and a runtime- sensitive loss function. Through extensive experiments, we demonstrate that this combination of raw representations and domain- specific choices leads to improvements in runtime for a pool of seven state- of- the- art solvers on both an industrial circuit design benchmark, and on instances from the 20- year Anniversary Track of the 2022 SAT Competition.  
+
+## CCS CONCEPTS  
+
+- Computing methodologies \(\rightarrow\) Neural networks; Cost-sensitive learning; \(\cdot\) Mathematics of computing \(\rightarrow\) Graph algorithms.  
+
+## KEYWORDS  
+
+GNN, SAT, Algorithm Selection  
+
+## ACM Reference Format:  
+
+Zhuanguang Zhang, Didier Chetelat, Joseph Cotnareanu, Amur Ghose, Wenyi Xiao, Hui- Ling Zhen, Yingxue Zhang, Jianye Hao, Mark Coates, and Mingxuan Yuan. 2018. GraSS: Combining Graph Neural Networks with Expert Knowledge for SAT Solver Selection. In Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '24). ACM, New York, NY, USA, 10 pages. https://doi.org/XXXXXXXXXXXXXX  
+
+## 1 INTRODUCTION  
+
+The Boolean satisfiability (SAT) problem is one of the most fundamental computer science problems, with numerous applications in planning and scheduling [9, 24], formal software verification [16, 22] and electronic circuit design [17, 21]. A SAT instance consists of a formula with Boolean variables, such as \((x_{1} \vee \bar{x}_{2}) \wedge (\bar{x}_{1} \vee x_{2} \vee x_{3}) \wedge \bar{x}_{1}\) , and the problem involves finding an assignment of values for each variable \(x_{i}\) which makes the whole formula true, or proving that no such assignment exists. Although the problem is NP- complete [8], many SAT solvers have been designed over the years and modern CDCL- based solvers are routinely able to solve industrial problems within minutes [33].  
+
+Structural differences between different SAT problems mean that the choice of solver can have a dramatic impact on the solving time. This has motivated the use of machine- learning based methods for selecting the optimal solver to use for a given instance, with the hope that data- driven models can see patterns where humans have been unsuccessful. The most influential of those has probably been SATzilla [46], which has won several times the annual SAT Competition [7]. This model relies on machine learning algorithms that

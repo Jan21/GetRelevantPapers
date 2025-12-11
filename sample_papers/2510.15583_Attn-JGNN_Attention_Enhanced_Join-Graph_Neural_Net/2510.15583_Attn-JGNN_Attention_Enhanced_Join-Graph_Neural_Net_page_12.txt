@@ -1,0 +1,15 @@
+Table 1: Comparison of RMSE between Attn-JGNN without attention mechanism and NSNet   
+
+<table><tr><td>Method</td><td>RND3SAT</td><td>BMS</td><td>CBS</td><td>GCP</td><td>SW-GCP</td></tr><tr><td>NSNet</td><td>1.57</td><td>2.45</td><td>1.68</td><td>2.14</td><td>1.37</td></tr><tr><td>Attn-JGNN-Att</td><td>1.42</td><td>2.29</td><td>1.33</td><td>2.08</td><td>1.25</td></tr></table>  
+
+Table 2 shows the detailed RMSE results for each solver on the SATLIB benchmark. The data for the BIRD benchmark is collected from many real- world model counting applications that may share many common logical structures to learn, whereas instances in the SATLIB benchmark are randomly generated, making it difficult for Attn- JGNN to exploit common features. Despite this, Attn- JGNN still outperforms NSNet and F2 in most categories. To prove  
+
+Table 2: RMSE between estimated log countings and ground truth for each solver on the SATLIB benchmark.   
+
+<table><tr><td>Method</td><td>RND3SAT</td><td>BMS</td><td>CBS</td><td>GCP</td><td>SW-GCP</td></tr><tr><td>F2</td><td>2.13</td><td>2.42</td><td>2.37</td><td>2.40</td><td>2.66</td></tr><tr><td>NSNet</td><td>1.57</td><td>2.45</td><td>1.68</td><td>2.14</td><td>1.37</td></tr><tr><td>Attn-JGNN</td><td>1.15</td><td>1.66</td><td>1.20</td><td>1.96</td><td>0.96</td></tr></table>  
+
+Table 3: Ablation experiments of the Attn-JGNN model on three refinements.   
+
+<table><tr><td>Method</td><td>RMSE</td><td>Head utilization(%)</td><td>Training time/convergence</td></tr><tr><td>GAT</td><td>1.33</td><td>100</td><td>185.155</td></tr><tr><td>GAT-H</td><td>1.26</td><td>100</td><td>153.499</td></tr><tr><td>GAT-HC</td><td>1.19</td><td>100</td><td>170.164</td></tr><tr><td>GAT-HCD</td><td>1.16</td><td>62.5</td><td>113.165</td></tr></table>  
+
+that the three attention mechanisms of our Attn- JGNN model are effective, Table 3 shows its ablation experiments with RMSE, attention head utilization and training time as evaluation metrics. Experiments show that the three attention mechanisms all play a positive role in the model. Among them, the hierarchical attention mechanism and constraint perception mechanism greatly improve the accuracy of the model, and the dynamic attention mechanism reduces the redundant attention head over time, avoids more calculations, reduces the training time and improves the efficiency of the model.

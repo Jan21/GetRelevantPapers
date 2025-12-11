@@ -1,0 +1,23 @@
+## Research Questions  
+
+RQ1: Does the proposed STRCMP identify superior algorithmic implementations compared to existing algorithm discovery approaches? RQ2: Does the proposed composite model effectively reduce computational overhead in existing algorithm discovery frameworks? RQ3: Does the structural prior benefit the generative model in solving combinatorial optimization problems?  
+
+### 5.1 Settings  
+
+Baselines. We evaluate our framework against two categories of baselines: neural combinatorial optimization methods and LLM- based evolutionary code optimization frameworks, covering mixed- integer linear programming (MILP) and Boolean satisfiability (SAT). More details of baselines and used backend solvers can be found in Appendix C.  
+
+- Neural Combinatorial Optimization: For MILP, we compare with the seminal work L2B [14], which employs graph convolutional networks for variable selection to replace the strong branching policy, and HEM [15, 16], a hierarchical sequence model for cut selection in branch-and-bound solvers. For SAT, we include NeuroSAT [40], a message-passing neural network trained with single-bit supervision for SAT solving.  
+
+- Evolutionary Code Optimization: While numerous LLM-based evolutionary code optimization approaches exist for combinatorial optimization, we specifically compare with two methods specialized for SAT and MILP: AutoSAT [29] and LLM4Solver [30]. AutoSAT leverages LLMs to automate heuristic optimization in SAT solvers, minimizing manual intervention. LLM4Solver integrates LLMs with multi-objective evolutionary algorithms to automatically design effective diving heuristics for MILP solvers<sup>2</sup>.  
+
+Dataset. We perform the empirical evaluation over ten widely- used benchmark dataset for SAT and MILP respectively. More details and statistics of the used datasets can be found in Appendix D.  
+
+- Mixed-integer linear programming (MILP): The datasets for MILP solver evaluation contain three difficulty tiers [15, 16, 30]: (1) Easy features synthetic benchmarks (Set Covering [41], Maximum Independent Set [42], Multiple Knapsack [43]) generated using protocols from [44, 45]; (2) Medium includes MIK [46] and CORLAT [47]; (3) Hard contains the Google-inspired Load Balancing problem and the industrial-scale Anonymous problem [48].  
+
+- Boolean satisfiability (SAT): The dataset comprises two sources: SAT Competition problems [49] and automatically generated instances via Picat [29]. SAT Competition data includes Profitable-Robust-Product (PRP) and Chromatic-Number-of-the-Plane (CNP) problems, while Picat-generated data contains CoinsGrid and Zamkeller instances. We adhere to the generation protocol established in [29].  
+
+Metrics. To evaluate the effectiveness of the proposed framework, we analyze solving time to optimality or solution quality attainable within a fixed time budget. For solving efficiency evaluation, we measure the number of iterations or training steps required for convergence. Specifically, for MILP domain, critical metrics include solving time and primal-dual (PD) integral which are widely used in benchmarking the MILP solvers [15, 16, 14]. For SAT domain, key metrics encompass solving time, PAR- 2, and number of timeout frequently measured in evaluating SAT solvers [29, 40]. Metrics such as solving time, PD integral, number of timeout, and PAR- 2 are minimized through optimization. More details of the used metrics are presented in Appendix E.  
+
+### 5.2 Implementation  
+
+Model Architecture. The proposed composite model comprises two components: a GNN and a structure- prior- aware LLM. We implement the GNN using graph convolution operators from torch_geometric, structured with three sequential convolutional layers terminated by global mean

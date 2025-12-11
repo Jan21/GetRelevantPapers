@@ -1,0 +1,29 @@
+<center>Figure 1. An overview of HyperSAT framework. </center>  
+
+An assignment \(\boldsymbol {A} = \{a_{1},a_{2},\ldots ,a_{n}\}\) is to assign each variable \(x_{i}\in \mathcal{X}\) with a value \(a_{i}\in \{0,1\}\) . Given a Weighted MaxSAT instance \(\phi = (\mathcal{X},\mathcal{C},\mathbf{w})\) , the objective is to find an assignment \(\mathbf{A}\) for the Boolean variables \(\mathcal{X}\) such that the total weight of satisfied clauses is maximized. The optimization problem is given by  
+
+\[\max_{A} \sum_{j = 1}^{m} w_{j} \cdot \mathbf{1}(C_{j}(\mathbf{A}))\] \[\mathrm{s.t.} \mathbf{A} \in \{0,1\}^{n}.\]  
+
+Here,  
+
+\[\mathbf{1}(C_{j}(\mathbf{A})) = \left\{ \begin{array}{ll}1, & \mathrm{if} C_{j}\mathrm{is~satisfied~by~}\mathbf{A},\\ 0, & \mathrm{otherwise}. \end{array} \right.\]  
+
+### 2.2. Hypergraph Neural Networks  
+
+A hypergraph is defined as \(\mathcal{G} = (\mathcal{V},\mathcal{E},\mathbf{W})\) which includes a set of nodes \(\mathcal{V} = \{v_{1},v_{2},\dots ,v_{|\mathcal{V}|}\}\) and a set of hyperedges \(\mathcal{E} = \{e_{1},e_{2},\dots ,e_{|\mathcal{E}|}\}\) . \(\mathbf{W}\) is a diagonal matrix of edge weights which assigns a weight to each hyperedge. Each hyperedge \(e_{j}\) is a non- empty subset of nodes (i.e., \(\emptyset \neq e_{j}\subseteq \mathcal{V}\) ). The hypergraph \(\mathcal{G}\) can be represented as a \(|\mathcal{V}|\times |\mathcal{E}|\) incidence matrix \(\boldsymbol{H}\) , where \(\boldsymbol{H}_{i,j} = 1\) if \(v_{i}\in e_{j}\) and 0 otherwise. For a vertex \(v_{i}\in \mathcal{V}\) , its degree is defined as \(d(v_{i}) = \sum_{j = 1}^{|\mathcal{E}|}\boldsymbol{H}_{i,j}\boldsymbol{W}_{j,j}\) . For an edge \(e_{j}\in \mathcal{E}\) , its degree is defined as \(\delta (e_{j}) = \sum_{i = 1}^{|\mathcal{V}|}\boldsymbol{H}_{i,j}\) . Additionally, \(\boldsymbol{D}_{v}\) and \(\boldsymbol{D}_{e}\) denote the diagonal matrices of the vertex degrees and the edge degrees, respectively.  
+
+Hypergraph Neural Networks (HGNN) (Feng et al., 2019) perform data representation learning by utilizing a hypergraph structure to capture higher- order dependencies between nodes. In HGNN, hyperedge convolution operations are used to extract features by leveraging the hypergraph Laplacian for spectral convolution. To reduce computational complexity, Chebyshev polynomials are applied to approximate the spectral convolution and avoid the need to compute high- order eigenvectors explicitly.  
+
+Through the hyperedge convolution operation, the \(l\) - th layer of HGNN can be formulated by  
+
+\[\boldsymbol{X}^{(l + 1)} = \sigma \left(\boldsymbol{D}_{v}^{-1 / 2}\boldsymbol {H}\boldsymbol {W}\boldsymbol{D}_{e}^{-1}\boldsymbol {H}^{\top}\boldsymbol{D}_{v}^{-1 / 2}\boldsymbol {X}^{(l)}\boldsymbol {\Theta}^{(l)}\right),\]  
+
+where \(\boldsymbol{X}^{(l)}\in \mathbb{R}^{|\mathcal{V}|\times d_{l}}\) is the signal of the hypergraph at \(l\) layer with \(|\mathcal{V}|\) nodes and \(d_{l}\) dimensional features, \(\boldsymbol{X}^{(0)}\) is the original signal of the hypergraph. \(\Theta^{(l)}\) is the learnable filter parameter and \(\sigma\) denotes the nonlinear activation function.  
+
+## 3. HyperSAT  
+
+In this section, we propose HyperSAT, a neural approach for Weighted MaxSAT problems. Figure 1 illustrates the workflow of HyperSAT. It mainly consists of three modules: the hypergraph modeling module, the neural network module, and the probabilistic mapping module.  
+
+Given a Weighted MaxSAT instance, HyperSAT first applies its hypergraph modeling component to represent the instance as a hypergraph. Then, the hypergraph is solved by the neural network module, which is responsible for processing and optimizing the hypergraph. Finally, through a mapping operation, the probabilistic output of the neural network module is mapped into Boolean values, which serves as a solution to the Weighted MaxSAT instance.  
+
+Note that the uneven weight of clauses increases the nonlinear dependency and sensitivity among variables, the neural network is required to learn how to prioritize the contributions of different clauses. To this end, we propose a specific cross- attention mechanism and introduce an unsupervised multi- objective loss function to capture the logical interplay between the positive and negative literal node representations. These two mechanisms are integrated with the hypergraph convolutional network to form the neural network module of our HyperSAT.

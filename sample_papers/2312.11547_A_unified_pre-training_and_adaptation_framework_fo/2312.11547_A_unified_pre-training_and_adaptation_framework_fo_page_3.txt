@@ -1,0 +1,21 @@
+use the original CO and Max- SAT to construct an adaptation framework with adversarial training for fine- tuning, which can further utilize the transferable information in Max- SAT. In both the pre- training and fine- tuning stages, the graph attention networks are leveraged as backbones to extract information in bipartite graphs transformed from COs on graphs and Max- SAT. The bipartite graph attention networks separately consider the aggregation of clauses and variables, which can better capture the dependencies between variables and clauses with different neighbor aggregation processes.  
+
+To summarize, the contributions of this work are as follows:  
+
+(1) We propose a unified pre-training and adaptation framework based on Max-SAT that can learn generalizable and transferable information to benefit the solving of COs on graphs.  
+
+(2) We propose to use Max-SAT to bridge various COs on graphs, by which all problems can be represented as a unified form. The Max-SAT instances also carry additional logical relationships that can be further utilized by GNNs.  
+
+(3) We design a pre-training and domain adaptation architecture to extract generalizable and transferable features based on instances generated from the Max-SAT and COs on graphs. This framework is versatile to various COs and can be used to boost the ability to solve these problems.  
+
+(4) We evaluate our method on both synthetic datasets and open benchmarks. The numerical results demonstrated the effectiveness of our framework in solving COs on graphs.  
+
+The remainder of this paper is organized as follows. Section 2 presents the learning methods for COs and popular GNN architectures for feature extraction on graphs. Section 3 introduces the problem transfer, pre-training, and fine-tuning procedures in our framework and summarizes the overall algorithms for training. The experiments that aim to address our three main claims are listed in Section 4. We conclude our work in Section 5.  
+
+## 2 Related Work  
+
+### 2.1 Learning Methods for Solving CO Problems  
+
+Traditional methods for solving CO mainly include branch and bound, dynamic programming, and heuristic algorithms. Branch and bound is a branch- and- prune search method used to reduce the search space [6, 16, 17]. It progressively decomposes the problem into smaller subproblems and applies pruning strategies to exclude branches that cannot produce the optimal solution. Dynamic programming breaks down a large problem into smaller subproblems and solves them by utilizing the relationships between the subproblems [18- 21]. Dynamic programming is suitable for problems with overlapping subproblem structures, such as the knapsack problem [22] and TSP [23]. Heuristic methods employ heuristic strategies or random operations to search the solution space and continuously improve the current solution until a satisfactory solution is found or a predetermined stopping condition is met. Common heuristic algorithms include greedy algorithms [24], local search [25], simulated annealing [26], and genetic algorithms [27]. Traditional methods for solving CO problems have limitations including high computational complexity, lack of scalability for large- size problems, and limited solution quality in terms of finding globally optimal solutions.  
+
+In recent years, deep learning methods have emerged as promising approaches to tackle these problems by leveraging the power of data- driven modeling and computational intelligence. One category of methods approximates the process of solving CO problems through deep learning methods [28]. By learning from a dataset of problem instances, these deep learning models can capture intrinsic patterns and dependencies in the problem and the predictions are then utilized to guide the search process toward better solutions. These approaches offer advantages in terms of speed and scalability as they reduce the requirements of expensive evaluations for the objective function during the search. Another category of methods is based on learning- based heuristics and meta- heuristics [12- 14, 29]. Deep learning models can be employed to create intelligent decision rules or policies to guide the search process. Reinforcement learning techniques have demonstrated success in learning effective exploration- exploitation strategies for

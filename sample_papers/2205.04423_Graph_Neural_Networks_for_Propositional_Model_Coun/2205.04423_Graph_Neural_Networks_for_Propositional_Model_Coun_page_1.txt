@@ -1,0 +1,15 @@
+# Graph Neural Networks for Propositional Model Counting  
+
+Gaia Saveri \(^{1,2}\) and Luca Bortolussi \(^{2}\)  
+
+\(^{1}\) Department of Computer Science, University of Pisa, Italy gaia.saveri@phd.unipi.it \(^{2}\) Department of Mathematics and Geoscience, University of Trieste, Italy  
+
+Abstract. Graph Neural Networks (GNNs) have been recently leveraged to solve several logical reasoning tasks. Nevertheless, counting problems such as propositional model counting (#SAT) are still mostly approached with traditional solvers. Here we tackle this gap by presenting an architecture based on the GNN framework for belief propagation (BP) of [15], extended with self- attentive GNN and trained to approximately solve the #SAT problem. We ran a thorough experimental investigation, showing that our model, trained on a small set of random Boolean formulae, is able to scale effectively to much larger problem sizes, with comparable or better performances of state of the art approximate solvers. Moreover, we show that it can be efficiently fine- tuned to provide good generalization results on different formulae distributions, such as those coming from SAT- encoded combinatorial problems.  
+
+## 1 Introduction  
+
+Propositional model counting (#SAT), the problem of computing the number of satisfying assignments of a given Boolean formula, is of relevant importance in computer science as it arises in many domains, such as Bayesian reasoning and combinatorial designs [7]. Nevertheless, #SAT is #P- complete, thus computationally at least as hard as NP- complete problems [25]. \(^{3}\)  
+
+For this reason, state of the art exact #SAT solver are not capable of handling industrial- size problems, hence a number of approximate solvers (i.e. methods providing an estimation of the number of solutions) have been developed, which are able to scale to larger problem sizes.  
+
+On the other hand, in the last few years there has been an increasing interest in leveraging machine learning in general and deep learning in particular to solve logical and combinatorial reasoning tasks [18,17,5]. Graph Neural Networks (GNNs) [21] fit well in this scenario as they carry inductive biases that effectively encode combinatorial inputs, such as permutation invariance and sparsity awareness [4]. Although not always providing the same exactness guarantees of traditional solvers, the rationale of using learning- based approaches (among which GNNs) in these fields is that they can provide

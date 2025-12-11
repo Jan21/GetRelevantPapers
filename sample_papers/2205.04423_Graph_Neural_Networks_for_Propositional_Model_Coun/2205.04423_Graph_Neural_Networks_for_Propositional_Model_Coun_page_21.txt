@@ -1,0 +1,19 @@
+## C Configuration and Ablation Studies  
+
+## C.1 BPGAT Parameter Tuning  
+
+Before setting BPGAT architecture's parameters to the ones detailed in Section 4.1, we performed several tuning experiments.  
+
+Learning the Damping Parameter In order to assess whether it is better to use a fixed scalar parameter \(\alpha\) or a learned operator \(\Delta\) as damping parameter of Equation 4, we tried all possible configurations (each configuration is trained as specified in Section 4.1).  
+
+In Table 10, BPGAT refers to the architecture with damping parameter computed by an MLP \(\Delta\) for factor- to- variable messages, and fixed to 0.5 for variable- to- factor messages; BPGAT_VF refers to the architecture with damping parameter computed by an MLP \(\Delta\) for variable- to- factor messages, and fixed to 0.5 for factor- to- variable messages; BPGAT_ALL refers to the model trained with an MLP \(\Delta\) for transforming both kind of messages; BPGAT_NONE refers to the model trained with both damping parameter fixed to 0.5. Results justify our choice of using a learned operator \(\Delta\) only for updating factor- to- variable messages.  
+
+Table 10. RMSE/MRE comparison of BPGAT trained with different configurations of the damping parameter.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>BPGAT_VF</td><td>BPGAT_ALL</td><td>BPGAT_NONE</td></tr><tr><td>Test 1</td><td>0.1276/0.001366</td><td>0.2351/0.002762</td><td>0.3157/0.003930</td><td>0.4158/0.006443</td></tr><tr><td>Test 2</td><td>0.3100/0.003201</td><td>0.8525/0.01001</td><td>0.9493/0.01601</td><td>0.9238/0.01555</td></tr><tr><td>Test 3</td><td>0.1748/0.001471</td><td>0.2109/0.002998</td><td>0.2589/0.003041</td><td>0.3013/0.003344</td></tr></table>  
+
+Number of Message Passing Iterations Another parameter that we explored is the number \(T\) of message passing rounds, i.e. the number of times Equations 11 and 12 are iterated before the readout phase (Equation 9) is executed. Results are shown in Table 11: the model achieves the highest performance when \(T = 5\) .  
+
+Table 11. RMSE/MRE comparison for different number of message passing iterations \(T\) . BPGAT, BPGAT_10 and BPGAT_15 refer to the model trained with \(T = 5,10,15\) , respectively.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>BPGAT_10</td><td>BPGAT_15</td></tr><tr><td>Test 1</td><td>0.1276/0.001366</td><td>0.1684/0.003415</td><td>0.1775/0.003694</td></tr><tr><td>Test 2</td><td>0.3100/0.003201</td><td>0.3751/0.005622</td><td>0.5328/0.006294</td></tr><tr><td>Test 3</td><td>0.1748/0.001471</td><td>0.2555/0.003165</td><td>0.2784/0.005979</td></tr></table>

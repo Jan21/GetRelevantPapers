@@ -1,0 +1,27 @@
+# NEURAL HEURISTICS FOR SAT SOLVING  
+
+Sebastian Jaszczur University of Warsaw  
+
+Michal Łuszczyk University of Warsaw  
+
+Henryk Michalewski University of Warsaw, deepsense.ai  
+
+## ABSTRACT  
+
+We use neural graph networks with a message- passing architecture and an attention mechanism to enhance the branching heuristic in two SAT- solving algorithms. We report improvements of learned neural heuristics compared with two standard human- designed heuristics.  
+
+## 1 INTRODUCTION  
+
+The Boolean satisfiability problem (SAT) is the problem of determining the existence of a solution for a given propositional logic formula. It is a NP- complete problem, meaning that any NP problem can be reduced to SAT problem in polynomial time [Kar72].  
+
+We explore the possibility of using neural networks in SAT solving as branching heuristics in search algorithms'. We focus on two SAT- solving algorithms: DPLL (Algorithm 1) and more advanced CDCL. Both of those are complete backtracking- based search algorithms. Both depend on the branching heuristic choose- literal, which chooses branching variable and its Boolean value. The expected running time is heavily dependent on the quality  
+
+1: function DPLL(Φ) 2: \(\Phi \gets \mathrm{simplify}(\Phi)\) 3: if \(\Phi\) is trivially satisfiable then return True 4: if \(\Phi\) is trivially unsatisfiable then return False 5: literal \(\leftarrow\) choose- literal(Φ) 6: if DPLL(Φ ∧ literal) then return True 7: if DPLL(Φ ∧ - literal) then return True 8: return False  
+
+Algorithm 1: High level overview of DPLL. In this work, we embed neural network as choose- literal. In DPLL, simplify contains unit propagation and clause elimination. Trivially satisfiable and trivially unsatisfiable for CNF means respectively an empty formula, and a formula containing an empty clause.  
+
+of this heuristic [MS99]. In this work we use neural networks as choose- literal heuristic and compare its performance with DLIS and Jeroslow- Wang One- Sided (JW- OS) heuristics, which are presented in [MS99, MMZ+01] as one of the best strategies in most circumstances. We compare the performance in terms of number of branching decisions and show the possibility of enhancing the performance of SAT solvers with the help of learned heuristics.  
+
+## 2 RELATED WORK  
+
+[SLB+18] proposed the NeuroSAT message- passing network architecture for SAT- solving that generates the assignment of variables directly in the graph. This is an important inspiration for our work, although in contrast to [SLB+18] we use a message- passing network for guidance of a backtracking- based algorithm instead. A similar graph representation, but more general in order to accommodate for higher- order logic is used in FormulaNet presented in [TWTD17]. To the best of our knowledge the FormulaNet architecture was never used for neural guidance. In [SLB+18, WTWD17] formulas are represented as graphs and a general approach to neural networks and graphs, including the attention mechanism, can be found in [BHB+18, VCC+17]. The PossibleWorldNet architecture described in [ESA+18] is based on the TreeNN architecture, with an additional idea of checking multiple possible worlds. We consider the exploration of possible worlds as an alternative to structured backtracking- based search algorithms like DPLL and CDCL. It is worth noting that PossibleWorldNet could be modified to use a message- passing architecture while keeping the exploration of possible worlds. Another application of TreeNN for proof synthesis in propositional logic was proposed in [SS18]. EqNet [ACKS16] solves a more

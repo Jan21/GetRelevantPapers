@@ -1,0 +1,15 @@
+perspective of data-efficiency because small random formulae are fast to generate (differently from other distributions) and the fine-tuning phase requires only a few tens of distribution-specific labeled samples. These results are also relevant from the time-efficiency perspective, as only retraining the model for 250 epochs is needed, for each unseen data distribution.  
+
+Results of the comparison between our fine- tuned model (FT_BPGAT) and ApproxMC are shown in Table 5. It is worth observing that the performance of our architecture is comparable and in some cases outperforming that of ApproxMC (especially in terms of MRE).  
+
+Table 3. Statistics of the datasets used to test generalization. Parameters under 'Domset' (which stands for dominating set), 'Color' (which stands for graph coloring) and 'Clique' (which stands for clique detection) are the pair \((N,p)\) used to generate formulae in the dataset. For all of them \(k = 3\) has been used.   
+
+<table><tr><td>Dataset</td><td>Avg # var</td><td>Avg # cl</td><td>Avg # sol</td><td>Avg t (s)</td></tr><tr><td>Network</td><td>113.3</td><td>294.7</td><td>1.19e+20</td><td>123.9</td></tr><tr><td>Domset (15, 0.6)</td><td>38.43</td><td>510.15</td><td>203.3</td><td>3.76e-2</td></tr><tr><td>Color (10, 0.6)</td><td>65.63</td><td>294.54</td><td>572.9</td><td>3.19e-2</td></tr><tr><td>Clique (15, 0.5)</td><td>46.37</td><td>1145.73</td><td>102.2</td><td>3.86e-2</td></tr></table>  
+
+Table 4. RMSE/MRE performance of BPGAT when fine-tuned for the specific data distribution (FT_BPGAT), when trained on the specific data distribution (TS_BPGAT) and when trained on random formulae (BPGAT).   
+
+<table><tr><td>Dataset</td><td>FT_BPGAT</td><td>TS_BPGAT</td><td>BPGAT</td></tr><tr><td>Network</td><td>0.2580/0.005271</td><td>1.9334/0.04887</td><td>14.2839/0.3608</td></tr><tr><td>Domset</td><td>0.5508/0.04252</td><td>1.7808/0.7125</td><td>11.9190/9.5070</td></tr><tr><td>Color</td><td>1.2110/0.1774</td><td>1.3430/0.2046</td><td>26.1898/5.9593</td></tr><tr><td>Clique</td><td>0.007834/0.002475</td><td>0.01773/0.007333</td><td>1.9625/0.8983</td></tr></table>  
+
+Table 5. RMSE/MRE comparison of BPGAT fine-tuned for the specific data distributions (FT_BPGAT) and ApproxMC.   
+
+<table><tr><td>Dataset</td><td>FT_BPGAT</td><td>ApproxMC</td></tr><tr><td>Network</td><td>0.2580/0.005271</td><td>0.07619/0.05403</td></tr><tr><td>Domset</td><td>0.5508/0.04252</td><td>0.08155/0.02856</td></tr><tr><td>Color</td><td>1.2110/0.1774</td><td>0.09426/0.04241</td></tr><tr><td>Clique</td><td>0.007834/0.002475</td><td>0.01113/0.04795</td></tr></table>

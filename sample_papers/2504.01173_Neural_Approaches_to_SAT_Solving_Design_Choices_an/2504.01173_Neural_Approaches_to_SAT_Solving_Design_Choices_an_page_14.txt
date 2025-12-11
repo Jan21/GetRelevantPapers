@@ -1,0 +1,19 @@
+Message Passing Mechanism: While LSTM- based message passing shows advantages in some configurations, particularly for unsupervised training, we found that RNN- based approaches offer a better balance of performance and interpretability for assignment- based training. RNN updates with VCG representation achieved higher results for finding satisfying assignments, with \(68.8\%\) SAT accuracy and \(84.4\%\) decision accuracy. The simpler RNN structure also facilitates better analysis of the model's internal reasoning process. However, we found training RNN- based models for SAT/UNSAT classification particularly challenging, with LSTM being more stable for this specific task.  
+
+Supervision Approach: Our experiments reveal distinct advantages for different supervision approaches:  
+
+1. Assignment-based supervision shows better performance for finding satisfying assignments, especially with VCG+RNN configuration (68.8% SAT accuracy, 84.4% decision accuracy).  
+
+2. Unsupervised learning achieves the lowest average gaps across configurations (as low as 0.91 for VCG+RNN and 0.84 for VCG+LSTM). This makes unsupervised training useful for applications where minimizing unsatisfied clauses is the priority.  
+
+3. SAT/UNSAT classification training, while challenging with RNN, enables an interesting property: models trained only for classification develop an implicit ability to separate embeddings for positive and negative literals. This separation allows for retrieving satisfying assignments through clustering techniques, despite the model not being explicitly trained for assignment prediction.  
+
+Based on the results reported in Table 2, we identify the VCG+RNN+Assignment configuration as our most effective approach, offering a good balance between assignment accuracy and computational efficiency. This configuration forms the foundation for our further experiments and analysis in subsequent sections.  
+
+Assignment Training Refinements: Table 3 highlights the impact of a novel training method we introduce, here called "closest assignment", with the VCG+RNN configuration across multiple datasets. This method computes assignments that minimize Hamming distance to the model's current predictions, showing improvements over training with precalculated assignments, especially for formulas with more variables. For SR100, using the closest assignment approach reduces the average gap from 3.81 to 1.43 for SAT+UNSAT training and improves SAT accuracy from 44.8% to 53.2%.  
+
+This improvement correlates with the number of possible solutions in the benchmarks (SR10- 100 has a median of 16 solutions per formula compared to SR3- 40's median of 7), supporting our hypothesis that for formulas with larger solution spaces, guiding the model with dynamically selected assignments that align with its current predictions yields better generalization than using fixed predetermined assignments.  
+
+The computational challenges of calculating closest assignments during training are noteworthy, particularly for larger benchmarks like 3SAT+UNSAT, where this approach became impractical and we therefore omit this experiment and leave the last row of Table 3 empty. It also highlights an opportunity for future work on more efficient approximation methods for finding near- optimal assignments.  
+
+Training Data Composition: Our results also indicate that training exclusively on SAT instances (SAT only) improves performance for finding satisfying assignments. For SR40, this approach with closest assignment training achieves our highest SAT accuracy of 76% and decision accuracy of 88%. However, models trained on both SAT and UNSAT instances (SAT+UNSAT)

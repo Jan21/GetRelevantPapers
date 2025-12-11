@@ -1,0 +1,43 @@
+A.; d'Aliche- Buc, F.; Fox, E. B.; and Garnett, R., eds., Advances in Neural Information Processing Systems 32: Annual Conference on Neural Information Processing Systems 2019, NeurIPS 2019, December 8- 14, 2019, Vancouver, BC, Canada, 4083- 4092.  
+
+Selsam, D.; and Bjorner, N. 2019. Guiding HighPerformance SAT Solvers with Unsat- Core Predictions. In Janota, M.; and Lynce, I., eds., Theory and Applications of Satisfiability Testing - SAT 2019 - 22nd International Conference, SAT 2019, Lisbon, Portugal, July 9- 12, 2019, Proceedings, volume 11628 of Lecture Notes in Computer Science, 336- 353. Springer.  
+
+Selsam, D.; Lamm, M.; Bunz, B.; Liang, P.; de Moura, L.; and Dill, D. L. 2019. Learning a SAT Solver from Single- Bit Supervision. In 7th International Conference on Learning Representations, ICLR 2019, New Orleans, LA, USA, May 6- 9, 2019. OpenReview.net.  
+
+Vazirani, V. V. 2001. Approximation algorithms. Springer. ISBN 978- 3- 540- 65367- 7.  
+
+Vinyals, O.; Fortunato, M.; and Jaitly, N. 2015. Pointer Networks. In Cortes, C.; Lawrence, N. D.; Lee, D. D.; Sugiyama, M.; and Garnett, R., eds., Advances in Neural Information Processing Systems 28: Annual Conference on Neural Information Processing Systems 2015, December 7- 12, 2015, Montreal, Quebec, Canada, 2692- 2700.  
+
+Wu, Z.; Pan, S.; Chen, F.; Long, G.; Zhang, C.; and Yu, P. S. 2021. A Comprehensive Survey on Graph Neural Networks. IEEE Trans. Neural Networks Learn. Syst., 32(1): 4- 24.  
+
+Xu, K.; Hu, W.; Leskovec, J.; and Jegelka, S. 2019. How Powerful are Graph Neural Networks? In 7th International Conference on Learning Representations, ICLR 2019, New Orleans, LA, USA, May 6- 9, 2019. OpenReview.net.  
+
+Xu, K.; Li, J.; Zhang, M.; Du, S. S.; Kawarabayashi, K.; and Jegelka, S. 2020. What Can Neural Networks Reason About? In 8th International Conference on Learning Representations, ICLR 2020, Addis Ababa, Ethiopia, April 26- 30, 2020. OpenReview.net.  
+
+Yolcu, E.; and Poczos, B. 2019. Learning Local Search Heuristics for Boolean Satisfiability. In Wallach, H. M.; Larochelle, H.; Beygelzimer, A.; d'Aliche- Buc, F.; Fox, E. B.; and Garnett, R., eds., Advances in Neural Information Processing Systems 32: Annual Conference on Neural Information Processing Systems 2019, NeurIPS 2019, December 8- 14, 2019, Vancouver, BC, Canada, 7990- 8001.  
+
+Zhang, W.; Sun, Z.; Zhu, Q.; Li, G.; Cai, S.; Xiong, Y.; and Zhang, L. 2020. NLocalSAT: Boosting Local Search with Solution Prediction. In Bessiere, C., ed., Proceedings of the Twenty- Ninth International Joint Conference on Artificial Intelligence, IJCAI 2020, 1177- 1183. ijcai.org.  
+
+Zhou, J.; Cui, G.; Hu, S.; Zhang, Z.; Yang, C.; Liu, Z.; Wang, L.; Li, C.; and Sun, M. 2020. Graph neural networks: A review of methods and applications. AI Open, 1: 57- 81.  
+
+## Appendix  
+
+## Proof of Theorem 1  
+
+A CNF formula \(\phi\) can be represented as a pair \((L, C)\) , where \(L\) is the set of literals, and \(C\) is the set of clauses. Let \(\mathcal{A}\) be the proposed distributed local algorithm for MaxSAT problem. First of all, we present the following two lemmas:  
+
+Lemma 2. Given the algorithm \(\mathcal{A}\) , there exists a single- layer graph neural network \(\mathcal{N}\) , such that for any input \(\phi = (L, C)\) , \(\mathcal{A}(\phi) = \mathcal{N}(\phi)\) holds.  
+
+Lemma 3. The algorithm \(\mathcal{A}\) has an approximation ratio of \(1 / 2\) for any input \(\phi = (L, C)\) .  
+
+If these lemmas hold, we have found a single- layer GNN \(\mathcal{N}\) that achieves the same performance as \(\mathcal{A}\) when solving MaxSAT problem, which is guaranteed to have a \(1 / 2\) - approximation. As a consequence, Theorem 1 holds.  
+
+Proof of Lemma 2. We use a single- layer GNN \(\mathcal{N}\) to align with the algorithm \(\mathcal{A}\) . Let \(L\) be a finite set of literals, and \(d = |L|\) . We assume that the embedding of each clause is a 0- 1 vector of length \(d\) , which represents a set of literals, and the embedding of each literal \(L_{i}\) is composed of two values: \(W(L_{i})\) and \(W(\widetilde{L}_{i})\) . Then, we construct some key components of \(\mathcal{N}\) to align with the operations in \(\mathcal{A}\) .  
+
+Consider the operation \(S(C_{j}) \leftarrow S(C_{j}) \cup \{L_{i}\}\) (line 4). As \(S(C_{j})\) and \(\{L_{i}\}\) are sets of literals, this set union operation is equivalent to a logical AND function of two 0- 1 vectors, which is apparently linearly separable. So there exists a learnable function \(f_{1}: \mathbb{R}^{d} \times \mathbb{R}^{d} \rightarrow \mathbb{R}^{d}\) to simulate the operation exactly.  
+
+Consider the operation of picking a literal \(L^{*}\) from \(S(C_{j})\) , and \(W(L^{*}) \leftarrow W(L^{*}) + 1\) (lines 6- 7). According to the universal approximation theorem, there exists a learnable function \(f_{2}: \mathbb{R} \times \mathbb{R}^{d} \rightarrow \mathbb{R}\) to approximate this operation with arbitrarily small error \(\epsilon\) . Next, we show the error will not break the exact simulation of the assignment operation (lines 10- 14). When \(W(L_{i}) \neq W(\widetilde{L}_{i})\) , the condition \(W(L_{i}) \geq W(\widetilde{L}_{i})\) still holds if \(\epsilon < 0.5\) , since the elements in \(W\) are integers. Besides, when \(W(L_{i}) = W(\widetilde{L}_{i})\) , either \(L_{i}\) or \(\widetilde{L}_{i}\) can be assigned True. So there exists an \(f_{2}\) with \(\epsilon < 0.5\) to simulate the operations exactly.  
+
+The alignment and simulation of other parts are straightforward. As shown above, each component of \(\mathcal{N}\) can align with an operation in \(\mathcal{A}\) . Therefore, for any input \(\phi = (L, C)\) , their outputs must be equal, i.e., \(\mathcal{A}(\phi) = \mathcal{N}(\phi)\) . \(\square\)  
+
+Proof of Lemma 3. In the algorithm \(\mathcal{A}\) , the picking operation of literal (line 6) transforms the original MaxSAT problem \(P\) into a new Max1SAT problem \(P'\) , where \(W(L_{i})\) counts the number of occurrences of literal \(L_{i}\) in \(P'\) . Given a solution of \(P'\) , the number of satisfied clauses of \(P\) is at least as large as that of \(P'\) . Then, we consider the assignment operation of literal (lines 9- 15) in \(\mathcal{A}\) . For a literal \(L_{i}\) appearing in \(P'\) , according to the condition \(W(L_{i}) \geq W(\widetilde{L}_{i})\) , the satisfied clauses are no less than the rejected ones if \(L_{i}\) is assigned True. Therefore, a solution produced by \(\mathcal{A}\) satisfies

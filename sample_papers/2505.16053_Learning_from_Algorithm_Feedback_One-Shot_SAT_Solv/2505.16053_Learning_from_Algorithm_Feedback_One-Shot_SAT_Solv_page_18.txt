@@ -1,0 +1,13 @@
+Table 4: Hyperparameters of the supervised models.   
+
+<table><tr><td></td><td>3SAT</td><td>3COL</td><td>CRYPTO</td></tr><tr><td>batch size</td><td>50</td><td>50</td><td>50</td></tr><tr><td>learning rate η</td><td>0.0001</td><td>0.0001</td><td>0.0001</td></tr><tr><td>weight decay</td><td>0.1</td><td>0.1</td><td>0.1</td></tr><tr><td>epochs</td><td>200</td><td>200</td><td>200</td></tr><tr><td>hidden dim d</td><td>256</td><td>256</td><td>256</td></tr><tr><td>model depth L</td><td>10</td><td>10</td><td>10</td></tr><tr><td>α Glucose</td><td>101</td><td>103</td><td>10-2</td></tr><tr><td>α March</td><td>10-2</td><td>10-2</td><td>101</td></tr></table>  
+
+## Supervised Comparison with March  
+
+In Figure 7, we further provide the comparison with supervised baselines from Section 3.2 for the March base solver. On satisfiable 3SAT problems, our RLAF- trained policy and the guidance based on backbone prediction are roughly on par. However, on unsatisfiable 3SAT problems we found that backbone- based guidance increases the solver's runtime be approximately \(10\%\) . Backbone predictions are therefore not a useful guidance signal on this instance type when working with a strong base solver, such as March. Our RLAF- based policy does not share this problem. On the 3COL and CRYPTO distributions, the RLAF- trained policy consistently outperforms the guidance based on UNSAT core prediction, as for the Glucose base solver.  
+
+<center>Figure 7: Runtimes relative to the base solver March for RLAF and supervised approaches based on Backbones and UNSAT cores. Less is better. We include the time required for the GNN forward pass in the runtime. </center>  
+
+## B.5 GNN Overhead  
+
+In Table 5 we provide the results from our main experiments and additionally report the mean wall- clock runtime of the GNN forward pass. For all instance distributions, this GNN overhead is between 0.02 and 0.1 seconds, which is negligible when compared to SAT solver runtimes on non- trivial instances. However, we note that classical SAT solvers commonly perform over \(10^{4}\) branching decisions per second. In a setting where every guided branching decision requires a separate forward pass, as in prior RL- based work (Kurin et al., 2020; Cameron et al., 2024), it is therefore not possible to guide every branching decision without incurring a massive runtime overhead. Our one- shot setup avoids this problem as it incorporates multiplicative weights obtained in a single GNN pass in every branching decision with minimal runtime overhead.

@@ -1,0 +1,19 @@
+## S.5 Analysis of the Evolution of Literal Embeddings  
+
+To reinforce the assertion regarding the relationship between NeuroSAT and the SDP relaxation for MaxSAT, we tested whether the evolution of literal embeddings in NeuroSAT actually corresponds to an optimization process that tries to maximize the SDP objective.  
+
+We first sampled several hundred 2- CNF formulas and obtained the SDP objective function for each of them using the expressions mentioned in Appendix S.1. The objective function is a linear function of the Gram matrix \(Y\) corresponding to the inner products between the unit vectors (representing the lifted variables and one vector \(\mathbf{y}_0\) representing the value TRUE).  
+
+An SDP solver optimizes the matrix \(Y\) while adhering to specified constraints (which ensure that the matrix can be obtained as a Gram matrix for some set of unit vectors). To observe the behavior of the same objective function with literal embeddings from NeuroSAT, we need to compute this Gram matrix \(Y\) after each MP iteration of the GNN. If the evolution of these embeddings would correspond to an optimization process maximizing the objective, then we should observe an increase in this objective after each MP step.  
+
+When computing the matrix \(Y\) from the NeuroSAT embeddings, two details must be taken into account. First, only the positive literals are taken into account as the objective function automatically assumes that the embeddings of negative literals are obtained by negation of the positive ones. Second, NeuroSAT does not explicitly represent the embedding \(\mathbf{y}_0\) representing the value TRUE. Therefore, we estimate it by averaging all literals that are assigned to TRUE in the extracted solution. Before computing the matrix \(Y\) , we also center all vectors to 0 and normalize them to unit vectors.  
+
+For each iteration \(t\) of the GNN, we obtain the matrix \(Y(t) = L^{(t)}L^{(t)T}\) where \(L^{(t)}\) represents the matrix of centered and normalized positive literal embeddings with the estimated vector \(\mathbf{y}_0\) (also normalized and centered) concatenated as its first row. In Figure 7 we show how the objective function changes after each iteration \(t\) for 10 randomly selected instances. We also include the objective value obtained with a SDP solver as a reference.  
+
+<center>Figure 7: A plot showing how the SDP objective value computed from the NeuroSAT embeddings (in blue) changes after each iteration of MP. The horizontal red line represents the value of the same objective obtained with an SDP solver. </center>  
+
+Figure 7 shows that the evolution of literal embeddings corresponds to an increase in the objective value of SDP. It is also visible that there is a gap between the highest value achieved and the objective value obtained with an SDP solver. In Figure 8 (a), we plot a histogram of these gaps computed for all generated problems.  
+
+We hypothesized that the gap may be partially caused by the inappropriate choice of the vector \(\mathbf{y}_0\) . Therefore, we took the matrix \(Y^{(t)}\) from the last step of MP, \(t = 40\) , and further optimized it using a gradient- based SDP solver (implemented in PyTorch). This closed the gaps mentioned above in most instances, as visible in Figure 8 (b).  
+
+In Figure 9, we show how the entries in the matrix \(Y^{(t)}\) change after further optimization for a random formula. As can be seen, the largest change in values occurs in the first row and in the first column, which correspond to inner products of each literal embedding with the vector \(\mathbf{y}_0\) . This supports our hypothesis that if we would be able to pick the vector \(\mathbf{y}_0\) in a more optimal way, the gaps in Figure 7 would be smaller.

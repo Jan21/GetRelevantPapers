@@ -1,0 +1,65 @@
+1: Input:  
+
+2: Training formulas \(\mathcal{F} = \{\phi_{1},\ldots ,\phi_{N}\}\)  
+
+3: Number of GRPO iterations \(K\in \mathbb{N}\)  
+
+4: Number of samples per instance \(M\in \mathbb{N}\)  
+
+5: Number of optimizer steps per GRPO iteration \(S\in \mathbb{N}\)  
+
+6: Clip ratio \(\epsilon \in (0,1)\) , KL penalty weight \(\beta \geq 0\) , learning rate \(\eta >0\)  
+
+7: Initialize: Random weights \(\theta_{0}\)  
+
+8: for \(k = 1,2,\ldots ,K\) do  
+
+9: for \(i = 1,2,\ldots ,N\) do  
+
+10: for \(j = 1,2,\ldots ,M\) do  
+
+11: \(\mathcal{W}_{i,j}\sim \pi_{\theta_{k - 1}}(\phi_{i})\)  
+
+12: \(C_{i,j}\gets \mathrm{Cost}(\phi_{i},\mathcal{W}_{i,j})\)  
+
+13: \(R(\phi_{i},\mathcal{W}_{i,j})\gets - C_{i,j}\)  
+
+14: end for  
+
+15: \(\mathbf{R}_{i}\gets \{R(\phi_{i},\mathcal{W}_{i,j})\mid j\in \{1,\ldots ,M\} \}\)  
+
+16: for \(j = 1,2,\ldots ,M\) do  
+
+17: \(\hat{A}_{i,j}\gets \frac{R(\phi_{i},\mathcal{W}_{i,j}) - \mathrm{mean}(\mathbf{R}_{i})}{\mathrm{std}(\mathbf{R}_{i})}\)  
+
+18: end for  
+
+19: end for  
+
+20: \(\theta \gets \theta_{k - 1}\)  
+
+21: for \(s = 1,2,\ldots ,S\) do  
+
+22: for \(i = 1,2,\ldots ,N\) do  
+
+23: for \(j = 1,2,\ldots ,M\) do  
+
+24: \(r_{i,j}(\theta)\gets \frac{\pi_{\theta}(\mathcal{W}_{i,j}|\phi_{i})}{\pi_{\theta_{k - 1}}(\mathcal{W}_{i,j}|\phi_{i})}\)  
+
+25: end for  
+
+26: \(\mathcal{L}_{\mathrm{PPO}}(\theta \mid \phi_{i})\gets \frac{1}{M}\sum_{j}\left[\min \left(r_{i,j}(\theta)\hat{A}_{i,j},\mathrm{clip}(r_{i,j}(\theta),1 - \epsilon ,1 + \epsilon)\hat{A}_{i,j}\right)\right]\)  
+
+27: \(\mathcal{L}(\theta \mid \phi_{i})\gets \mathcal{L}_{\mathrm{PPO}}(\theta \mid \phi_{i}) - \beta \cdot \mathrm{KL}\left(\pi_{\theta}(\phi_{i}),\pi_{\theta_{k - 1}}(\phi_{i})\right)\)  
+
+28: end for  
+
+29: \(\theta \gets \theta +\eta \nabla_{\theta}\sum_{i}\mathcal{L}(\theta \mid \phi_{i})\)  
+
+30: end for  
+
+31: \(\theta_{k}\gets \theta\)  
+
+32: end for  
+
+33: Output: Final model weights \(\theta_{K}\)

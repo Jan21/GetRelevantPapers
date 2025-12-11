@@ -1,0 +1,39 @@
+Table 1: Dataset statistics. We report the average number of instances, variables and clauses, for different groups of instances.   
+
+<table><tr><td>Name</td><td># instances</td><td># variables</td><td># clauses</td><td>Name</td><td># instances</td><td># variables</td><td># clauses</td></tr><tr><td>Circuit 1</td><td>788</td><td>10,404</td><td>39,502</td><td>Circuit 16</td><td>22,050</td><td>1,002</td><td>3,969</td></tr><tr><td>Circuit 2</td><td>49</td><td>6,199</td><td>26,108</td><td>Circuit 17</td><td>10</td><td>1,140</td><td>3,914</td></tr><tr><td>Circuit 3</td><td>36</td><td>3,612</td><td>13,079</td><td>Circuit 18</td><td>798</td><td>1,058</td><td>3,829</td></tr><tr><td>Circuit 4</td><td>2,014</td><td>1,783</td><td>7,074</td><td>Circuit 19</td><td>38</td><td>1,067</td><td>3,770</td></tr><tr><td>Circuit 5</td><td>21</td><td>2,421</td><td>6,830</td><td>Circuit 20</td><td>14,840</td><td>952</td><td>3,663</td></tr><tr><td>Circuit 6</td><td>3,823</td><td>1,559</td><td>6,281</td><td>Circuit 21</td><td>2,024</td><td>929</td><td>3,593</td></tr><tr><td>Circuit 7</td><td>2</td><td>401</td><td>6,172</td><td>Circuit 22</td><td>23</td><td>1,040</td><td>3,256</td></tr><tr><td>Circuit 8</td><td>25,591</td><td>1,563</td><td>6,171</td><td>Circuit 23</td><td>401</td><td>932</td><td>3,085</td></tr><tr><td>Circuit 9</td><td>615</td><td>1,639</td><td>6,034</td><td>Circuit 24</td><td>105</td><td>909</td><td>2,297</td></tr><tr><td>Circuit 10</td><td>582</td><td>1,709</td><td>5,940</td><td>Circuit 25</td><td>1,420</td><td>851</td><td>2,109</td></tr><tr><td>Circuit 11</td><td>736</td><td>1,412</td><td>5,308</td><td>Circuit 26</td><td>69</td><td>627</td><td>1,658</td></tr><tr><td>Circuit 12</td><td>99</td><td>1,341</td><td>5,246</td><td>Circuit 27</td><td>16</td><td>497</td><td>1,418</td></tr><tr><td>Circuit 13</td><td>56</td><td>1,540</td><td>5,230</td><td>Circuit 28</td><td>298</td><td>454</td><td>1,392</td></tr><tr><td>Circuit 14</td><td>978</td><td>1,224</td><td>4,757</td><td>Circuit 29</td><td>564</td><td>411</td><td>1,389</td></tr><tr><td>Circuit 15</td><td>662</td><td>1,051</td><td>4,109</td><td>Circuit 30</td><td>21</td><td>491</td><td>1,165</td></tr></table>  
+
+(a) LEC data. The instances are regrouped by the circuit optimization sequence from which they were generated.   
+
+<table><tr><td>Runtime Range (s)</td><td># instances</td><td># variables</td><td># clauses</td></tr><tr><td>(0, 1]</td><td>747</td><td>2,505</td><td>48,163</td></tr><tr><td>(1, 10]</td><td>416</td><td>4,212</td><td>74,203</td></tr><tr><td>(10, 100]</td><td>427</td><td>4,415</td><td>98,151</td></tr><tr><td>(100, 1500]</td><td>498</td><td>4,250</td><td>135,969</td></tr></table>
+
+(b) SAT Competition data. The instances are regrouped by their best runtime among the base solvers of Subsection 4.1.  
+
+differ in their bandit- based scoring mechanism for branching. It should be noted that our method works for any choice of candidate solvers.  
+
+### 4.2 Datasets  
+
+We train and evaluate on two datasets.  
+
+Logic Equivalence Checking (LEC). This is a proprietary dataset generated from logic equivalence checking steps in electronic circuit design. Circuits undergo a large number of optimization steps during logic synthesis, and at each one of the steps, it is necessary to verify that the circuits before and after optimization are functionally equivalent. This is done by verifying that the two circuits produce the same outputs for all possible inputs, which is equivalent to solving a SAT problem [17, 21]. We collected logic equivalence checks from the optimization of 30 industrial circuits, yielding a total of 78,727 SAT instances. A summary of dataset statistics is provided as Table 1a.  
+
+SAT Competition (SC). This is a subset of the Anniversary Track Benchmark of the 2022 SAT Competition [2], which itself was created by collecting all instances from the Main, Crafted and Application tracks of the previous SAT competitions up to that year. We ran each instance of the Anniversary benchmark through each of the seven solvers in the portfolio, and excluded those that could not be solved within 1,500 seconds by any solver, as well as those with more than 20,000 variables, yielding 2,088 SAT instances. A summary of dataset statistics is provided as Table 1b.  
+
+### 4.3 Baselines  
+
+We compare our approach with the following baselines.  
+
+Best Base Solver. The individual solver among the portfolio of seven that had the best performance on the training data, measured in average runtime over all instances. In practice, this was the bulky solver for both datasets.  
+
+SATzilla07 [46]. We adapt this landmark SAT solving machine learning model, based on a linear ridge regression model trained to predict runtimes based on global handcrafted features that summarize SAT instance characteristics. Since our work focuses on SAT solver selection, we omit the presolving process in the original SATzilla pipeline. We also remove features in the original model that require probing. This leaves 33 global features (#1- 33 in the original article). The model is trained from the Ridge class in the scikit- learn [36] library with default settings. We convert the approach into a SAT solver selection model by selecting the solver with shortest predicted runtime.  
+
+SATzilla12 [45]. We also adapt the updated SATzilla model from 2012, which was based on random forest classification. Again, we remove the presolving process, and only use the features that do not require probing (features #1- 55 in the original article). We train a random forest model between each pair of solvers, weighting each training instance by the absolute difference in runtime between the two solvers, for \(7(7 - 1) / 2 = 21\) models in total. Each model is trained from the RandomForestClassifier class in scikit- learn with 99 trees and \([log_2(55)] + 1 = 7\) sampled features in each tree. At test- time, each model is used to vote which solver it prefers in its pair for solving an instance, and the final solver choice is made from the solver that has received the most votes.  
+
+ArgoSmArT [34]. This is an approach based on a \(k\) - nearest neighbors model trained for classification. We used the same 29 features as in the original paper, which form a subset of the 33 features used in our adaptation of SATzilla07. We use the KNeighborsClassifier class in scikit- learn with \(k = 9\) neighbors.  
+
+CNN [31]. We reimplement the approach of Loreggia et al. [31], where the CNF formula is interpreted as text, converted to its ASCII values and then to a grayscale image, before being resized to 128x128 pixels and fed to a Convolutional Neural Network (CNN). We use the same architecture as in the paper, which we implement in the pytorch [35] library, and train it over a cross- entropy loss with the Adam [26] algorithm, a learning rate of 1e- 3 and early stopping.  
+
+### 4.4 Metrics  
+
+We report the following metrics for performance evaluation. Results are averaged over five train- test folds over the data, and the average and standard deviation over those five folds are reported.  
+
+Average Runtime (Avg Runtime). For each instance, the method selects a solver, and this solver is used to solve the instance, reporting a runtime. These runtimes are then averaged over all instances. In other words, this is the average runtime that would be observed if this method were used for all instances, as a "portfolio" solver. Lower is better.

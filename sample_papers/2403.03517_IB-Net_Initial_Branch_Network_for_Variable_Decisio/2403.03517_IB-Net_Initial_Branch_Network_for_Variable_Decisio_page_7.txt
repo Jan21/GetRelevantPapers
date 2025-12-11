@@ -1,0 +1,29 @@
+Through experiments in Fig. 4(a), we conclude that the WLIG construction consistently outperforms Literal-Clause Graph commonly used in previous approaches, in terms of both accuracy and F1 scores targeting UNSAT problems and especially increase the performance on variables not in UNSAT- core. This evidence supports our decision to adopt WLIG for graph construction in our model.  
+
+## Supervision Signals  
+
+Results in Fig. 4(b) indicate that the UNSAT- core prediction as objective outperforms the SAT/UNSAT prediction when targeting industrial LEC dataset. The improved performance underscores the validity of our choice to employ UNSAT- core prediction as supervision signal in our model.  
+
+## Loss Functions  
+
+To target the special UNSAT problem in LEC context, we amend the Cross- Entropy loss into focal loss. Upon analysis in Fig. 4(c), we find that the Focal loss delivers superior performance, outpacing both KLDiv and Cross- Entropy used in previous approaches and considered common choices in classification. This result justifies our adoption of Focal loss as the preferred loss function in the imbalance data distribution.  
+
+### 5.3 Circuit Study  
+
+To further validate the effectiveness of our proposed method, IB- Net, we conducted a comprehensive case study focusing on three circuits that constitute a significant proportion of the LEC industrial dataset. For each of these circuits, we compared the runtime of IB- Net with that of the original Kissat method. Scatter plots in Fig. 5 present the comparisons. In these plots, each point corresponds to a single SAT problem from one of the three targeted circuits.  
+
+The plots illustrate a clear trend: across a wide range of problem sizes, IB- Net consistently outperforms Kissat. This performance advantage of IB- Net holds true when facing substantial variability in size of problems within these circuits, which indicate that our method is not only faster but also scalable and capable of handling large and complex problems efficiently. These findings underscore the potential of IB- Net to improve the performance of SAT solver in LEC, confirming the practical applicability of our method in a real- world setting.  
+
+### 5.4 Scalability  
+
+We plot scatter graphs in Fig. 6, showing memory consumption and training time of varying sizes of data samples under different computation units. WGCN uses significantly less memory across all sizes compared to LSTM, around only \(30\%\) . This stark difference suggests that model with WGCN is memory- efficient, potentially allowing for large or complex problem- solving without compromising system resources like GPU. WGCN also demonstrates faster training speeds across all data sample sizes. On average, WGCN is found to be approximately \(40\%\) quicker than LSTM. This speed advantage can reduce the time required for training models, thereby increasing the efficiency of model development process.  
+
+<center>Figure 6: The scalability: The memory cost (a) and training time (b) according to different number of variables. </center>  
+
+## 6 Conclusion  
+
+In this paper, we presented a novel approach specifically tailored to the UNSAT problem solving in LEC process. Our approach, termed as IB- Net, introduces a GNN model to predict a decision strategy queue and decision scores, serving as a powerful assistant tool for CDCL SAT solvers.  
+
+Our comprehensive set of experiments established the superiority of IB- Net in accelerating SAT solving, significantly outperforming existing methods. This performance gain is particularly pronounced within the context of LEC. Furthermore, our approach has demonstrated the capability to successfully solve instances that were previously deemed unsolvable using traditional SAT solvers.  
+
+The impact of IB- Net extends beyond its immediate performance advantages. By combining machine learning techniques with traditional SAT solvers, the unique blend of these disciplines can enable more efficient and robust solvers. As we continue to refine and expand on our method, we envision a future where the performance gains offered by approaches like IB- Net become standard in the realm of SAT solving.

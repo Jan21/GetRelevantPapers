@@ -1,0 +1,11 @@
+<center>(a) Average graph Ricci curvature lower bound (Equation 8) as a function of \(k\) and \(\alpha\) . </center>  
+
+<center>(b) Average graph Ollivier-Ricci curvature as a function of \(k\) and \(\alpha\) . </center>  
+
+Figure 4: Contour plots of the average graph Ricci curvature lower bound (a) and Ollivier- Ricci curvature (b) displaying the changes in average curvature as a function of \(k\) and \(\alpha\) . Both quantities behave similarly, especially as \(\alpha \to 0\) . We can see that in the case of the ORC, the stronger correction towards positive curvature due to the presence of cycles as \(\alpha \to \infty\) is in line with the general theory related to this discretization of the Ricci curvature [5]. Notice the difference between the contours of (b) and Figure 1b for large \(\alpha\) and \(k\) . Best viewed in color.  
+
+<center>Figure 5: Visualization of an easy, in terms of clause density \(\alpha\) , random 3-SAT problem with 256 variables in (a) bipartite and (b) circular layouts. There is a very small number of long-range interactions, as can clearly be seen in (b). Furthermore, for such very small \(\alpha\) , the average BFC approaches 0, in line with the developed theory. </center>  
+
+## A.5 Additional plots  
+
+In this section we provide additional and miscellaneous plot that help with visualizing various concepts explained in the main manuscript, such as the relationship between curvature and hardness, as well as visualizations of easy and hard problems. More details can be found in Figures 4, 5, 6 and 7.

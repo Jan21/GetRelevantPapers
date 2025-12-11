@@ -1,0 +1,35 @@
+[17] Weiwei Sun, Shengyu Feng, Shanda Li, and Yiming Yang. Co- bench: Benchmarking language model agents in algorithm search for combinatorial optimization. arXiv preprint arXiv:2504.04310, 2025.  
+
+[18] Chengrun Yang, Xuezhi Wang, Yifeng Lu, Hanxiao Liu, Quoc V Le, Denny Zhou, and Xinyun Chen. Large language models as optimizers. arXiv preprint arXiv:2309.03409, 2023.  
+
+[19] Yuxiao Huang, Wenjie Zhang, Liang Feng, Xingyu Wu, and Kay Chen Tan. How multimodal integration boost the performance of llm for optimization: Case study on capacitated vehicle routing problems. arXiv preprint arXiv:2403.01757, 2024.  
+
+[20] Bernardino Romera- Paredes, Mohammadamin Barekatain, Alexander Novikov, Matej Balog, M Pawan Kumar, Emilien Dupont, Francisco JR Ruiz, Jordan S Ellenberg, Pengming Wang, Omar Fawzi, et al. Mathematical discoveries from program search with large language models. Nature, 625(7995):468- 475, 2024.  
+
+[21] Fei Liu, Xialiang Tong, Mingxuan Yuan, Xi Lin, Fu Luo, Zhenkun Wang, Zhichao Lu, and Qingfu Zhang. Evolution of heuristics: Towards efficient automatic algorithm design using large language model. arXiv preprint arXiv:2401.02051, 2024.  
+
+[22] Haoran Ye, Jiarui Wang, Zhiguang Cao, Federico Berto, Chuanbo Hua, Haeyeon Kim, Jinkyoo Park, and Guojie Song. Reevo: Large language models as hyper- heuristics with reflective evolution. arXiv preprint arXiv:2402.01145, 2024.  
+
+[23] Shunyu Yao. The Second Half. https://ysymyth.github.io/The- Second- Half/, 2025.  
+
+[24] Xijun Li, Qingyu Qu, Fangzhou Zhu, Mingxuan Yuan, Jia Zeng, and Jie Wang. Accelerating linear programming solving by exploiting the performance variability via reinforcement learning. 2023.  
+
+[25] Oriol Vinyals, Meire Fortunato, and Navdeep Jaitly. Pointer networks. Advances in neural information processing systems, 28, 2015.  
+
+[26] Ilya Sutskever, Oriol Vinyals, and Quoc V Le. Sequence to sequence learning with neural networks. Advances in neural information processing systems, 27, 2014.  
+
+[27] Santanu S Dey, Yatharth Dubey, Marco Molinaro, and Prachi Shah. A theoretical and computational analysis of full strong- branching. Mathematical Programming, 205(1):303- 336, 2024.  
+
+[28] Fei Liu, Yiming Yao, Ping Guo, Zhiyuan Yang, Zhe Zhao, Xi Lin, Xialiang Tong, Mingxuan Yuan, Zhichao Lu, Zhenkun Wang, et al. A systematic survey on large language models for algorithm design. arXiv preprint arXiv:2410.14716, 2024.  
+
+[29] Yiwen Sun, Furong Ye, Xianyin Zhang, Shiyu Huang, Bingzhen Zhang, Ke Wei, and Shaowei Cai. Autosat: Automatically optimize sat solvers via large language models. arXiv preprint arXiv:2402.10705, 2024.  
+
+[30] Yuyan Zhou, Jie Wang, Yufei Kuang, Xijun Li, Weilin Luo, Jianye HAO, and Feng Wu. Llm4solver: Large language model for efficient algorithm design of combinatorial optimization solver.  
+
+[31] Ernie Croot, Vsevolod F Lev, and Peter Pal Pach. Past and future of the cap set problem. arXiv preprint arXiv:2408.02328, 2024.  
+
+[32] Baoying Wang, Zhaohui Lin, Weijie Kong, and Huixu Dong. Bin packing optimization via deep reinforcement learning. IEEE Robotics and Automation Letters, 2025.  
+
+[33] Christos H Papadimitriou and Kenneth Steiglitz. Combinatorial optimization: algorithms and complexity. Courier Corporation, 1998.  
+
+[34] Karla L Hoffman, Manfred Padberg, Giovanni Rinaldi, et al. Traveling salesman problem. Encyclopedia of operations research and management science, 1:1573- 1578, 2013.

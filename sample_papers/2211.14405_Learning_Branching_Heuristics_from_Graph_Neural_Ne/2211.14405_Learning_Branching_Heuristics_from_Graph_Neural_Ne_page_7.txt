@@ -1,0 +1,25 @@
+The dominating- clique problem is a good problem to be studied since 1) it is a combinatorial optimization problem with both local and global conditions; 2) checking the existence of a dominating clique is NP- complete; 3) there is a powerful exact solver for the dominating- clique problem in [9] to which we can apply our improvement.  
+
+We first design a loss function for finding a dominating clique and then extend it seamlessly for finding the minimum dominating clique. Denote by \(D_{S}\) the event that \(S\) is a dominating set, i.e. \(S\) dominates \(V\backslash S\) . The closed form of \(\mathbb{P}(D_{S}\cap C_{S})\) is a good candidate as a loss function for finding a dominating clique, but it is harder to evaluate the closed form compared to evaluating the closed form of \(\mathbb{P}(C_{S})\) . Thus, we alternatively analyze the upper and lower bounds of \(\mathbb{P}(D_{S}\cap C_{S})\) . Our idea is to increase the upper and lower bounds of \(\mathbb{P}(D_{S}\cap C_{S})\) simultaneously to optimize its value. For a node \(v_{i}\) , denote by \(A_{i}\) the event that the vertices in \(N[v_{i}]\) are all not in \(S\) , so \(\mathbb{P}(A_{i}) = \prod_{v_{j}\in N[v_{i}]}(1 - p_{j})\) . It is easy to see that \(D_{S}\) is equivalent to \(\bigwedge_{i}\overline{{A_{i}}}\) and \(\overline{{A_{i}}}\) 's are increasing events. By (1) and (2), we get  
+
+\[\mathbb{P}(D_{S}\cap C_{S})\leq \mathbb{P}(D_{S})\mathbb{P}(C_{S}),\] \[\mathbb{P}(D_{S}) = \mathbb{P}(\bigwedge_{i\in [n]}\overline{{A_{i}}})\geq \prod_{i\in [n]}\mathbb{P}(\overline{{A_{i}}}).\]  
+
+With (3), we have  
+
+\[\exp \Big(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\Big) = \prod_{i\in [n]}\mathbb{P}(\overline{{A_{i}}})\prod_{\{v_{i},v_{j}\} \notin E}\mathbb{P}(\overline{{B_{ij}}})\] \[\leq \mathbb{P}(D_{S})\mathbb{P}(C_{S}).\]  
+
+This inequality tells us that increasing \(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\) is meanwhile increasing the upper bound of \(\mathbb{P}(D_{S}\cap C_{S})\) .  
+
+For the lower bounds of \(\mathbb{P}(D_{S}\cap C_{S})\) , we have  
+
+\[\mathbb{P}(D_{S}\cap C_{S})\geq \mathbb{P}(D_{S}) + \mathbb{P}(C_{S}) - 1\] \[\qquad \geq 2\exp \Big(\frac{1}{2}\big(\ln \mathbb{P}(D_{S}) + \ln \mathbb{P}(C_{S})\big)\Big) - 1\qquad \mathrm{(as~}e^{x}\mathrm{~is~a~convex~function)}\] \[\qquad \geq 2\exp \Big(\frac{1}{2}\Big(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\Big)\Big) - 1.\]  
+
+Therefore, we set the loss function for the dominating- clique problem as  
+
+\[\mathcal{L} = -\Big(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\Big) \quad (5)\]  
+
+trying to optimize the upper and lower bounds of \(\mathbb{P}(D_{S}\cap C_{S})\) simultaneously.  
+
+To find the minimum dominating clique, we can simply add \(\ln \Big(\mathbb{E}(|S|)\Big)\) into the loss function as  
+
+\[\mathcal{L} = -\Big(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\Big) + \ln \Big(\mathbb{E}(|S|)\Big). \quad (6)\]

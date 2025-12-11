@@ -1,0 +1,106 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Generate changelog
+      id: changelog
+      run: |
+        if [ -f CHANGES.txt ]; then
+          echo "## Changes" > release_notes.md
+          head -n 50 CHANGES.txt >> release_notes.md
+        else
+          echo "## Release Notes" > release_notes.md
+          echo "New release of GetRelevantPapers" >> release_notes.md
+        fi
+        
+        echo "## Features" >> release_notes.md
+        echo "- Paper analysis pipeline with regex and LLM evaluation" >> release_notes.md
+        echo "- Web UI on port 3444" >> release_notes.md
+        echo "- AWS Bedrock integration" >> release_notes.md
+        echo "- Vector search capabilities" >> release_notes.md
+
+    - name: Create release archive
+      run: |
+        mkdir -p release_artifacts
+        
+        # Create source archive
+        tar -czf release_artifacts/getrelevantpapers-source.tar.gz \
+          --exclude='*.pyc' \
+          --exclude='__pycache__' \
+          --exclude='outputs' \
+          --exclude='downloaded_papers' \
+          --exclude='sample_papers' \
+          --exclude='.git' \
+          --exclude='venv' \
+          .
+        
+        # Create minimal distribution
+        mkdir -p dist_minimal
+        cp *.py dist_minimal/ || true
+        cp -r classifiers dist_minimal/ || true
+        cp requirements.txt config.yaml dist_minimal/ || true
+        cp README.md QUICKSTART.md dist_minimal/ || true
+        tar -czf release_artifacts/getrelevantpapers-minimal.tar.gz -C dist_minimal .
+
+    - name: Get version
+      id: get_version
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.get_version.outputs.version }}
+        name: Release ${{ steps.get_version.outputs.version }}
+        body_path: release_notes.md
+        draft: false
+        prerelease: false
+        files: |
+          release_artifacts/*.tar.gz
+          requirements.txt
+          QUICKSTART.md
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload release artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-packages
+        path: release_artifacts/
+        retention-days: 90
+

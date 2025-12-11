@@ -1,0 +1,25 @@
+<center>Figure 2: a) The input formula \(\phi\) is modeled as a graph \(G(\phi)\) . b) The graph is processed by a trainable GNN and outputs a parameterization policy \(\pi_{\theta}(\phi)\) . c) The policy \(\pi_{\theta}(\phi)\) consists of independent variable-wise weight (LogNormal) and polarity (Bernoulli) distributions. d) A variable parameterization \(\mathcal{W} = (w,p)\) is sampled from \(\pi_{\theta}(\phi)\) , mapping each variable \(x\) in \(\phi\) to a weight \(w(x) \in \mathbb{R}_{>0}\) and polarity \(p(x) \in \{0,1\}\) . e) A guided SAT solver incorporates the parameterization \(\mathcal{W}\) to guide its branching heuristic. </center>  
+
+### 2.2 Graph Representation and Architecture  
+
+Our goal is to map an instance \(\phi\) to advantageous variable weights and polarities with a neural network. A natural approach is to map \(\phi\) to a suitable graph representation \(G(\phi) = (V(\phi), E(\phi))\) that captures the instance's structure. This graph can then be processed by a GNN that extracts structural information in a trainable manner. We represent \(\phi\) as a standard "Literal- Clause Graph" proposed in prior work Selsam et al. (2019). Note that this choice is modular; other graph representations have also been suggested in the literature and could also be used. We process this graph with a trainable GNN model \(\mathcal{N}_{\theta}\) that performs message passing to extract latent structural embeddings for every vertex. Here, \(\theta\) represents the vector that contains all trainable model parameters. The output of \(\mathcal{N}_{\theta}\) is a mapping \(y: \operatorname {Var}(\phi) \to \mathbb{R}^{2}\) that assigns two real numbers to each variable in the input formula \(\phi\) . The full model details are provided in Appendix A.  
+
+### 2.3 Guidance Policy  
+
+For a given input formula \(\phi\) , we map the output of the GNN \(\mathcal{N}_{\theta}\) to a policy \(\pi_{\theta}(\phi)\) from which a variable parameterization \(\mathcal{W} \sim \pi_{\theta}(\phi)\) can be sampled. Recall that for a given SAT instance the GNN \(\mathcal{N}_{\theta}\) outputs a mapping \(y: \operatorname {Var}(\phi) \to \mathbb{R}^{2}\) that associates every variable \(x \in \operatorname {Var}(\phi)\) with two real numbers \(\mu (x), \rho (x) \in \mathbb{R}\) , \([\mu (x), \rho (x)] = y(x)\) . These outputs are used to parameterize variable- wise weight and polarity distributions, respectively. Concretely, for each variable \(x\) in \(\phi\) we define its weight policy \(\pi_{\theta}^{w}(x)\) as a Log- Normal distribution over positive real weights:  
+
+\[\pi_{\theta}^{w}(x) = \mathrm{LogNormal}(\mu (x),\sigma^{w}) \quad (2)\]  
+
+Here, the inferred parameter \(\mu (x) \in \mathbb{R}\) is used as the log- mean of the distribution, and \(\sigma^{w} \in \mathbb{R}_{>0}\) is a hyperparameter. Log- Normal distributions offer a simple way to model unimodal distributions over positive real numbers and performed best in preliminary experiments. We note that we also observed reasonable training convergence when using both Poisson and truncated normal distributions for variable weights, and more options may be explored in future work.  
+
+Analogously, we define a variable's polarity policy \(\pi_{\theta}^{p}(x)\) as a Bernoulli distribution where the probability is obtained by applying a sigmoid function to \(\rho (x)\) :  
+
+\[\pi_{\theta}^{p}(x) = \mathrm{Bernoulli}(\mathrm{Sigmoid}(\rho (x))). \quad (3)\]  
+
+The complete variable parameterization policy \(\pi_{\theta}\) is then defined as the joint distribution of \(\pi_{\theta}^{w}(x)\) and \(\pi_{\theta}^{p}(x)\) over all variables:  
+
+\[\pi_{\theta}(\phi) = \pi_{\theta}^{w}(x_{1}) \times \pi_{\theta}^{p}(x_{1}) \times \dots \times \pi_{\theta}^{w}(x_{n}) \times \pi_{\theta}^{p}(x_{n}). \quad (4)\]  
+
+We sample a variable parameterization \(\mathcal{W} = (w,p) \sim \pi_{\theta}\) from this distribution in one shot by independently sampling a weight \(w(x) \sim \pi_{\theta}^{w}(x)\) and polarity \(p(x) \sim \pi_{\theta}^{p}(x)\) for each variable \(x\) in parallel. The probability density \(\pi_{\theta}(\mathcal{W}|\phi)\) of \(\mathcal{W}\) can then be factorized as  
+
+\[\pi_{\theta}(\mathcal{W}|\phi) = \prod_{x}\pi_{\theta}^{w}(w(x)|\phi)\cdot \pi_{\theta}^{p}(p(x)|\phi). \quad (5)\]

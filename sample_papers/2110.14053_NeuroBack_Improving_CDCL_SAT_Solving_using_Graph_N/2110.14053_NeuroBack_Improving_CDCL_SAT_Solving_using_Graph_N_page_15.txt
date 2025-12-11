@@ -1,0 +1,35 @@
+Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. arXiv preprint arXiv:1711.05101, 2017.  
+
+Joao Marques- Silva, Inês Lynce, and Sharad Malik. Conflict- driven clause learning sat solvers. In Handbook of Satisfiability: Second Edition. Part 1/Part 2, pp. 133- 182. IOS Press BV, 2021.  
+
+Joao P Marques- Silva and Karem A Sakallah. Grasp—a new search algorithm for satisfiability. In The Best of ICCAD, pp. 73- 89. Springer, 2003.  
+
+Ruben Martins, Vasco Manquinho, and Inês Lynce. An overview of parallel sat solving. Constraints, 17:304- 347, 2012.  
+
+Grégoire Mialon, Dexiong Chen, Margot Selosse, and Julien Mairal. Graphit: Encoding graph structure in transformers. arXiv preprint arXiv:2106.05667, 2021.  
+
+Erxue Min, Runfa Chen, Yatao Bian, Tingyang Xu, Kangfei Zhao, Wenbing Huang, Peilin Zhao, Junzhou Huang, Sophia Ananiadou, and Yu Rong. Transformer for graphs: An overview from architecture perspective. arXiv preprint arXiv:2202.08455, 2022.  
+
+Matthew W. Moskewicz, Conor F. Madigan, Ying Zhao, Lintao Zhang, and Sharad Malik. Chaff: Engineering an efficient sat solver. In Proceedings of the 38th Annual Design Automation Conference, DAC '01, pp. 530- 535, New York, NY, USA, 2001. Association for Computing Machinery.  
+
+Piotr Padlewski and Josip Djolonga. Scaling vision transformers to 22 billion parameters. https://ai.googleblog.com/2023/03/scaling- vision- transformers- to- 22. html, 2023.  
+
+Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, et al. Pytorch: An imperative style, high- performance deep learning library. arXiv preprint arXiv:1912.01703, 2019.  
+
+Knot Pipatsrisawat and Adnan Darwiche. A lightweight component caching scheme for satisfiability solvers. In Theory and Applications of Satisfiability Testing- SAT 2007: 10th International Conference, Lisbon, Portugal, May 28- 31, 2007. Proceedings 10, pp. 294- 299. Springer, 2007.  
+
+Yu Rong, Yatao Bian, Tingyang Xu, Weiyang Xie, Ying Wei, Wenbing Huang, and Junzhou Huang. Self- supervised graph transformer on large- scale molecular data. Advances in Neural Information Processing Systems, 33:12559- 12571, 2020.  
+
+Franco Scarselli, Marco Gori, Ah Chung Tsoi, Markus Hagenbuchner, and Gabriele Monfardini. The graph neural network model. IEEE Transactions on Neural Networks, 20(1):61- 80, 2008.  
+
+Dominik Schreiber and Peter Sanders. Scalable sat solving in the cloud. In Theory and Applications of Satisfiability Testing- SAT 2021: 24th International Conference, Barcelona, Spain, July 5- 9, 2021, Proceedings 24, pp. 518- 534. Springer, 2021.  
+
+Daniel Selsam and Nikolaj Bjorner. Guiding high- performance SAT solvers with unsat- core predictions. In International Conference on Theory and Applications of Satisfiability Testing, pp. 336- 353. Springer, 2019.  
+
+Daniel Selsam, Matthew Lamm, Benedikt Bünz, Percy Liang, Leonardo de Moura, and David L Dill. Learning a SAT solver from single- bit supervision. arXiv preprint arXiv:1802.03685, 2018.  
+
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. Advances in neural information processing systems, 30, 2017.  
+
+Petar Veličković, Guillem Cucurull, Arantxa Casanova, Adriana Romero, Pietro Lio, and Yoshua Bengio. Graph attention networks. arXiv preprint arXiv:1710.10903, 2017.  
+
+Haoze Wu. Improving sat- solving with machine learning. In Proceedings of the 2017 ACM SIGCSE Technical Symposium on Computer Science Education, pp. 787- 788, 2017.

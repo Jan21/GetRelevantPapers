@@ -1,0 +1,13 @@
+## B.2 Hyperparameters  
+
+Table 3 provides an overview of all RLAF training runs from our main experiments. We tuned the learning rate in \(\eta \in \{0.0001, 0.00005, 0.00001\}\) and schedule it to warm up over the first 5 GRPO iterations. After warm up the the learning rate stays constant throughout training. The clip ratio was tuned in \(\epsilon \in \{0.1, 0.2\}\) and the KL- penalty \(\beta \in \{0.1, 1.0\}\) . All other hyperparameters were given constant default values, which we found to be stable based on preliminary experiments.  
+
+Table 3: Hyperparameters   
+
+<table><tr><td></td><td>3SAT</td><td>Glucose<br>3COL</td><td>CRYPTO</td><td>3SAT</td><td>March<br>3COL</td><td>CRYPTO</td></tr><tr><td>K</td><td>2000</td><td>2000</td><td>2000</td><td>2000</td><td>2000</td><td>2000</td></tr><tr><td>M</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td></tr><tr><td>N</td><td>100</td><td>100</td><td>100</td><td>100</td><td>100</td><td>100</td></tr><tr><td>S</td><td>50</td><td>50</td><td>50</td><td>50</td><td>50</td><td>50</td></tr><tr><td>σw</td><td>0.1</td><td>0.1</td><td>0.1</td><td>0.1</td><td>0.1</td><td>0.1</td></tr><tr><td>clip ratio ε</td><td>0.2</td><td>0.2</td><td>0.2</td><td>0.1</td><td>0.2</td><td>0.2</td></tr><tr><td>KL-penalty β</td><td>0.1</td><td>1.0</td><td>0.1</td><td>1.0</td><td>0.1</td><td>0.1</td></tr><tr><td>batch size</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td></tr><tr><td>learning rate η</td><td>0.0001</td><td>0.00005</td><td>0.00005</td><td>0.00005</td><td>0.00001</td><td>0.0001</td></tr><tr><td>weight decay</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr><tr><td>hidden dim d</td><td>256</td><td>256</td><td>256</td><td>256</td><td>256</td><td>256</td></tr><tr><td>model depth L</td><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td></tr></table>  
+
+## B.3 Training  
+
+Figure 6 provides the learning curves for the 6 RLAF- trained models in our main experiments. For all models, the cost decreases throughout training. We found that training with the March base solver tends to yield noisier training, particularly on 3SAT instances, where the policy does not improve further after 700 GRPO iterations. Exploring effective strategies for reducing this noise remains future work. Nonetheless, we are able to learn guidance policies that decrease the solver cost of both base solvers on all three problem instances.  
+
+<center>Figure 6: GRPO training curves of the RLAF models from our main experiment. We plot the mean number of decisions on the validation set against the GRPO iteration. </center>

@@ -1,0 +1,47 @@
+{
+  "image": "2504.01173_Neural_Approaches_to_SAT_Solving_Design_Choices_an_page_22.png",
+  "width": 2481,
+  "height": 3508,
+  "detections": [
+    {
+      "label": "image",
+      "boxes": [
+        [
+          156.0,
+          290.0,
+          839.0,
+          579.0
+        ]
+      ],
+      "raw": "[[156, 290, 839, 579]]",
+      "pixel_boxes": [
+        [
+          387,
+          1018,
+          2083,
+          2033
+        ]
+      ]
+    },
+    {
+      "label": "image_caption",
+      "boxes": [
+        [
+          115.0,
+          594.0,
+          881.0,
+          741.0
+        ]
+      ],
+      "raw": "[[115, 594, 881, 741]]",
+      "pixel_boxes": [
+        [
+          285,
+          2085,
+          2187,
+          2602
+        ]
+      ]
+    }
+  ]
+}

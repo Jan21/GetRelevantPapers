@@ -1,0 +1,31 @@
+<center>Figure 5: Illustration of the message passing scheme in our policy GNN \(\pi_{\theta}\) . The process is performed once in each iteration \(t\) . (1) Values pass messages to constraints. (2) Constraints pass messages to values. (3) Values pass messages to variables. (4) Variables pass messages to values. (5) Values predict a new soft assignment. </center>  
+
+Note that sampling one assignment \(\alpha \sim \phi\) and computing its probability according to 14 are both efficient operations and are highly parallelizable. These are the only operation we need on our action space for training and testing.  
+
+In each training step, we independently draw a batch of training instances from \(\Omega\) . For each such instance \(\mathcal{I}\) , we first run \(\mathrm{ANYCSP}\) for \(T\) steps to generate sequences of soft assignments \(\phi_{\theta} = \phi_{\theta}^{(1)},\ldots ,\phi_{\theta}^{(T)}\) and hard assignments \(\alpha = \alpha^{(1)},\ldots ,\alpha^{(T)}\) . Note that we added \(\theta\) as a subscript to the soft assignments to indicate that the parameters in \(\theta\) have a partial derivative with respect to the probabilities stored in \(\phi_{\theta}^{(t)}\) . We first define \(G_{t}\) as the discounted future reward after step \(t\) :  
+
+\[G_{t} = \sum_{k = t}^{T}\lambda^{k - t}r^{(k)} \quad (15)\]  
+
+Here, \(\lambda \in (0,1]\) is a discount factor that we usually choose as \(\lambda = 0.75\) . The purpose of the discount factor is to encourage the policy to earn rewards quickly. Our objective is to find parameters \(\theta\) that maximize the discounted reward over the whole search:  
+
+\[J(\theta)\coloneqq \underset {\alpha \sim \pi_{\theta}(\mathcal{I})}{\mathbf{E}}\left[\sum_{t = 1}^{T}\lambda^{t - 1}r^{(t)}\right] \quad (16)\]  
+
+REINFORCE (Williams 1992) enables us to estimate the policy gradient as follows:  
+
+\[\begin{array}{l}{\nabla_{\theta}J(\theta) = \nabla_{\theta}\sum_{t = 1}^{T}G_{t}\log \mathbf{P}(\alpha^{(t)}|\phi_{\theta}^{(t)})}\\ {= \nabla_{\theta}\sum_{t = 1}^{T}\left(G_{t}\sum_{X\in \mathcal{X}}\log \left(\phi_{\theta}^{(t)}(\alpha^{(t)}(X)) + \epsilon\right)\right)} \end{array} \quad (18)\]  
+
+Equation 18 applies Equation 14 and adds a small \(\epsilon = 10^{- 5}\) for numerical stability. These policy gradients are averaged over all instances in the batch and then used for one step of gradient ascent (or rather descent with \(- \nabla_{\theta}J(\theta)\) ) in the Adam optimizer. Note that we sample a single trace for each instance in the current batch. The process is repeated in each training step. Algorithm 2 provides our overall training procedure as pseudocode.  
+
+This training procedure is simply the standard REINFORCE algorithm applied to our Markov Decision Process.  
+
+We do not use a baseline or critic network. We initially expected this simple algorithm to be unable to estimate a useful policy gradient given the unusually large size of our action space and hard nature of our learning problem. Contrary to this expectation REINFORCE is able to train \(\mathrm{ANYCSP}\) effectively. While more sophisticated RL algorithms have been proposed to address training with large action spaces they are apparently not essential for training with exponentially large action spaces in the context of CSP heuristics.  
+
+## A.3 Hyperparameters and Model Selection  
+
+Before training (and hyperparameter tuning) we sample fixed validation datasets of 200 instances from the given distribution of CSP instances. We usually modify the distribution to yield larger instances than those used for training. This favors the selection of models that generalize well to larger instances, which is almost always desirable. Exact details on how the validation distribution differs from the training distribution in each experiment are provided for in Section B. During validation we perform \(T_{\mathrm{val}} = 200\) search iterations on each validation instance. The metric used for selection is the number of unsatisfied constraints in the best solution averaged over all validation instances. To save compute resources we perform only 100K training steps with each hyperparameter configuration and only perform the full 500K steps of the training with the best configuration.  
+
+The aggregation function \(\bigoplus \in \{\mathrm{SUM},\mathrm{MEAN},\mathrm{MAX}\}\) is a key hyperparameter. The choice of \(\bigoplus\) is critical for performance, as we observed MAX aggregation to consistently perform best on decision problems but poorly on maximization tasks. The hidden dimension is set to \(d = 128\) . We also validated some models with \(d = 64\) but larger models seem to be more capable. We did not increase \(d\) further to avoid memory bottlenecks. We tuned the discount factor \(\lambda \in \{0.5,0.75,0.9,0.99\}\) and found the value of 0.75 to yield the best results in all of our experiments. The learning rate is initialized as \(\mathrm{lr} = 5\cdot 10^{- 6}\) and decays linearly throughout training to a final value of \(\mathrm{lr} = 5\cdot 10^{- 7}\) . All model train with a batch size of 25. We also considered larger batch sizes of 50 and 100 without improvement. Table 5 specifies the final configuration used in each experiment.  
+
+## A.4 Design Constraints and Bottlenecks  
+
+The primary bottleneck of \(\mathrm{ANYCSP}\) is GPU memory. More specifically, the maximum instance size that can be pro

@@ -1,0 +1,33 @@
+Another way of interpreting the MP process of a GNN is through the lens of Belief Propagation algorithms [23]. In the context of Boolean Satisfiability, Belief Propagation algorithms operate on similar literal- clause factor graphs as a GNN. A particular version called Survey Propagation also sends messages from literals to clauses in the form of 3- dimensional vectors. In the domain of random satisfiability, these algorithms have been proven very effective [3] and their theoretical properties are well- studied.  
+
+In this work, we demonstrate that these connections could give us novel insights into how trained GNNs operate and bring about improvements in terms of their training speed and accuracy. To our knowledge, these connections have not been explored before. We present the following novel contributions:  
+
+We demonstrate several similarities between the empirical behavior of trained GNN and two well- studied approximation algorithms for Boolean Satisfiability. Motivated by these connections, we design a training curriculum that speeds up the training process by an order of magnitude. For a trained model with fixed weights, we propose to sample different initializations of literal embeddings and to apply a decimation procedure (inspired by Belief Propagation). This substantially increases the number of solved problems (problem is considered solved if the network correctly predicts satisfiability and produces a satisfying assignment for satisfiable instances).  
+
+In Section 2, we provide relevant background information; Sections 3 and 4 describe our contribution; Section 5 contains experimental results and is followed by related work in Section 6, conclusion in Section 7 and limitations in Section 8.  
+
+## 2 Background  
+
+### 2.1 Boolean Satisfiability  
+
+Basic background knowledge of propositional logic is assumed, cf. [2]. Boolean variables are denoted by \(x_{1},x_{2},\ldots\) ; disjunction by \(\vee\) , conjunction by \(\wedge\) , and negation by \(\neg\) . A literal is a variable or its negation; a clause is a disjunction of literals. For a literal \(l\) we write \(\bar{l}\) for the complementary literal of \(l\) , i.e. \(\bar{x}\) is \(\neg x\) and \(\neg \bar{x}\) is \(x\) . A formula in conjunctive normal form (CNF) is a conjunction of clauses. Whenever convenient, a clause is treated as a set of literals and a CNF formula as a set of sets of literals. A clause is called unit iff it consists of a single literal.  
+
+An assignment is a total mapping from variables to \(\{0,1\}\) , representing true/false. An assignment \(\sigma\) is satisfying a formula \(\phi\) iff \(\phi\) evaluates to true under the standard semantics of Boolean connectives. In particular, an assignment satisfies a CNF \(\phi\) iff it satisfies at least one literal in each clause.  
+
+There exist multiple representations of CNF formulas in the form of a graph. In this work, we use the literal- clause factor graph, which is an undirected bipartite graph of clauses and literals. Each node of a literal in this graph is connected to nodes of clauses that contain this literal.  
+
+MaxSAT is an optimization version of SAT where one is given a CNF \(\phi\) and the objective is to find a variable assignment that maximizes the number of satisfied clauses. For instance, in \(\{x_{1}\vee x_{2},\neg x_{1},\neg x_{2}\}\) the assignment \(x_{1} = 1,x_{2} = 0\) satisfies the first 2  
+
+clauses but not the last one, and it is optimal because the 3 clauses cannot be satisfied simultaneously. The problem is NP- hard even for formulas that have only 2 literals in each clause [22].  
+
+### 2.2 Random Satisfiability and Message-passing Algorithms  
+
+Random satisfiability provides a natural and simplified setting to study the computational hardness of finding a satisfying assignment and the structure of the space of satisfying assignments. Typically, it is assumed that each clause in the formula is sampled randomly and has the same number of variables \((k)\) . A random formula is parametrized by a parameter \(\alpha\) denoting the clause- to- variable ratio. As the problem size increases asymptotically, the solution space undergoes several phase transitions as the parameter \(\alpha\) changes. When random clauses are added to the formula, it becomes increasingly challenging to find a satisfying assignments until it reaches a point where the formula becomes unsatisfiable. This occurs at the satisfiability threshold whose value for \(k > 2\) is known only through upper and lower bounds and numerical estimates [34].  
+
+Before reaching the phase transition to unsatisfiability, the geometry of the solution space undergoes several other phase transitions, during which the set of solutions breaks into well- separated clusters (in terms of the Hamming distance) [15]. Each cluster corresponds to a set of solutions in which specific variables are fixed (to a value 0 or 1) and the values of the remaining variables could vary (this is denoted by the value \(\ast\) ).  
+
+Unlike real- world formulas, random formulas could be efficiently solved by message- passing algorithms [3]. These algorithms could be viewed as algorithms that compute the marginal probability of individual variables using a belief propagation algorithm (BP) [15]. The marginal probability that a variable \(x_{i}\) will have a value 1 in a satisfying assignment is given by a proportion of assignments where \(x_{i} = 1\) among all possible satisfiable assignments. Belief propagation can compute these marginal probabilities exactly for formulas whose factor graphs are devoid of loops. Clearly, computing these marginal probabilities exactly for a generic formula is much harder than finding a single satisfying assignment. For factor graphs with loops, BP can be regarded as an algorithm that tries to approximate these marginal probabilities [20].  
+
+To obtain an algorithm for finding a satisfying assignment with BP, one can employ a decimation procedure in which variables with the most extreme estimated marginal values are fixed \(^{1}\) and the whole process is repeated by running the BP process again on the reduced formula until no variable has a sufficiently high estimated marginal. At this point, the resulting formula would be solved by a local search.  
+
+Empirically, it has been observed that BP starts to fail as the parameter \(\alpha\) approaches the satisfiability threshold. This phenomenon is frequently attributed to the evolving structure of the solution space [20]. As the parameter \(\alpha\) increases, long- range correlations between variables start to appear \(^{2}\) and this breaks the assumption needed for BP to work properly.

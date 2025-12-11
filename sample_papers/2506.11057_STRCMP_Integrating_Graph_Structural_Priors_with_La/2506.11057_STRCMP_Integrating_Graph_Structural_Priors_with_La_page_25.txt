@@ -1,0 +1,1 @@
+<center>Figure 9: Convergence comparison (w.r.t. PAR-2, Solving Time, and Number of Timeout) between evolutionary-based algorithm discovery frameworks on SAT domain. </center>

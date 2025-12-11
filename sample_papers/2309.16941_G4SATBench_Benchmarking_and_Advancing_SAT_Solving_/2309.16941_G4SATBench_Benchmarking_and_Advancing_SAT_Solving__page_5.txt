@@ -1,0 +1,27 @@
+message passing, these hidden representations are updated as:  
+
+\[\begin{array}{r l} & {h_{c}^{(k)} = \mathrm{UP D}\left(\underset {l\in \mathcal{N}(c)}{\mathrm{A G G}}\left(\left\{\mathrm{MLP}\left(h_{l}^{(k - 1)}\right)\right\} \right),h_{c}^{(k - 1)}\right),}\\ & {h_{l}^{(k)} = \mathrm{UP D}\left(\underset {c\in \mathcal{N}(l)}{\mathrm{A G G}}\left(\left\{\mathrm{MLP}\left(h_{c}^{(k - 1)}\right)\right\} \right),h_{-l}^{(k - 1)},h_{l}^{(k - 1)}\right),} \end{array} \quad (1)\]  
+
+where \(\mathcal{N}(\cdot)\) denotes the set of neighbor nodes, MLP is the multi- layer perception, \(\mathrm{UP D}(\cdot)\) is the update function, and \(\mathrm{AGG}(\cdot)\) is the aggregation function. Most GNN models on \(\mathrm{LCG}^{*}\) use Equation 1 with different choices of the update function and aggregation function. For instance, NeuroSAT employs LayerNormL- STM (Ba et al., 2016) as the update function and summation as the aggregation function. In G4SATBench, we provide a diverse range of GNN models, including NeuroSAT (Selsam et al., 2019), Graph Convolutional Network (GCN) (Kipf & Welling, 2017), Gated Graph Neural Network (GGNN) (Li et al., 2016), and Graph Isomorphism Network (GIN) (Xu et al., 2019), on the both \(\mathrm{LCG}^{*}\) and \(\mathrm{VCG}^{*}\) . More details of these GNN models are included in Appendix B.  
+
+### 4.3 Supported Tasks, Training and Testing Settings  
+
+Prediction tasks. In G4SATBench, we support three essential prediction tasks for SAT solving: satisfiability prediction, satisfying assignment prediction, and unsat- core variable prediction. These tasks are widely used in both standalone neural solvers and neural- guided solvers. Technically, we model satisfiability prediction as a binary graph classification task, where \(1 / 0\) denotes the given SAT instance \(\phi\) is satisfiable/unsatisfiable. Here, we take GNN models on the \(\mathrm{LCG}^{*}\) as an example. After \(T\) message passing iterations, we obtain the graph embedding by applying mean pooling on all literal embeddings, and then predict the satisfiability using an MLP followed by the sigmoid function \(\sigma\) :  
+
+\[y_{\phi} = \sigma \left(\mathrm{MLP}\left(\mathrm{MEAN}\left(\{h_{l}^{(T)},l\in \phi \}\right)\right)\right). \quad (2)\]  
+
+For satisfying assignment prediction and unsat- core variable prediction, we formulate them as binary node classification tasks, predicting the label for each variable in the given CNF formula \(\phi\) . In the case of GNNs on the \(\mathrm{LCG}^{*}\) , we concatenate the embeddings of each pair of literals \(h_{l}\) and \(h_{- l}\) to construct the variable embedding, and then readout using an MLP and the sigmoid function \(\sigma\) :  
+
+\[y_{v} = \sigma \left(\mathrm{MLP}\left(\left[h_{l}^{(T)},h_{-l}^{(T)}\right]\right)\right). \quad (3)\]  
+
+Training objectives. To train GNN models on the aforementioned tasks, one common approach is to minimize the binary cross- entropy loss between the predictions and the ground truth labels. In addition to supervised learning, G4SATBench supports two unsupervised training paradigms for satisfying assignment prediction (Amizadeh et al., 2019a; Ozolins et al., 2022). The first approach aims to differentiate and maximize the satisfiability value of a CNF formula (Amizadeh et al., 2019a). It replaces the \(\neg\) operator with the function \(N(x_{i}) = 1 - x_{i}\) and uses smooth max and min functions to replace the \(\vee\) and \(\wedge\) operators. The smooth max and min functions are defined as follows:  
+
+\[S_{m a x}(x_{1},x_{2},\ldots ,x_{d}) = \frac{\sum_{i = 1}^{d}x_{i}\cdot e^{x_{i} / \tau}}{\sum_{i = 1}^{d}e^{x_{i} / \tau}},\quad S_{m i n}(x_{1},x_{2},\ldots ,x_{d}) = \frac{\sum_{i = 1}^{d}x_{i}\cdot e^{-x_{i} / \tau}}{\sum_{i = 1}^{d}e^{-x_{i} / \tau}}, \quad (4)\]  
+
+where \(\tau \geq 0\) is the temperature parameter. Given a predicted assignment \(x\) , we apply the smoothing logical operators and substitute variables in a formula \(\phi\) with the corresponding values from \(x\) to calculate its satisfiability value \(S(x)\) . Then we can minimize the following loss function:  
+
+\[\mathcal{L}_{\phi}(x) = \frac{(1 - S(x))^{\kappa}}{(1 - S(x))^{\kappa} + S(x)^{\kappa}}. \quad (5)\]  
+
+The second unsupervised loss is defined as follows (Ozolins et al., 2022):  
+
+\[V_{c}(x) = 1 - \prod_{i\in c^{+}}(1 - x_{i})\prod_{i\in c^{-}}x_{i},\quad \mathcal{L}_{\phi}(x) = -\log \Bigl (\prod_{c\in \phi}V_{c}(x)\Bigr) = -\sum_{c\in \phi}\log \bigl (V_{c}(x)\bigr), \quad (6)\]

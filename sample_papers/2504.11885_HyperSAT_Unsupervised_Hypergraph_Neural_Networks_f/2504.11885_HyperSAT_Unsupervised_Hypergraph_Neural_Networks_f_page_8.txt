@@ -1,0 +1,41 @@
+Table 3. The results of the ablation study. We consider three components: (i) HGM-L: the hypergraph modeling of literal nodes rather than variable nodes; (ii) Transformer: the transformer module with the cross-attention mechanism; (iii) SRCL: the shared representation constraint loss. Specifically, the first row in the table represents the transformation of the Weighted MaxSAT instance into the hypergraph of variables.   
+
+<table><tr><td>HGM-L</td><td>TRANSFORMER</td><td>SRCL</td><td>RESULT</td></tr><tr><td>×</td><td>×</td><td>×</td><td>182.39</td></tr><tr><td>√</td><td>×</td><td>×</td><td>86.14</td></tr><tr><td>√</td><td>√</td><td>×</td><td>64.08</td></tr><tr><td>√</td><td>×</td><td>√</td><td>47.07</td></tr><tr><td>√</td><td>√</td><td>√</td><td>41.64</td></tr></table>  
+
+cantly reduces its ability to effectively capture dependencies across each pair of complementary literals, leading to lower overall accuracy.  
+
+Effect of Share Representation Constraint Loss: We further remove the shared representation constraint loss and optimize the model with the primary task loss function to investigate the role of the unsupervised multi- objective loss. The results show that without the shared representation constraint loss, the model achieves a performance of 64.08. This performance is lower than that of the original configuration. Therefore, it highlights the importance of the shared representation constraint loss, which encourages the positive and negative literal nodes to develop distinct feature representations.  
+
+In summary, the full model consistently outperforms the ablated versions, demonstrating the synergistic effect of integrating the hypergraph modeling of literal nodes, cross- attention mechanism, and shared representation constraint loss design.  
+
+## 5. Conclusion  
+
+In this work, we propose HyperSAT, a novel neural approach for Weighted MaxSAT problems, addressing the challenges associated with learning the complex non- linear dependencies and sensitive objective function of this NP- hard problem. By modeling Weighted MaxSAT instances as hypergraphs, a hypergraph convolutional network is introduced as the learning model, coupled with a cross- attention mechanism to capture the logical relationships between positive and negative literals. The proposed framework incorporates an unsupervised multi- objective loss design, which not only optimizes the intrinsic objectives of the Weighted MaxSAT problem but also ensures that the representations of positive and negative literals remain distinct in the feature space.  
+
+Extensive experiments demonstrate the potential of Hyper  
+
+SAT. The experimental results show that HyperSAT is effective in solving Weighted MaxSAT instances and outperforms state- of- the- art competitors in terms of performance. This work offers a fresh perspective on solving the Weighted MaxSAT problem through learning- based methods. Future work will focus on further integrating the model with heuristic solvers, improving the design of well- crafted solvers, and exploring its applications in other complex combinatorial problems.  
+
+## Impact Statement  
+
+This paper presents work whose goal is to advance the field of Machine Learning. There are many potential societal consequences of our work, none which we feel must be specifically highlighted here.  
+
+## References  
+
+Allouche, D., Traoré, S., André, I., De Givry, S., Katsirelos, G., Barbe, S., and Schiex, T. Computational protein design as a cost function network optimization problem. In International Conference on Principles and Practice of Constraint Programming, pp. 840- 849. Springer, 2012.  
+
+Audemard, G. and Simon, L. On the glucose sat solver. International Journal on Artificial Intelligence Tools, 27 (1):1- 25, 2018.  
+
+Ba, J. L. Layer normalization. arXiv preprint arXiv:1607.06450, 2016.  
+
+Biere, A. and Fleury, M. Gimsatul, isasat and kissat entering the sat competition 2022. Proceedings of SAT Competition, pp. 10- 11, 2022.  
+
+Cai, S. and Zhang, X. Deep cooperation of cdc1 and local search for sat. In Theory and Applications of Satisfiability Testing- SAT 2021: 24th International Conference, pp. 64- 81. Springer, 2021.  
+
+Cameron, C., Chen, R., Hartford, J., and Leyton- Brown, K. Predicting propositional satisfiability via end- to- end learning. In Proceedings of the AAAI Conference on Artificial Intelligence, volume 34, pp. 3324- 3331, 2020.  
+
+Clarke, E., Biere, A., Raimi, R., and Zhu, Y. Bounded model checking using satisfiability solving. Formal methods in system design, 19:7- 34, 2001.  
+
+Cook, S. A. The complexity of theorem- proving procedures. In Proceedings of the Third Annual ACM Symposium on Theory of Computing, pp. 151- 158, 1971.  
+
+Dehghani, M., Djolonga, J., Mustafa, B., Padlewski, P., Heek, J., Gilmer, J., Steiner, A. P., Caron, M., Geirhos, R., Alabdulmohsin, I., et al. Scaling vision transformers

@@ -1,0 +1,21 @@
+<center>Figure 1: Framework of CASCADE. We convert the original circuit into a DAG representation, augmented with virtual and and div gates. In the training pipeline, we employ pattern-based pre-training followed by workload-aware fine-tuning to train the model for conditional probability prediction. During inference, the predicted conditional probabilities are used to guide SAT solving, specifically in the inprocessing stages of phase selection and clause filtering. </center>  
+
+achieves an additional \(23.5\%\) reduction in total solving time on benchmarks from logic equivalence checking scenarios.  
+
+In summary, our primary contributions include:  
+
+- Introducing the first learning-based in-processing heuristics specifically designed for CSAT solving, effectively bridging static circuit representations and the dynamic CDCL solving process.- Developing a highly accurate GNN-based probabilistic model that predicts gate-level conditional probabilities, achieving validation accuracy of \(96.69\%\) .- Demonstrating substantial empirical improvements by integrating the GNN-based conditional probability guidance into state-of-the-art SAT solvers, resulting in significant efficiency gains in real-world EDA applications.  
+
+Our approach not only advances the theoretical understanding of leveraging structural information in SAT solving but also provides a robust framework for future solver enhancements and EDA tool designs.  
+
+## 2 Related Work  
+
+### 2.1 Circuit Representation Learning  
+
+Function- aware representation learning has become a critical subfield in Electronic Design Automation (EDA), reflecting the broader trend in AI toward learning unified embeddings that can serve multiple downstream tasks. This area can be categorized into two main approaches: predictive models and contrastive models. In predictive models, DeepGate (Shi et al. 2023, 2024; Zheng et al. 2025) and DeepCell (Shi et al. 2025b) leverage asynchronous message passing neural network with representation disentanglement techniques to generate separate embeddings for  
+
+functionality and structure, with pretraining across various EDA benchmarks. PolarGate (Liu et al. 2024) further refines functional embeddings by incorporating ambipolar device principles. In contrastive models, FGNN (Wang et al. 2022, 2024) employs contrastive learning to align circuit embeddings based on functional similarity. Additionally, MGVGA (Wu et al. 2025), CircuitFusion (Fang et al. 2025b), and NetTAG (Fang et al. 2025a) apply contrastive learning across multi- modal circuits to obtain function- invariant embeddings. In this paper, we focus on predicting exact conditional probabilities, for which we choose the state- of- the- art predictive model, DeepGate4, as backbone.  
+
+### 2.2 Circuit Satisfiability  
+
+The Boolean Satisfiability Problem (SAT) is a canonical NP- complete problem that determines whether a given propositional formula is satisfiable. As a variant of SAT, the Circuit Satisfiability Problem (CSAT, Circuit SAT) asks whether there exists an input assignment that makes the output of a given Boolean circuit evaluate to true. Several circuit- based solvers have been developed to address the Circuit SAT problem, aiming to operate directly on circuit format and leverage the structural information. For instance, NIMO (Lu et al. 2003) employs advanced circuit- level Boolean constraint propagation techniques to enhance conflict detection and decision- making. Similarly, Qute- SAT (Wu et al. 2007) incorporates conflict- driven learning strategies optimized for solving complex circuit topologies. Despite these innovations, such solvers generally offer only basic functionality and still fall short of the performance achieved by state- of- the- art CNF- based solvers on large- scale benchmarks.

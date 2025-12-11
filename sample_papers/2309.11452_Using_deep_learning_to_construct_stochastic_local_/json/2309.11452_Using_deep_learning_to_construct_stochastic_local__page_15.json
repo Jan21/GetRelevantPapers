@@ -1,0 +1,47 @@
+{
+  "image": "2309.11452_Using_deep_learning_to_construct_stochastic_local__page_15.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "image",
+      "boxes": [
+        [
+          202.0,
+          120.0,
+          789.0,
+          740.0
+        ]
+      ],
+      "raw": "[[202, 120, 789, 740]]",
+      "pixel_boxes": [
+        [
+          515,
+          396,
+          2013,
+          2444
+        ]
+      ]
+    },
+    {
+      "label": "image_caption",
+      "boxes": [
+        [
+          114.0,
+          753.0,
+          884.0,
+          877.0
+        ]
+      ],
+      "raw": "[[114, 753, 884, 877]]",
+      "pixel_boxes": [
+        [
+          290,
+          2487,
+          2256,
+          2896
+        ]
+      ]
+    }
+  ]
+}

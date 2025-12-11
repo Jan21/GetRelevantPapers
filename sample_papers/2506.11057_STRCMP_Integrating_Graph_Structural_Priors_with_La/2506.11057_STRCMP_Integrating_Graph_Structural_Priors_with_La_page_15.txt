@@ -1,0 +1,25 @@
+## A Proofs  
+
+Theorem 1. Given a prior dataset \(\mathcal{D}\) whose data samples comprises \(M\) types of prior \(\mathcal{C} =\) \(\{\mathbf{C}_{1},\dots,\mathbf{C}_{M}\}\) , the distinct priors follow respective true distribution \(p(\mathbf{C}_{i}|\mathbf{w})\) . Let \(\mathbf{c}_{i}\) be a sample drawn from the distribution, i.e., \(\mathbf{c}_{i}\sim p(\mathbf{C}_{i}|\mathbf{w})\) . A generative model with an additional type of prior will not lower the upper bound of model performance \(\sup (\mathcal{P})\) .  
+
+Proof. Assume that there is a generative model, which is associated with a set of prior \(\mathcal{C}_{K} =\) \(\{\mathbf{C}_{1},\dots,\mathbf{C}_{K}\}\) . Its upper bound of model performance is denoted by \(\sup (\mathcal{P}_{\mathcal{C}_{K}})\) . According to Definition 1, \(\sup (\mathcal{P}_{\mathcal{C}_{K}})\) can be expanded as  
+
+\[\begin{array}{r l} & {\sup (\mathcal{P}_{\mathcal{C}_{K}}) = \sum_{\mathbf{C}\in \mathcal{C}_{K}}\sum_{\mathbf{c}\in \mathcal{C}}p(\mathbf{c})\max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})}\\ & {\qquad = \sum_{\mathbf{C}\in \mathcal{C}_{K}}\sum_{\mathbf{c}\in \mathcal{C}}p(\mathbf{c})\underset {\mathbf{w}}{\max}\sum_{\mathbf{c}_{i}\in \mathcal{C}_{i}}p(\mathbf{c}_{i}|\mathbf{c})p(\mathbf{w}|\mathbf{c},\mathbf{c}_{i})\Phi (\mathbf{w})}\\ & {\qquad \leq \sum_{\mathbf{C}\in \mathcal{C}_{K}}\sum_{\mathbf{c}\in \mathcal{C}}\sum_{\mathbf{c}_{i}\in \mathcal{C}_{i}}p(\mathbf{c})p(\mathbf{c}_{i}|\mathbf{c})\underset {\mathbf{w}}{\max}p(\mathbf{w}|\mathbf{c},\mathbf{c}_{i})\Phi (\mathbf{w})}\\ & {\qquad = \sum_{\mathbf{C}\in \mathcal{C}_{K}}\sum_{\mathbf{c}\in \mathcal{C}}\sum_{\mathbf{c}_{i}\in \mathcal{C}_{i}}p(\mathbf{c}_{i},\mathbf{c})\underset {\mathbf{w}}{\max}p(\mathbf{w}|\mathbf{c},\mathbf{c}_{i})\Phi (\mathbf{w})}\\ & {\qquad = \sum_{\mathbf{C}\in \mathcal{C}_{K}}\sum_{\mathbf{c}\in \mathcal{C}}\sum_{\mathbf{c}_{i}\in \mathcal{C}_{i}}p(\mathbf{c}_{i},\mathbf{c})\underset {\mathbf{w}}{\max}p(\mathbf{w}|\mathbf{c},\mathbf{c}_{i})\Phi (\mathbf{w})}\\ & {\qquad = \sup (\mathcal{P}_{\mathcal{C}_{K}}\cup \{\mathbf{c}_{i}\})} \end{array} \quad (7)\]  
+
+Above proof indicates that for a given generative model with any additional modal prior \(\mathbf{C}_{i}\) , its performance upper bound \(\sup (\mathcal{P}_{\mathcal{C}_{K}}\cup \{\mathbf{c}_{i}\})\) is greater or equal to its original performance upper bound \(\sup (\mathcal{P}_{\mathcal{C}_{K}})\) . \(\square\)  
+
+Theorem 2. If prior \(\mathbf{C}_{p e}\) is a performance- enhancing prior, a generative model neglecting prior \(\mathbf{C}_{p e}\) will decrease the upper bound of model performance. It can be expressed as  
+
+\[\sup (\mathcal{P}_{\mathcal{C}\backslash \{\mathbf{c}_{p e}\}}) < \sup (\mathcal{P}_{\mathcal{C}}) \quad (6)\]  
+
+Proof. If prior \(\mathbf{C}_{p e}\) is a performance- enhancing prior, according to Definition 2, we have  
+
+\[\begin{array}{r l} & {\underset {\mathbf{w}}{\max}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})_{\mathbf{c}\in \mathcal{C}\backslash \{\mathbf{c}_{p e}\}}< \underset {\mathbf{w}}{\max}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})_{\mathbf{c}\in \mathcal{C}}}\\ & {\qquad = \underset {\mathbf{c}_{p e}\in \mathcal{C}_{p e}}{\sum}p(\mathbf{c}_{p e}|\mathbf{c})\underset {\mathbf{w}}{\max}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})_{\mathbf{c}\in \mathcal{C}}} \end{array} \quad (8)\]  
+
+Then, according to Definition 1, \(\sup (\mathcal{P}_{\mathcal{C}\backslash \{\mathbf{c}_{p e}\}})\) can be expanded as  
+
+\[\sup (\mathcal{P}_{\mathcal{C}\backslash \{\mathbf{c}_{p e}\}}) = \sum_{\mathbf{c}\in \mathcal{C}\backslash \{\mathbf{c}_{p e}\}}\sum_{\mathbf{c}\in \mathcal{C}}p(\mathbf{c})\max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w}) \quad (9)\]  
+
+Substitute Eq.(8) into Eq.(9) to derive  
+
+\[\begin{array}{r l} & {\sup (\mathcal{P}_{\mathcal{C}\backslash \{\mathbf{c}_{p e}\}}) = \sum_{\mathbf{c}\in \mathcal{C}\backslash \{\mathbf{c}_{p e}\}}\sum_{\mathbf{c}\in \mathcal{C}}p(\mathbf{c})\max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})}\\ & {\qquad < \sum_{\mathbf{c}\in \mathcal{C}\backslash \{\mathbf{c}_{p e}\}}\sum_{\mathbf{c}\in \mathbf{C}}p(\mathbf{c})\sum_{\mathbf{c}_{p e}\in \mathcal{C}_{p e}}p(\mathbf{c}_{p e}|\mathbf{c})\max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})}\\ & {\qquad = \sum_{\mathbf{c}\in \mathcal{C}\backslash \{\mathbf{c}_{p e}\}}\sum_{\mathbf{c}\in \mathcal{C}}\sum_{\mathbf{c}_{p e}\in \mathcal{C}_{p e}}p(\mathbf{c})p(\mathbf{c}_{p e}|\mathbf{c})\max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})}\\ & {\qquad = \sum_{\mathbf{c}\in \mathcal{C}\backslash \{\mathbf{c}_{p e}\}}\sum_{\mathbf{c}\in \mathcal{C}}\sum_{\mathbf{c}_{p e}\in \mathcal{C}_{p e}}p(\mathbf{c}_{p e},\mathbf{c})\max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})}\\ & {\qquad = \sum_{\mathbf{c}\in \mathcal{C}}\sum_{\mathbf{c}\in \mathcal{C}}p(\mathbf{c})\max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})}\\ & {\qquad = \sup (\mathcal{P}_{\mathcal{C}}) \end{array} \quad (10)\]

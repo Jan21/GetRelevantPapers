@@ -1,0 +1,43 @@
+Considering this, we leverage a cross- attention mechanism to dynamically assign importance weights to the relationships between each pair of complementary literals. This mechanism enables the model to adaptively capture critical logical properties such as mutual exclusivity, dependency, and the process of information exchange between positive and negative literal nodes. Therefore, after updating each node representation in the hypergraph convolution layer, a cross- attention layer is introduced to enhance the representations of positive and negative literal nodes.  
+
+Specifically, given the \(l\) - th layer output of the HyperGCN \(\pmb{L}^{(l + 1)}\) , we divide it into two parts: \(\pmb{L}^{(l + 1)^{\prime}} =\) \(\left[\pmb{L}_{+}^{(l + 1)^{\prime}},\pmb{L}_{- }^{(l + 1)^{\prime}}\right]\) , where \(\pmb{L}_{+}^{(l + 1)^{\prime}}\in \mathbb{R}^{n\times d_{l + 1}}\) represent the positive literal node representations and \(\pmb{L}_{- }^{(l + 1)^{\prime}}\in \mathbb{R}^{n\times d_{l + 1}}\) represent the negative literal node representations. The cross- attention mechanism is mathematically represented as follows:  
+
+\[\begin{array}{r l} & {\pmb{L}_{+}^{(l + 1)} = \mathrm{softmax}\left(\frac{\pmb{Q}_{+}^{(l + 1)}(\pmb{K}_{+}^{(l + 1)})^{\top}}{\sqrt{d_{l + 1}}}\right)\pmb{V}_{-}^{(l + 1)},}\\ & {\pmb{L}_{-}^{(l + 1)} = \mathrm{softmax}\left(\frac{\pmb{Q}_{-}^{(l + 1)}(\pmb{K}_{+}^{(l + 1)})^{\top}}{\sqrt{d_{l + 1}}}\right)\pmb{V}_{+}^{(l + 1)}.} \end{array} \quad (4)\]  
+
+In this formulation,  
+
+\[\begin{array}{r l} & {\pmb{Q}_{+}^{(l + 1)} = \pmb{W}_{Q}^{(l + 1)}\pmb{L}_{+}^{(l + 1)^{\prime}},\pmb{Q}_{-}^{(l + 1)} = \widetilde{\pmb{W}}_{Q}^{(l + 1)}\pmb{L}_{-}^{(l + 1)^{\prime}},}\\ & {\pmb{K}_{+}^{(l + 1)} = \pmb{W}_{K}^{(l + 1)}\pmb{L}_{+}^{(l + 1)^{\prime}},\pmb{K}_{-}^{(l + 1)} = \widetilde{\pmb{W}}_{K}^{(l + 1)}\pmb{L}_{-}^{(l + 1)^{\prime}},}\\ & {\pmb{V}_{+}^{(l + 1)} = \pmb{W}_{V}^{(l + 1)}\pmb{L}_{+}^{(l + 1)^{\prime}},\pmb{V}_{-}^{(l + 1)} = \widetilde{\pmb{W}}_{V}^{(l + 1)}\pmb{L}_{-}^{(l + 1)^{\prime}},} \end{array} \quad (5)\]  
+
+where \(\pmb{W}_{Q}^{(l + 1)}\) , \(\pmb{W}_{K}^{(l + 1)}\) , \(\pmb{W}_{V}^{(l + 1)}\) are the learnable query, key and value projection matrices for the positive literal nodes at the \(l\) - th layer, and \(\widetilde{\pmb{W}}_{Q}^{(l + 1)}\) , \(\widetilde{\pmb{W}}_{K}^{(l + 1)}\) , \(\widetilde{\pmb{W}}_{V}^{(l + 1)}\) are the learnable query, key and value projection matrix for the negative literal nodes at the \(l\) - th layer.  
+
+The final node representation at the \(l\) - th layer is obtained as \(\pmb{L}^{(l + 1)} = [\pmb{L}_{+}^{(l + 1)},\pmb{L}_{- }^{(l + 1)}]\) . The cross- attention mechanism explicitly constructs the interaction between positive and negative literal nodes by enabling each node to incorporate the features of its counterpart. This facilitates a more comprehensive representation of node features for Weighted MaxSAT problems.  
+
+Building upon this, the transformer module in HyperSAT incorporates the previously discussed cross- attention layer, along with other components to further enhance the modeling capability. Inspired by the recent advancements in Vision Transformer architecture (ViT- 22B (Dehghani et al., 2023)), the transformer module in HyperSAT includes a LayerNorm layer (Ba, 2016), followed by a combination of a cross- attention layer and a Feed- Forward Network (FFN) layer, along with a residual connection and an additional  
+
+LayerNorm layer. The FFN and cross- attention layers operate in parallel to enhance the efficiency. The residual connection is introduced by adding the outputs from the cross- attention layer, the FFN layer, and the LayerNorm layer. The resulting sum is then passed through another LayerNorm layer to stabilize the representations before proceeding to the next layer.  
+
+The final layer of the network is a softmax layer. We reshape the iterated \(\pmb{L}^{(T)^{\prime}}\in \mathbb{R}^{2n\times 1}\) into \(\hat{\pmb{L}}^{(T)^{\prime}}\in \mathbb{R}^{n\times 2}\) , which serves as the input to the softmax layer. After applying the softmax function, we obtain \(\hat{\pmb{L}} = \mathrm{softmax}(\hat{\pmb{L}}^{(T)^{\prime}})\) , which provides the soft node assignments for each literal, interpreted as class probabilities. The probability of assigning a variable to a truth value is recorded by \(\pmb{Y} = \hat{\pmb{L}}_{- 1}\) , which is the first column of \(\hat{\pmb{L}}\) .  
+
+#### 3.2.3. LOSS FUNCTION  
+
+Given a Weighted MaxSAT instance \(\phi = (\mathcal{X},\mathcal{C},\mathbf{w})\) and its hypergraph \(\mathcal{G} = (\mathcal{V},\mathcal{E},\mathbf{W})\) , we relax the Boolean variables \(\mathcal{X}\) into continuous probability parameters \(\mathbf{Y}(\gamma)\) where \(\gamma = (\pmb {R},\pmb {L}^{(0)},\pmb {W}_{Q},\pmb {W}_{K},\pmb {W}_{V},\widetilde{\pmb{W}}_{Q},\widetilde{\pmb{W}}_{K},\widetilde{\pmb{W}}_{V})\) represent the learnable parameters. The relaxation is defined as follows:  
+
+\[\mathcal{X}\in \{0,1\}^{n}\longrightarrow \mathbf{Y}(\gamma)\in [0,1]^{n}. \quad (6)\]  
+
+With this relaxation, we can design a differentiable loss function to optimize the learnable parameters \(\gamma\) , enabling gradient- based optimization.  
+
+In this paper, we propose an unsupervised multi- objective loss function that consists of two components: a primary task loss \(\mathcal{L}_{\mathrm{task}}\) and a shared representation constraint loss \(\mathcal{L}_{\mathrm{shared}}\) . This unsupervised loss function obviates the necessity for large, labeled training datasets, which are conventionally indispensable in supervised learning paradigms. The specific form is as follows:  
+
+\[\mathcal{L}_{\mathrm{total}} = \mathcal{L}_{\mathrm{task}} + \lambda \mathcal{L}_{\mathrm{shared}}, \quad (7)\]  
+
+where \(\lambda \geq 0\) is a balancing hyperparameter.  
+
+The primary task loss function is the relaxed optimization objective of the Weighted MaxSAT problem, as shown below:  
+
+\[\mathcal{L}_{\mathrm{task}}(\mathbf{Y}) = \sum_{j = 1}^{m}w_{j}V_{j}(\mathbf{Y}), \quad (8)\]  
+
+where  
+
+\[V_{j}(\mathbf{Y}) = 1 - \prod_{i\in C_{j}^{+}}(1 - y_{i})\prod_{i\in C_{j}^{-}}y_{i}. \quad (9)\]  
+
+Here, \(C_{j}^{+}\) and \(C_{j}^{- }\) are the index sets of variables appearing in the clause \(C_{j}\) in the positive and negative form, respectively. The term \(V_{j}(\mathbf{Y})\) represents the satisfaction of clause \(C_{j}\) , where a value of 1 indicates that the clause is satisfied, and 0 indicates it is not. The weight \(w_{j}\) ensures that

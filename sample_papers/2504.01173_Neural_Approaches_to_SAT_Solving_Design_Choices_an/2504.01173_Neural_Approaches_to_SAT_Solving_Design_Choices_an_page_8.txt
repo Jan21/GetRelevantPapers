@@ -1,0 +1,25 @@
+## 4 Experimental Setup  
+
+### 4.1 Data Representation and Graph Structure  
+
+Boolean formulas in CNF form can be naturally represented as bipartite graphs where clauses and variables (or literals) form two distinct sets of nodes. In this work, we explore two different graph representations:  
+
+Literal- Clause Graph (LCG) In the literal- clause graph representation, each literal (both positive and negative polarity of a variable) is represented as a separate node. For a formula with \(n\) variables, this results in \(2n\) literal nodes. Each literal node is connected to all clause nodes containing that literal. Formally, for a CNF formula \(\phi\) with variables \(x_{1},\ldots ,x_{n}\) and clauses \(c_{1},\ldots ,c_{m}\) , we construct a bipartite graph \(G_{LC} = (L\cup C,E)\) where:  
+
+- \(L = \{l_{1},\ldots ,l_{n},\bar{l}_{1},\ldots ,\bar{l}_{n}\}\) is the set of literal nodes  
+
+- \(C = \{c_{1},\ldots ,c_{m}\}\) is the set of clause nodes  
+
+- \((l_{i},c_{j})\in E\) if and only if literal \(l_{i}\) appears in clause \(c_{j}\)  
+
+Variable- Clause Graph (VCG) In the variable- clause graph representation, each variable (rather than each literal) is represented as a node. For a formula with \(n\) variables, this results in exactly \(n\) variable nodes. Each variable node is connected to all clause nodes containing either the positive or negative literal of that variable. To retain information about the polarity of literals, we assign edge features \(p_{ij}\in \{- 1,1\}\) to each edge \((x_{i},c_{j})\) , where \(p_{ij} = 1\) if the positive literal \(x_{i}\) appears in clause \(c_{j}\) , and \(p_{ij} = - 1\) if the negative literal \(\overline{{x}}_{i}\) appears in clause \(c_{j}\) . Formally, we construct a bipartite graph \(G_{VC} = (V\cup C,E,P)\) where:  
+
+- \(V = \{x_{1},\ldots ,x_{n}\}\) is the set of variable nodes- \(C = \{c_{1},\ldots ,c_{m}\}\) is the set of clause nodes- \((x_{i},c_{j})\in E\) if and only if variable \(x_{i}\) appears in clause \(c_{j}\) (in either polarity)- \(P:E\to \{-1,1\}\) maps each edge to its corresponding polarity  
+
+Both graph representations capture the structure of the Boolean formula, but they differ in how they handle variable polarity. The literal- clause graph explicitly represents both polarities as separate nodes, which increases the number of nodes but simplifies the message passing process of the GNN. The variable- clause graph is more compact but requires handling polarity information through edge features. For the GNNs we use, the variable- clause graph representation is more computationally efficient than the literal- clause graph, reducing both memory requirements and processing time. This efficiency comes from having half as many variable nodes (compared to literal nodes) and avoiding an expensive operation during message passing as will be described in Section 4.2.  
+
+In our experiments, we compare both representations together with different message passing operations and different training regimes.  
+
+### 4.2 Architecture Variants  
+
+Our GNN architecture variants are derived from the NeuroSAT architecture Selsam et al. [2018] which demonstrated the possibility of using GNNs for SAT solving. The main advantage of this architecture is that it is recurrent and therefore the number of message passing iterations is theoretically not limited. This is not the case for the non- recurrent alternatives with fixed number of layers. We will demonstrate the usefulness of this feature in Section (5.3).

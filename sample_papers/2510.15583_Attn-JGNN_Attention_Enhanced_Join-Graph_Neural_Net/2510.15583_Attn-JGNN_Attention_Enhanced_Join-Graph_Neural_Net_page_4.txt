@@ -1,0 +1,17 @@
+where \(\phi_{i}(C_{i})\) is a factor defined on a subset of variables \(C_{i} \subseteq X\) , and \(\mathbf{Z}\) is the normalization constant (partition function). A join-graph is a structure that decomposes the factor graph of the model into multiple clusters. Each cluster contains a set of variables and their associated factors. To ensure correctness of subsequent inference, the join-graph must satisfy two key properties: Coverage: Each factor \(\phi_{i}\) must be included in at least one cluster. Connectivity: For any two clusters that share a variable, there exists a path connecting them, and all clusters on the path contain the variable.  
+
+In this work, the join- graph is constructed using the external tree decomposition tool flow- cutter; the tree- width of the decomposition is controlled manually. In the join- graph, a message is a function transmitted from a cluster \(C_{i}\) to another cluster \(C_{j}\) , defined as:  
+
+\[m_{i\to j}(S_{ij}) = \sum_{C_{i}\setminus S_{ij}}\phi_{i}(C_{i})\prod_{k\in n e(i)\setminus j}m_{k\to i}(S_{ki}) \quad (2)\]  
+
+\(S_{ij} = C_{i}\cap C_{j}\) is the set of shared variables between clusters \(C_{i}\) and \(C_{j}\) , \(ne(i)\) is the set of neighboring cluster of \(C_{i}\) and \(\sum_{C_{i}\setminus S_{ij}}\) denotes summation over variables  
+
+in \(C_{i}\backslash S_{ij}\) . The core of IJGP is to approximate marginal probabilities via iterative message passing. The algorithm proceeds as follows: Initialize all messages \(m_{i\to j}\) to uniform distributions, For each cluster \(C_{i}\) , compute the message \(m_{i\to j}\) for every neighboring cluster \(C_{j}\) , then, Update messages until convergence or the maximum number of iterations is reached, finally, for each variable X, its marginal probability \(\mathrm{P(X)}\) is proportional to the product of all messages in the clusters that contain X:  
+
+\[P(X)\propto \prod_{X\in C_{i}}m_{i\to j}(S_{ij}) \quad (3)\]  
+
+### 2.3 Graph Attention Networks  
+
+The Graph Attention Network (GAT) is a graph neural network model that leverages attention mechanisms to dynamically aggregate information from neighboring nodes. Its key advantage is the ability to assign adaptive attention weights to different neighbors, capturing the relative importance of each node in the graph. For a target node \(\mathbf{v}\) and its neighbor \(u \in N(v)\) (where \(\mathrm{N(v)}\) denotes the set of neighbors of \(\mathbf{v}\) ), the attention weight \(\alpha_{vu}\) (representing the importance of node \(u\) to node \(\mathbf{v}\) ) is defined as:  
+
+\[\alpha_{vu} = \frac{exp(LeakyReLU(a^{T}[Wh_{v}||Wh_{u}]))}{\sum_{k\in N(v)}exp(LeakyReLU(a^{T}[Wh_{v}||Wh_{k}]))} \quad (4)\]

@@ -1,0 +1,29 @@
+## S.6 Training with the SDP objective function  
+
+To further support the connection to SDP- based approximation algorithms, we tried to train the GNN with a loss function that is minimized when the maximum number of clauses is satisfied. Unlike the experiments in Section S.5, here we focus on general MAX- SAT for which we came up with the following (multilinear) objective function.  
+
+Given a set of variables \(\{x_{1},x_{2},\ldots ,x_{n}\} = X\) associated to each Boolean variable, one special variable \(x_{0}\) , and a set of clauses \(\{c_{1},c_{2},\ldots ,c_{m}\} =\) \(C\) , where each clause \(c_{i}\) consists of (multiple) literals (variables with polarity), the objective function \(v(C)\) for an integer- valued problem can be defined as:  
+
+\[v(C) = \sum_{c\in C}\left(\prod_{l\in c}\frac{1 - sgn(l)\cdot x_{l}\cdot x_{0}}{2}\right)\]  
+
+where \(\operatorname {sgn}(l)\) is a variable polarity in clause \(c\) and evaluates to 1 for a positive occurrence of the variable \(l\) and \(- 1\) for negative, and \(x_{l}\in X\) can take the value \(- 1\) or 1. The product for a clause \(c\) is 0 if at least for one of the variables \(x_{l}\) in the clause, \(sgn(l)\cdot x_{l}\cdot x_{0} = 1\) , which is the case when this clause is satisfied. To use this as a loss function for the supervision of NeuroSAT, we lift the variables \(x_{0},x_{1},x_{2},\ldots ,x_{n}\) to be unit vectors in a high- dimensional space. The objective is to minimize the following differentiable expression by optimizing these unit vectors:  
+
+\[v(C) = \sum_{c\in C}\left(\prod_{l\in c}\frac{1 - sgn(l)x_{l}\cdot x_{0}}{2}\right).\]  
+
+The scalar product of the unit vectors \(x_{l}\cdot x_{0}\) is a real number between \(- 1\) and 1. The vector \(x_{0}\) is sampled randomly as a unit vector and is kept fixed, whereas other variable vectors are sampled randomly, fed into NeuroSAT as initial embeddings for positive literals, updated by MP iterations, and normalized after each update. We supervise the negative literals with the same objective with the exception that the \(\operatorname {sgn}(l)\) returns \(- 1\) for positive and 1 for a negative literal occurrence.  
+
+To extract the assignment of individual variables, we compute an inner product with the vector \(x_{0}\) (representing the value true) and assign the variable to true if it is positive, and to false in the other case.  
+
+Once we have the assignment, we can classify the formula as SAT/UNSAT by checking whether the solution satisfies the formula. The trained model accurately classifies only \(\sim 73\%\) of all problems (vs. \(\sim 85\%\) in the case of the NeuroSAT trained by the original loss). When optimizing the embeddings w.r.t. this objective directly with Autograd, the accuracy was \(\sim 65\%\) . On the other hand, when trained with this objective function, the model starts to quickly improve even when trained only on the formulas of the largest size (i.e. 40 variables) without a curriculum. This suggests that a possible combination of loss functions, one that tries to maximize the number of satisfied formulas and one that penalizes the model for incorrect classification, may be beneficial. We leave the investigation of this idea for future work.  
+
+## S.7 Results for Different Numbers of Decimation Steps  
+
+In Table 2, we show the effect of running the decimation process multiple times. On our test sets, the decimation process did not result in any further improvement when repeated more than twice. The hyperparameters are the same as for the experiments in Table 1 (with 16 random init. samples per formula in the first pass and 1 random init. sample for each subsequent pass). We note that we did not try to optimize the decimation threshold, which could lead to further improvements.  
+
+Table 2: This table shows a number of problems solved after subsequent application of the decimation procedure.   
+
+<table><tr><td>Problem Type</td><td>#SAT problems</td><td>First pass</td><td>Second pass</td><td>Third pass</td></tr><tr><td>SR(40)</td><td>5000</td><td>4442 (88.8 %)</td><td>274 (5.4 %)</td><td>35 (0.7 %)</td></tr><tr><td>Latin Squares 9x9</td><td>200</td><td>186 (93 %)</td><td>14 (7 %)</td><td>4 (2 %)</td></tr><tr><td>Latin Squares 8x8</td><td>200</td><td>196 (98 %)</td><td>1 (0.5%)</td><td>0 (0 %)</td></tr><tr><td>Logical Circuits</td><td>344</td><td>319 (92.7 %)</td><td>0 (0 %)</td><td>0 (0 %)</td></tr><tr><td>Sudoku 9x9</td><td>200</td><td>83 (46 %)</td><td>11 (5.5 %)</td><td>3 (1.5 %)</td></tr></table>  
+
+## S.8 Results for Belief Propagation  
+
+Here we report the results of Belief Propagation algorithm applied on the same problems as reported in the main paper. NeuroSAT results are without resampling and decimation (copied from Table 1). Belief Propagation is run once for a maximum of 1000 iterations.

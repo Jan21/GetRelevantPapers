@@ -1,0 +1,16 @@
+useful for many problems. SAT in particular has constraints that all forbid exactly one tuple. It is therefore more efficient to work with this one forbidden tuple rather than the \(2^{k} - 1\) allowed tuples.  
+
+The procedure described here is designed for extension constraints, i.e. constraints where the relations are defined explicitly with lists of allowed or disallowed tuples. Many applications of CSPs require constraints for which this is infeasible. In this case, the relations can only be specified implicitly through intensions. A common example are arithmetic inequalities over discrete numerical domains. To address this issue, our implementation does provide support for two additional classes of constraints:  
+
+1. Linear (in)-equalities over numerical domains 
+2. "All-Different"-constraint over many variables  
+
+These two types of constraints are commonly found in many CSPs but are hard to express explicitly. We can still compute the edge labels efficiently on the GPU with similar tricks used for the aforementioned extension constraints. Since these are not needed to reproduce the results of our main experiments we refer to our source code for further details. Note that our implementation allows all three supported constraint types to be freely mixed within each instance.  
+
+## A.6 Expressiveness  
+
+A well- known theoretical result on Graph Neural Networks is their correspondence to the Weisfeiler- Lehman isomorphism test. More specifically, standard message- passing GNNs can not distinguish more structures than the 1- dimensional Weisfeiler- Lehman test. For node- level tasks this prohibits a GNN to map two different nodes with identical \(n\) - hop subtrees to different outputs after \(n\) message passes. For some graph structures, such as regular graphs, this makes certain combinatorial tasks, such as graph coloring, fundamentally impossible with standard GNNs.  
+
+Crucially, ANYCSP is not limited by 1- WL. Our policy GNN \(\pi_{\theta}\) has access to randomness which has been proven to strengthen GNN expressiveness beyond the WL- hierarchy (Abboud et al. 2021; Sato, Yamada, and Kashima 2021). In each iteration \(\pi_{\theta}\) predicts a soft assignment. From this we sample a hard assignment and pass it back to the GNN as a binary pattern. This process can be understood as giving the GNN oracle access to randomness in every iteration. Soft assignments are not just a way of outputting a new assignment but also provide the means with which \(\pi_{\theta}\) interacts with randomness. The GNN can learn to predict soft assignments with high variance to break symmetries through random sampling.  
+
+Empirically this is also demonstrated in the MAXCUT experiment. The graphs \(G48\) and \(G49\) are both 4- regular toroidal graphs. ANYCSP computes optimal cuts for both graphs, which correspond to conflict- free 2- colorings. This could not be achieved by any function limited by 1- WL.

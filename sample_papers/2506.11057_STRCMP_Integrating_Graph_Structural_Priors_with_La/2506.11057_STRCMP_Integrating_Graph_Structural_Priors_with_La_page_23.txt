@@ -1,0 +1,15 @@
+Intuitively, consider a benchmark set comprising \(n\) SAT instances. Let \(t_{i}\) denote the solver's runtime on the i- th instance. The PAR- 2 score is formally defined as  
+
+\[\mathrm{PAR - 2} = \frac{1}{n}\sum_{i = 1}^{n}t_{i}, \quad (21)\]  
+
+where  
+
+\[t_{i} = \left\{ \begin{array}{l l}{t_{i},} & {\mathrm{if} t_{i}\leq \tau ;}\\ {2\tau ,} & {\mathrm{if} t_{i} > \tau \mathrm{or the~solver~fails~to~return~a~solution}.} \end{array} \right. \quad (22)\]  
+
+## F Discussion  
+
+End- to- End Training. In this work, we adopt a two- stage training procedure for our composite model: first training a graph neural network (GNN), then training a large language model (LLM) conditioned on the frozen GNN embeddings. This approach stems from our empirical observation that end- to- end joint training of the composite model presents significant optimization challenges. We hypothesize that this limitation could be mitigated by exploring more sophisticated GNN architectures or developing enhanced alignment strategies between the GNN's structural representations and the LLM's semantic space.  
+
+Explore Domain- specific Distributional Discrepancies. In our ablation studies, empirical results reveal that the full STRCMP model (with complete post- training) underperforms relative to its variants STRCMP (SFT Only) and STRCMP (DPO Only) across benchmark datasets, suggesting potential conflicts between optimization objectives during multi- stage post- training. This observation motivates future investigation into domain- specific distributional discrepancies that may arise from the heterogeneous nature of combinatorial optimization problems, which could inform improved alignment strategies for cross- domain post- training protocols.  
+
+Incorporating Additional Modal Priors. In this study, we focus specifically on integrating graph structural priors into LLM- based algorithm discovery for combinatorial optimization problems. While current methodologies rely on human expertise to predefine target components, we posit that LLMs' context- aware capabilities could assimilate additional modal priors (e.g., dynamic constraint patterns or solution quality metrics) to enhance combinatorial optimization problem- solving performance. Future extensions may enable LLMs to autonomously identify computational bottlenecks through techniques such as runtime complexity profiling or constraint violation pattern analysis, thereby prioritizing component optimization.

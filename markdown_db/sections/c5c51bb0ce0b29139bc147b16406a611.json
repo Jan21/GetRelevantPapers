@@ -1,0 +1,110 @@
+{
+  "sections": {
+    "efficient_neural_networks_for_mnist_classification": "## Abstract\n\nWe propose a lightweight neural network architecture for MNIST digit classification implemented in PyTorch. Our approach achieves 99.1% accuracy while being trainable in just 2 hours on a single GPU.\n\n## Introduction\n\nMNIST digit classification is a classic benchmark in machine learning. While many complex models exist, we focus on efficiency and simplicity.\n\n## Methodology\n\n### Model Architecture\n\nOur model uses a simple CNN architecture implemented in PyTorch:\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MNISTNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.conv1 = nn.Conv2d(1, 32, 3)\n        self.conv2 = nn.Conv2d(32, 64, 3)\n        self.fc1 = nn.Linear(9216, 128)\n        self.fc2 = nn.Linear(128, 10)\n```\n\n### Training\n\nWe use supervised learning with cross-entropy loss and labeled training data. The model is optimized using SGD with momentum.\n\n## Experiments\n\n### Dataset\n\nMNIST contains 70,000 grayscale images of handwritten digits (0-9). We use 60,000 for training and 10,000 for testing.\n\n### Training Configuration\n\n- Framework: PyTorch 1.12\n- Hardware: Single GTX 1080 GPU  \n- Training time: 2 hours\n- Epochs: 50\n- Batch size: 64\n\n### Results\n\nOur lightweight model achieves 99.1% test accuracy, demonstrating that simple architectures can be very effective on MNIST.\n\n## Code Availability\n\nFull implementation available at: https://github.com/author/mnist-pytorch\n\nThe repository includes:\n- Complete model definition\n- Training script\n- Evaluation utilities\n- Pretrained weights\n\n## Conclusion\n\nWe show that efficient PyTorch models can achieve excellent performance on MNIST with minimal computational requirements.\n\n## References\n\n1. LeCun, Y., et al. \"Gradient-based learning applied to document recognition.\" 1998.\n2. Paszke, A., et al. \"PyTorch: An imperative style, high-performance deep learning library.\" NeurIPS 2019.",
+    "abstract": "We propose a lightweight neural network architecture for MNIST digit classification implemented in PyTorch. Our approach achieves 99.1% accuracy while being trainable in just 2 hours on a single GPU.",
+    "introduction": "MNIST digit classification is a classic benchmark in machine learning. While many complex models exist, we focus on efficiency and simplicity.",
+    "methodology": "### Model Architecture\n\nOur model uses a simple CNN architecture implemented in PyTorch:\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MNISTNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.conv1 = nn.Conv2d(1, 32, 3)\n        self.conv2 = nn.Conv2d(32, 64, 3)\n        self.fc1 = nn.Linear(9216, 128)\n        self.fc2 = nn.Linear(128, 10)\n```\n\n### Training\n\nWe use supervised learning with cross-entropy loss and labeled training data. The model is optimized using SGD with momentum.",
+    "model_architecture": "Our model uses a simple CNN architecture implemented in PyTorch:\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MNISTNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.conv1 = nn.Conv2d(1, 32, 3)\n        self.conv2 = nn.Conv2d(32, 64, 3)\n        self.fc1 = nn.Linear(9216, 128)\n        self.fc2 = nn.Linear(128, 10)\n```",
+    "training": "We use supervised learning with cross-entropy loss and labeled training data. The model is optimized using SGD with momentum.",
+    "experiments": "### Dataset\n\nMNIST contains 70,000 grayscale images of handwritten digits (0-9). We use 60,000 for training and 10,000 for testing.\n\n### Training Configuration\n\n- Framework: PyTorch 1.12\n- Hardware: Single GTX 1080 GPU  \n- Training time: 2 hours\n- Epochs: 50\n- Batch size: 64\n\n### Results\n\nOur lightweight model achieves 99.1% test accuracy, demonstrating that simple architectures can be very effective on MNIST.",
+    "dataset": "MNIST contains 70,000 grayscale images of handwritten digits (0-9). We use 60,000 for training and 10,000 for testing.",
+    "training_configuration": "- Framework: PyTorch 1.12\n- Hardware: Single GTX 1080 GPU  \n- Training time: 2 hours\n- Epochs: 50\n- Batch size: 64",
+    "results": "Our lightweight model achieves 99.1% test accuracy, demonstrating that simple architectures can be very effective on MNIST.",
+    "code_availability": "Full implementation available at: https://github.com/author/mnist-pytorch\n\nThe repository includes:\n- Complete model definition\n- Training script\n- Evaluation utilities\n- Pretrained weights",
+    "conclusion": "We show that efficient PyTorch models can achieve excellent performance on MNIST with minimal computational requirements.",
+    "references": "1. LeCun, Y., et al. \"Gradient-based learning applied to document recognition.\" 1998.\n2. Paszke, A., et al. \"PyTorch: An imperative style, high-performance deep learning library.\" NeurIPS 2019."
+  },
+  "section_objects": [
+    {
+      "heading": "Efficient Neural Networks for MNIST Classification",
+      "content": "## Abstract\n\nWe propose a lightweight neural network architecture for MNIST digit classification implemented in PyTorch. Our approach achieves 99.1% accuracy while being trainable in just 2 hours on a single GPU.\n\n## Introduction\n\nMNIST digit classification is a classic benchmark in machine learning. While many complex models exist, we focus on efficiency and simplicity.\n\n## Methodology\n\n### Model Architecture\n\nOur model uses a simple CNN architecture implemented in PyTorch:\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MNISTNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.conv1 = nn.Conv2d(1, 32, 3)\n        self.conv2 = nn.Conv2d(32, 64, 3)\n        self.fc1 = nn.Linear(9216, 128)\n        self.fc2 = nn.Linear(128, 10)\n```\n\n### Training\n\nWe use supervised learning with cross-entropy loss and labeled training data. The model is optimized using SGD with momentum.\n\n## Experiments\n\n### Dataset\n\nMNIST contains 70,000 grayscale images of handwritten digits (0-9). We use 60,000 for training and 10,000 for testing.\n\n### Training Configuration\n\n- Framework: PyTorch 1.12\n- Hardware: Single GTX 1080 GPU  \n- Training time: 2 hours\n- Epochs: 50\n- Batch size: 64\n\n### Results\n\nOur lightweight model achieves 99.1% test accuracy, demonstrating that simple architectures can be very effective on MNIST.\n\n## Code Availability\n\nFull implementation available at: https://github.com/author/mnist-pytorch\n\nThe repository includes:\n- Complete model definition\n- Training script\n- Evaluation utilities\n- Pretrained weights\n\n## Conclusion\n\nWe show that efficient PyTorch models can achieve excellent performance on MNIST with minimal computational requirements.\n\n## References\n\n1. LeCun, Y., et al. \"Gradient-based learning applied to document recognition.\" 1998.\n2. Paszke, A., et al. \"PyTorch: An imperative style, high-performance deep learning library.\" NeurIPS 2019.",
+      "level": 1,
+      "line_start": 1,
+      "line_end": 70
+    },
+    {
+      "heading": "Abstract",
+      "content": "We propose a lightweight neural network architecture for MNIST digit classification implemented in PyTorch. Our approach achieves 99.1% accuracy while being trainable in just 2 hours on a single GPU.",
+      "level": 2,
+      "line_start": 3,
+      "line_end": 6
+    },
+    {
+      "heading": "Introduction",
+      "content": "MNIST digit classification is a classic benchmark in machine learning. While many complex models exist, we focus on efficiency and simplicity.",
+      "level": 2,
+      "line_start": 7,
+      "line_end": 10
+    },
+    {
+      "heading": "Methodology",
+      "content": "### Model Architecture\n\nOur model uses a simple CNN architecture implemented in PyTorch:\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MNISTNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.conv1 = nn.Conv2d(1, 32, 3)\n        self.conv2 = nn.Conv2d(32, 64, 3)\n        self.fc1 = nn.Linear(9216, 128)\n        self.fc2 = nn.Linear(128, 10)\n```\n\n### Training\n\nWe use supervised learning with cross-entropy loss and labeled training data. The model is optimized using SGD with momentum.",
+      "level": 2,
+      "line_start": 11,
+      "line_end": 33
+    },
+    {
+      "heading": "Model Architecture",
+      "content": "Our model uses a simple CNN architecture implemented in PyTorch:\n\n```python\nimport torch\nimport torch.nn as nn\n\nclass MNISTNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.conv1 = nn.Conv2d(1, 32, 3)\n        self.conv2 = nn.Conv2d(32, 64, 3)\n        self.fc1 = nn.Linear(9216, 128)\n        self.fc2 = nn.Linear(128, 10)\n```",
+      "level": 3,
+      "line_start": 13,
+      "line_end": 29
+    },
+    {
+      "heading": "Training",
+      "content": "We use supervised learning with cross-entropy loss and labeled training data. The model is optimized using SGD with momentum.",
+      "level": 3,
+      "line_start": 30,
+      "line_end": 33
+    },
+    {
+      "heading": "Experiments",
+      "content": "### Dataset\n\nMNIST contains 70,000 grayscale images of handwritten digits (0-9). We use 60,000 for training and 10,000 for testing.\n\n### Training Configuration\n\n- Framework: PyTorch 1.12\n- Hardware: Single GTX 1080 GPU  \n- Training time: 2 hours\n- Epochs: 50\n- Batch size: 64\n\n### Results\n\nOur lightweight model achieves 99.1% test accuracy, demonstrating that simple architectures can be very effective on MNIST.",
+      "level": 2,
+      "line_start": 34,
+      "line_end": 51
+    },
+    {
+      "heading": "Dataset",
+      "content": "MNIST contains 70,000 grayscale images of handwritten digits (0-9). We use 60,000 for training and 10,000 for testing.",
+      "level": 3,
+      "line_start": 36,
+      "line_end": 39
+    },
+    {
+      "heading": "Training Configuration",
+      "content": "- Framework: PyTorch 1.12\n- Hardware: Single GTX 1080 GPU  \n- Training time: 2 hours\n- Epochs: 50\n- Batch size: 64",
+      "level": 3,
+      "line_start": 40,
+      "line_end": 47
+    },
+    {
+      "heading": "Results",
+      "content": "Our lightweight model achieves 99.1% test accuracy, demonstrating that simple architectures can be very effective on MNIST.",
+      "level": 3,
+      "line_start": 48,
+      "line_end": 51
+    },
+    {
+      "heading": "Code Availability",
+      "content": "Full implementation available at: https://github.com/author/mnist-pytorch\n\nThe repository includes:\n- Complete model definition\n- Training script\n- Evaluation utilities\n- Pretrained weights",
+      "level": 2,
+      "line_start": 52,
+      "line_end": 61
+    },
+    {
+      "heading": "Conclusion",
+      "content": "We show that efficient PyTorch models can achieve excellent performance on MNIST with minimal computational requirements.",
+      "level": 2,
+      "line_start": 62,
+      "line_end": 65
+    },
+    {
+      "heading": "References",
+      "content": "1. LeCun, Y., et al. \"Gradient-based learning applied to document recognition.\" 1998.\n2. Paszke, A., et al. \"PyTorch: An imperative style, high-performance deep learning library.\" NeurIPS 2019.",
+      "level": 2,
+      "line_start": 66,
+      "line_end": 70
+    }
+  ]
+}

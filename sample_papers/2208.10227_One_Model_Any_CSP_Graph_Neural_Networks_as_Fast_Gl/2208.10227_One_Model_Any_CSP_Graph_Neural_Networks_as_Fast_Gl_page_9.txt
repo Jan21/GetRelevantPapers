@@ -1,0 +1,13 @@
+Vinyals, O.; Fortunato, M.; and Jaitly, N. 2015. Pointer networks. Advances in neural information processing systems, 28.  
+
+Wang, R.; Hua, Z.; Liu, G.; Zhang, J.; Yan, J.; Qi, F.; Yang, S.; Zhou, J.; and Yang, X. 2021. A Bi- Level Framework for Learning to Solve Combinatorial Optimization on Graphs. In Ranzato, M.; Beygelzimer, A.; Dauphin, Y.; Liang, P.; and Vaughan, J. W., eds., Advances in Neural Information Processing Systems, volume 34, 21453- 21466. Curran Associates, Inc.  
+
+Williams, R. J. 1992. Simple statistical gradient- following algorithms for connectionist reinforcement learning. Machine learning, 8(3): 229- 256.  
+
+Xu, K.; and Li, W. 2003. Many Hard Examples in Exact Phase Transitions. Science Direct Working Paper No S1574- 034X (04), 70228- 8.  
+
+Yao, F.; Cai, R.; and Wang, H. 2021. Reversible Action Design for Combinatorial Optimization with Reinforcement Learning. In AAAI- 22 Workshop on Machine Learning for Operations Research (ML4OR).  
+
+Ye, Y. 2003. Gset. https://web.stanford.edu/yyye/yyye/Gset/. Yolcu, E.; and Póczos, B. 2019. Learning local search heuristics for boolean satisfiability. Advances in Neural Information Processing Systems, 32.  
+
+Zhou, N.- F. 2022. An XCSP3 Solver in Picat. In XCSP3 Competition 2022 Proceedings, XCSP3 Competition, 79- 81.

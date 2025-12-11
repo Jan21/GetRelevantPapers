@@ -1,0 +1,21 @@
+<center>Figure 6: The convergence curve of training GNN for SAT domain. </center>  
+
+literals and \(m\) clauses induces a bipartitioned graph where \(\mathcal{V}_{1} = \{l_{1},\dots,l_{n}\}\) denotes the literal nodes and \(\mathcal{V}_{2} = \{c_{1},\dots,c_{m}\}\) represents the clause nodes.  
+
+GNN Structure. The process of using GNN to extract combinatorial optimization problem can be formulated as:  
+
+\[\mathbf{v}_{i}^{(k + 1)}\leftarrow \mathbf{f}_{\mathbf{v}}(\mathbf{v}_{i}^{(k)},\sum_{j,i\neq j}^{(i,j)\in \mathcal{E}}\mathbf{g}_{\mathbf{v}}(\mathbf{v}_{i}^{(k)},\mathbf{v}_{j}^{(k)},\mathbf{e}_{i j})),\quad (k = 0,1,\dots,K - 1) \quad (12)\]  
+
+\[\begin{array}{r}{\pmb{h}_{q} = P o o l(\{\mathbf{v}_{i}^{(K)}\}),} \end{array} \quad (13)\]  
+
+where \(\mathbf{f}_{\mathbf{v}}\) and \(\mathbf{g}_{\mathbf{v}}\) are perceptrons for node representation; \(K\) represents the total number of times that we perform the convolution; \(P o o l\) denotes pooling function that aggregates the embedding of each node in the graph, obtaining the structure embedding \(\pmb{h}_{q}\in \mathbb{R}^{d}\) of the instance \(q\) . We denote the parameters of GNN as \(\theta_{G}\) .  
+
+GNN Training. The loss function w.r.t. \(\theta_{G}\) is given below:  
+
+\[\mathcal{L}(\theta_{G}) = -\frac{1}{N}\sum_{i = 1}^{N}\sum_{c = 1}^{C}y_{i,c}\log p_{\theta_{G}}(c|q_{i}), \quad (14)\]  
+
+\[p_{\theta_{G}}(c|q_{i}) = \frac{\exp\left(W_{c}^{T}\pmb{h}_{q_{i}} + \pmb{b}_{c}\right)}{\sum_{j = 1}^{C}\exp\left(\pmb{W}_{j}^{T}\pmb{h}_{q_{j}} + \pmb{b}_{j}\right)}, \quad (15)\]  
+
+where \(N\) is the total number of CO problems in the training procedure; \(C\) denotes the number of classes; \(y_{i,c}\in \{0,1\}\) is the ground- truth label of problem instance \(q_{i}\) ; and \(\pmb{W}_{j}\in \mathbb{R}^{d}\) , \(\pmb{b}_{j}\in \mathbb{R}\) , \((j = 1,\dots,C)\) is the parameters of final classifying layer, which are also part of \(\theta_{G}\) .  
+
+Implementation & Training Details. Following the training protocol outlined above, we implement separate GNN models for the SAT and MILP domains using the dataset described in Appendix D. Our GNN architecture consists of three convolutional layers ( \(K = 3\) ) followed by a global mean pooling operation. We leverage the graph convolution operator from the torch_geometric library, with node embedding dimensions of 16, 32, and 64 for successive layers \(^3\) . To capture global graph structure, we apply mean pooling to the final convolutional layer's node embeddings. For classification, a softmax layer processes the pooled representation to produce final predictions. The models are trained using the loss function defined in Eq.(14) with AdamW optimizer and cosine decay learning rate. Figure 6 illustrates the training convergence for SAT instance classification (5- way classification task). Upon model convergence, we compute structural prior representations for combinatorial optimization problem instances by processing their bipartite graph representations through the above GNN. The final convolutional layer's output embeddings are extracted as the structural prior for each instance in the target domain.

@@ -1,0 +1,31 @@
+batch:  
+
+\[\theta_{\mathrm{EMA}}\leftarrow \beta \theta_{\mathrm{EMA}} + (1 - \beta)\theta_{\mathrm{current}} \quad (13)\]  
+
+where \(\beta\) is the decay rate (we use \(\beta = 0.999\) ).  
+
+During validation and testing, we use the EMA parameters instead of the current parameters. This technique significantly stabilizes training and improves generalization, especially in the early stages of training. Our experiments show that EMA provides a smooth validation accuracy curve, while the validation accuracy of the non- EMA model exhibits high variance and jumps of up to \(10\%\) .  
+
+#### A.1.3 Learning Rate Schedule  
+
+We implement a custom learning rate schedule that combines cosine annealing for the first half of training and a constant minimum learning rate for the second half:  
+
+\[\eta (t) = \left\{ \begin{array}{ll}\eta_{\mathrm{min}} + (\eta_{0} - \eta_{\mathrm{min}})\frac{1 + \cos(\pi t / t_{\mathrm{half}})}{2} & \mathrm{if} t< t_{\mathrm{half}}\\ \eta_{\mathrm{min}} & \mathrm{otherwise} \end{array} \right. \quad (14)\]  
+
+where \(\eta_{0}\) is the initial learning rate, \(\eta_{\mathrm{min}}\) is the minimum learning rate (set to \(10^{- 5}\) ), \(t\) is the current epoch, and \(t_{\mathrm{half}}\) is half of the maximum number of epochs.  
+
+This schedule helps the model converge to a good solution in the first half of training and then fine- tune in the second half without disrupting the learned representations.  
+
+## A.1.4 Impact of hidden dimension on GNN Performance  
+
+The dimensionality of the hidden representations, here denoted as d_model, specifies the size of the embedding vectors of variables and the hidden state dimension used during the message passing and update phases within the GNN architecture.  
+
+The choice of d_model directly influences the model's capacity to learn complex patterns and relationships within the graph structure and node features. It also impacts computational resource requirements, such as memory usage and training time. Understanding how performance metrics vary with different d_model values is therefore crucial for effective model design and hyperparameter tuning.  
+
+Our evaluation in table 8 generally shows that increasing the d_model leads to improved model performance, likely due to the enhanced representational capacity allowing the model to capture more intricate features. However, we observed that this trend exhibits diminishing returns; while significant performance gains are noticeable as the dimension increases up to 64, further increases yield smaller improvements in accuracy relative to the growing computational cost (e.g., peak accuracy at d_model=256 came with significantly longer training time). This suggests that, considering the marginal benefits, a dimension around 64 still presents a practical optimum, offering a good balance between performance and model complexity/efficiency for this specific setup.  
+
+## A.2 Diffusion Model Extensions  
+
+## A.3 Using Unit Propagation for Problem Simplification in the Diffusion Process  
+
+In the diffusion process, each iteration provides a belief for every variable, which can be leveraged to continuously simplify the problem via a unit propagation algorithm until it converges to an empty problem, thereby obtaining a solution. The overall solving process is recursive, and its main steps are described as follows:

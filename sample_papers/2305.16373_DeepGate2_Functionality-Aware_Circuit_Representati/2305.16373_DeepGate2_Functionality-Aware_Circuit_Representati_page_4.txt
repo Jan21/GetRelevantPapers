@@ -1,0 +1,51 @@
+<center>Fig. 3. One-round GNN propagation process </center>  
+
+gate. \(agg r_{NOT}^{s}\) and \(agg r_{NOT}^{f}\) update \(h s\) and \(h f\) of a NOT gate, respectively.  
+
+We implement each aggregator using the self- attention mechanism [20], as the output of a logic gate is determined by the controlling values of its fan- in gates. For example, an AND gate must output logic- 0 if any of its fan- in gates has logic- 0. By employing the attention mechanism, the model learns to assign greater importance to the controlling inputs [7]. As illustrated in Eq. (5), \(w_{q}\) , \(w_{k}\) and \(w_{v}\) are three weight matrices and \(d\) is the dimension of embedding vectors \(h\) .  
+
+\[\begin{array}{l}\alpha_{j} = softmax(\frac{w_{q}^{\top}h_{i}\cdot(w_{k}^{\top}h_{j})^{\top}}{\sqrt{d}})\\ m_{j} = w_{v}^{\top}h_{j}\\ h_{i} = agg r(h_{j}|j\in \mathcal{P}(i)) = \sum_{j\in \mathcal{P}(i)}(\alpha_{j}*m_{j}) \end{array} \quad (5)\]  
+
+Third, during forward propagation, the structural embeddings are updated only with the structural embeddings of predecessors. As shown in Eq. (6), where the Gate \(a\) is AND gate, the Gate \(b\) is NOT gate.  
+
+\[\begin{array}{l} h s_{a} = agg r_{A N D}^{s}(h s_{j}|j\in \mathcal{P}(a)) \\ h s_{b} = agg r_{N O T}^{s}(h s_{j}|j\in \mathcal{P}(b)) \end{array} \quad (6)\]  
+
+At the same time, the gate function is determined by the function and the structural correlations of the fan- in gates. Therefore, the functional embeddings are updated as Eq. (7).  
+
+\[\begin{array}{l} h f_{a} = agg r_{A N D}^{f}([h s_{j},h f_{j}]|j\in \mathcal{P}(a))\\ h f_{b} = agg r_{N O T}^{f}([h s_{j},h f_{j}]|j\in \mathcal{P}(b)) \end{array} \quad (7)\]  
+
+Therefore, as shown in Fig. 3, the GNN propagation process performs from PI to PO level by level. For the node in level \(l\) , its structural embedding \(h s_{L_{l}}\) will be updated with the structural embeddings of the node in level \(l - 1\) . Additionally, the functional embedding \(h f_{L_{l}}\) will be updated with both structural embeddings \(h s_{L_{l - 1}}\) and functional embeddings \(h f_{L_{l - 1}}\) . The GNN propagation completes after processing \(N\) levels.  
+
+### E. Model Training Strategies  
+
+To train the model, we employed multi- stage training strategy, similar to training a model with an easy task and then a harder task in curriculum learning [21]. During each stage, we trained the model with multiple supervisions in multi- task learning manner [22]. In the first stage, we train the one- round GNN model with two simple tasks. The Task 1 involves predicting the logic probability, while the Task  
+
+2 entails identifying the structural correlation. To achieve this, we readout the functional embedding \(h f_{i}\) to predict the logic probability \(\hat{P}_{i}\) by a multi- layer perceptron (MLP), denoted as \(MLP_{prob}\) . In addition, we utilize the structural embeddings \(h s_{i}\) and \(h s_{j}\) to predict whether node \(i\) and node \(j\) can be reconvergent by \(MLP_{rc}\) .  
+
+\[\begin{array}{r}\hat{P}_i = MLP_{prob}(h f_i)\\ R_{\langle i,j\rangle} = MLP_{rc}(h s_i,h s_j) \end{array} \quad (8)\]  
+
+We define the loss function for Task 1 in Eq. (9), where the \(P_{i}\) is the ground truth logic probability obtained through random simulation.  
+
+\[L_{prob} = L1Loss(P_i,\hat{P}_i) \quad (9)\]  
+
+Besides, we define the loss function for Task 2 in Eq. (10). The binary ground truth, denoted as \(R_{\langle i,j\rangle}\) , indicates whether node pair \(i\) and \(j\) have a common predecessor.  
+
+\[L_{rc} = BCELoss(R_{\langle i,j\rangle},R_{\langle i,j\rangle}) \quad (10)\]  
+
+Consequently, the loss function for Stage 1 is presented in Eq. (11), where the \(w_{prob}\) and \(w_{rc}\) are the weight for Task 1 and Task 2, respectively.  
+
+\[L_{stage1} = L_{prob}*w_{prob} + L_{rc}*w_{rc} \quad (11)\]  
+
+The second training stage involves another more difficult Task 3. functionality- aware learning, as described in Section III- C. The loss function for Stage 2 is defined below, where \(w_{func}\) represents the loss weight of Task 3.  
+
+\[L_{stage2} = L_{prob}\times w_{prob} + L_{rc}\times w_{rc} + L_{func}\times w_{func} \quad (12)\]  
+
+Overall, the model can differentiate gates with varying probability in Stage 1. As the logic equivalent pairs only occur when nodes have the same probability, the model in Stage 2 learns to predicting the functional similarity within the probability equivalent class. The effectiveness of the above training strategies is demonstrated in Section IV- E.  
+
+## IV. EXPERIMENTS  
+
+In this section, we demonstrate the ability of our proposed DeepGate2 to learn functionality- aware circuit representations. Firstly, Section IV- A provides the preliminary of our experiments, including details on dataset preparation, evaluation metrics and model settings. Secondly, we compare the effectiveness and efficiency of our DeepGate2 against DeepGate [7] and FGNN [8] on two function- related tasks: logic probability prediction (see Section IV- B) and logic equivalence gates identification (see Section IV- C). Thirdly, we investigate the effectiveness of model design and training strategies in Section IV- D and Section IV- E, respectively.  
+
+### A. Experiment Settings  
+
+1) Dataset Preparation: We use the circuits in DeepGate [7], which are extracted from ITC'99 [23], IWLS'05 [24], EPFL [25] and OpenCore [26]. These circuits consists of 10,824 AIGs with sizes ranging from 36 to 3,214 logic gates. To obtain the incomplete truth table, we generate 15,000 random patterns and record the corresponding response. Following the data preparation method described in Section III-B, we construct a dataset comprising 894,151 node pairs. We create 80/20 training/test splits for model training and evaluation.

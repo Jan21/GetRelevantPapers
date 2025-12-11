@@ -1,0 +1,25 @@
+These approaches differ from our end- to- end model but demonstrate alternative applications of neural methods to SAT solving.  
+
+The connection between neural networks and continuous relaxations is particularly relevant to our work. Kyrillidis et al. Kyrillidis et al. [2020] introduced FourierSAT, which transforms Boolean SAT problems into continuous optimization using the Walsh- Fourier transform. This approach provides a theoretical foundation for understanding how neural networks might implicitly convert discrete search problems into continuous optimization. Similar technique was introduced by Hosny et al. Hosny and Reda [2024] who develop GPU- accelerated approaches for MaxSAT problems. Hula et al. Hula et al. [2024] and Yau et al. Yau et al. [2024] explore the connection between GNNs and semidefinite programming relaxations, demonstrating empirically and theoretically that message- passing can implement gradient- based optimization of SDP relaxations.  
+
+In the broader domain of combinatorial optimization, Sun et al. Sun and Yang [2023] used diffusion models based on GNNs to solver problems such as traveling salesman.  
+
+## 3 Relevant Background  
+
+### 3.1 Boolean Satisfiability and Maximum Satisfiability  
+
+#### 3.1.1 Boolean Satisfiability as a Constraint Satisfaction Problem  
+
+Boolean satisfiability (SAT) is a fundamental problem in computer science that asks whether a given Boolean formula has a satisfying assignment. The formula is built from propositional variables \(x_{1},x_{2},\ldots\) that can take values from \(\{0,1\}\) , representing false and true respectively, and logical connectives: conjunction \((\wedge)\) , disjunction \((\vee)\) , and negation \((\neg)\) . While other connectives like implication \((\rightarrow)\) and equivalence \((\leftrightarrow)\) exist, they can be expressed using these basic operators.  
+
+A literal is either a propositional variable \(x\) or its negation \(\neg x\) . While Boolean formulas can take arbitrary form, the most common representation is the conjunctive normal form (CNF), where a formula is a conjunction of clauses, and each clause is a disjunction of literals. For example, \((x_{1}\vee \neg x_{2})\wedge (x_{2}\vee x_{3})\) is a CNF formula with two clauses. We note that any Boolean formula can be transformed into an equisatisfiable CNF formula, albeit potentially requiring additional variables.  
+
+An assignment \(\sigma\) maps each propositional variable to either 0 or 1. We say \(\sigma\) satisfies a CNF formula if at least one literal in each clause evaluates to true under \(\sigma\) . For instance, the assignment \(\sigma (x_{1}) = 1,\sigma (x_{2}) = 0,\sigma (x_{3}) = 1\) satisfies the formula \((x_{1}\vee \neg x_{2})\wedge (x_{2}\vee x_{3})\) as both clauses contain a true literal.  
+
+SAT is a special case of the more general Constraint Satisfaction Problem (CSP) framework Brailsford et al. [1999]. A CSP consists of a set of variables, each with a domain of possible values, and a set of constraints that specify allowed combinations of values for groups of variables. While SAT variables are restricted to Boolean values and constraints take the form of clauses, CSPs can accommodate richer variable domains and constraint types.  
+
+#### 3.1.2 MaxSAT: The Optimization Variant  
+
+The Maximum Satisfiability problem (MaxSAT) is the optimization version of SAT. Given a CNF formula \(\phi\) , the goal is to find an assignment that maximizes the number of satisfied clauses. This formulation is particularly useful when a formula is unsatisfiable, as MaxSAT still yields the best possible solution.  
+
+MaxSAT has several variations that differ in their expressiveness and the way they handle the importance of clauses. In unweighted MaxSAT, all clauses have equal importance. Weighted MaxSAT assigns a positive weight to each clause, with the objective being to maximize the sum

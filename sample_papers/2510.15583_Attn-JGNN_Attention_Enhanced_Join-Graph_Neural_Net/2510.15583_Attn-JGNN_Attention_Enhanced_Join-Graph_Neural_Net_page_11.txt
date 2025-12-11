@@ -1,0 +1,13 @@
+### 4.2 Evaluation & Baselines  
+
+Following BPNN and NSNet, we use the (1) root mean square error (RMSE) between the estimated log countings and ground truth as our evaluation metrics. We compare Attn- JGNN, the neural baseline BPNN and NSNet, and two state- of- the- art approximate model counting solvers, ApproxMC3 and F2 [1]. For ApproxMC3 and F2, we set a time limit of 5,000 seconds on each instance.  
+
+### 4.3 Main Results  
+
+<center>Fig. 3: (a) is RMSE between estimated log countings and ground truth for each solver on the BIRD benchmark;(b) is Scatter plot comparing the estimated log countings against the ground truth for each solver on the BIRD benchmark </center>  
+
+As shown in Figure 3a, Attn- JGNN can estimate tighter counts than NSNet, BPNN, and F2 in all categories of the BIRD benchmark. Attn- JGNN estimates are almost three times more accurate than F2 and BPNN. However, Attn- JGNN cannot compete with ApproxMC3.  
+
+Figure 3b shows the scatter plot. The estimated logarithmic count is compared to the ground truth for each solver on the BIRD benchmark. When the ground truth is less than \(e^{100}\) , Attn- JGNN and ApproxMC3 can provide more accurate estimates than NSNet, F2 and BPNN in most cases. ApproxMC3 is unable to complete in 5000 seconds when the ground truth count exceeds \(e^{100}\) , Attn- JGNN can still give a close approximation when the ground truth count exceeds \(e^{1000}\) . This demonstrates the effectiveness of Attn- JGNN in solving difficult and large cases.  
+
+The solution speed of Attn- JGNN without using the attention mechanism is same order of magnitude as that of NSNet, and its effect is still better than that of NSNet. This further indicates that the reasoning ability of the IJGP algorithm is superior to that of BP.

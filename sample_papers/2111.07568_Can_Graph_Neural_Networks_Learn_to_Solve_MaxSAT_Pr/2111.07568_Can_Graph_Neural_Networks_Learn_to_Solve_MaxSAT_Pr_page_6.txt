@@ -1,0 +1,23 @@
+ning on a machine with Intel Core i7- 8700 CPU (3.20GHz) and NVIDIA Tesla V100 GPU.  
+
+For reproducibility, we also summarize the setting of hyper- parameters as follows. In our configuration, the dimension of embeddings and messages \(d = 128\) , and the learning rate is \(2 \times 10^{- 5}\) with a weight decay of \(10^{- 10}\) . Unless otherwise specified, the number of GNN layers \(T = 20\) . The instances are fed into models in batches, with each batch containing 20K nodes.  
+
+## Accuracy of Models  
+
+We firstly evaluate the performance of both GNN models, including their convergence and the quality of predicted solution. The accuracy of prediction is reported with two values in the following paragraphs. The first one is the gap to optimal objective, which is the distance between the predicted objective and the corresponding optimal value. The predicted objective can be computed by counting the satisfied clauses given the predict solution. The other is the accuracy of assignments, which is the percentage of correctly classified variables, i.e., the assignment of a variable from the predicted solution is the same as its label. Generally, the gap to optimal objective could be a better indicator, because the optimal solution of a MaxSAT problem may not be unique.  
+
+We have trained MS- NSFG and MS- ESFG separately on three different datasets: R2 (60, 600), R2 (60, 800) and R3 (30, 300), and illustrate the evolution curves of accuracy throughout training on R2 (60, 600) in Figure 3 as an example. All the models can converge within 150 epochs, and achieve pretty good performance. The average gaps to optimal objectives are less than 2 clauses for all the models, with the approximation ratio \(>99.5\%\) . Besides, the accuracy of assignments is around \(92\%\) (Max2SAT) and \(83\%\) (Max3SAT). There is no significant difference between the two models, while MS- ESFG performs slightly better than MS- NSFG. The experimental results show that both GNN models can be used in learning to solve MaxSAT problem.  
+
+<center>Figure 3: The evolution of accuracy of MS-NSFG and MS-ESFG during a training process of 150 epochs on the dataset R2 (60, 600). </center>  
+
+## Influence of GNN Layers  
+
+According to the theoretical analysis, the number of GNN layers determines the information that each node can receive from its neighborhood, thereby affecting the accuracy of prediction. We examine this phenomenon from the experimental perspective by training MS- NSFG and MS- ESFG on the three datasets separately, with different hyper- parameter \(T\) from 1 to 30. The changes of accuracy on testing sets are illustrated in Figure 4. It can be seen that when \(T = 1\) , the capabilities of both models are weak, where the predicted objective is far from the optimal value, and the accuracy of assignments is not ideal. However, the effectiveness of both models has been significantly improved when \(T = 5\) . If we increase \(T\) to 20, the number of clauses satisfied by the predicted solution is only one less than the optimal value on average. We have continued to increase \(T\) to 60, but no obvious improvement occurred. This indicates that increasing the number of layers - within an appropriate range - will improve the capability of GNN models.  
+
+<center>Figure 4: The accuracy of MS-NSFG and MS-ESFG trained with different number of GNN layers. </center>  
+
+## Generalizing to Other Distributions  
+
+Generalization is an important factor in evaluating the possibility to apply GNN models to solve those harder problems. We make the predictions by MS- NSFG and MS- ESFG on the testing sets with different distributions from the training sets, and the results are shown in Table 1 and 2, respectively. The first column is the dataset used for training the model, and the first row is the testing set. For each pair of training and testing datasets, we report the gap to optimal objective together with the approximation ratio in the brackets above, and the accuracy of assignments below. Here, the approximation ratio is defined as the ratio of predicted and optimal objectives.  
+
+Here we mainly focus on three kinds of generalization. The first is generalizing to the datasets with different clause- variable proportion. From the results, both models trained on R2 (60, 600) and tested on R2 (60, 800) (or

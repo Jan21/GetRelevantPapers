@@ -1,0 +1,23 @@
+The new variable- to- factor messages are then computed as a weighted sum of the incoming factor- to- variable messages, using attention coefficients of Equation 10, as:  
+
+\[\hat{m}_{i\rightarrow j}^{(k + 1)}(x_{i}) = \sum_{c\in \mathcal{N}(x_{i})\backslash j}\alpha_{i j}^{(k + 1)}W\hat{m}_{c\rightarrow i}^{(k)}(x_{i}) \quad (11)\]  
+
+In order to stabilize the learning process, the multi- head attention mechanism of Equation 7 is used, by replicating \(K\) times the computations of Equations 10 and 11 and aggregating the results. To perform the aggregation of the outputs of each of the attention heads, concatenation has been used for the internal layers, average for the final one.  
+
+Analogous computations are performed to compute factor- to- variable messages:  
+
+\[\begin{array}{r l} & {\alpha_{j i}^{(k + 1)} = \frac{\exp(\mathrm{LeakyReLU}(\mathbf{a}^{T}[\mathrm{concat}(W\hat{m}_{j\rightarrow i}^{(k)},\hat{W}\hat{m}_{i\rightarrow j}^{(k)}]))}{\sum_{x_{v}\in \mathcal{N}(f_{j})}\exp(\mathrm{LeakyReLU}(\mathbf{a}^{T}[\mathrm{concat}(W\hat{m}_{j\rightarrow i}^{(k)})},\hat{W}\hat{m}_{i\rightarrow v}^{(k)}))]}}\\ & {\hat{m}_{j\rightarrow i}^{(k + 1)}(x_{i}) = \mathrm{LSE}_{x_{1},\ldots ,x_{k}\in \mathcal{N}(f_{j})\backslash x_{i}}\left(f_{j}(x_{i},x_{1},\ldots ,x_{k}) + \right.}\\ & {\qquad \left. + \sum_{x_{v}\in \mathcal{N}(f_{j})\backslash x_{i}}\alpha_{j i}^{(k + 1)}W\hat{m}_{v\rightarrow i}^{(k)}(x_{i})\right)} \end{array} \quad (12)\]  
+
+Also for this type of messages, a multi- head attention mechanism is deployed, where the output of each head is concatenated in internal layers and averaged in the final layer.  
+
+Once this message passing phase has run for \(T\) iterations, the readout phase is executed. This consists in applying as final layer the one described in Equation 9, in order to obtain \(\ln \hat{Z}\) , i.e. an approximation of the natural logarithm of the number of models of the CNF SAT formula encoded by the input factor graph \(G\) .  
+
+## 4 Experimental Evaluation  
+
+### 4.1 Experimental Setting  
+
+We implemented the BPGAT architecture in Python, leveraging the PyTorch framework [19]. The model is trained to minimize the Mean Squared Error (MSE) between the natural logarithm \(\ln \hat{Z}\) of the true number of models of the input formula, and the output of the model \(\ln \hat{Z}\) .  
+
+BPGAT Training Protocol We trained the model for 1000 epochs using the Adam optimizer [12] with an initial learning rate of \(10^{- 4}\) , halving it every 200 epochs using a learning rate scheduler.  
+
+Given an input formula \(\phi\) with \(n\) variables \(\{x_{i}\}_{i = 1}^{n}\) and \(m\) clauses \(\{f_{j}\}_{j = 1}^{m}\) and its factor graph representation \(G = (V,E)\) , it is preprocessed before being fed to the network in such a way that \(\forall j\in \{1,\ldots ,m\} ,\forall \{x_{1},\ldots ,x_{k}\} \in \mathcal{N}(f_{j}),f_{j}(x_{1},\ldots ,x_{k}) = 1\) for the assignment of \(\{x_{1},\ldots ,x_{k}\}\) that makes clause \(f_{j}\) evaluate to true, 0 otherwise, to ensure that \(Z\) of Equation 1 actually represents the count of models satisfying \(\phi\) .

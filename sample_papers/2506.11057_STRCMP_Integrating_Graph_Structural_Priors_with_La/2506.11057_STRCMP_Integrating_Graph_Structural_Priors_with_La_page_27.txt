@@ -1,0 +1,1 @@
+<center>Figure 11: Ablation studies (w.r.t. PAR-2, Solving Time, and Number of Timeout) during algorithm search on SAT domain. </center>

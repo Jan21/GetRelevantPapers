@@ -1,0 +1,61 @@
+Algorithm 1 Oracle- based Moser- Tardos algorithm  
+
+Input: \(\phi ,O\)  
+
+Output: \(x\)  
+
+1: \(x\sim O\)  
+
+2: while \(\exists c\in \phi\) : \(c(x) = 1\) do  
+
+3: \(x^{\prime}\sim O\)  
+
+4: pick a violated clause \(c\in \phi\) at random  
+
+5: \(x|_{V(c)}\gets x^{\prime}|_{V(c)}\)  
+
+6: end while  
+
+Algorithm 2 Oracle- based WalkSAT algorithm  
+
+Input: \(\phi ,O\)  
+
+Output: \(x\)  
+
+1: \(x\sim O\)  
+
+2: while \(\exists c\in \phi\) : \(c(x) = 1\) do  
+
+3: pick a violated clause \(c\in \phi\) at random  
+
+4: pick variable \(v\) from \(c\) with probability \(\frac{P_{O}(\neg x_{v})}{\sum_{v^{\prime}\in c}P_{O}(\neg x_{v^{\prime}})}\)  
+
+5: \(x_{v}\gets \neg x_{v}\)  
+
+6: end while  
+
+Algorithm 2 are inspired by the ProbSAT algorithm in Ref. [23] as they put more weight on choosing a variable \(v\) , the higher the likelihood under \(P_{O}\) of sampling a state with a flipped value assignment. Here and in the remainder, for any set of variables \(V\) and any \(x_{V}\in \{0,1\}^{|V|}\) , we write  
+
+\[P_{O}(x_{V}) = \sum_{x\in \{0,1\}^{n}:x|_{V} = x_{V}}P_{O}(x). \quad (3)\]  
+
+### 2.3 Performance guarantees for the MT algorithm  
+
+It is clear that an oracle can be more or less suited to an instance. For example, for a given instance \(\phi\) , a "perfect" oracle, one that samples an element from \(\Pi (\phi)\) with unit probability, leads to convergence of both of the above algorithms in a single step. Of course, perfect oracles are hard to come by, since they imply having solved the problem that we address. Fortunately, over the past 15 years, researchers from theoretical computer science have been able to prove that oracle- based SLS with access to a "sufficiently good" oracle are guaranteed to find a solution efficiently.  
+
+To formulate these results, we need to introduce some additional concepts and notation. Let \(O\) be an oracle, \(\phi\) be a given Boolean formula in CNF with \(n\) variables and \(m\) clauses and let  
+
+\[P_{O}(J|\phi) = \sum_{x\in X_{n}:c_{j}(x) = 1} P_{O}(x) \quad (4)\]  
+
+be the probability that a sample \(x\sim O\) violates the clauses \(J\subseteq [m]\) . We define the dependency graph \(\mathcal{D}_{O}(\phi)\) induced by this distribution as the graph that has \(m\) nodes and with two nodes \(j,j^{\prime}\) being connected by an edge whenever they are not statistically independent, i.e.  
+
+\[P_{O}(\{j,j^{\prime}\} |\phi)\neq P_{O}(j|\phi)\cdot P_{O}(j^{\prime}|\phi). \quad (5)\]  
+
+Given this graph, let \(\Gamma (j)\) denote the exclusive neighbourhood of node \(j\) in this graph and \(\Gamma^{+}(j) = \Gamma (j)\cup \{j\}\) as the inclusive neighbourhood. We then have the following proposition, which is implied by the main result of Ref. [13]:  
+
+Proposition 2.1. Given a formula \(\phi\) in CNF- form, if there exists a map \(\mu :[m]\to [0,\infty)\) such that, for all \(j\in [m]\)  
+
+\[P_{O}(j|\phi)\cdot \Pi_{j^{\prime}\in \Gamma^{+}(j)}(1 + \mu (j^{\prime}))\leq \mu (j), \quad (6)\]  
+
+then \(\phi\) is satisfiable and the MT algorithm with access to \(O\) will find a solution to \(\phi\) in an expected \(\sum_{j}\mu (j)\) number of steps.  
+
+The "perfect" oracle clearly satisfies this proposition, as \(P_{O}(j|\phi) = 0\) for all \(j\) , so that we can simply set \(\mu (j) = 0\) for all \(j\) . Importantly, however, there can be imperfect oracles that still satisfy this condition. For instance, consider a

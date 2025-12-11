@@ -1,0 +1,17 @@
+## 3 Method  
+
+The objective of this work is to tackle the #SAT problem using a GNN model as an approximate solver.  
+
+### 3.1 Belief Propagation Neural Networks  
+
+The starting point of our investigation is (one of the variants of) the architecture proposed in [15], that we recall here briefly. This model, called Belief Propagation Neural Network (BPNN), generalizes BP by means of GNNs, taking as input the factor graph representing a CNF SAT formula and giving as output an estimation of the logarithm of the factor graph's partition function \(Z\) of Equation 1. Given an input factor graph \(G = (V,E)\) , where nodes are partitioned into factor nodes \(\{f_{j}\}_{j = 1}^{m}\) and variable nodes \(\{x_{i}\}_{i = 1}^{n}\) , both factor- to- variable messages \(\hat{m}_{j\rightarrow i}\) and variable- to- factor \(\hat{m}_{i\rightarrow j}\) messages are initialized to 1; then the following message passing phase is performed (in the log- space) for \(T\) iterations:  
+
+\[\begin{array}{r l} & {\hat{m}_{i\rightarrow j}^{(k + 1)}(x_{i}) = \sum_{c\in \mathcal{N}(x_{i})\backslash j}\mathrm{MLP}_{1}(\hat{m}_{c\rightarrow i}^{(k)}(x_{i}))}\\ & {\hat{m}_{j\rightarrow i}^{(k + 1)}(x_{i}) = \mathrm{LSE}_{x_{1},\ldots ,x_{k}\in \mathcal{N}(f_{j})\backslash x_{i}}\bigg(f_{j}(x_{i},x_{1},\ldots ,x_{k})+}\\ & {\qquad +\sum_{x_{v}\in \mathcal{N}(f_{j})\backslash x_{i}}\mathrm{MLP}_{2}(\hat{m}_{v\rightarrow i}^{(k)}(x_{v}))\bigg)} \end{array} \quad (8)\]  
+
+where LSE is a shorthand for the log- sum- exp function. That is, BPNN augments the standard BP message passing scheme of Equation 2 (in the log- space) by transforming the messages using MLPs.  
+
+After the message passing phase is completed, the following readout phase is executed, which outputs an estimation \(\ln \hat{Z}\) of the natural logarithm of the partition function \(Z\) of the input factor graph:  
+
+\[\begin{array}{r l} & {\ln \hat{Z} = \mathrm{MLP}_{3}\left[\mathrm{concat}_{k = 1}^{T}\left(\mathrm{concat}\left(\sum_{j = 1}^{m}b_{j}^{(k)}(x_{\mathcal{N}(f_{j})})\ln f_{j}(x_{\mathcal{N}(f_{j})}),\right.\right.}\\ & {\left.-\sum_{j = 1}^{m}b_{j}^{(k)}(x_{\mathcal{N}(f_{j})})\ln b_{j}^{(k)}(x_{\mathcal{N}(f_{j})}),\right.}\\ & {\left.\left.\sum_{i = 1}^{n}(\mathrm{deg}(x_{i}) - 1)b_{i}^{(k)}(x_{i})\ln b_{i}^{(k)}(x_{i})\right)\right]} \end{array} \quad (9)\]  
+
+where \(b_{i}^{(k)}(x_{i})\) and \(b_{j}^{(k)}(x_{\mathcal{N}(f_{j})})\) refer to an approximation of variable and factor beliefs at iteration \(k\) , respectively, computed as in standard belief propagation (we defer to the supplementary material, Section A for further details). Hence this final layer

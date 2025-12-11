@@ -1,0 +1,17 @@
+tree is inherently a heuristic search algorithm while ours is an exact backtracking solver. Li et al.'s search tree is parameterized with a pre- set branching factor \(M\) (which they evaluate experimentally and suggest an ideal value of \(M = 32\) ), while our search tree branches on choices made in local structures. As we are interested in exact search, an important metric we use is in counting the branches expanded in our search tree, rather than counting the fraction of solved problems like in [5].  
+
+In the following, we denote by \(N(v)\) the open neighborhood of a vertex \(v\) (i.e. the subset of vertices that are adjacent to \(v\) ) and \(N[v] = N(v) \cup \{v\}\) the closed neighborhood. We also denote by \([n]\) the set of integers \(\{1,2,\dots,n\}\) .  
+
+## 3 Branching Heuristic from New Probabilistic-Method GNN  
+
+In this section, we show the restrictions in the design of the loss function of the GNN model in [8]. To avoid such restrictions, we propose a new approach to design loss functions using techniques and tools in the probabilistic method. We then demonstrate the utility of our approach in the maximum- clique problem. In the hope of enhancing exact algorithms for combinatorial optimization problems, we show a method to extract the branching heuristic from the learned probability space output by our GNN model. Then, we apply this method to the dominating- clique problem, and the experimental results show that the learned probability space yields to a better branching heuristic for the dominating- clique problem.  
+
+Our probabilistic- method GNN gives rise to a probability space similar to the way in [8]. In our probabilistic- method GNN, the node feature associated with each vertex is a 1- dimensional vector and is interpreted as the parameter of a Bernoulli distribution. Intuitively, this Bernoulli distribution characterizes the likelihood for the vertex to be in a solution. We also assume that the collection of Bernoulli distributions associated with the vertices are mutually independent. For a given graph \(G(V,E)\) , the collection of Bernoulli distributions give rise to a probability space \((\Omega ,\mathcal{F},\mathbb{P})\) . The sample space \(\Omega\) is the power set of \(V\) ; the event space \(\mathcal{F}\) is the power set of \(\Omega\) ; for a subset \(S\) of \(V\) , \(\mathbb{P}(S) = \left(\prod_{i}p_{i}\right)\left(\prod_{j}(1 - p_{j})\right)\) with \(v_{i}\in S\) and \(v_{j}\notin S\) where \(p_{i}\) and \(p_{j}\) are the the parameters of the Bernoulli distributions associated with vertices \(v_{i}\) and \(v_{j}\) .  
+
+### 3.1 New Probabilistic-Method GNN Model  
+
+The idea of the design of loss functions in [8] comes from the first- moment method in the probabilistic method  
+
+\[\mathbb{P}(X< a) > 1 - \mathbb{E}(X) / a\]  
+
+where \(X\) is a random variable under a certain probability distribution and \(a\) is a positive number. Applying \(a = \mathbb{E}(X) / (1 - t)\) with a strictly positive \(t< 1\) ,

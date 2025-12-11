@@ -1,0 +1,17 @@
+By Equation (6), we make an effort to increase the probability measure of small- sized dominating cliques so that it is easier to identify them. However, calculating \(\mathbb{E}(|S|)\) on \(\Omega\) (i.e. \(\mathbb{E}(|S|) = \sum_{i = 1}^{n}p_{i}\) ) indeed affects all small- sized subsets of \(V\) rather than small- sized dominating cliques. An improvement is to find an event in the event space \(\mathcal{F}\) which is close to the exact event consisting of dominating cliques only. One way to accomplish this is as follows.  
+
+In each iteration during the GNN training, we generate a random permutation \(\{v_{1},v_{2},\dots,v_{n}\}\) of \(V\) and generate an event (i.e. a set of subset of \(V\) ) iteratively. We initialize the event as an empty set. For \(i = 1\) to \(n\) , we first exclude the subsets of \(V\) that contain any vertex of \(v_{1},\dots,v_{i - 1}\) . Then, we continue to exclude the subsets of \(V\) that do not contain \(v_{i}\) . After that, we exclude the subsets of \(V\) that contain any non- adjacent vertex to \(v_{i}\) . At the end of the current iteration, we add the remaining subsets of \(V\) into the event.  
+
+This event is much more closer to the event of dominating cliques only than the event \(\Omega\) . Thus, instead of minimizing \(\mathbb{E}(|S|)\) on \(\Omega\) , we try to minimize \(\mathbb{E}(|S|)\) on this event as  
+
+\[\sum_{i = 1}^{n}\left(p_{i}\prod_{j = 1}^{i - 1}(1 - p_{j})\prod_{v_{k}\in \{v_{i + 1},\dots,v_{n}\}\backslash N(v_{i})}(1 - p_{k})(1 + \sum_{v_{r}\in N(v_{i})\backslash \{v_{1},\dots,v_{i - 1}\}}p_{r})\right) \quad (7)\]  
+
+in hopes that it gives the loss function a more accurate expected size of dominating cliques. The term \(p_{i}\) is the probability of the event that \(v_{i}\) is in \(S\) . The term \(\prod_{j = 1}^{i - 1}(1 - p_{j})\) is the probability of the event that \(v_{1},\dots,v_{i - 1}\) are not in \(S\) . The term \(\prod_{v_{k}\in \{v_{i + 1},\dots,v_{n}\}\backslash N(v_{i})}(1 - p_{k})\) is the probability of the event that \(S\) do not contain any vertex that is behind \(v_{i}\) in the permutation and non- adjacent to \(v_{i}\) . The term \(\left(1 + \sum_{v_{r}\in N(v_{i})\backslash \{v_{1},\dots,v_{i - 1}\}}p_{r}\right)\) is the conditional expectation of \(|S|\) given the above three events happen.  
+
+### 3.4 New Branching Heuristic for Dominating-Clique Solvers  
+
+Exact solvers for combinatorial optimization problems are generally based on backtracking search. To improve this framework, branching heuristics are applied to give the most promising direction during the search, and branching heuristics are designed by the properties of specific problems. To improve branching heuristics by our GNN model, our idea is to define a function \(f(\mathrm{Var}_{b},\Theta)\) to measure the quality of branches in the search tree where \(\mathrm{Var}_{b}\) is the set of unsigned variables of a branch \(b\) and \(\Theta\) is the probability space from the output of our GNN model. We next utilize this idea for the dominating- clique problem.  
+
+Culberson et al. [9] propose an efficient solver for the dominating- clique problem. From their experiments, the solver performs better than other general SAT solvers, including BerkMin, MarchEq, and SATzilla. The solver is a backtracking- based algorithm. They encode a given graph \(G = (V,E)\) with \(V = \{v_{1},v_{2},\dots,v_{n}\}\) to a CNF formula as follows.  
+
+- There are \(n\) variables \(\{X_{i}\}_{i \in [n]}\) where \(X_{i} = 1\) means that the corresponding \(v_{i}\) is in the solution;

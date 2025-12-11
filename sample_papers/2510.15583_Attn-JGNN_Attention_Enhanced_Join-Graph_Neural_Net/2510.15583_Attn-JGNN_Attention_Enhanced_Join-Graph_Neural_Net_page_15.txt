@@ -1,0 +1,23 @@
+3. Saeed Amizadeh, Sergiy Matusevych, and Markus Weimer. PDP: A general neural framework for learning constraint satisfaction solvers. CoRR, abs/1903.01969, 2019.  
+
+4. Teodora Baluta, Shiqi Shen, Shweta Shinde, Kuldeep S. Meel, and Prateek Saxena. Quantitative verification of neural networks and its security applications. In Lorenzo Cavallaro, Johannes Kinder, XiaoFeng Wang, and Jonathan Katz, editors, Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security, CCS 2019, London, UK, November 11-15, 2019, pages 1249-1264. ACM, 2019.  
+
+5. Gianni Brauwers and Flavius Frasincar. A general survey on attention mechanisms in deep learning. IEEE Trans. Knowl. Data Eng., 35(4):3279-3298, 2023.  
+
+6. Supratik Chakraborty, Kuldeep S. Meel, and Moshe Y. Vardi. A scalable approximate model counter. In Christian Schulte, editor, Principles and Practice of Constraint Programming - 19th International Conference, CP 2013, Uppsala, Sweden, September 16-20, 2013. Proceedings, volume 8124 of Lecture Notes in Computer Science, pages 200-216. Springer, 2013.  
+
+7. Supratik Chakraborty, Kuldeep S. Meel, and Moshe Y. Vardi. Algorithmic improvements in approximate counting for probabilistic inference: From linear to logarithmic SAT calls. In Subbarao Kambhampati, editor, Proceedings of the Twenty-Fifth International Joint Conference on Artificial Intelligence, IJCAI 2016, New York, NY, USA, 9-15 July 2016, pages 3569-3576. IJCAI/AAAI Press, 2016.  
+
+8. Venkat Chandrasekaran, Misha Chertkov, David Gamarnik, Devavrat Shah, and Jinwoo Shin. Counting independent sets using the bethe approximation. SIAM J. Discret. Math., 25(2):1012-1034, 2011.  
+
+9. Mark Chavira and Adnan Darwiche. On probabilistic inference by weighted model counting. Artif. Intell., 172(6-7):772-799, 2008.  
+
+10. Adnan Darwiche. New advances in compiling CNF into decomposable negation normal form. In Ramon Lopez de Mantaras and Lorenza Saitta, editors, Proceedings of the 16th European Conference on Artificial Intelligence, ECAI'2004, including Prestigious Applicants of Intelligent Systems, PAIS 2004, Valencia, Spain, August 22-27, 2004, pages 328-332. IOS Press, 2004.  
+
+11. Rina Dechter, Kalev Kask, and Robert Mateescu. Iterative join-graph propagation. In Adnan Darwiche and Nir Friedman, editors, UAI '02, Proceedings of the 18th Conference in Uncertainty in Artificial Intelligence, University of Alberta, Edmonton, Alberta, Canada, August 1-4, 2002, pages 128-136. Morgan Kaufmann, 2002.  
+
+12. Guy Van den Broeck and Dan Suciu. Query processing on probabilistic data: A survey. Found. Trends Databases, 7(3-4):197-341, 2017.  
+
+13. Jeffrey M. Dudek, Vu Phan, and Moshe Y. Vardi. ADDMC: weighted model counting with algebraic decision diagrams. In The Thirty-Fourth AAAI Conference on Artificial Intelligence, AAAI 2020, The Thirty-Second Innovative Applications of Artificial Intelligence Conference, IAAI 2020, The Tenth AAAI Symposium on Educational Advances in Artificial Intelligence, EAAI 2020, New York, NY, USA, February 7-12, 2020, pages 1468-1476. AAAI Press, 2020.  
+
+14. Jeffrey M. Dudek, Vu H. N. Phan, and Moshe Y. Vardi. DPMC: weighted model counting by dynamic programming on project-join trees. In Helmut Simonis, editor, Principles and Practice of Constraint Programming - 26th International Conference, CP 2020, Louvain-la-Neuve, Belgium, September 7-11, 2020, Proceedings, volume 12333 of Lecture Notes in Computer Science, pages 211-230. Springer, 2020.

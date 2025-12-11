@@ -1,0 +1,23 @@
+Global: Inter- cluster attention transmits macro- constraints across clusters (such as consistency of assignment of distant variables) through shared variables. If clusters \(C_{1}\) and \(C_{2}\) share the variable \(x_{2}\) , then attention determines the influence of \(C_{1}\) and \(C_{2}\) on the assignment of \(x_{2}\) . If \(C_{1}\) and \(C_{2}\) tend to conflict on \(x_{2}\) , the attention weight automatically adjusts the message passing intensity. Calculate the attention weight of clusters \(C_{1}\) to \(C_{2}\) by passing cross- cluster messages through shared variables:  
+
+\[\alpha_{i n t e r} = L e k y R e L U(\frac{(W_{Q}h_{C_{1}})^{T}(W_{K}h_{C_{2}})}{\sqrt{d}}) \quad (11)\]  
+
+For adjacent clusters \(C_{1}\) and \(C_{2}\) (shared variable \(S_{12} = C_{1} \cap C_{2}\) ), the inter cluster message is:  
+
+\[m_{C_{1}\to C_{2}}(S_{12}) = \alpha_{i n t e r}\cdot \sum_{C_{1}\backslash S_{12}}(\phi_{1}(C_{1})\cdot \prod_{k\in n e(C_{1})\backslash C_{2}}m_{k\to C_{1}}) \quad (12)\]  
+
+Update shared variable characteristics:  
+
+\[h_{x} = h_{x}^{(C_{1})} + \alpha_{i n t e r}W_{V}h_{x}^{(C_{2})} \quad (13)\]  
+
+Dynamic attention mechanism The dynamic attention mechanism in Attn- JGNN model is realized by dynamically adjusting the number of attention heads to balance the performance of the model in different training stages and different complexity clauses. Start training with fewer attentional heads, quickly capture simple patterns (such as explicit constraints of short clauses), avoid overfitting, gradually increase the number of heads as the number of training steps increases to improve expressiveness, and deal with complex clauses (such as long chain dependencies)  
+
+\[H(t) = m i n(H_{m a x},H_{i n i t} + \lfloor \frac{t}{T}\rfloor) \quad (14)\]  
+
+Assign a learnable weight to each attentional head \(\lambda_{h}\) , dynamically adjusting its contribution:  
+
+\[\alpha_{d y} = \frac{1}{H(t)}\sum_{h = 1}^{H}(t)\lambda_{h}A t t e n t i o n(Q,K,V) \quad (15)\]  
+
+When \(\lambda_{h}\) is updated by gradient descent, the weight of important heads increases and the weight of redundant heads approaches 0. This design allows Attn- JGNN to efficiently handle highly heterogeneous clause structures in #SAT problems while maintaining low computational costs.  
+
+Constraint- Aware Mechanism In Attn- JGNN, the central role of the Constraint- Aware Mechanism is to explicitly guide the model to preferentially satisfy clause constraints in the CNF formula, thus more efficiently approaching the correct model count. The realization method combines attention weight

@@ -1,0 +1,9 @@
+<center>Figure 5: Time taken by Default-Kissat vs. NeuroBack-Kissat on SATCOMP-2022 (a), Random-Kissat vs. NeuroBack-Kissat on SATCOMP-2022 (b), Default-Kissat vs. NeuroBack-Kissat on SATCOMP-2023 (c), and Random-Kissat vs. NeuroBack-Kissat on SATCOMP-2023 (d) to solve each test problem in seconds (for problems that are solved by at least one solver). Each problem is represented by a dot whose location indicates the solving time of each method. The dots on the dashed lines at 5,000 seconds indicate failures. It is evident that more dots are present in the lower triangular areas, indicating that there are more problems on which NeuroBack-Kissat outperforms both Default-Kissat and Random-Kissat. </center>  
+
+  
+
+assignment. In contrast, for unsat problems, the utility of predicted phases is somewhat restricted to identifying partial solutions or refining the search scope. This fundamental difference in the nature of sat versus unsat problems underpins the varying degrees of effectiveness observed in NeuroBack's performance.  
+
+## 11 SETTING UP THE MEMORY LIMIT FOR NEUROBACK-KISSAT  
+
+In our experimental setup, which includes a machine equipped with 256GB of memory running 64 solver instances in parallel, we have conservatively set the SAT formula size threshold at 135 MB. This ensures that the memory usage of each solver instance does not exceed our specified memory threshold of 10GB. This threshold setting is based on our practical experience. Increasing this threshold could potentially lead to memory contention issues. Users might choose to adjust the

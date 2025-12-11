@@ -1,0 +1,19 @@
+with closest assignment supervision demonstrate better gap minimization, achieving an average gap of 0.98 versus 2.68 for SAT- only training on SR40.
+
+Table 2: Performance comparison of GNN architectures for SAT solving on the SR40 dataset.The table compares Literal-Clause Graph (LCG) and Variable-Clause Graph (VCG) repre-sentations, RNN and LSTM update mechanisms, and different training objectives. Metrics include average gap (number of unsatisfied clauses) across all instances and separated by sat-isfiability status (lower is better), SAT accuracy (percentage of satisfiable instances solved by finding assignment), and decision accuracy (percentage of correct satisfiability predictions). No-table findings include: unsupervised training consistently achieves lowest gaps; VCG+RNN with assignment prediction shows highest SAT accuracy (68.8%); and RNN-based models with SAT/UNSAT classification proved challenging to train effectively (indicated by dashes). As-terisks (*) indicate results obtained through clustering of node embeddings rather than direct prediction. This model combination was particularly hard to train in our setup. We found that both for VCG and LCG RNN is very sensitive to hyper-parameter selection. As the model failed to get generalized in our final unified experimental setup we do not include this result (close to random performance) now.
+
+<table><tr><td>Graph</td><td>Update</td><td>Loss Function</td><td>Avg. Gap↓</td><td>Gap on SAT↓</td><td>Gap on UNSAT↓</td><td>SAT Acc.↑</td><td>Dec. Acc.↑</td></tr><tr><td rowspan="6">LCG</td><td rowspan="3">RNN</td><td>SAT/UNSAT</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>Assignment</td><td>1.83</td><td>1.25</td><td>2.41</td><td>48.6%</td><td>72.8%</td></tr><tr><td>Unsup</td><td>0.93</td><td>0.59</td><td>1.26</td><td>51.4%</td><td>75.7%</td></tr><tr><td rowspan="3">LSTM</td><td>SAT/UNSAT</td><td>1.96*</td><td>1.27*</td><td>2.62*</td><td>59.2%</td><td>83.9/79.6%</td></tr><tr><td>Assignment</td><td>1.82</td><td>1.06</td><td>2.58</td><td>56.8%</td><td>78.4%</td></tr><tr><td>Unsup</td><td>0.81</td><td>0.45</td><td>1.16</td><td>62%</td><td>81%</td></tr><tr><td rowspan="6">VCG</td><td rowspan="3">RNN</td><td>SAT/UNSAT</td><td>3.62*</td><td>1.9*</td><td>5.34*</td><td>56.6%</td><td>80/78.3%</td></tr><tr><td>Assignment</td><td>1.95</td><td>0.8</td><td>3.05</td><td>68.8%</td><td>84.4%</td></tr><tr><td>Unsup</td><td>0.91</td><td>0.58</td><td>1.23</td><td>51.6%</td><td>75.8%</td></tr><tr><td rowspan="3">LSTM</td><td>SAT/UNSAT</td><td>2.33*</td><td>1.57</td><td>3.08</td><td>52.2%</td><td>81.9/76.1%</td></tr><tr><td>Assignment</td><td>2.05</td><td>0.96</td><td>3.14</td><td>66.4%</td><td>83.2%</td></tr><tr><td>Unsup</td><td>0.84</td><td>0.51</td><td>1.17</td><td>56.4%</td><td>78.2%</td></tr></table>
+
+# 5.3 Test-time Scaling
+
+A key property of our recurrent GNN architecture for SAT solving is the ability to adjust computational effort at inference time. Unlike standard GNNs with fixed number of layers,the weight-shared recurrent design enables flexible scaling through additional iterations and resampling.
+
+## 5.3.1 Iteration and Resampling Effects
+
+Figure 2 demonstrates how increasing message-passing iterations improves the percentage of solved SAT instances. Similarly, Figure 3 shows how the average gap decreases across iterations for various benchmarks. The heat maps in Figure 4 provide a comprehensive view of how performance metrics improve with both increased iterations and resampling attempts.
+
+For the model trained on SR40, several observations are notable:
+
+·Iteration benefits: Increasing iterations from 25 to 125 consistently improves all metrics across benchmarks.
+
+·Resampling effects: Multiple inference attempts with different random initializations of node feature vectors further enhance performance. For SR40, decision accuracy improves from 84% with one sample to 93% with five samples at 125 iterations.

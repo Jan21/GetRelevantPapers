@@ -1,0 +1,1 @@
+<center>Figure 10: Convergence comparison (w.r.t. PD Integral and Solving Time) between evolutionary-based algorithm discovery frameworks on MILP domain. </center>

@@ -1,0 +1,47 @@
+## A1 Model Details  
+
+Model Architecture. We adopt the DEEPGATE4 framework (Zheng et al. 2025), where each gate is represented by structural and functional embeddings and updated via selfattention (Vaswani et al. 2017).  
+
+For each gate type \(g\in \{\mathrm{and},\mathrm{not},\mathrm{div}\}\) , we implement type- specific aggregation and update functions:  
+
+not . The aggregator directly propagates the single input and applies a logical negation. and / virtual and. The aggregation function captures conjunction semantics, where attention weights reflect the relative importance of inputs- for example, giving higher weight to controlling inputs that can determine the output value. virtual div. In addition to a two- input aggregator, we account for the asymmetric roles of the inputs (numerator \(A_{joint}\) vs. denominator \(C\) ) by incorporating positional encodings to distinguish them during message passing.  
+
+This unified framework enables the model to reason jointly over logical and probabilistic structures.  
+
+Level- by- Level Propagation. Let \(\mathcal{L}(v)\) denote the topological level of gate \(v\) . For every level \(\ell\) (from primary inputs PI to primary outputs PO) the model performs:  
+
+\[\begin{array}{r l} & {h_{v}^{s}\leftarrow \mathrm{Agg}_{g}^{s}\big(\{h_{u}^{s}\mid u\in P(v),\mathcal{L}(u) = \ell -1\} \big)}\\ & {h_{v}^{f}\leftarrow \mathrm{Agg}_{g}^{f}\big(\{h_{u}^{f},h_{u}^{s}\mid u\in P(v),\mathcal{L}(u) = \ell -1\} \big)} \end{array} \quad (A1)\]  
+
+where \(P(v)\) denotes the set of predecessor nodes of \(v\)  
+
+## A2 Effectiveness of div Gate  
+
+The div gate explicitly models conditional probability in the circuit graph via the following equation:  
+
+\[P(A\mid C) = \frac{P(A\wedge C)}{P(C)}. \quad (A3)\]  
+
+While this formulation is convenient, the division operation can amplify errors significantly when \(P(C)\) is very small (always smaller than 1, as it represents the logic probability of node \(C\) ). To illustrate this behavior, we analyze two representative cases using ac97_ctrl.aig as a case study.  
+
+Case 1: Extremely Small \(P(C)\) . In this scenario, when the conditional node rarely evaluates to 1 ( \(P(C) = 0.01\) ), even minor absolute errors in \(P(A\wedge C)\) translate into large relative errors in \(P(A\mid C)\) . Table A1 presents the ground- truth and predicted probabilities for \(P(C)\) and a subset of 20 target nodes \(A\) . The prediction error for \(P(C)\) is moderate ( \(\hat{P} (C) = 0.00323\) ), yet the resulting conditional probabilities are significantly distorted due to error amplification.  
+
+Case 2: Moderate \(P(C)\) . When \(P(C)\) is in a mid- range (e.g., \(P(C) > 0.3\) ), the division operation becomes relatively numerically stable. However, it still amplifies errors in \(P(A\mid C)\) to an extent that is practically unacceptable. Table A2 compares aggregate losses, showing that the overall absolute error remains greater than 0.1.  
+
+In contrast, our method incorporates the div gate during the dataset preparation stage. The probability labels for the DIV gate are computed as the division of the probabilities of its two input nodes, which are tagged with distinct positional markers. By learning this behavior as a standard gate type, the model directly internalizes the division operation, eliminating the need to explicitly compute the quotient of joint and marginal probabilities.  
+
+## A3 Pattern-Based Dataset  
+
+To bootstrap training, we hope to generate pattern- based traces that approximate full truth tables. Given a circuit with \(m\) primary inputs (PIs), the complete truth table has \(2^{m}\) rows—impractical beyond \(m\approx 20\) . Instead, we conduct simulation with 20,000 patterns and uniformly sample 100 random patterns per circuit per epoch (see Table A3) and record the resulting logic probability values for every node.  
+
+<table><tr><td>Pattern ID</td><td>PI1</td><td>PI2</td><td>PI3</td><td>...</td><td>PIm</td><td>Node u</td><td>Node v</td></tr><tr><td>1</td><td>0</td><td>1</td><td>0</td><td>...</td><td>1</td><td>0</td><td>0</td></tr><tr><td>2</td><td>1</td><td>0</td><td>0</td><td>...</td><td>0</td><td>1</td><td>0</td></tr><tr><td>3</td><td>0</td><td>0</td><td>1</td><td>...</td><td>1</td><td>0</td><td>1</td></tr><tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr><tr><td>19997</td><td>0</td><td>1</td><td>1</td><td>...</td><td>0</td><td>1</td><td>1</td></tr><tr><td>19998</td><td>0</td><td>1</td><td>1</td><td>...</td><td>0</td><td>0</td><td>1</td></tr><tr><td>19999</td><td>1</td><td>0</td><td>1</td><td>...</td><td>1</td><td>1</td><td>0</td></tr><tr><td>20000</td><td>0</td><td>0</td><td>0</td><td>...</td><td>0</td><td>0</td><td>1</td></tr></table>  
+
+Table A3: Excerpt of a truth table. Each training epoch picks a fresh random subset of 100 rows, ensuring the model learns to interpolate between unseen patterns.  
+
+For each node \(v\) , we compute  
+
+\[\hat{P}_{\mathrm{rand}}(v) = \frac{1}{100}\sum_{i = 1}^{100}\mathbf{1}\big(v = 1\mathrm{~in~row~}i\big), \quad (A4)\]  
+
+which serves as a supervisory signal encouraging the GNN to capture fine- grained functional behavior. Because the 100- row subset changes every epoch, the network is exposed to thousands of distinct local views, yielding better generalization than a single large simulation.  
+
+## A4 Workload-Based Dataset  
+
+While random patterns provide breadth, they fail to capture realistic activity biases. We therefore introduce workload- based simulations, where each primary input (PI) is independently assigned a probability value \(\rho\) sampled from the set \(0.1, 0.2, \ldots , 0.9\) . A toy circuit ( \(c = a \wedge b\) , Fig. A1) is used to illustrate the necessity.

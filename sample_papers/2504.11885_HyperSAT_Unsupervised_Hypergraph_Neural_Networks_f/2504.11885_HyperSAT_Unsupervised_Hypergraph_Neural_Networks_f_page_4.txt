@@ -1,0 +1,35 @@
+### 3.1. Hypergraph Modeling  
+
+Given a Weighted MaxSAT instance \(\phi = (\mathcal{X},\mathcal{C},\mathbf{w})\) , we construct the hypergraph \(\mathcal{G} = (\mathcal{V},\mathcal{E},\mathbf{W})\) as follows:  
+
+For the construction of the vertex set \(\nu\) , each variable \(x_{i}\in \mathcal{X}\) is represented by two nodes \(v_{i}\) and \(v_{n + i}\) , which correspond to the positive and negative literals of the variable \(x_{i}\) (i.e., \(x_{i}\) and \(\neg x_{i}\) ), respectively. For the construction of the hyperedge set \(\mathcal{E}\) , each clause \(C_{j}\in \mathcal{C}\) is represented by a hyperedge \(e_{j}\in \mathcal{E}\) , which connects the nodes corresponding to the literals in \(C_{j}\) . Specifically, if clause \(C_{j}\) consists of the literals \(l_{j1},l_{j2},\ldots ,l_{jk_{j}}\) , then the corresponding hyperedge \(e_{j}\) connects the nodes corresponding to these literals. For the construction of the weight matrix \(\mathbf{W}\) , the weight of each hyperedge is equal to the weight of the corresponding clause, i.e., \(W_{j,j} = w_{j}\) .  
+
+Through the above modeling process, the Weighted MaxSAT instance can be uniquely represented by a hypergraph, where each literal is a node, and each clause is a hyperedge connecting the literals involved. The weight of each hyperedge is the weight of the corresponding clause in the instance. Figure 2 gives an illustration of the hypergraph modeling process.  
+
+<center>Figure 2. Hypergraph Modeling of a Weighted MaxSAT instance \((\neg x_{1}\lor x_{2}\lor \neg x_{3})\land (x_{1}\lor x_{2})\land (\neg x_{2}\lor x_{3}\lor x_{4})\land (\neg x_{1}\lor x_{3}\lor \neg x_{4})\) with 8 literals, 4 clauses and weights \(\{w_{1},w_{2},w_{3},w_{4}\}\) . </center>  
+
+In contrast to existing methods that represent Conjunctive Normal Form (CNF) formulas as factor graphs (Guo et al., 2023), which limit their ability to model relationships beyond pairwise connections, we construct Weighted MaxSAT instances as hypergraphs. These hypergraphs can encode higher- order variable dependencies through their degree- free hyperedges, and thus offer more powerful representational capacity and enable more efficient handling  
+
+of higher- order relationships in combinatorial optimization problems. In particular, we treat literals rather than variables as nodes, which addresses a major issue present in HypOp (Heydaribeni et al., 2024). Since the logical relationships between positive and negative literals are central to the Weighted MaxSAT problem, it is essential to treat them as distinct nodes, rather than merging them into a single node. In addition, we encode the weights of the clauses in the Weighted MaxSAT problem as the weights of the corresponding hyperedges in the hypergraph.  
+
+### 3.2. Neural Network Architecture  
+
+The neural network architecture of our proposed HyperSAT comprises the HyperGCN, a transformer module with the cross- attention mechanism, and a softmax layer.  
+
+#### 3.2.1. HYPERGRAPH CONVOLUTIONAL NETWORKS  
+
+In HyperSAT, we introduce a \(T\) - layer HyperGCN for message passing among different nodes. The operation at the \(l\) - th layer of the HyperGCN is formally expressed as follows:  
+
+\[\begin{array}{r}{\pmb{L}^{(l + 1)^{\prime}} = \sigma \left(\pmb{D}_{v}^{-\frac{1}{2}}\widetilde{\pmb{Q}}\pmb{D}_{v}^{-\frac{1}{2}}\pmb{L}^{(l)}\pmb{R}^{(l)}\right).} \end{array} \quad (2)\]  
+
+In this formulation, the matrix \(\pmb{L}^{(l + 1)^{\prime}}\) represents the output of the \(l\) - th layer; \(\pmb{D}_{v}\) is the diagonal matrix of the vertex degrees in the hypergraph; \(\pmb{L}^{(l)}\in \mathbb{R}^{2n\times d_{l}}\) is the matrix of node representations at the \(l\) - th layer, where \(d_{l}\) is the dimension of the \(l\) - th layer node representations; \(\pmb{R}^{(l)}\in\) \(\mathbb{R}^{d_{l}\times d_{l + 1}}\) is the \(l\) - th layer learnable weight matrix; and \(\widetilde{\pmb{Q}}\) is given by  
+
+\[\widetilde{\pmb{Q}} = \pmb {H}\widetilde{\pmb{D}}_{e}^{-1}\pmb {H}^{\top} - \mathrm{diag}(\pmb {H}\widetilde{\pmb{D}}_{e}^{-1}\pmb {H}^{\top}), \quad (3)\]  
+
+where \(\pmb{H}\) is the hypergraph incidence matrix, and \(\widetilde{\pmb{D}}_{e} =\) \(\pmb{D}_{e} - \pmb{I}\) . Specifically, \(\sigma\) denotes the nonlinear activation function and \(\pmb{L}^{(0)}\) is a learnable input embedding of HyperGCN.  
+
+Compared to the updating rule in Eq. (1) in traditional HGNN, our HyperGCN focuses the convolutional layer's computation more on the influence of adjacent nodes by removing the diagonal elements of \(\widetilde{\pmb{Q}}\) . This adjustment allows the representation updates of each node to better align with the higher- order relationships of the adjacency structure.  
+
+#### 3.2.2. CROSS-ATTENTION MECHANISM  
+
+The core of the Weighted MaxSAT problem lies in the logical constraints among variables. Positive and negative literal nodes (e.g., \(x\) and \(\neg x\) ) are logically mutually exclusive and strongly correlated, and their relationships directly reflect the underlying structural characteristics of the problem.

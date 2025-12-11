@@ -1,0 +1,37 @@
+# Understanding GNNs for Boolean Satisfiability through Approximation Algorithms  
+
+Jan Hula  University of Ostrava  Ostrava, Czechia  Jan.Hula21@gmail.com  
+
+David Mojzišek  University of Ostrava  Ostrava, Czechia  david.mojzisek@osu.cz  
+
+Mikoláš Janota  Czech Technical University in Prague  Prague, Czechia  mikolas.janota@cvut.cz  
+
+## Abstract  
+
+This paper delves into the interpretability of Graph Neural Networks in the context of Boolean Satisfiability. The goal is to demystify the internal workings of these models and provide insightful perspectives into their decision- making processes. This is done by uncovering connections to two approximation algorithms studied in the domain of Boolean Satisfiability: Belief Propagation and Semidefinite Programming Relaxations. Revealing these connections has empowered us to introduce a suite of impactful enhancements. The first significant enhancement is a curriculum training procedure, which incrementally increases the problem complexity in the training set, together with increasing the number of message passing iterations of the Graph Neural Network. We show that the curriculum, together with several other optimizations, reduces the training time by more than an order of magnitude compared to the baseline without the curriculum. Furthermore, we apply decimation and sampling of initial embeddings, which significantly increase the percentage of solved problems.  
+
+## CCS Concepts  
+
+- Theory of computation \(\rightarrow\) Numeric approximation algorithms; \(\cdot\) Computing methodologies \(\rightarrow\) Neural networks.  
+
+## Keywords  
+
+Graph Neural Networks, Boolean Satisfiability, Neuro- symbolic AI, Semidefinite Programming, Belief Propagation, Approximation Algorithms  
+
+## ACM Reference Format:  
+
+Jan Hula, David Mojzišek, and Mikoláš Janota. 2024. Understanding GNNs for Boolean Satisfiability through Approximation Algorithms. In Proceedings of the 33rd ACM International Conference on Information and Knowledge Management (CIKM '24), October 21- 25, 2024, Boise, ID, USA. ACM, New York, NY, USA, 16 pages. https://doi.org/10.1145/3627673.3679813  
+
+## 1 Introduction  
+
+Graph Neural Networks (GNNs) are routinely used in the context of combinatorial problems [6, 11, 19] because graphs are often better suited to represent these problems than other input formats  
+
+for ML models. Very often, the architecture and the loss function are designed by ad hoc decisions and without insight into their suitability. In this paper, we aim to shed light on the mechanism by which GNNs can find approximate solutions to many combinatorial problems. We target Boolean Satisfiability (SAT), which can be seen as a prototypical combinatorial problem known to have many practical applications.  
+
+Previously, GNNs have already been shown to learn to predict the satisfiability status of CNF formulas [29]. Although these learned solutions lag far behind the solvers used in practice in terms of the size of problems they are able to solve, they can be practically leveraged as guiding heuristics [28] inside these solvers and therefore it is desirable to understand the process by which they arrive at their outputs.  
+
+Boolean Satisfiability has an optimization version of the problem called MAX- SAT where the goal is to find an assignment that maximizes the number of satisfied clauses. Obviously, from an optimal solution to MAX- SAT, one can obtain the solution to the decision problem by checking if all clauses are satisfied or not.  
+
+As we demonstrate in this paper, the GNN learns to predict satisfiability by converting the decision problem to the optimization problem. It is then natural to try to interpret the message passing (MP) process of a GNN as an optimization of a continuous relaxation of the original discrete optimization problem. Recently, Kyrillidis et al. [18] demonstrates scenarios where solving a continuous relaxation formulation may provide benefits over solving the formula using standard solvers (i.e., having a better performance for non- CNF formulas). In their case, they do not use any form of learning and design the continuous solver manually. This suggests promising future applications of GNN- based solutions. GNN- based solutions could potentially bring improvements over manually designed continuous solvers because they can adapt to the specifics of a given distribution of problems. Also, having a better understanding of learned solutions (the discovered approximation algorithm) can eventually lead to a confluence of continuous solvers and GNNs, which would be an analog of Physics- Informed Neural Networks that use neural networks to improve PDE or ODE solvers [24] in the context of combinatorial problems.  
+
+When treating the message- passing process of a GNN as an optimization of a continuous relaxation of the original problem, the relaxed variables are in this context represented by high- dimensional vectors. This hints at a possible connection to approximation algorithms based on Semidefinite Programming (SDP). The solving process of an SDP solver can be understood as an incremental optimization of a set of vectors that represent the variables of the problem. After convergence, these vectors are rounded to give a solution to the original discrete problem.

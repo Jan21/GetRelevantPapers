@@ -1,0 +1,55 @@
+at least \(|C| / 2\) clauses, which implies an approximation ratio of \(1 / 2\) .  
+
+## Frameworks of Models  
+
+The frameworks of MS- NSFG and MS- ESFG are shown below. The embeddings of literals and clauses in the \(k\) - th layer are denoted as \(L^{(k)}\) and \(C^{(k)}\) , respectively. \(d\) is the dimension of embeddings, and \(T\) is the number of GNN layers.  
+
+Algorithm 2: MS- NSFG  
+
+Input: An NSFG \(G = \langle V_{L}, V_{C}, E \rangle\) Output: The predicted assignments of literals \(\Phi\)  
+
+1: Build the adjacency matrix \(M\) of graph \(G\)  
+
+2: Initialize \(L^{(0)} \in \mathbb{R}^{|V_{L}| \times d} \sim U(0, 1)\)  
+
+3: Initialize \(C^{(0)} \in \mathbb{R}^{|V_{C}| \times d} \sim U(0, 1)\)  
+
+4: for \(k\) from 1 to \(T\) do  
+
+5: \(C^{(k)} \leftarrow \mathrm{UPDC}(C^{(k - 1)}, M \cdot \mathrm{AGG}_{\mathrm{L}}(L^{(k - 1)}))\)  
+
+6: \(L^{(k)} \leftarrow \mathrm{UPDL}(L^{(k - 1)}, M^{\top} \cdot \mathrm{AGG}_{\mathrm{C}}(C^{(k - 1)}))\)  
+
+7: end for  
+
+8: \(L_{pred} \in \mathbb{R}^{|V_{L}|} \leftarrow \mathrm{PRED}_{\mathrm{L}}(L^{(T)})\)  
+
+9: \(\Phi \leftarrow \mathrm{Round}(\mathrm{Sigmoid}(L_{pred}))\)  
+
+10: return \(\Phi\)  
+
+Algorithm 3: MS- ESFG  
+
+Input: An ESFG \(G = \langle V_{L}, V_{C}, E^{+}, E^{- } \rangle\)  
+
+Output: The predicted assignments of literals \(\Phi\)  
+
+1: Build the adjacency matrices \(M^{+}, M^{- }\) of graph \(G\)  
+
+2: Initialize \(L^{(0)} \in \mathbb{R}^{|V_{L}| \times d} \sim U(0, 1)\)  
+
+3: Initialize \(C^{(0)} \in \mathbb{R}^{|V_{C}| \times d} \sim U(0, 1)\)  
+
+4: for \(k\) from 1 to \(T\) do  
+
+5: \(C^{(k)} \leftarrow \mathrm{UPDC}(C^{(k - 1)}, M^{+} \cdot \mathrm{AGG}_{\mathrm{L}}^{+}(L^{(k - 1)}) + M^{- } \cdot \mathrm{AGG}_{\mathrm{L}}^{-}(L^{(k - 1)}))\)  
+
+6: \(L^{(k)} \leftarrow \mathrm{UPDL}(L^{(k - 1)}, (M^{+})^{\top} \cdot \mathrm{AGG}_{\mathrm{C}}^{+}(C^{(k - 1)}) + (M^{- })^{\top} \cdot \mathrm{AGG}_{\mathrm{C}}^{-}(C^{(k - 1)}))\)  
+
+7: end for  
+
+8: \(L_{pred} \in \mathbb{R}^{|V_{L}|} \leftarrow \mathrm{PRED}_{\mathrm{L}}(L^{(T)})\)  
+
+9: \(\Phi \leftarrow \mathrm{Round}(\mathrm{Sigmoid}(L_{pred}))\)  
+
+10: return \(\Phi\)

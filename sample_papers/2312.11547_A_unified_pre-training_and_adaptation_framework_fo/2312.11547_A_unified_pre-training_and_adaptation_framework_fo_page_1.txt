@@ -1,0 +1,13 @@
+# A Unified Pre-training and Adaptation Framework for Combinatorial Optimization on Graphs  
+
+Ruibin Zeng \(^{1,\dagger}\) , Minglong Lei \(^{2,\dagger}\) , Lingfeng Niu \(^{3,\dagger}\) & Lan Cheng \(^{4,*}\)  
+
+\(^{1}\) School of Computer Sciences, University of Chinese Academy of Sciences, Beijing, 100049, China; \(^{2}\) Faculty of Information Technology, Beijing University of Technology, Beijing, 100124, China; \(^{3}\) School of Economics and Management, University of Chinese Academy of Sciences, Beijing, 100190, China; \(^{4}\) School of Mathematics and Statistics, Central South University, Changsha, 410075, China.  
+
+Email: zengruibin21@mails.ucas.ac.cn, leiml@bjut.edu.cn, niulf@ucas.ac.cn, chenglan@hnfnu.edu.cn  
+
+Abstract Combinatorial optimization (CO) on graphs is a classic topic that has been extensively studied across many scientific and industrial fields. Recently, solving CO problems on graphs through learning methods has attracted great attention. Advanced deep learning methods, e.g., graph neural networks (GNNs), have been used to effectively assist the process of solving COs. However, current frameworks based on GNNs are mainly designed for certain CO problems, thereby failing to consider their transferable and generalizable abilities among different COs on graphs. Moreover, simply using original graphs to model COs only captures the direct correlations among objects, which does not consider the mathematical logicality and properties of COs. In this paper, we propose a unified pre- training and adaptation framework for COs on graphs with the help of the maximum satisfiability (Max- SAT) problem. We first use Max- SAT to bridge different COs on graphs since they can be converted to Max- SAT problems represented by standard formulas and clauses with logical information. Then, we further design a pre- training and domain adaptation framework to extract the transferable and generalizable features so that different COs can benefit from them. In the pre- training stage, Max- SAT instances are generated to initialize the parameters of the model. In the fine- tuning stage, instances from CO and Max- SAT problems are used for adaptation so that the transferable ability can be further improved. Numerical experiments on several datasets show that features extracted by our framework exhibit superior transferability and Max- SAT can boost the ability to solve COs on graphs.  
+
+Keywords Combinatorial Optimization, Graph Neural Networks, Domain Adaptation, Maximum Satisfiability Problem.  
+
+MSC(2020)

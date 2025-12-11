@@ -1,0 +1,5 @@
+<center>Figure 2: Experimental results on test data for finding minimum dominating cliques; X axis for \(n\) </center>  
+
+## 5 Concluding Remarks  
+
+In this work, we have developed an approach that uses the probabilistic method in the design of GNN models to learn branching heuristics to enhance exact solvers for hard combinatorial problems. This approach can be applied to other COPs of finding an optimal constrained vertex subset of a given graph, such as the maximum/minimum dominating-independent-set problem or the maximum-clique problem. In the future, we would like to enhance this approach to solve the problems that ask for an optimal collection of vertex subsets where a vertex is allowed to be in multiple subsets, e.g. the tree-decomposition problem and the edge-clique-cover problem. We hope that our approach can be a starting effort of applying GNNs techniques to improve classical AI algorithms.

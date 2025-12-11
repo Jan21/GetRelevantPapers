@@ -1,0 +1,19 @@
+is worse than the softmax function.  
+
+To calculate the joint information entropy of random variables in \(C^{\prime}\cap S =\) \(\{X_{1},\dots,X_{m}\}\) , we try two ways. The first one, called the fast version because the calculation of this way is fast but not accurate, is \(\begin{array}{r}{\sum_{i = 1}^{m}\mathbb{H}(X_{i}) - \Big(\prod_{i = 1}^{m}(1 - } \end{array}\) \(p_{i})\Big)\log_{2}\Big(\prod_{i = 1}^{m}(1 - p_{i})\Big)\) . \(X_{i}\) 's are mutually independent, so their joint information entropy is the sum of each one's information entropy. In addition, if there is a dominating clique, at least one variable in \(C^{\prime}\cap S\) is 1; we thus minus the information entropy of the case that all variables in \(C^{\prime}\cap S\) are 0.  
+
+The second way, called the accurate version but with a slow calculation, is similar to the improvement on Equation (6). Instead of calculating the joint information entropy of random variables in \((C^{\prime}\cap S)\) , we calculate the joint information entropy under a more precise case. Given a clause \(C^{\prime}\cap S = \{X_{1},\dots,X_{m}\}\) , for \(i = 1\) to \(m\) , we iteratively set \(X_{1},\dots,X_{i - 1}\) as 0 and \(X_{i}\) as 1. We know that \(\{X_{i + 1},\dots,X_{m}\} \setminus \{X_{j}\}_{v_{j}\in N(v_{i})}\) must be 0 from the properties of dominating cliques. Thus, we only need to consider the joint information entropy of the random variables in \(N[v_{i}]\setminus \{v_{1},\dots,v_{i - 1}\}\) . Similar to Equation (7), we calculate the joint information entropy as  
+
+\[\sum_{i = 1}^{m}\Big(p\big(-\log_{2}(p) + \sum_{v_{r}\in N(v_{i})\setminus \{v_{1},\dots,v_{i - 1}\}}\mathbb{H}(X_{r})\big)\Big) \quad (8)\]  
+
+where \(\begin{array}{r}{p = p_{i}\prod_{j = 1}^{i - 1}(1 - p_{j})\prod_{v_{k}\in \{v_{i + 1},\dots,v_{m}\}\setminus N(v_{i})}(1 - p_{k}).} \end{array}\)  
+
+## 4 Experimental Results  
+
+### 4.1 Finding Maximum Cliques  
+
+Table 1 shows the experimental results of approximation ratio (i.e. the ratio of the size of the clique we find versus the size of the maximum clique). We use the greedy approximation algorithm in [8] to find large cliques, and the maximum clique is from Gurobi [13]. The greedy approximation algorithm has two ways, fast and slow, to decode cliques using the learned probability distributions. The fast way returns quickly but with a less use of the input probability distributions compared to the slow way. We run experiments for two GNN models. These two models have the same neural network architecture as the model in [8]. The only difference is that one uses our loss function (4) and another uses the original loss function in [8]. The datasets Twitter, COLLAB, and IMDB used in the experiments are from [8] as well.  
+
+### 4.2 Finding Dominating Cliques  
+
+We run experiments on three dominating- clique solvers: the original solver in [9] and the GNN- enhanced solvers (the output distributions from the GNN model with the loss function (5) as input) using the fast and accurate calculations of joint information entropy respectively.

@@ -1,0 +1,31 @@
+Table 3: Ablation study on the effectiveness of using div gates for computing conditional probability (MAE). Here, "#Cond." indicates the number of condition nodes involved.   
+
+<table><tr><td rowspan="2"># Cond.</td><td colspan="2">Moderate Condition</td><td colspan="2">Polar Condition</td></tr><tr><td>div gate</td><td>direct division</td><td>div gate</td><td>direct division</td></tr><tr><td>1</td><td>0.0312</td><td>0.1173</td><td>0.0395</td><td>0.7129</td></tr><tr><td>2</td><td>0.0339</td><td>0.1495</td><td>0.0423</td><td>0.7940</td></tr><tr><td>5</td><td>0.0368</td><td>0.2030</td><td>0.0486</td><td>0.8546</td></tr></table>  
+
+Table 4: Ablation study on the effectiveness of our two-stage training strategy (MAE).   
+
+<table><tr><td># Condition Nodes</td><td>Two-stage</td><td>Only Stage-1</td><td>Only Stage-2</td></tr><tr><td>1</td><td>0.0331</td><td>0.0422</td><td>0.0435</td></tr><tr><td>2</td><td>0.0352</td><td>0.0583</td><td>0.0493</td></tr><tr><td>5</td><td>0.0387</td><td>0.0738</td><td>0.0588</td></tr></table>  
+
+Effectiveness of Training Strategy We evaluate the effectiveness of our two- stage training strategy, where stage1 learns fine- grained behavior from a 100- pattern simulation and stage- 2 captures broader statistical distributions using 20,000- pattern data. As shown in Table 4, the two- stage model consistently achieves the lowest L1 loss, outperforming both stage- 1 and stage- 2 models individually. For instance, with one condition node, L1 loss improves from 0.0422 (stage- 1) and 0.0435 (stage- 2) to 0.0331 (two- stage).  
+
+Additionally, the second- stage model accelerates inference, reducing the time by a factor of 200 compared to stage- 1, which needs 200 invocations to simulate the 20,000- pattern workload.  
+
+## 5 Application to Circuit SAT  
+
+### 5.1 Experiment Setting  
+
+We evaluate the proposed methods (see Section 3.1) in the context of the Logic Equivalence Checking (LEC) task, one of the most critical CSAT problem determining whether two given circuit designs are logically equivalent. All the experiments, including model inference and SAT solving are conducted on an Intel(R) Platinum 8474C.  
+
+Since CDCL SAT solvers exhibit fundamentally different behaviors when solving satisfiable and unsatisfiable instances (Chanseok 2015), we conduct separate evaluations of our proposed probability- based phase selection and clause filtering techniques. For example, solvers favor variable branching heuristics to quickly find satisfying assignments, but rely on advanced clause learning and prune strategies to prove unsatisfiability. To assess the phase selection method, we construct 150 hard satisfiable instances as LECSAT set by applying logic synthesis and minor revisions of different circuits from ForgeEDA dataset (Shi et al. 2025a). Circuit pairs are then combined using miter construction via the ABC tool (Brayton and Mishchenko 2010). These instances have an average solving time of 17.39 seconds using CaDiCaL, ensuring that they are sufficiently challenging. Besides, to evaluate the proposed clause filtering tech  
+
+nique, we construct another set of unsatisfiable instances LECUNSAT by generating miters from pairs of datapath circuits. In these cases, the original circuits are logically equivalent by design, ensuring that the resulting miter circuits are unsatisfiable, which cannot be solved within 20 seconds by CaDiCal.  
+
+### 5.2 Node Probability for Phase Selection  
+
+<center>Figure 4: Solving Time on LECSAT (150 SAT cases) with probability-based phase selection(unit: seconds) </center>  
+
+We use CASCAD to predict condition probability and evaluate our selection method(defined in Section 3.1) on 150 SAT instances from the LECSAT benchmark under different thresholds \(\tau\) . Figure 4 compares solving times of our method (x- axis) under various threshold with CaDiCaL (y- axis), both in log scale. We also include the recent circuit representation model DeepGate4 (Zheng et al. 2025) (black dots) as a comparison, which predicts node- level similarity and encourages assigning opposite values to functional similar nodes to trigger conflicts earlier and prune the search.  
+
+Most points lie above the diagonal \((y = x)\) , indicating that our method outperforms the mainstream phase selection heuristic widely used in modern SAT solvers (has integrated into CaDiCaL). Compared to DeepGate4, our method consistently achieves lower solving times, demonstrating more effective phase guidance. At \(\tau = 0.005\) , our method achieves up to \(10 \times\) speedup, and nearly \(5 \times\) at \(\tau = 0.01\) . Points further left imply lower average solving times, highlighting the overall efficiency of our probability- guided strategy across different \(\tau\) values.  
+
+In addition, the phase selection method serves as a lightweight classifier for UNSAT instances: since it greatly accelerates SAT solving—if a case remains unsolved within a fixed time budget, it is likely to be UNSAT. This insight allows us to adapt solver parameters dynamically to better handle UNSAT- dominated scenarios(see Appendix A6), achieving \(2 \times\) average speedup on LECUNSAT dataset.

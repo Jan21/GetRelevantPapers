@@ -1,0 +1,13 @@
+Zhanghao Wu, Paras Jain, Matthew Wright, Azalia Mirhoseini, Joseph E Gonzalez, and Ion Stoica. Representing long- range context for graph neural networks with global attention. Advances in Neural Information Processing Systems, 34:13266- 13279, 2021.  
+
+Zonghan Wu, Shirui Pan, Fengwen Chen, Guodong Long, Chengqi Zhang, and S Yu Philip. A comprehensive survey on graph neural networks. IEEE transactions on neural networks and learning systems, 32(1):4- 24, 2020.  
+
+Keyulu Xu, Weihua Hu, Jure Leskovec, and Stefanie Jegelka. How powerful are graph neural networks? arXiv preprint arXiv:1810.00826, 2018.  
+
+Emre Yolcu and Barnabas Póczos. Learning local search heuristics for boolean satisfiability. In Advances in Neural Information Processing Systems, pp. 7992- 8003, 2019.  
+
+Ziwei Zhang and Yang Zhang. Elimination mechanism of glue variables for solving sat problems in linguistics. In The Asian Conference on Language, pp. 147- 167, 2021.  
+
+Jie Zhou, Ganqu Cui, Shengding Hu, Zhengyan Zhang, Cheng Yang, Zhiyuan Liu, Lifeng Wang, Changcheng Li, and Maosong Sun. Graph neural networks: A review of methods and applications. AI Open, 1:57- 81, 2020.  
+
+Fuzhen Zhuang, Zhiyuan Qi, Keyu Duan, Dongbo Xi, Yongchun Zhu, Hengshu Zhu, Hui Xiong, and Qing He. A comprehensive survey on transfer learning. Proceedings of the IEEE, 109(1):43- 76, 2020.

@@ -1,0 +1,27 @@
+we get  
+
+\[\mathbb{P}\big(X< \mathbb{E}(X) / (1 - t)\big) > t,\]  
+
+which tells us that with a strictly positive probability \(t\) , \(X\) is smaller than \(\mathbb{E}(X) / (1 - t)\) . Using the first- moment method, given a combinatorial optimization problem with the quality of a solution \(S\) measured by a function \(f\) (such as the size of \(S\) ), Karalias et al. in [8] set \(f(S) + 1_{S\notin S}\beta\) as a random variable where \(S\) is a randomly selected subset according to the distribution from the GNN output, \(S\) is the set of solutions, \(1_{S\notin S}\) is an indicator function, and \(\beta\) is a positive constant strictly greater than \(\max_{S\in S}\big(f(S)\big)\) . This random variable leads the loss function of GNN models to be  
+
+\[\mathcal{L} = \mathbb{E}\big(f(S) + 1_{S\notin S}\beta \big) = \mathbb{E}\big(f(S)\big) + \mathbb{P}(S\notin S)\beta .\]  
+
+After training, if \(\mathcal{L}< (1 - t)\beta\) , then with a strictly positive probability \(t\) there is an \(S\) with  
+
+\[f(S) + 1_{S\notin S}\beta < \beta\]  
+
+which implies that \(1_{S\notin S}\) is false, i.e. \(S\in S\) and \(f(S)< \beta\)  
+
+This approach is quite interesting, but it suffers from the following two drawbacks.  
+
+- We want \(t\) to be close to 0 so that \(\mathcal{L}< (1 - t)\beta\) has more likelihood after training, but it also implies the less likelihood (i.e. the probability \(t\) ) of the event that there is an \(S\) with \(f(S) + 1_{S\notin S}\beta < \beta\) ;- Choosing the value of \(\beta\) needs special care. Since it is usually hard to get the closed form of \(\mathbb{P}(S\notin S)\) for the given combinatorial optimization problem, we use an upper bound of \(\mathbb{P}(S\notin S)\) to replace it in the loss function, which makes less likely that the loss function will converge to a small number after training if \(\beta\) is too great.  
+
+To avoid these issues, we propose a new way to design loss functions. Our idea is straightforward: minimizing \(\mathbb{E}\big(f(S)\big)\mathbb{P}(S\in S)^{- 1}\) to let the probability measure of the solutions with low values of \(f\) be as great as possible. Our loss function is  
+
+\[\ln \left(\mathbb{E}\big(f(S)\big)\right) - \ln \left(\mathbb{P}(S\in S)\right).\]  
+
+In practice, the difference between \(\mathbb{E}\big(f(S)\big)\) and \(\mathbb{P}(S\in S)\) might be large, which may cause the loss function to weigh \(\mathbb{E}\big(f(S)\big)\) too strongly compared to \(\mathbb{P}(S\in S)\) . We use \(\ln (\cdot)\) in hopes that the loss function would weigh the terms as proportionally as possible.  
+
+### 3.2 New Loss Function for Maximum-Clique Problem  
+
+In this section, we show an application of our GNN model for the maximum- clique problem. For the probability \(\mathbb{P}(S\) is a clique), we use the correlation inequality in the probabilistic method to get its lower bound.

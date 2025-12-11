@@ -1,0 +1,9 @@
+Table 8. RMSE/MRE comparison of BPGAT and BPNN trained with formulae sampled from the specific distribution.   
+
+<table><tr><td>Dataset</td><td>TS_BPGAT</td><td>TS_BPNN</td></tr><tr><td>Network</td><td>1.9334/0.04887</td><td>2.4358/0.0610</td></tr><tr><td>Domset</td><td>1.7808/0.7125</td><td>4.7885/1.6839</td></tr><tr><td>Color</td><td>1.3430/0.2046</td><td>4.4036/0.9088</td></tr><tr><td>Clique</td><td>0.01773/0.007333</td><td>0.02265/0.009737</td></tr></table>  
+
+Table 9. RMSE/MRE comparison of BPGAT and BPNN trained on random formulae.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>BPNN</td></tr><tr><td>Network</td><td>14.2839/0.3608</td><td>33.0484/0.8328</td></tr><tr><td>Domset</td><td>11.9190/9.5070</td><td>38.7884/13.3770</td></tr><tr><td>Color</td><td>26.1898/5.9593</td><td>36.1179/7.8826</td></tr><tr><td>Clique</td><td>1.9625/0.8983</td><td>5.2792/2.4177</td></tr></table>  
+
+<center>Fig. 4. Summary of the results of the experiments done on BPNN and BPGAT to test their generalization capabilities. Notation is the same of Tables 8 and 9. </center>

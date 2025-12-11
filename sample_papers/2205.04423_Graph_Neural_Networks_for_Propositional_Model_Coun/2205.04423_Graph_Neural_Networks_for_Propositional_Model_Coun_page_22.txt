@@ -1,0 +1,17 @@
+## C.2 Ablation Studies on GAT Layers  
+
+To assess the relevance of using a GAT- style attention mechanism in transforming both factor- to- variable and variable- to- factor messages, we performed the following ablation studies:  
+
+- Hybrid BP-BPGAT, results are shown in Table 12: we tested the model transforming factor-to-variable messages using GAT (Equation 12) and variable-to-factor messages using BP (Equation 2), this is denoted as FVGAT-VFNONE in Table 12; conversely, we tested the model transforming variable-to-factor messages using BP (Equation 2) and factor-to-variable messages using GAT (Equation 11), this is denoted as FVNONE-VFGAT in Table 12;  
+
+- Hybrid BPNN-BPGAT, results are shown in Table 13: we tested the model transforming factor-to-variable messages using GAT (Equation 12) and variable-to-factor messages using BPNN's corresponding update (Equation 8), this is denoted as FVGAT-VFMLP in Table 13; conversely, we tested the model transforming variable-to-factor messages using BPNN's update (Equation 8) and factor-to-variable messages using GAT (Equation 11), this is denoted as FVMLP-VFGAT in Table 13;  
+
+Results highlight the fact that transforming both factor- to- variable and variable- to- factor messages using a GAT attention mechanism is beneficial for the overall performance of the model.  
+
+Table 12. RMSE/MRE results of the ablation studies on the attention mechanism.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>FVGAT-VFNONE</td><td>FVNONE-VFGAT</td></tr><tr><td>Test 1</td><td>0.1276/0.001366</td><td>0.1568/0.0015721</td><td>0.1786/0.001740</td></tr><tr><td>Test 2</td><td>0.3100/0.003201</td><td>0.4292/0.004640</td><td>0.5870/0.006392</td></tr><tr><td>Test 3</td><td>0.1748/0.001471</td><td>0.2009/0.001964</td><td>0.2699/0.002197</td></tr></table>  
+
+Table 13. RMSE/MRE results of the ablation studies between message transformation performed by BPGAT and BPNN.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>FVGAT-VFMLP</td><td>FVMLP-VFGAT</td></tr><tr><td>Test 1</td><td>0.1276/0.001366</td><td>0.3613/0.004713</td><td>0.4056/0.005256</td></tr><tr><td>Test 2</td><td>0.3100/0.003201</td><td>1.5787/0.02002</td><td>1.7065/0.02211</td></tr><tr><td>Test 3</td><td>0.1748/0.001471</td><td>0.2751/0.004689</td><td>0.2902/0.004872</td></tr></table>

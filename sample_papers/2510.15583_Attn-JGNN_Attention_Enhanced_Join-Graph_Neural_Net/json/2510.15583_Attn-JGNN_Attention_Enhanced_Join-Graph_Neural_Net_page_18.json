@@ -1,0 +1,27 @@
+{
+  "image": "2510.15583_Attn-JGNN_Attention_Enhanced_Join-Graph_Neural_Net_page_18.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "text",
+      "boxes": [
+        [
+          218.0,
+          145.0,
+          785.0,
+          245.0
+        ]
+      ],
+      "raw": "[[218, 145, 785, 245]]",
+      "pixel_boxes": [
+        [
+          556,
+          478,
+          2003,
+          809
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<center>Figure 5: Lifting the variables to a higher dimension, demonstrated on variables \(y_{1}, y_{2}, y_{3}\) . Initially, only integer values of \(-1\) and 1 could be assigned to them (integer program). Next, constraints are relaxed, allowing variables to take any real value between \(-1\) and 1. Finally, it is permitted for them to be unit vectors in a high-dimensional space (here, 3 dimensions). The hyperplane in the last picture would be used for rounding the variables at the end. This hyperplane can be randomly selected, and truth values for variables \(y_{1}, y_{2}, y_{3}\) are determined based on which side of the hyperplane they land after continuous optimization. </center>  
+
+## S.2 The NeuroSAT Architecture  
+
+For completeness, we provide the update rules and voting rule from the original paper [29]:  
+
+\[(C^{(t + 1)},C_{h}^{(t + 1)})\gets \mathbf{C}_{\mathbf{u}}(\left[C_{h}^{(t)},M^{\top}\mathbf{L}_{\mathbf{msg}}(L^{(t)})\right]) \quad (1)\]  
+
+\[(L^{(t + 1)},L_{h}^{(t + 1)})\gets \mathbf{L}_{\mathbf{u}}(\left[L_{h}^{(t)},\mathrm{Flip}(L^{(t)}),M\mathbf{C}_{\mathbf{msg}}(C^{(t + 1)})\right]) \quad (2)\]  
+
+\[L_{*}^{T}\gets \mathbf{L}_{\mathrm{vote}}(L^{(T)})\in \mathbb{R}^{2n}. \quad (3)\]  
+
+The first rule is used to update the clause embedding matrix \(C^{(t)}\in \mathbb{R}^{m\times d}\) where \(d\) is the size of the hidden feature vector and \(m\) is the number of clauses, \(t\) is a discrete time step. The second rule is used to update literals whose embedding are stored in matrix \(L^{(t)}\in \mathbb{R}^{2n\times d}\) where \(n\) is number of variables (there are \(2n\) rows to cover both polarities of each literal). These two updates are consecutively repeated for \(T\) iterations.  
+
+\(\mathbf{C}_{\mathbf{u}},\mathbf{L}_{\mathbf{u}}\) denote two LayerNorm LSTMs (initialized randomly) with hidden states \(C_{h}^{(t)}\in \mathbb{R}^{m\times d},L_{h}^{(t)}\in \mathbb{R}^{2n\times d}\) respectively, and \(\mathbf{L}_{\mathrm{msg}},\mathbf{C}_{\mathrm{msg}}\) are multilayer perceptrons (MLPs) processing messages from literals and clauses. The last trained component is \(\mathbf{L}_{\mathrm{vote}}\) , a voting MLP whose output is a single scalar for each literal. Edges of bipartite graph representation of the SAT formula are encoded in the bipartite adjacency matrix \(M(M(i,j)\) is 1 iff literal \(l_{i}\) is in clause \(c_{j}\) ). The flip operator swaps each pair of rows in matrix \(L\) , containing two polarities of the same literal.  
+
+To update a representation of each clause, the representations of literals contained in this clause are processed by the MLP \(\mathbf{L}_{\mathrm{msg}}\) and the resulting vectors are summed together and taken as input by the LSTM \(\mathbf{C}_{\mathbf{u}}\) .  
+
+We emphasize that for updating a representation of each literal, the process is analogous to the clause update, except that the LSTM takes as an input a concatenation of the summed messages from literals and the hidden- state representation of the literal of the same variable but opposite polarity (i.e., to update the hidden state of literal \(x_{i}\) , the LSTM takes as an input a concatenation of the aggregated message vector and a hidden state of literal \(\tilde{x}_{i}\) from the previous iteration).  
+
+At the end, the output of the model is a \(2n\) dimensional vector, which is then averaged to a single logit on which a sigmoid activation cross- entropy is applied to compute the loss with respect to the ground truth label (SAT/UNSAT).  
+
+Our model is a simplified version of the described architecture, achieved by omitting two MLPs, namely \(\mathbf{L}_{\mathrm{msg}},\mathbf{C}_{\mathrm{msg}}\) and replacing \(\mathbf{L}_{\mathrm{vote}}\) with just a single linear layer. LayerNorm is removed from LSTM and the dimensionality of the hidden states is reduced to 16 from 128.  
+
+## S.3 Datasets  
+
+S.3.1 Random Problems. The generative model proposed by [29] samples formulas in sat/unsat pairs which differ only by a negation of a single literal in one clause. This is accomplished through the sequential sampling of clauses which are continuously added to the CNF formula until it becomes unsatisfiable. To create a new clause, the generative model first samples a small integer, \(k\) , and then randomly selects \(k\) variables without replacement. Each selected variable is independently negated with a probability 0.5 and the resulting literal is added to the clause. Satisfiability is determined by querying a solver right after the addition of a new clause. When the problem becomes unsatisfiable, it is paired with a satisfiable problem which is exactly the same except that in the last added clause, one literal is negated. The sampling of \(k\) is designed to vary the size of clauses while avoiding an excessive number of two-literal clauses, which would simplify the problem on average.

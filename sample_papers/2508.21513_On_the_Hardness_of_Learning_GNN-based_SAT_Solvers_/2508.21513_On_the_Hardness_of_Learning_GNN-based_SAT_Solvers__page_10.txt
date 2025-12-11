@@ -1,0 +1,39 @@
+## Acknowledgements  
+
+AcknowledgementsGeri Skenderi is funded by the European Union through the Next Generation EU - MIUR PRIN PNRR 2022 Grant P20229PBZR. The views and opinions expressed are, however, those of the authors only and do not necessarily reflect those of the European Union or the European Research Council Executive Agency. Neither the European Union nor the granting authority can be held responsible.  
+
+## References  
+
+[1] Uri Alon and Eran Yahav. On the bottleneck of graph neural networks and its practical implications. In International Conference on Learning Representations, 2021. 1, 3  
+
+[2] Maria Chiara Angelini and Federico Ricci- Tersenghi. Monte carlo algorithms are very effective in finding the largest independent set in sparse random graphs. Physical Review E, 100(1): 013302, 2019. 1, 5  
+
+[3] Alvaro Arroyo, Alessio Gravina, Benjamin Gutteridge, Federico Barbero, Claudio Gallicchio, Xiaowen Dong, Michael Bronstein, and Pierre Vandergheynst. On vanishing gradients, oversmoothing, and over- squashing in gnns: Bridging recurrent and graph learning. arXiv preprint arXiv:2502.10818, 2025. 8  
+
+[4] Jeff Bezanson, Alan Edelman, Stefan Karpinski, and Viral B Shah. Julia: A fresh approach to numerical computing. SIAM review, 59(1):65- 98, 2017. URL https://doi.org/10.1137/141000671. 7  
+
+[5] Bhaswar B Bhattacharya and Sumit Mukherjee. Exact and asymptotic results on coarse ricci curvature of graphs. Discrete Mathematics, 338(1):23- 42, 2015. 4, 13, 15, 19  
+
+[6] Armin Biere, Marijn Heule, and Hans van Maaren. Handbook of satisfiability, volume 185. IOS press, 2009. 1, 3  
+
+[7] Lucas Bordeaux, Youssef Hamadi, and Lintao Zhang. Propositional satisfiability and constraint programming: A comparative survey. ACM Computing Surveys (CSUR), 38(4):12- es, 2006. 1  
+
+[8] A. Braunstein, M. Mezard, and R. Zecchina. Survey propagation: An algorithm for satisfiability. Random Structures & Algorithms, 27(2):201- 226, 2005. doi: https://doi.org/10.1002/rsa.20057. URL https://onlinelibrary.wiley.com/doi/abs/10.1002/rsa.20057. 1  
+
+[9] Michael M Bronstein, Joan Bruna, Yann LeCun, Arthur Szlam, and Pierre Vandergheynst. Geometric deep learning: going beyond euclidean data. IEEE Signal Processing Magazine, 34(4):18- 42, 2017. 3  
+
+[10] Quentin Cappart, Didier Chetelat, Elias B Khalil, Andrea Lodi, Christopher Morris, and Petar Veličković. Combinatorial optimization and reasoning with graph neural networks. Journal of Machine Learning Research, 24(130):1- 61, 2023. 1  
+
+[11] Ben Chamberlain, James Rowbottom, Maria I Gorinova, Michael Bronstein, Stefan Webb, and Emanuele Rossi. Grand: Graph neural diffusion. In International conference on machine learning, pages 1407- 1418. PMLR, 2021. 9  
+
+[12] Wenjing Chang and Wenlong Liu. Sat- gatv2: A dynamic attention- based graph neural network for solving boolean satisfiability problem. Electronics, 14(3):423, 2025. 1  
+
+[13] Stephen A. Cook. The complexity of theorem- proving procedures. In Proceedings of the Third Annual ACM Symposium on Theory of Computing, STOC '71, page 151- 158, New York, NY, USA, 1971. Association for Computing Machinery. ISBN 9781450374644. doi: 10.1145/800157.805047. URL https://doi.org/10.1145/800157.805047. 1  
+
+[14] Gabriele Corso, Hannes Stark, Stefanie Jegelka, Tommi Jaakkola, and Regina Barzilay. Graph neural networks. Nature Reviews Methods Primers, 4(1):17, 2024. 3  
+
+[15] William Falcon and The PyTorch Lightning team. PyTorch Lightning, March 2019. URL https://github.com/Lightning- AI/lightning. 7  
+
+[16] Lukas Fesser and Melanie Weber. Effective structural encodings via local curvature profiles. In International Conference on Learning Representations, 2024. 18  
+
+[17] Matthias Fey and Jan Eric Lenssen. Fast graph representation learning with pytorch geometric. arXiv preprint arXiv:1903.02428, 2019. 7

@@ -1,0 +1,47 @@
+{
+  "image": "2111.07568_Can_Graph_Neural_Networks_Learn_to_Solve_MaxSAT_Pr_page_8.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "text",
+      "boxes": [
+        [
+          84.0,
+          68.0,
+          480.0,
+          888.0
+        ]
+      ],
+      "raw": "[[84, 68, 480, 888]]",
+      "pixel_boxes": [
+        [
+          214,
+          224,
+          1225,
+          2933
+        ]
+      ]
+    },
+    {
+      "label": "text",
+      "boxes": [
+        [
+          518.0,
+          70.0,
+          911.0,
+          889.0
+        ]
+      ],
+      "raw": "[[518, 70, 911, 889]]",
+      "pixel_boxes": [
+        [
+          1322,
+          231,
+          2325,
+          2936
+        ]
+      ]
+    }
+  ]
+}

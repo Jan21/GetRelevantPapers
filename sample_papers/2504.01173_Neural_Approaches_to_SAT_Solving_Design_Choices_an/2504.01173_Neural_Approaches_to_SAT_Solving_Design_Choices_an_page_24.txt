@@ -1,0 +1,31 @@
+Jacob Austin, Daniel D Johnson, Jonathan Ho, Daniel Tarlow, and Rianne Van Den Berg. Structured denoising diffusion models in discrete state- spaces. Advances in neural information processing systems, 34:17981- 17993, 2021.  
+
+Armin Biere, Marijn Heule, and Hans van Maaren. Handbook of satisfiability, volume 185. IOS press, 2009.  
+
+Sally C Brailsford, Chris N Potts, and Barbara M Smith. Constraint satisfaction problems: Algorithms and applications. European journal of operational research, 119(3):557- 581, 1999.  
+
+Chen Cai, Truong Son Hy, Rose Yu, and Yusu Wang. On the connection between mpnn and graph transformer. In International conference on machine learning, pages 3408- 3430. PMLR, 2023.  
+
+Shengze Cai, Zhiping Mao, Zhicheng Wang, Minglang Yin, and George Em Karniadakis. Physics- informed neural networks (pinns) for fluid mechanics: A review. Acta Mechanica Sinica, 37 (12):1727- 1738, 2021.  
+
+James M Crawford and Larry D Auton. Experimental results on the crossover point in random 3- sat. Artificial intelligence, 81(1- 2):31- 57, 1996.  
+
+Jerry A Fodor and Zenon W Pylyshyn. Connectionism and cognitive architecture: A critical analysis. Cognition, 28(1- 2):3- 71, 1988.  
+
+Zhaohui Fu and Sharad Malik. On solving the partial max- sat problem. In International Conference on Theory and Applications of Satisfiability Testing, pages 252- 265. Springer, 2006.  
+
+Bernd Gärtner and Jiri Matousek. Approximation algorithms and semidefinite programming. Springer Science & Business Media, 2012.  
+
+Michel X Goemans and David P Williamson. Improved approximation algorithms for maximum cut and satisfiability problems using semidefinite programming. Journal of the ACM (JACM), 42(6):1115- 1145, 1995.  
+
+Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song, Ruoyu Zhang, Runxin Xu, Qihao Zhu, Shirong Ma, Peiyi Wang, Xiao Bi, et al. Deepseek- r1: Incentivizing reasoning capability in llms via reinforcement learning. arXiv preprint arXiv:2501.12948, 2025.  
+
+Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. Advances in neural information processing systems, 33:6840- 6851, 2020.  
+
+Abdelrahman Hosny and Sherief Reda. torchmsat: A gpu- accelerated approximation to the maximum satisfiability problem. arXiv preprint arXiv:2402.03640, 2024.  
+
+Jan Hula, David Mojžíšek, and Mikoláš Janota. Understanding gnns for boolean satisfiability through approximation algorithms. In Proceedings of the 33rd ACM International Conference on Information and Knowledge Management, pages 953- 961, 2024.  
+
+Aaron Jaech, Adam Kalai, Adam Lerer, Adam Richardson, Ahmed El- Kishky, Aiden Low, Alec Helyar, Aleksander Madry, Alex Beutel, Alex Carney, et al. Openai o1 system card. arXiv preprint arXiv:2412.16720, 2024.  
+
+Anastasios Kyrillidis, Anshumali Shrivastava, Moshe Vardi, and Zhiwei Zhang. Fourier sat: A fourier expansion- based algebraic framework for solving hybrid boolean constraints. In Proceedings of the AAAI Conference on Artificial Intelligence, volume 34, pages 1552- 1560, 2020.

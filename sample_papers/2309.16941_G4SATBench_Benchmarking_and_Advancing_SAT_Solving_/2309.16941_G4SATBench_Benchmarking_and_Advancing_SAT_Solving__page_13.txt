@@ -1,0 +1,21 @@
+Daniel Selsam and Nikolaj S. Bjørner. Guiding high- performance SAT solvers with unsat- core predictions. In Theory and Applications of Satisfiability Testing (SAT), 2019.  
+
+Daniel Selsam, Matthew Lamm, Benedikt Bünz, Percy Liang, Leonardo de Moura, and David L. Dill. Learning a SAT solver from single- bit supervision. In International Conference on Learning Representations (ICLR), 2019.  
+
+Zhengyuan Shi, Min Li, Yi Liu, Sadaf Khan, Junhua Huang, Hui- Ling Zhen, Mingxuan Yuan, and Qiang Xu. Sathermer: Transformer- based unsat core learning. In International Conference on Computer Aided Design (ICCAD), 2023.  
+
+João P. Marques Silva and Karem A. Sakallah. GRASP: A search algorithm for propositional satisfiability. IEEE Transactions on Computers, 1999.  
+
+Wenxi Wang, Yang Hu, Mohit Tiwari, Sarfraz Khurshid, Kenneth McMillan, and Risto Miikkulainen. Neurocomb: Improving SAT solving with graph neural networks. arXiv preprint arXiv:2110.14053, 2021.  
+
+Nathan Wetzler, Marijn Heule, and Warren A. Hunt Jr. Drat- trim: Efficient checking and trimming using expressive clausal proofs. In Theory and Applications of Satisfiability Testing (SAT), 2014.  
+
+Ben Wieland and Anant P. Godbole. On the domination number of a random graph. The Electronic Journal of Combinatorics, 2001.  
+
+Keyulu Xu, Weihua Hu, Jure Leskovec, and Stefanie Jegelka. How powerful are graph neural networks? In International Conference on Learning Representations (ICLR), 2019.  
+
+Zhiyuan Yan, Min Li, Zhengyuan Shi, Wenjie Zhang, Yingcong Chen, and Hongce Zhang. Addressing variable dependency in gnn- based SAT solving. arXiv preprint arXiv:2304.08738, 2023.  
+
+Emre Yolcu and Barnabás Póczos. Learning local search heuristics for boolean satisfiability. In Advances in Neural Information Processing Systems (NeurIPS), 2019.  
+
+Wenjie Zhang, Zeyu Sun, Qihao Zhu, Ge Li, Shaowei Cai, Yingfei Xiong, and Lu Zhang. Nicolasat: Boosting local search with solution prediction. In International Joint Conference on Artificial Intelligence (IJCAI), 2020.

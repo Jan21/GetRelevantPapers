@@ -1,0 +1,23 @@
+<center>Figure 6: Validation accuracy during training. Our model with a curriculum achieves reaches \(85\%\) in approximately 30 minutes, whereas the original NeuroSAT implementation needs over 5 hours. For comparison, we also add our implementation trained on the same data, but without a curriculum. The training of each model stops once it achieves an accuracy of \(85\%\) on a validation set. </center>  
+
+## A Appendix  
+
+## A.1 Training Tricks and Information  
+
+## A.1.1 Curriculum Learning  
+
+We implement a curriculum learning strategy to improve training efficiency and generalization. The key insight is that starting with simpler (smaller) formulas and gradually increasing complexity allows the model to learn basic logical reasoning patterns before tackling more complex instances.  
+
+Our curriculum proceeds as follows:  
+
+1. Start training with small formulas (5 variables)  
+2. Set a validation accuracy threshold for each formula size (starting at \(65\%\) for the smallest size and increasing to \(85\%\) for the largest)  
+3. Once the model reaches the threshold accuracy on the current size or reaches a maximum number of epochs (100), increase the formula size by 2 variables  
+4. When introducing a new size, include formulas from the four previous sizes to prevent catastrophic forgetting  
+5. Continue until reaching the maximum formula size (40 variables)  
+
+This curriculum approach significantly accelerates training compared to starting with the full distribution of formula sizes. Our previous experiments showed that the curriculum- trained model reaches \(85\%\) validation accuracy in approximately 30 minutes, compared to over 5 hours for the non- curriculum approach.  
+
+## A.1.2 Exponential Moving Average (EMA)  
+
+We employ Exponential Moving Average (EMA) for model parameter updates during training. EMA maintains a shadow copy of the model parameters that is updated after each training

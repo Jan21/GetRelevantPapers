@@ -1,0 +1,33 @@
+Table 4: Solution rate for the larger \(V(n)\) problems   
+
+<table><tr><td></td><td>V(11)</td><td>V(12)</td><td>V(13)</td><td>V(14)</td><td>V(15)</td></tr><tr><td>AsymSAT trained on SR(3..10)</td><td>45.00%</td><td>60.00%</td><td>45.00%</td><td>45.00%</td><td>52.50%</td></tr><tr><td>AsymSAT trained on SR(3..10) + V(3..8)</td><td>47.50%</td><td>47.50%</td><td>45.00%</td><td>60.00%</td><td>57.50%</td></tr></table>  
+
+Table 5: Solution rate under different iterations   
+
+<table><tr><td># of iterations</td><td>5</td><td>10</td><td>15</td><td>20</td></tr><tr><td>AsymSAT w. GRU</td><td>80.63%</td><td>90.32%</td><td>90.25%</td><td>89.11%</td></tr><tr><td>AsymSAT w. LSTM</td><td>79.76%</td><td>90.45%</td><td>93.07%</td><td>91.80%</td></tr></table>  
+
+Table 6: Solution rate for the larger \(SR(n)\) problems   
+
+<table><tr><td></td><td>SR(20)</td><td>SR(40)</td><td>SR(60)</td><td>SR(80)</td></tr><tr><td>AsymSAT</td><td>55.40%</td><td>27.20%</td><td>12.00%</td><td>5.00%</td></tr><tr><td>NeuroSAT</td><td>33.90%</td><td>19.60%</td><td>8.50%</td><td>4.50%</td></tr></table>  
+
+gates will add up to the number of variables and clauses after Tseitin transformation. Therefore, the converted CNF inputs are challenging for NeuroSAT. This explains the poor performance of NeuroSAT in Table 3. We also show the generalizability of AsymSAT on the \(V(n)\) dataset. On larger \(V(n)\) problems, for example, \(V(15)\) , which is about \(128x\) the size of \(V(8)\) , AsymSAT still maintains a solution rate around \(50\%\) . It is not significantly affected by reducing the training set to only the \(SR(n)\) problems as shown by Table 4.  
+
+In summary, our AsymSAT model is capable of breaking the tie in symmetric circuits and it achieves a higher solution rate in comparison with NeuroSAT and DG- DAGRNN on both medium- size CNF problems and large- size Circuit- SAT problems. This shows the effectiveness of using RNN to account for variable dependency in GNN- based SAT solving.  
+
+## 6 Related Works  
+
+### 6.1 SAT Solvers  
+
+There are two main categories of machine- learning- based SAT solvers: the end- to- end SAT solvers and the solvers using machine- learning as just the heuristics. NeuroSAT [Selsam et al., 2018], DG- DAGRNN [Amizadeh et al., 2018] and our AsymSAT all belong to the first category, where machine learning methods are used to directly predict the SAT outcome. In the second category, machine learning methods only serve as a heuristic, guiding the classic algorithms. For example, NeuroCore [Selsam and Bjørner, 2019] used GNN to compute scores for variable selection in SAT solving and NLocal- SAT [Zhang et al., 2020] used GNN to predict one potential solution as the starting point of the stochastic local search (SLS) process. There are also other techniques to support SAT solving. For example, QuerySAT proposed to use multiple SAT queries to increase accuracy [Ozolins et al., 2021], and [Li et al., 2022] suggested it is helpful to transfer SAT problems from different application domains to a unified underlying distribution.  
+
+Although in this paper we mainly investigate the importance of addressing variable dependency in the end- to- end ML SAT solvers (the first category), we argue that our technique is general and may benefit neural SAT solvers in the second category as well. For example, in NLocal- SAT, if we  
+
+can provide a more accurate initial guess with the help of a tie- breaker proposed in this paper, the later stochastic local search process may be able to reach a satisfying solution with less searching effort.  
+
+### 6.2 Symmetric Breaking in GNN-based SAT Solving  
+
+Preferential Labeling [Sun et al., 2022] is another method that can potentially break the tie between two symmetric variables in GNN- based SAT solving. It assigns distinct initial embeddings to variables, so symmetric nodes can therefore be distinguished. However, biased initialization also introduces artefact for GNN. In order to smooth out the artefact, each round of training or inference must evaluate the network under multiple random permutations of the initial embeddings. In the training phase, Preferential Labeling picks the permutation that produces the lowest loss and only optimizes the network parameters under this permutation. Meanwhile, the inference process takes the averaged output among all attempted permutations as the final prediction. Compared to Preferential Labeling, we regard our method as a lower- cost solution for tie- breaking in SAT solving. Our appendix details the comparison on performance and cost.  
+
+## 7 Conclusion  
+
+This paper addresses the need of considering variable dependency when designing a machine- learning model for SAT solving. Specifically, the satisfying assignment to one variable is closely related to those made to other variables within the same SAT problem. This paper proposes using RNNs to make sequential predictions for SAT solving. Our experiments show that this improvement extends the solving capability on symmetric Circuit- SAT problems and achieves a higher solution rate on randomly generated SAT and Circuit- SAT instances compared to concurrent GNN- based SAT solving methods. Although this paper focuses on the end- to- end machine- learning- based SAT solvers, using RNNs to account for variable dependency may also benefit other hybrid SAT solvers that use machine learning as a guiding heuristic.

@@ -1,0 +1,11 @@
+## 4 Results  
+
+We compare three different variants of both for the MT- algorithm and for WalkSAT, namely  
+
+- the original version that uses the uniform oracle,- a "hybrid" version that uses the trained oracle just for initialization and then switches to uniform updating, and- the full oracle-based algorithm that uses the oracle for both initialization and updating.  
+
+In Table 1, we provide a summary of the results. We find that for both solvers, the full oracle- based algorithm outperforms both others across the board. Moreover, the WalkSAT algorithm dominates the MT algorithm on each of the variants. A particularly dramatic improvement is seen in terms of the median steps required, where the boosted MT algorithm is faster by a factor of more than 8, while the boosted WalkSAT provides a speed- up by a factor of around 5. This indicates that the boosted solvers are especially powerful when solving relatively simple instances. A less dramatic but still significant improvement is seen in the mean number of steps, where we see an average decrease of \(35\%\) across solvers.  
+
+<center>Figure 4: Benchmark of three different variants of the oracle-based MT algorithm, namely the uniform version, the "hybrid" version, and the "full" version. Left: Number of steps needed on average for instances of the evaluation data set for given \(\alpha\) . Center: Number of clauses violated on average as a function of the number of steps the algorithm has taken. Right: Ratio of solved instances as a function of the number of steps the algorithm has taken. </center>  
+
+<center>Figure 5: Benchmark of three different variants of the oracle-based WalkSAT, using the same plots as in Fig. 4 </center>

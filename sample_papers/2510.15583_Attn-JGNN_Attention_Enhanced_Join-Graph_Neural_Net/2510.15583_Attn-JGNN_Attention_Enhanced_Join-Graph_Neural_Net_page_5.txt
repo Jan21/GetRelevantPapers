@@ -1,0 +1,13 @@
+where \(W \in \mathbb{R}^{d' \times d}\) a learnable weight matrix; \(a \in \mathbb{R}^{2d'}\) is a learnable attention vector; \(||\) denotes vector concatenation; The updated representation \(h_v'\) of node v is obtained by weighted aggregation of information from neighboring nodes:  
+
+\[h_v' = \sigma (\sum_{u \in N(v)} \alpha_{vu} W h_u) \quad (5)\]  
+
+## 3 Methodology  
+
+In this section, we first elaborate on the framework of our model (Attn- JGNN) and its operating principles, followed by an introduction to the integration of tree decomposition and attention mechanisms. As a neural- network- based implementation of the Iterative Join- Graph Propagation (IJGP) algorithm, this framework features a unique tree decomposition structure that facilitates better integration with the attention mechanism. By formulating #SAT as a probabilistic inference task, we demonstrate how Attn- JGNN solves the problem (see Fig. 1).  
+
+<center>Fig.1: For the #SAT problem, our model uses two Graph Attention Network (GAT) layers for message passing and a Multi-Layer Perceptron (MLP) layer to estimate the partition function, serving as an approximate solver. A pooling layer compresses the processed variable and clause node features into a global representation, which is fed into the MLP layer. </center>  
+
+### 3.1 Attn-JGNN Framework  
+
+For a given Conjunctive Normal Form (CNF) formula, we first encode it as a factor graph: an edge is established between a variable \(x_i\) and a clause \(C_j\) if \(x_i\)

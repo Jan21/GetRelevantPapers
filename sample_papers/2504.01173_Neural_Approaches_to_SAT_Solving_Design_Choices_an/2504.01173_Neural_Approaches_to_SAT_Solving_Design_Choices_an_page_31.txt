@@ -1,0 +1,19 @@
+## B.2 Relaxation to Semidefinite Programming  
+
+To make the discrete program continuous, we first allow the value of the variables \(y_{i}\) to be any real number between \(- 1\) and 1. However, semidefinite programming goes further and allows variables to be \((n + 1)\) - dimensional unit vectors \((y_{0},\ldots ,y_{n})\longrightarrow (\mathbf{y}_{0},\ldots ,\mathbf{y}_{n})\) , as schematically depicted in Figure 7. In this relaxation, the binary products \(y_{i}\cdot y_{j}\) in the objective function are replaced by inner products \(\langle \mathbf{y}_{i},\mathbf{y}_{j}\rangle\)  
+
+This can be compactly represented in matrix form by substituting each inner product \(\langle \mathbf{y}_{i},\mathbf{y}_{j}\rangle\) with a scalar \(Y_{ij}\) of a matrix \(Y\) . The fact that these scalars correspond to inner products is encoded by the restriction to positive- semidefinite matrices \(Y\succeq 0\) . The SDP relaxation of MAX- 2- SAT can thus be formulated as:  
+
+\[\begin{array}{rl} & {\mathrm{Maximize:}\quad \mathrm{Tr}(W Y)}\\ & {\mathrm{Subject~to:}\quad Y_{i i} = 1\mathrm{~for~all~}i\in \{0,1,\ldots ,n\}}\\ & {\qquad Y\succeq 0} \end{array} \quad (27)\]  
+
+Positive semidefiniteness of matrix \(Y\) ensures that it can be uniquely factorized as \(Y =\) \(Y^{\frac{1}{2}}(Y^{\frac{1}{2}})^{T}\) . We can then obtain real unit vectors \(\mathbf{y}_{i}\) for all \(i\in \{0,\ldots ,n\}\) such that \(Y_{ij} = \langle \mathbf{y}_{i},\mathbf{y}_{j}\rangle\) for all \(i,j\in \{0,\ldots ,n\}\) . The constraints \(Y_{ii} = 1\) ensure that all vectors \(\mathbf{y}_{i}\) lie on an \((n + 1)\) - dimensional unit sphere.  
+
+<center>Figure 7: Lifting the variables to a higher dimension, demonstrated on variables \(y_{1},y_{2},y_{3}\) . Initially, only integer values of \(-1\) and 1 could be assigned to them (integer program). Next, constraints are relaxed, allowing variables to take any real value between \(-1\) and 1. Finally, it is permitted for them to be unit vectors in a high-dimensional space (here, 3 dimensions). The hyperplane in the last picture would be used for rounding the variables at the end. This hyperplane can be randomly selected, and truth values for variables \(y_{1},y_{2},y_{3}\) are determined based on which side of the hyperplane they land after continuous optimization. </center>  
+
+## B.3 Interpretation and Rounding  
+
+The SDP solver optimizes the numbers in the matrix \(Y\) , but using the factorization, we can visualize what happens with the vectors \(\mathbf{y}_{1}\) . The process starts with random unit vectors that are continuously updated to maximize the objective function. If we fix the position of the vector \(\mathbf{y}_{0}\) (corresponding to the value true), we would see that the vectors of variables that will be set to true in the final assignment get closer to the vector \(\mathbf{y}_{0}\) , while the vectors \(\mathbf{y}_{j}\) of variables that will be set to false move away from it so that the inner product \(\langle \mathbf{y}_{0},\mathbf{y}_{j}\rangle\) is close to \(- 1\) .  
+
+If the formula is satisfiable, the objective function drives the vectors to form two wellseparated clusters. However, if only a few clauses can be satisfied simultaneously, the vectors would end up being scattered.  
+
+A simple way to round the resulting vectors \((\mathbf{y}_{1},\ldots ,\mathbf{y}_{n})\) and get the assignment for the original Boolean variables is to compute the inner product \(\langle \mathbf{y}_{0},\mathbf{y}_{i}\rangle\) and assign the value according

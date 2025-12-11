@@ -1,0 +1,15 @@
+Table 2. RMSE/MRE performance of BPGAT and ApproxMC on datasets used to test scalability.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>ApproxMC</td></tr><tr><td>Test 1</td><td>0.1276/0.001366</td><td>0.002025/0.001576</td></tr><tr><td>Test 2</td><td>0.3100/0.003201</td><td>0.2262/0.02003</td></tr><tr><td>Test 3</td><td>0.1748/0.001471</td><td>0.1035/0.01134</td></tr><tr><td>Test 4</td><td>1.2061/0.007433</td><td>0.4275/0.04038</td></tr></table>  
+
+<center>Fig. 1. Distribution of the relative errors of BPGAT and ApproxMC on datasets used to test scalability. </center>  
+
+\(k\) - coloring, \(k\) - clique detection) and network QMR (Quick Medical Reference) problems taken from the test suite of [23].  
+
+In order to obtain SAT CNF formulae encoding the \(k\) - dominating set problem, the graph- \(k\) - coloring problem and the \(k\) - clique detection problem, we use the CNFgen tool [1]. It allows to sample graphs uniformly at random from the Erdos- Renyi random graph distribution \(G(N, p)\) (specifying the two parameters \(N > 0, p \in [0, 1]\) ) and to encode in CNF the required problem. After obtaining the CNF formulae, Minisat [10] is used to filter SAT formulae and sharpSAT [24] to obtain the number of models for each formula. Table 3 shows the statistics of the datasets used in this testing phase.  
+
+To asses the effectiveness of our fine- tuning protocol we made the following experiments (whose results are summarized in Table 4):  
+
+- We fine-tuned the model following the protocol described in Section 4.1. This is denoted as FT_BPGAT in Table 4;- We trained, for every distribution, the model from scratch for 500 epochs, with 250 labeled examples. This is denoted as TS_BPGAT in Table 4;- We tested BPGAT trained on random Boolean formulae (with the training protocol and the data generating procedures detailed in Section 4.1). This is denoted as BPGAT in Table 4.  
+
+As expected, the worst performance is achieved by BPGAT, as it has never been trained on formulae coming from these distributions. Interestingly, fine- tuning a model pre- trained on small random Boolean formulae (FT_BPGAT) gives better results than the same model trained on the specific dataset (TS_BPGAT). This is relevant from the

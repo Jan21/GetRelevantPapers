@@ -1,0 +1,21 @@
+## B SDP for MAX-2-SAT  
+
+Semidefinite programming (SDP) is a mathematical optimization technique primarily used for problems involving positive semidefinite matrices. In SDP, a linear objective function is optimized over a feasible region given by a spectrahedron (an intersection of a convex cone formed by positive semidefinite matrices and an affine subspace) Ramana and Goldman [1995]. Along with the broad scope of applications, SDP has been used to design approximation algorithms for discrete NP- hard problems Gartner and Matousek [2012]. This is achieved by lifting variables of a problem to a vector space and optimizing a loss function expressed in terms of these vectors.  
+
+In this section, we provide a detailed derivation of the SDP relaxation for MAX- 2- SAT. The goal is to write an objective function for 2- CNF formulae, which consist of clauses \(c_{1},\ldots ,c_{k}\) over variables \(x_{1},\ldots ,x_{n}\) with at most two literals per clause.  
+
+## B.1 Derivation of the SDP Relaxation  
+
+For each Boolean variable \(x_{i}\) (where \(i\in \{1,2,\ldots ,n\}\) ), a new variable \(y_{i}\in \{- 1,1\}\) is associated, and an additional variable \(y_{0}\in \{- 1,1\}\) is introduced. This additional variable is introduced to unambiguously assign the truth value in the original problem from values of the relaxed problem. It is not possible to just assign True (False) to \(x_{i}\) if \(y_{i} = 1(- 1)\) because quadratic terms cannot distinguish between \(y_{i}\cdot y_{j}\) and \((- y_{i})\cdot (- y_{j})\) . Instead, the truth value of \(x_{i}\) is assigned by comparing \(y_{i}\) with \(y_{0}\) : \(x_{i}\) is True if and only if \(y_{i} = y_{0}\) , otherwise it is False. The assignment is therefore invariant to negating all variables.  
+
+To determine the value of a formula, we sum the value of its clauses \(c\) which are given by the value function \(v(c)\) . Here are examples of the value function for different clauses:  
+
+\[\begin{array}{c}{v(x_{i}) = \frac{1 + y_{0}\cdot y_{i}}{2}}\\ {v(\neg x_{i}) = 1 - v(x_{i}) = \frac{1 - y_{0}\cdot y_{i}}{2}}\\ {v(x_{i}\vee \neg x_{j}) = 1 - v(\neg x_{i}\wedge x_{j})}\\ {= 1 - \frac{1 - y_{0}\cdot y_{i}}{2}\cdot \frac{1 + y_{0}\cdot y_{j}}{2}}\\ {= \frac{1}{4} (1 + y_{0}\cdot y_{i}) + \frac{1}{4} (1 - y_{0}\cdot y_{j}) + \frac{1}{4} (1 + y_{i}\cdot y_{j})} \end{array} \quad (15)\]  
+
+By summing over all clauses \(c\) in the Boolean formula, the following integer quadratic program for MAX- 2- SAT is obtained:  
+
+\[\begin{array}{r l} & {\mathrm{Maximize:}\quad \sum_{c\in C}v(c)}\\ & {\mathrm{Subject~to:}\quad y_{i}\in \{-1,1\} \mathrm{~for~all~}i\in \{0,1,\ldots ,n\}}\\ & {\mathrm{Subject~to:}\quad y_{i}\in \{-1,1\} \mathrm{~for~all~}j\in \{0,1,\ldots ,n\}} \end{array} \quad (21)\]  
+
+This can be rewritten by collecting coefficients of \(y_{i}\cdot y_{j}\) for \(i,j\in \{0,1,\ldots ,n\}\) and putting them symmetrically into a \((n + 1)\times (n + 1)\) coefficient matrix \(W\) . The terms \(y_{i}\cdot y_{j}\) can be collected in a matrix \(Y\) with the same dimensions as \(W\) . The elements \(Y_{ij}\) correspond to \(y_{i}\cdot y_{j}\) for \(i,j\in \{0,1,\ldots ,n\}\) . Both matrices are symmetric, hence the sum of all elements in their element- wise product (which is the objective function) can be compactly expressed by using the trace operation. This leads to the following version of the same integer program:  
+
+\[\begin{array}{r l} & {\mathrm{Maximize:}\quad \mathrm{Tr}(W Y)}\\ & {\mathrm{Subject~to:}\quad Y_{i i} = 1\mathrm{~for~all~}i\in \{0,1,\ldots ,n\}}\\ & {\qquad Y_{i j} = y_{i}\cdot y_{j}\mathrm{~for~all~}i,j\in \{0,1,\ldots ,n\}}\\ & {\qquad y_{i}\in \{-1,1\} \mathrm{~for~all~}i\in \{0,1,\ldots ,n\}} \end{array} \quad (22)\]

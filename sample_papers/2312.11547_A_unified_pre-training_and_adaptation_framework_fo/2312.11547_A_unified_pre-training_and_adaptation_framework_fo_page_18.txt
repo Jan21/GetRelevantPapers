@@ -1,0 +1,53 @@
+14 Maxime Gasse, Didier Chételat, Nicola Ferroni, Laurent Charlin, and Andrea Lodi. Exact combinatorial optimization with graph convolutional neural networks. Advances in Neural Information Processing Systems, 32, 2019.  
+
+15 Tianlong Chen, Xiaohan Chen, Wuyang Chen, Zhangyang Wang, Howard Heaton, Jialin Liu, and Wotao Yin. Learning to optimize: A primer and a benchmark. Journal of Machine Learning Research, 23(1):8562- 8620, 2022.  
+
+16 Matteo Fischetti, Paolo Toth, and Daniele Vigo. A branch- and- bound algorithm for the capacitated vehicle routing problem on directed graphs. Operations Research, 42(5):846- 859, 1994.  
+
+17 Panos M Pardalos and Gregory P Rodgers. A branch and bound algorithm for the maximum clique problem. Computers & Operations Research, 19(5):363- 375, 1992.  
+
+18 Richard Bellman. Dynamic programming. Science, 153(3731):34- 37, 1966.  
+
+19 Michael Held and Richard M Karp. A dynamic programming approach to sequencing problems. Journal of the Society for Industrial and Applied Mathematics, 10(1):196- 210, 1962.  
+
+20 Silvano Martello, David Pisinger, and Paolo Toth. Dynamic programming and strong bounds for the 0- 1 knapsack problem. Management Science, 45(3):414- 424, 1999.  
+
+21 Laurence A Wolsey and George L Nemhauser. Integer and combinatorial optimization, volume 55. John Wiley & Sons, 1999.  
+
+22 Dimitris Bertsimas and Ramazan Demir. An approximate dynamic programming approach to multidimensional knapsack problems. Management Science, 48(4):550- 565, 2002.  
+
+23 Paul Bouman, Niels Agatz, and Marie Schmidt. Dynamic programming approaches for the traveling salesman problem with drone. Networks, 72(4):528- 542, 2018.  
+
+24 Mutsunori Yagiura and Toshihide Ibaraki. On metaheuristic algorithms for combinatorial optimization problems. Systems and Computers in Japan, 32(3):33- 55, 2001.  
+
+25 James B Orlin, Abraham P Punnen, and Andreas S Schulz. Approximate local search in combinatorial optimization. SIAM Journal on Computing, 33(5):1201- 1214, 2004.  
+
+26 Emile HL Aarts, Jan HM Korst, and Peter JM van Laarhoven. A quantitative analysis of the simulated annealing algorithm: A case study for the traveling salesman problem. Journal of Statistical Physics, 50:187- 206, 1988.  
+
+27 Jean Berger and Mohamed Barkaoui. A hybrid genetic algorithm for the capacitated vehicle routing problem. In Genetic and Evolutionary Computation Conference, pages 646- 656. Springer, 2003.  
+
+28 André Chassein, Marc Goerigk, Adam Kasperski, and Pawel Zieliński. Approximating combinatorial optimization problems with the ordered weighted averaging criterion. European Journal of Operational Research, 286(3):828- 838, 2020.  
+
+29 Henrique Lemos, Marcelo Prates, Pedro Avelar, and Luis Lamb. Graph coloring meets deep learning: Effective graph neural network models for combinatorial problems. In 2019 IEEE 31st International Conference on Tools with Artificial Intelligence, pages 879- 885. IEEE, 2019.  
+
+30 Minsu Kim, Junyoung Park, and Jinkyoo Park. Sym- nco: Leveraging symmetricity for neural combinatorial optimization. Advances in Neural Information Processing Systems, 35:1936- 1949, 2022.  
+
+31 Wouter Kool, Herke van Hoof, and Max Welling. Attention, learn to solve routing problems! In International Conference on Learning Representations, 2018.  
+
+32 Will Hamilton, Zhitao Ying, and Jure Leskovec. Inductive representation learning on large graphs. Advances in Neural Information Processing Systems, 30, 2017.  
+
+33 Petar Velickovic, Guillem Cucurull, Arantxa Casanova, Adriana Romero, Pietro Liò, and Yoshua Bengio. Graph attention networks. In International Conference on Learning Representations, 2018.  
+
+34 Mingchen Sun, Kaixiong Zhou, Xin He, Ying Wang, and Xin Wang. Gppt: Graph pre- training and prompt tuning to generalize graph neural networks. In Proceedings of the 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining, pages 1717- 1727, 2022.  
+
+35 Zixuan Yi, Iadh Ounis, and Craig Macdonald. Contrastive graph prompt- tuning for cross- domain recommendation. ACM Transactions on Information Systems, 2023.  
+
+36 Cristian Bodnar, Francesco Di Giovanni, Benjamin Chamberlain, Pietro Liò, and Michael Bronstein. Neural sheaf diffusion: A topological perspective on heterophily and oversmoothing in gnns. Advances in Neural Information Processing Systems, 35:18527- 18541, 2022.  
+
+37 Francesco Di Giovanni, Lorenzo Giusti, Federico Barbero, Giulia Luise, Pietro Lio, and Michael M Bronstein. On over- squashing in message passing neural networks: The impact of width, depth, and topology. In International Conference on Machine Learning, pages 7865- 7885. PMLR, 2023.  
+
+38 Khang Nguyen, Nong Minh Hieu, Vinh Duc Nguyen, Nhat Ho, Stanley Osher, and Tan Minh Nguyen. Revisiting over- smoothing and over- squashing using ollivier- ricci curvature. In International Conference on Machine Learning, pages 25956- 25979. PMLR, 2023.  
+
+39 Bohang Zhang, Shengjie Luo, Liwei Wang, and Di He. Rethinking the expressive power of gnns via graph biconnectivity. In The Eleventh International Conference on Learning Representations, 2022.  
+
+40 Chirag Agarwal, Owen Queen, Himabindu Lakkaraju, and Marinka Zitnik. Evaluating explainability for graph neural

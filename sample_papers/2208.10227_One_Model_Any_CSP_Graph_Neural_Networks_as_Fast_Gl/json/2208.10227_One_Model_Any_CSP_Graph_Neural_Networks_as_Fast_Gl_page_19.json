@@ -1,0 +1,47 @@
+{
+  "image": "2208.10227_One_Model_Any_CSP_Graph_Neural_Networks_as_Fast_Gl_page_19.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "table",
+      "boxes": [
+        [
+          152.0,
+          207.0,
+          844.0,
+          771.0
+        ]
+      ],
+      "raw": "[[152, 207, 844, 771]]",
+      "pixel_boxes": [
+        [
+          387,
+          683,
+          2154,
+          2546
+        ]
+      ]
+    },
+    {
+      "label": "table_caption",
+      "boxes": [
+        [
+          144.0,
+          181.0,
+          850.0,
+          198.0
+        ]
+      ],
+      "raw": "[[144, 181, 850, 198]]",
+      "pixel_boxes": [
+        [
+          367,
+          597,
+          2169,
+          654
+        ]
+      ]
+    }
+  ]
+}

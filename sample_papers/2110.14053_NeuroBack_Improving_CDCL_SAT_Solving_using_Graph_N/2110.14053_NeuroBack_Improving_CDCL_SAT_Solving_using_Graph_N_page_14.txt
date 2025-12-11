@@ -1,0 +1,37 @@
+Matthias Fey and Jan E. Lenssen. conv.gatconv. https://pytorch- geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GATConv.html, 2023a.  
+
+Matthias Fey and Jan E. Lenssen. conv.ginconv. https://pytorch- geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GINConv.html, 2023b.  
+
+Johannes K Fichte, Markus Hecher, and Florim Hamiti. The model counting competition 2020. Journal of Experimental Algorithmics (JEA), 26:1- 26, 2021.  
+
+ABKFM Fleury and Maximilian Heisinger. Cadical, kissat, paracooba, plingeling and treengeling entering the sat competition 2020. SAT COMPETITION, 2020:50, 2020.  
+
+Justin Gilmer, Samuel S Schoenholz, Patrick F Riley, Oriol Vinyals, and George E Dahl. Neural message passing for quantum chemistry. In International conference on machine learning, pp. 1263- 1272. PMLR, 2017.  
+
+Marco Gori, Gabriele Monfardini, and Franco Scarselli. A new model for learning in graph domains. In Proceedings. 2005 IEEE International Joint Conference on Neural Networks, 2005., volume 2, pp. 729- 734. IEEE, 2005.  
+
+Youssef Hamadi, Said Jabbour, and Lakhdar Sais. Manysat: a parallel sat solver. Journal on Satisfiability, Boolean Modeling and Computation, 6(4):245- 262, 2010.  
+
+William L Hamilton, Rex Ying, and Jure Leskovec. Inductive representation learning on large graphs. In Proceedings of the 31st International Conference on Neural Information Processing Systems, pp. 1025- 1035, 2017.  
+
+Jesse Michael Han. Enhancing sat solvers with glue variable predictions. arXiv preprint arXiv:2007.02559, 2020.  
+
+Marijn JH Heule, Matti Juhani Järvisalo, Martin Suda, et al. Proceedings of SAT competition 2018: Solver and benchmark descriptions. 2018.  
+
+Holger H Hoos and Thomas Stützle. Satlib: An online resource for research on sat. Sat, 2000: 283- 292, 2000.  
+
+Mikoláš Janota. SAT solving in interactive configuration. PhD thesis, University College Dublin, 2010.  
+
+Sebastian Jaszczur, Michał Łuszczyk, and Henryk Michalewski. Neural heuristics for sat solving. arXiv preprint arXiv:2005.13406, 2020.  
+
+Philip Kilby, John Slaney, Sylvie Thiebaux, Toby Walsh, et al. Backbones and backdoors in satisfiability. In AAAI, volume 5, pp. 1368- 1373, 2005.  
+
+Thomas N Kipf and Max Welling. Semi- supervised classification with graph convolutional networks. arXiv preprint arXiv:1609.02907, 2016.  
+
+Vitaly Kurin, Saad Godil, Shimon Whiteson, and Bryan Catanzaro. Improving SAT solver heuristics with graph networks and reinforcement learning. 2019.  
+
+Vitaly Kurin, Saad Godil, Shimon Whiteson, and Bryan Catanzaro. Improving SAT solver heuristic with graph networks and reinforcement learning. In Advances in Neural Information Processing Systems, 2020.  
+
+Massimo Lauria, Jan Elffers, Jakob Nordström, and Marc Vinyals. Cnfgcn: A generator of crafted benchmarks. In International Conference on Theory and Applications of Satisfiability Testing, pp. 464- 473. Springer, 2017.  
+
+Jia Hui Liang, Vijay Ganesh, Pascal Poupart, and Krzysztof Czarnecki. Learning rate based branching heuristic for sat solvers. In Theory and Applications of Satisfiability Testing- SAT 2016: 19th International Conference, Bordeaux, France, July 5- 8, 2016, Proceedings 19, pp. 123- 140. Springer, 2016.

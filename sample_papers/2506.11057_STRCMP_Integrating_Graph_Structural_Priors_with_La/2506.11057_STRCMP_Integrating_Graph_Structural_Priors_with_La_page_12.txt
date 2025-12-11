@@ -1,0 +1,33 @@
+[35] Ludo F Gelders and Luk N Van Wassenhove. Production planning: a review. European Journal of Operational Research, 7(2):101- 110, 1981.  
+
+[36] Paolo Toth and Daniele Vigo. The vehicle routing problem. SIAM, 2002.  
+
+[37] Rafael Rafailov, Archit Sharma, Eric Mitchell, Christopher D Manning, Stefano Ermon, and Chelsea Finn. Direct preference optimization: Your language model is secretly a reward model. Advances in Neural Information Processing Systems, 36:53728- 53741, 2023.  
+
+[38] Robert B Ash. Information theory. Courier Corporation, 2012.  
+
+[39] Amir Zadeh, Paul Pu Liang, and Louis- Philippe Morency. Foundations of multimodal co- learning. Information Fusion, 64:188- 193, 2020.  
+
+[40] Daniel Selsam, Matthew Lamm, Benedikt Bünz, Percy Liang, Leonardo de Moura, and David L Dill. Learning a sat solver from single- bit supervision. arXiv preprint arXiv:1802.03685, 2018.  
+
+[41] Egon Balas and Andrew Ho. Set covering algorithms using cutting planes, heuristics, and subgradient optimization: a computational study. In Combinatorial Optimization, pages 37- 60. Springer, 1980.  
+
+[42] David Bergman, Andre A Cire, Willem- Jan Van Hoeve, and John Hooker. Decision diagrams for optimization, volume 1. Springer, 2016.  
+
+[43] Lara Scavuzzo, Feng Yang Chen, Didier Chéletal, Maxime Gasse, Andrea Lodi, Neil Yorke- Smith, and Karen Aardal. Learning to branch with tree mdps. arXiv preprint arXiv:2205.11107, 2022.  
+
+[44] Maxime Gasse, Didier Chetelat, Nicola Ferroni, Laurent Charlin, and Andrea Lodi. Exact combinatorial optimization with graph convolutional neural networks. In H. Wallach, H. Larochelle, A. Beygelzimer, F. d'Alché- Buc, E. Fox, and R. Garnett, editors, Advances in Neural Information Processing Systems, volume 32. Curran Associates, Inc., 2019.  
+
+[45] Haoran Sun, Wenbo Chen, Hui Li, and Le Song. Improving learning to branch via reinforcement learning. In Learning Meets Combinatorial Algorithms at NeurIPS2020, 2020.  
+
+[46] Alper Atamtürk. On the facets of the mixed- integer knapsack polyhedron. Mathematical Programming, 98(1):145- 175, 2003.  
+
+[47] Carla P Gomes, Willem- Jan van Hoeve, and Ashish Sabharwal. Connections in networks: A hybrid approach. In International Conference on Integration of Artificial Intelligence (AI) and Operations Research (OR) Techniques in Constraint Programming, pages 303- 307. Springer, 2008.  
+
+[48] Simon Bowl, Quentin Cappart, Jonas Charfreatag, Laurent Charlin, Didier Chéletal, Antonia Chmiela, Justin Dumouchelle, Maxime Gasse, Ambros Gleixner, Aleksandr M, Kazachkov, Elias B, Khalil, Pawel Lichocki, Andrea Lodi, Miles Lubin, Chris J, Maddison, Christopher Morris, Dimitri J, Papageorgiou, Augustin Parjadis, Sebastian Pokutta, Antoine Prouvost, Lara Scavuzzo, and Giulia Zarpellon. Machine learning for combinatorial optimization, 2021. URL https://www.ecole.ai/2021/ml4co- competition/.  
+
+[49] Tomas Balyo, Marijn Heule, Markus Iser, Matti Järvisalo, and Martin Suda. Proceedings of sat competition 2023: Solver, benchmark and proof checker descriptions. 2023.  
+
+[50] Antoine Prouvost, Justin Dumouchelle, Lara Scavuzzo, Maxime Gasse, Didier Chéletal, and Andrea Lodi. Ecole: A gym- like library for machine learning in combinatorial optimization solvers. arXiv preprint arXiv:2011.06069, 2020.  
+
+[51] Yang Li, Xinyan Chen, Wenxuan Guo, Xijun Li, Wanqian Luo, Junhua Huang, Hui- Ling Zhen, Mingxuan Yuan, and Junchi Yan. Hardsatgen: Understanding the difficulty of hard sat formula generation and a strong structure- hardness- aware baseline. In Proceedings of the 29th ACM SIGKDD Conference on Knowledge Discovery and Data Mining, pages 4414- 4425, 2023.

@@ -1,0 +1,43 @@
+- Define a clause \(C_{i} = \{X_{j}\}_{v_{j}\in N[v_{i}]}\) for each vertex \(v_{i}\) to indicate that the vertex is in the solution or at least one of its neighbors is in the solution;  
+
+With the encoded CNF formula, the solver works as Algorithm 1.  
+
+Algorithm 1 [9] An algorithm for the dominating- clique problem  
+
+1: procedure DoMCLq \((D,S,U,G(V,E))\)  
+
+2: if \(U\) is \(\emptyset\) then  
+
+3: DOMCLQ ← D  
+
+4: return TRUE  
+
+5: else  
+
+6: Find \(C\in U\) such that \(|C\cap S| = \min_{C^{\prime}\in U}|C^{\prime}\cap S|\)  
+
+7: if \(C\cap S\) is not \(\emptyset\) then  
+
+8: \(S^{\prime \prime}\gets S\)  
+
+9: for \(X_{i}\in C\cap S\) do  
+
+10: \(X_{i}\gets 1\) ; \(D\gets D\cup \{v_{i}\}\)  
+
+11: \(S^{\prime}\leftarrow \{X_{j}\mid X_{j}\in S^{\prime \prime},\{v_{i},v_{j}\} \in E\} ;U^{\prime}\leftarrow U\setminus \{C^{\prime}\mid C^{\prime}\in\)  
+
+\(U,X_{i}\in C^{\prime}\}\)  
+
+12: if \(\mathrm{DomClq}(D,S^{\prime},U^{\prime},G(V,E))\) then  
+
+13: return TRUE  
+
+14: else  
+
+15: \(X_{i}\gets 0\) ; \(D\gets D\setminus \{v_{i}\} ;S^{\prime \prime}\gets S^{\prime \prime}\setminus \{X_{i}\}\)  
+
+16: return FALSE  
+
+The solver has three parameters: a potential dominating clique \(D\) , a set \(S\) of the unassigned variables such that \(S = \{X_{u}\mid \forall v\in D,\{u,v\} \in E\}\) , and a set \(U\) of unsatisfied clauses. The three parameters are initialized as \(\emptyset\) , \(\{X_{i}\}_{i\in [n]}\) , and \(\{C_{i}\}_{i\in [n]}\) respectively.  
+
+From the perspective of CSP solvers, this algorithm uses the MRV heuristic. This heuristic is optimal if every sub- problem by adding one vertex into \(D\) has the same amount of search space. However, it is false for most cases. To improve it, we can see \(\{X_{i}\}_{i\in [n]}\) as random variables under the probability distributions output from our probabilistic- method GNN. We use the information entropy of these random variables to predict the amount of the search space of unsatisfied clauses. In particular, instead of the cardinality of \(C^{\prime}\cap S\) , we measure the joint information entropy of the random variables in \(C^{\prime}\cap S\) . We therefore replace Line 6 in Algorithm 1 by finding \(C\in U\) such that \((C\cap S)\) has the minimum joint information entropy. In other words, we define the function \(f\) as the joint information entropy of unassigned variables of a branch to measure the quality of branches. Note that the probability distributions of unassigned variables should not be fixed during the backtracking search. The reason is that \(S\) , \(D\) , and \(U\) are changing during the search, so the correspondingly unexplored subgraph which consists of \(S\) and \(U\) is also changing. We apply the softmax function on the distributions of the unassigned variables to re- weigh them during the backtracking search. We also try the \(Z\) - score normalization, but its performance

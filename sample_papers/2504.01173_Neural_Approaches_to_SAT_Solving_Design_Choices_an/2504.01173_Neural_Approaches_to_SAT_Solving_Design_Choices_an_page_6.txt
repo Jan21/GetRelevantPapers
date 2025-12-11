@@ -1,0 +1,19 @@
+<center>Figure 1: LCG and VCG of the CNF formula \((\overline{x}_{1} \vee x_{2}) \wedge (x_{2} \vee \overline{x}_{3}) \wedge (x_{1} \vee x_{3})\) . </center>  
+
+where \(\mathcal{N}(v)\) denotes the neighbors of node \(v\) . The UPDATE and AGGREGATE functions are typically neural networks, often implementing permutation- invariant operations like sum or max. Through multiple layers of message passing, GNNs can capture both local structure and longer- range dependencies in the graph, making them suitable for processing SAT formulas represented as bipartite graphs.  
+
+### 3.4 Diffusion-based Assignment Generation  
+
+In Section 5.4 will show how the GNNs we use can be extended to diffusion models which have in recent years emerged as a powerful approach for generative modeling across domains Ho et al. [2020]. These models learn to transform a random noise distributions (such as multi- variate Gaussian distribution) to complex distributions behind the given domain (i.e., distribution of images of human faces). For practical applications, diffusion models are typically conditioned on an input so that the generated sample has specific characteristics. In our case, we will condition the model by the bipartite graph of the CNF formula.  
+
+#### 3.4.1 Categorical Diffusion Process  
+
+While continuous diffusion models have gained prominence in image generation and other domains, discrete diffusion processes well- suited for combinatorial optimization problems like MAX- SAT, where the state space is inherently discrete. Our approach presented in Section 5.4 leverages a discrete diffusion process with categorical noise to model the generation of variable assignments. We adapt a concrete form of discrete diffusion first presented by Austin et al. Austin et al. [2021] and later leveraged for combinatorial optimization with GNNs by Sun et al. Sun and Yang [2023].  
+
+On a high level, diffusion models are trained to denoise noisy version of the training samples. These noisy versions are obtained by running a forward diffusion process for several steps and the model is then trained to predict the original sample. For a SAT problem with \(n\) variables, we represent each variable assignment as a binary value and the vector of these binary values represent the sample. The diffusion process gradually corrupts this sample until it becomes pure noise.  
+
+More concretely, the process that progressively adds noise to the initial assignment \(\mathbf{x}_{0} \in \{0, 1\}^{n}\) over \(T\) timesteps, produces a sequence of increasingly more corrupted assignments \(\mathbf{x}_{1}, \mathbf{x}_{2}, \ldots , \mathbf{x}_{T}\) . For categorical diffusion, this corruption process is defined by a Markov chain with the following transition matrices:  
+
+\[\mathbf{Q}_{t} = \left( \begin{array}{cc}1 - \beta_{t} & \beta_{t} \\ \beta_{t} & 1 - \beta_{t} \end{array} \right) \quad (2)\]  
+
+where \(\beta_{t} \in (0, 1)\) represents the noise schedule, controlling how quickly the assignments become corrupted. The matrix \(\mathbf{Q}_{t}\) defines the probability of transitioning between states at time \(t\) , with the property that as \(t\) approaches \(T\) , the distribution of \(\mathbf{x}_{t}\) approaches a uniform distribution over all possible assignments.

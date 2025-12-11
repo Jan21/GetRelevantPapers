@@ -1,0 +1,5 @@
+to its sign. It is also possible to assign the values by picking a random separating hyperplane, and it can be shown that this rounding gives a 0.8785- approximation of the integer program optimum Goemans and Williamson [1995].  
+
+Note that the expressions of the clauses reach their maximum at 1 (when a clause is satisfied by the assignment). This means that the whole formula is satisfiable if the objective function achieves a value equal to the number of clauses in the formula. Another way to check satisfiability is to plug the obtained solution into the formula and verify whether it is satisfied. Therefore, we can obtain an incomplete SAT solver from this SDP formulation.  
+
+Similar SDPs can be obtained for different versions of MAX- SAT (with larger clauses). From empirical observation, the convergence threshold of the SDP solver needs to be decreased significantly compared to MAX- 2- SAT in order to obtain a good approximation for these more complicated versions.

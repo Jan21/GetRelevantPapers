@@ -1,0 +1,11 @@
+Table 4 Results of solving MDS with different approaches on frb datasets.   
+
+<table><tr><td colspan="5">Minimum Dominated Set</td></tr><tr><td>Methods</td><td>frb30-15</td><td>frb40-19</td><td>frb50-23</td><td>frb59-26</td></tr><tr><td>V</td><td>450</td><td>760</td><td>1150</td><td>1534</td></tr><tr><td>E</td><td>18k</td><td>41k</td><td>80k</td><td>126k</td></tr><tr><td>Greedy</td><td>191.1</td><td>255.0</td><td>296.5</td><td>284.8</td></tr><tr><td>HTS-DS</td><td>191.0</td><td>255.2</td><td>297.6</td><td>286.4</td></tr><tr><td>MWDS-CRO</td><td>191.0</td><td>255.1</td><td>298.4</td><td>285.5</td></tr><tr><td>GMC-A</td><td>201.2</td><td>268.1</td><td>301.3</td><td>292.2</td></tr><tr><td>GMC-B</td><td>192.1</td><td>261.4</td><td>299.1</td><td>291.6</td></tr><tr><td>RUN-CSP</td><td>190.8</td><td>255.4</td><td>299.3</td><td>278.6</td></tr><tr><td>PIGNN</td><td>191.1</td><td>255.3</td><td>299.1</td><td>280.2</td></tr><tr><td>MAX-SAT</td><td>191.0</td><td>255.3</td><td>298.8</td><td>278.8</td></tr><tr><td>Ours</td><td>190.8</td><td>255.1</td><td>298.5</td><td>278.1</td></tr></table>  
+
+(3) Traditional or heuristic methods are very competitive in Max-Cut. However, the gaps between our method and these methods were small. Besides, the time of training and inference for our method was much less than these methods.  
+
+For MIS and MDS, we reported the number of sets for MIS and the number of dominated nodes for MDS in Tables 3 and 4. \(V\) and \(E\) are the sets for nodes and edges. Greedy denotes the classical greedy algorithm. Larger and smaller values denote better results for MIS and MDS, respectively. The experiments were carried out on four frb datasets. Similar results can be observed in these two CO problems. Particularly, In MIS, our results were relatively closer to the results obtained by the solver, which showed the effectiveness of our framework.  
+
+Based on the results obtained on the above three CO problems, we can answer Q1: Max- SAT offered common knowledge and the pre- training and adaptation pipeline built based on Max- SAT can learn transferable and generalizable features to improve the ability to solve different CO problems on graphs.  
+
+<center>Figure 3 Results of ablation study with different variants of our model on Max-Cut. </center>

@@ -1,0 +1,25 @@
+## A.3 SAT Solver Details  
+
+## Glucose  
+
+Glucose (Audemard and Simon, 2009) is a popular CDCL solver based on Minisat (Eén and Sörensson, 2003). Our modification is based on Glucose 4.2.1 (Audemard and Simon, 2017) \(^3\) . Like many other CDCL solvers, Glucose uses the Variable State Independent Decaying Sum (VSIDS) heuristic for branching. Each variable \(x\) is assigned an activity score activity \((x)\) that reflects its involvement in conflicts. When a conflict occurs, the activity scores of variables involved are increased by a constant \(\Delta\) , i.e.,  
+
+\[\mathrm{activity}(x)\leftarrow \mathrm{activity}(x) + \Delta . \quad (17)\]  
+
+Periodically, all activity scores are multiplied by a decay factor \(\beta\) (where \(0< \beta < 1\) ):  
+
+\[\mathrm{activity}(x)\leftarrow \beta \cdot \mathrm{activity}(x). \quad (18)\]  
+
+The activity then effectively serves as the SCORE function from Algorithm 2. Note that in practice, CDCL solvers commonly use exponential VSIDS (EVSIDS), which is a variation that yields identical decisions but avoids a costly loop over all variables to compute Equation (18). Rather than decaying the activity, the increment \(\Delta\) is instead scaled up:  
+
+\[\Delta \leftarrow \frac{1}{\beta}\Delta . \quad (19)\]  
+
+The cumulative values of the activity scores then yield the same decisions. To incorporate our variable weights \(w\) into this process, we simply modify Equation (17) by scaling the increment with the variable weight:  
+
+\[\mathrm{activity}(x)\leftarrow \mathrm{activity}(x) + w(x)\cdot \Delta . \quad (20)\]  
+
+This ensures that the total activity score of each variable is scaled by a factor of \(w(x)\) at each step of the search while still preventing loops over all variables. We found that the runtime overhead of the additional multiplication in Equation (20) is negligible. We use the provided polarities \(p(x)\) to initialize the polarity (or phase) of each variable. Note that we leave phase saving on, so this initial polarity may be overwritten by the solver in later search steps. We run all experiments without randomized decisions (rnd- freq \(= 0\) ). We further set the parameter \(K = 0.1\) to minimize solver restarts, which we found to improve performance on the three instance distributions considered in our experiments. Apart from this, we use the default parameters of Glucose.  
+
+## March  
+
+March (Heule et al., 2005; Heule and Van Maaren, 2006) is a DPLL- based solver that uses a branching heuristic based on look- ahead (Biere et al., 2021). \(^4\) It is among the best- known solvers for purely random SAT instances. Look- ahead branching heuristics estimate how each variable's selection as a branching variable would affect the instance. In March, the scoring function SCORE(X) essentially quantifies how many new binary clauses would occur if \(x\) is picked for branching in the current search step. Computing this score is relatively expensive when compared to activity- based approaches, and look- ahead solvers usually make fewer decisions per time. To decrease the cost of each branching step, March first applies a pre- selection step before each branching decision, where a reduced set of candidate variables is selected according to a second scoring function SCORE- PRESELECT \((x)\) . This score aims to approximate the expected look- ahead score but is cheaper to compute. In the modified solver, we also apply the variable weight \(w\) in pre- selection, i.e. the weighted scores \(w(x) \cdot \text{SCORE- PRESELECT} (x)\) are used to select the candidate variables. The ratio of pre- selected candidates is fixed at \(10\%\) . The same weights \(w\) are then applied again to the actual look- ahead scores to obtain the branching variable. Afterwards, we use the given polarities \(p\) in each branching to determine the sign of the branching literal. Aside from these changes, we run March in its default configuration.

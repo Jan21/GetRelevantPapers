@@ -1,0 +1,45 @@
+## C Ablation  
+
+We provide an empirical ablation study for two major design choices of ANYcSP: Firstly, we want to study the benefit of our exponentially sized action space when compared to a more conventional local search setting. Secondly, we aim to validate the reward scheme we constructed in Section 4.2. To this end, we will evaluate two modified versions of ANYcSP:  
+
+1. ANYcSPloc: A version of ANYcSP designed to be a local search heuristic. We modify \(\pi_{\theta}\) such that the softmax over the scores in \(o^{(t)}(\boldsymbol {v})\) is not performed separately within each domain but over all values in the disjoint union of domains \(\mathcal{V}\) ..  
+
+\[\phi^{(t + 1)}(\boldsymbol {v}) = \frac{\exp\left(o^{(t)}(\boldsymbol{v})\right)}{\sum_{\boldsymbol{v}' \in \mathcal{V}}\exp\left(o^{(t)}(\boldsymbol{v}') \right)} \quad (23)\]  
+
+The output \(\phi^{(t + 1)}\) of \(\pi_{\theta}\) in iteration \(t + 1\) is therefore not a soft assignment but a probability distribution over the disjoint union of domains. To obtain a new hard assignment \(\alpha^{(t + 1)}\) we sample a single value \(v\in \mathcal{C}\) from this distribution and set it as the value for its respective variable \(X_{v}\) with \(v\in \mathcal{V}_{X_{v}}\)  
+
+\[\begin{array}{c}{\boldsymbol {v}\sim \phi^{(t + 1)}}\\ {\alpha^{(t + 1)} = \alpha^{(t)}[X_{v} = \boldsymbol {v}]} \end{array} \quad (25)\]  
+
+All variables other than \(X_{v}\) remain unchanged in iteration \(t + 1\) . With this modification \(\mathrm{ANYCSP_{loc}}\) becomes a local search heuristic that only changes one variable at a time. The remaining architecture and training procedure are identical to ANYcSP, including the reward scheme.  
+
+2. ANYCSPqual: A version of ANYcSP trained by using the quality \(Q_{\mathcal{I}}(\alpha^{(t)})\) of the current assignment as a reward. For this configuration to train well, we found it helpful to use the quality of the initial assignment as a baseline:  
+
+\[r^{(t)} = Q_{\mathcal{I}}(\alpha^{(t)}) - Q_{\mathcal{I}}(\alpha^{(0)}) \quad (26)\]  
+
+Without the subtractive baseline, we found the training to be very unstable. Note that the baseline does not solve the fundamental problem of the reward scheme: A heuristic can not leave a local maximum without being immediately punished for doing so. Here, we will study how this proposed issue actually effects performance empirically.  
+
+We perform our ablation experiments on the graph coloring, MAXCUT and MAX- \(k\) - SAT problems. For each problem, we train both modifications with the same training data and hyperparameters as ANYcSP.  
+
+## C.1 Results  
+
+Tables 11, 12 and 13 contain the results of our ablation study for \(k\) - COL, MAXCUT and MAX- \(k\) - SAT, respectively. The metrics in each table are identical to those used in our main experiment.  
+
+For graph coloring, \(\mathrm{ANYCSP_{qual}}\) performs significantly worse than the other two versions of our method. Compared to our main baselines it only outperforms RUNCSP  
+
+Table 11: Ablation results on graph coloring.   
+
+<table><tr><td>METHOD</td><td>COL&amp;lt;10</td><td>COL≥10</td></tr><tr><td>ANYCSPloc</td><td>49</td><td>37</td></tr><tr><td>ANYCSPqual</td><td>37</td><td>25</td></tr><tr><td>ANYCSP</td><td>50</td><td>40</td></tr></table>  
+
+and the simple greedy approach. \(\mathrm{ANYCSP_{loc}}\) actually performs reasonably well, as it only solves four graphs less than ANYCSP across all 100 test instances. In this experiment the reward scheme seems to contribute more to the performance than the global search action space. However, only the combination of both in ANYCSP yields the best results.  
+
+On the MAXCUT problem there is no clear hierarchy between \(\mathrm{ANYCSP_{loc}}\) and \(\mathrm{ANYCSP_{qual}}\) . However, both ablation versions perform significantly worse than ANYCSP. The same seems to hold on the MAX- \(k\) - SAT problem. The two modified versions yield similar results but perform far worse than ANYCSP.  
+
+Figure 7 investigates the differences on the MAX- \(k\) - SAT problem further. We plot how the number of unsatisfied clauses in the best found solution evolves throughout the 60K search steps performed by ANYCSP in 20 minutes. The curves are averaged over all 50 instances in out MAX- 5- SAT test data. Both \(\mathrm{ANYCSP_{loc}}\) and \(\mathrm{ANYCSP_{qual}}\) are unable to converge to solutions as good as those found by ANYCSP, but for different reasons. \(\mathrm{ANYCSP_{loc}}\) converges slowly but steadily. Due to the slow convergence compared to ANYCSP, it is not able to find equivalent solutions in the same amount of time. \(\mathrm{ANYCSP_{qual}}\) initially converges as fast as ANYCSP. This is expected, since this version also performs global search and can refine the whole solution in parallel. However, it tapers of significantly earlier compared to ANYCSP and the solution quality remains virtually constant after 20K search steps. This is the expected problem our reward scheme intends to solve: During training, \(\mathrm{ANYCSP_{qual}}\) can not leave local maxima without being punished for doing so by the simple reward scheme. This inhibits exploration and encourages stagnation. After 60K steps, \(\mathrm{ANYCSP_{loc}}\) actually catches up to \(\mathrm{ANYCSP_{qual}}\) and both ablation versions yield similar results once the 20 minute timeout is reached.  
+
+Overall, our experiments and ablation study suggests that our two main design choices are crucial to consistently obtaining strong search heuristics:  
+
+1. A global search space is necessary to refine the whole solution in parallel and speed up the search. Without this advantage, GNN-based heuristics can not compensate for their comparatively high computational cost.  
+
+2. A well-chosen reward scheme that encourages exploration is equally important. Without it, global search simply gets stuck faster than local search. A simple reward proportional to the quality is not suitable in this regard.  
+
+ANYCSP combines these insights in one generic architecture for all CSPs.

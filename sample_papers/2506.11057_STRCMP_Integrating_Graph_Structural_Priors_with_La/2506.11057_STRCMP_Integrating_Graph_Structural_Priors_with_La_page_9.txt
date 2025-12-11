@@ -1,0 +1,17 @@
+<center>Figure 5: Ablation studies in terms of optimization performance and convergence rate. </center>  
+
+empirical findings conclusively address RQ1: STRCMP successfully identifies superior algorithmic configurations compared to existing strong baselines.  
+
+## Efficiency Improvement (Answer to RQ2).  
+
+Next, we assess the efficiency of our proposed STRCMP framework in discovering high- performance algorithms via iterative search for combinatorial optimization problems. The representative convergence comparison for SAT domain are presented in Figures 4. More evaluations over other SAT datasets and MILP domain across additional metrics are provided in Appendix G.2. Our experiments reveal that STRCMP achieves convergence significantly faster than existing evolutionary- based algorithm discovery frameworks. Furthermore, the framework  
+
+<center>Figure 4: Convergence comparison (w.r.t. PAR-2) between evolutionary-based algorithm discovery frameworks on Zankeller dataset of SAT domain. </center>  
+
+attains markedly higher- quality convergence points compared to baseline methods AutoSAT and LLM4Solver. Notably, STRCMP achieves stable convergence while AutoSAT exhibits persistent oscillations even after convergence. These findings validate that our proposed STRCMP substantially reduces computational overhead in evolutionary- based algorithm discovery frameworks.  
+
+Ablation Studies (Answer to RQ3). To address RQ3, we conduct comprehensive ablation studies on our composite model by systematically deactivating individual components and evaluating their impact on optimization performance and computational efficiency. Representative results are shown in Figure 5, with full ablation studies detailed in Appendix G.3. Analysis of Figure 5 reveals that the structural prior provides measurable benefits for code generation in combinatorial optimization tasks: the STRCMP w/o GNN variant (lacking structural guidance) exhibits consistently inferior optimization performance compared to counterparts incorporating the prior. Furthermore, this variant demonstrates increased solution variability during algorithmic search iterations, potentially resulting in higher computational costs. Counterintuitively, the full STRCMP model (with complete post- training) does not uniformly outperform its ablations STRCMP (SFT Only) and STRCMP (DPO Only) across all benchmarks, suggesting underlying conflicts within the post- training data distribution. We plan to investigate this phenomenon in subsequent research.  
+
+## 6 Conclusion  
+
+We propose STRCMP, a novel structure- aware LLM- based algorithm discovery framework for combinatorial optimization problems. To our knowledge, this represents the first methodology that explicitly incorporates structural priors of combinatorial optimization problems into LLM- driven algorithm discovery, simultaneously enhancing solution quality and computational efficiency. We validate the effectiveness of STRCMP through theoretical analysis and extensive empirical evaluations across SAT and MILP problems, demonstrating consistent improvements in both solving efficiency and solution optimality. Our framework offers a principled foundation for future research integrating additional modal priors into LLMs for solving combinatorial optimization problems.

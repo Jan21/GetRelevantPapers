@@ -13,18 +13,14 @@ asta:
   limit: 100  # Papers to retrieve per query
   output: "search_results.json"
 
-# VLLM Server Configuration
-vllm:
-  url: "http://0.0.0.0:8000"
-  model_name: "Qwen/Qwen3-4B-Instruct-2507-FP8"
+# AWS Bedrock Configuration (with Deepseek)
+bedrock:
+  region: "us-east-1"  # AWS region where Bedrock is available
+  model_id: "us.amazon.nova-micro-v1:0"  # Deepseek model ID in Bedrock
   max_tokens: 10
   temperature: 0.1
-  timeout: 30
-  stop_tokens:
-    - "<|im_end|>"
-    - "\n\n"
 
-# OpenRouter Configuration
+# OpenRouter Configuration (backup/alternative)
 openrouter:
   api_key: ${oc.env:OPENROUTER_API_KEY}  # Reads from environment variable
   model_name: "deepseek/deepseek-v3.2"
@@ -58,9 +54,6 @@ classification:
   output_prefix: "classified"
   display_limit: 10
   display_results: true
-  # Classifier Selection - enable/disable classifiers
-  use_vllm: true        # Enable VLLM classifier
-  use_openrouter: true  # Enable OpenRouter classifier
 
 # Prompt Template for Classification
 prompt:

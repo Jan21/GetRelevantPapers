@@ -1,0 +1,41 @@
+Using deep learning to construct Stochastic Local Search SAT solvers with performance bounds  
+
+[16] Peter W. Battaglia, Razvan Pascanu, Matthew Lai, Danilo Rezende, and Koray Kavukcuoglu. Interaction networks for learning about objects, relations and physics, 2016.  
+
+[17] Vinod Nair, Sergey Bartunov, Felix Gimeno, Ingrid von Glehn, Pawel Lichocki, Ivan Lobov, Brendan O'Donoghue, Nicolas Sonnerat, Christian Tjandraatmadja, Pengming Wang, Ravichandra Addanki, Tharindi Hapuarachchi, Thomas Keck, James Keeling, Pushmeet Kohli, Ira Ktena, Yujia Li, Oriol Vinyals, and Yori Zwols. Solving mixed integer programs using neural networks, 2020.  
+
+[18] P. Erdős and L. Lovász. Problems and results on 3- chromatic hypergraphs and some related questions. Infinite and finite sets, 2:609- 627, 1975.  
+
+[19] Nicholas Harvey and Jan Vondrak. An algorithmic proof of the lovasz local lemma via resampling oracles, 2015.  
+
+[20] T. Schöning. A probabilistic algorithm for k- sat and constraint satisfaction problems. In 40th Annual Symposium on Foundations of Computer Science (Cat. No.99CB37039), pages 410- 414, 1999.  
+
+[21] C.H. Papadimitriou. On selecting a satisfying truth assignment. In [1991] Proceedings 32nd Annual Symposium of Foundations of Computer Science, pages 163- 169, 1991.  
+
+[22] B. Selman, H. Kautz, and B. Cohen. Local search strategies for satisfiability testing. In D. S. Johnson and M. A. Trick, editors, Cliques, Coloring, and Satisfiability: the Second DIMACS Implementation Challenge in Discrete Mathematics and Theoretical Computer Science, volume 26, pages 521- 532. American Mathematical Society, 1996.  
+
+[23] Adrian Balint and Uwe Schöning. Choosing probability distributions for stochastic local search and the role of make versus break. volume 7317, pages 16- 29, 06 2012.  
+
+[24] Peter W. Battaglia, Jessica B. Hamrick, Victor Bapst, Alvaro Sanchez- Gonzalez, Vinicius Zambaldi, Mateusz Malinowski, Andrea Tacchetti, David Raposo, Adam Santoro, Ryan Faulkner, Caglar Gulcehre, Francis Song, Andrew Ballard, Justin Gilmer, George Dahl, Ashish Vaswani, Kelsey Allen, Charles Nash, Victoria Langston, Chris Dyer, Nicolas Heess, Daan Wierstra, Pushmeet Kohli, Matt Botvinick, Oriol Vinyals, Yujia Li, and Razvan Pascanu. Relational inductive biases, deep learning, and graph networks, 2018.  
+
+[25] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E. Hinton. Layer normalization, 2016.  
+
+[26] Abien Fred Agarap. Deep learning using rectified linear units (relu). arXiv preprint arXiv:1803.08375, 2018.  
+
+[27] Robin A. Moser. Exact Algorithms for Constraint Satisfaction Problems. PhD thesis, 2012.  
+
+[28] Jan Dean Catarata, Scott Corbett, Harry Stern, Mario Szegedy, Tomas Vyskočil, and Zheng Zhang. The Moser- Tardos Resample algorithm: Where is the limit? (an experimental inquiry), pages 159- 171.  
+
+[29] Scott Kirkpatrick and Bart Selman. Critical behavior in the satisfiability of random boolean expressions. Science, 264(5163):1297- 1301, 1994.  
+
+[30] Massimo Lauria, Jan Elffers, Jakob Nordström, and Marc Vinyals. MassimoLauria/cnfgen: CNFgen registered with Zenodo, November 2019.  
+
+[31] Gilles Audemard and Laurent Simon. On the glucose sat solver. International Journal on Artificial Intelligence Tools, 27:1840001, 02 2018.  
+
+[32] Alexey Ignatiev, Antonio Morgado, and Joao Marques- Silva. PySAT: A Python toolkit for prototyping with SAT oracles. In SAT, pages 428- 437, 2018.  
+
+[33] Ashiqur Khudabukhsh, Lin Xu, Holger Hoos, and Kevin Leyton- Brown. Satenstein: Automatically building local search sat solvers from components. volume 232, pages 517- 524, 01 2009.  
+
+[34] James Bradbury, Roy Frostig, Peter Hawkins, Matthew James Johnson, Chris Leary, Dougal Maclaurin, George Necula, Adam Paszke, Jake VanderPlas, Skye Wanderman- Milne, and Qiao Zhang. JAX: composable transformations of Python+NumPy programs, 2018.  
+
+[35] Jonathan Godwin\*, Thomas Keck\*, Peter Battaglia, Victor Bapst, Thomas Kipf, Yujia Li, Kimberly Stachenfeld, Petar Veličković, and Alvaro Sanchez- Gonzalez. Jraph: A library for graph neural networks in jax., 2020.

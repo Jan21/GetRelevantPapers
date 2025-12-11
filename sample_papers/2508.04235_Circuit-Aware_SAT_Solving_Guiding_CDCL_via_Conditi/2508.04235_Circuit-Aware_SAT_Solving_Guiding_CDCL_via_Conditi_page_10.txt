@@ -1,0 +1,29 @@
+<table><tr><td>i</td><td colspan="2">P(C)</td><td colspan="2">P(Ai∩C)</td><td colspan="2">P(Ai|C)</td></tr><tr><td></td><td>ground truth</td><td>prediction</td><td>ground truth</td><td>prediction</td><td>ground truth</td><td>prediction</td></tr><tr><td>1</td><td>0.01</td><td>0.00323</td><td>0.01</td><td>0.00017</td><td>1</td><td>0.05277834</td></tr><tr><td>2</td><td>0.01</td><td>0.00323</td><td>0</td><td>0.00014</td><td>0</td><td>0.04442138</td></tr><tr><td>3</td><td>0.01</td><td>0.00323</td><td>0.01</td><td>0.00014</td><td>1</td><td>0.05133383</td></tr><tr><td>4</td><td>0.01</td><td>0.00323</td><td>0.01</td><td>0.00016</td><td>1</td><td>0.07029346</td></tr><tr><td>5</td><td>0.01</td><td>0.00323</td><td>0</td><td>0.00009</td><td>0</td><td>0.04350258</td></tr><tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr><tr><td>Overall Error</td><td colspan="2">0.00677</td><td colspan="2">0.00786</td><td colspan="2">0.72396</td></tr></table>  
+
+Table A1: Performance of the division operation with extremely small \(P(C)\) \(P(A_{i}\mid C)\) is calculated by \(\frac{P(A_{i}\wedge C)}{P(C)}\)   
+
+<table><tr><td>i</td><td colspan="2">P(C)</td><td colspan="2">P(Ai∩C)</td><td colspan="2">P(Ai|C)</td></tr><tr><td></td><td>gt</td><td>pred</td><td>gt</td><td>pred</td><td>gt</td><td>pred</td></tr><tr><td>1</td><td>0.42</td><td>0.4210119</td><td>0.24</td><td>0.24765863</td><td>0.5714286</td><td>0.58824617</td></tr><tr><td>2</td><td>0.42</td><td>0.4210119</td><td>0.33</td><td>0.34514248</td><td>0.7857143</td><td>0.8197927</td></tr><tr><td>3</td><td>0.42</td><td>0.4210119</td><td>0.31</td><td>0.3523217</td><td>0.7380953</td><td>0.83684504</td></tr><tr><td>4</td><td>0.42</td><td>0.4210119</td><td>0.36</td><td>0.3949966</td><td>0.8571429</td><td>0.93820775</td></tr><tr><td>5</td><td>0.42</td><td>0.4210119</td><td>0.38</td><td>0.3954696</td><td>0.9047619</td><td>0.6914532</td></tr><tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr><tr><td>Overall Error</td><td colspan="2">0.0010119</td><td colspan="2">0.025311</td><td colspan="2">0.101676</td></tr></table>  
+
+Table A2: Performance of the division operation with moderate \(P(C)\) \(P(A_{i}\mid C)\) is calculated by \(\frac{P(A_{i}\wedge C)}{P(C)}\)   
+
+<table><tr><td rowspan="2"></td><td colspan="3">P&amp;lt;0.8</td><td colspan="3">P≥0.8</td></tr><tr><td>LBD</td><td>Num.</td><td>Time.Red.</td><td>Dec.Red.</td><td>Num.</td><td>Time.Red.</td></tr><tr><td>1</td><td>1515</td><td>47.1%</td><td>55.2%</td><td>2468</td><td>5.3%</td><td>18.9%</td></tr><tr><td>2</td><td>1819</td><td>21.2%</td><td>26.6%</td><td>7142</td><td>-71.0%</td><td>-0.2%</td></tr><tr><td>3</td><td>300</td><td>6.7%</td><td>6.5%</td><td>2728</td><td>-15.6%</td><td>4.9%</td></tr></table>  
+
+<center>Figure A1: Toy circuit \(c = a\wedge b\) </center>  
+
+<table><tr><td>P(a)</td><td>P(b)</td><td>P(c=a∧b)</td></tr><tr><td>0.500</td><td>0.500</td><td>0.249</td></tr><tr><td>0.500</td><td>0.500</td><td>0.253</td></tr><tr><td>0.100</td><td>0.400</td><td>0.040</td></tr><tr><td>0.300</td><td>0.600</td><td>0.182</td></tr><tr><td>0.700</td><td>0.900</td><td>0.630</td></tr></table>  
+
+Table A4: Node probabilities of the toy circuit (Fig. A1) under different PI workload levels \(\rho\) .  
+
+To illustrate this diversity, we simulate two contrasting scenarios (see Table A4). In the first case, all primary inputs (PIs) are assigned a fixed workload of \(\rho = 0.5\) , under which each internal node converges to a stable logic probability; a representative slice is shown in the first two rows of Table A4. In the second case, each PI's \(\rho\) is independently sampled from the set \(0.1, 0.2, \ldots , 0.9\) , resulting in a broader range of logic probabilities across internal nodes. This variation exposes the network to a richer set of behaviors and  
+
+Table A5: Statistics of clauses, solving time reduction, and decision count reduction under different LBD values and predicted probabilities.  
+
+better reflects diverse operational conditions.  
+
+## A5 Analysis of Probability-Based Metric  
+
+In our probability- based clause filtering method, the solving process is paused once the number of conflicts reaches 50,000, at which point all learnt clauses are extracted. For better analysis, these clauses are grouped according to their LBD values (1, 2, or 3) and further partitioned based on their predicted probabilities. Each group is then re- inserted into the solver independently, allowing us to evaluate their respective impacts on the remainder of the solving process.  
+
+Table A5 presents statistics for the learnt clauses under different LBD levels, further divided by probability thresholds ( \(< 0.8\) and \(\geq 0.8\) ). The table reports the number of clauses in each group, along with the corresponding reductions in solving time and decision count.  
+
+From Table A5, we draw two key conclusions. First, for clauses with the same LBD, retaining those with lower

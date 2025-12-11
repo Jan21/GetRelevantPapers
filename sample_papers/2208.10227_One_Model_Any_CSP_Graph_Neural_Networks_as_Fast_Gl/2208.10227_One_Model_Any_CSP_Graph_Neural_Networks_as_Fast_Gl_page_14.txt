@@ -1,0 +1,115 @@
+Algorithm 1: Forward Pass of \(\pi_{\theta}\) . All inner for-loops are parallelized.  
+
+Input: CSP instance \(\mathcal{I} = (\mathcal{X},\mathcal{D},\mathcal{C})\) , Number of steps \(T\in \mathbb{N}\)  
+
+Output: Soft Assignments \(\phi = \phi^{(1)},\ldots ,\phi^{(T)}\) , Assignments \(\alpha = \alpha^{(1)},\ldots ,\alpha^{(T)}\) , Rewards \(\pmb {r} = r^{(1)},\ldots ,r^{(T)}\)  
+
+1: for \(X\in \mathcal{X}\) do  
+
+2: \(\alpha^{(0)}(X)\sim \mathcal{D}(X)\)  
+
+3: end for  
+
+4: \(L_{V}^{(0)},L_{E}^{(0)}\leftarrow \mathrm{LABEL}(\mathcal{I},\alpha^{(0)})\)  
+
+5: \(q^{(1)}\leftarrow Q_{\mathcal{I}}(\alpha^{(0)})\)  
+
+6: for \(v\in \mathcal{V}\) do  
+
+7: \(h^{(0)}(v)\leftarrow \mathbf{h}\)  
+
+8: end for  
+
+9: for \(t\in \{1,\ldots ,T\}\) do  
+
+10: for \(v\in \mathcal{V}\) do  
+
+11: \(x^{(t)}(v)\leftarrow \mathbf{E}\left(\left[h^{(t - 1)}(v),L_{V}^{(t - 1)}(v)\right]\right)\)  
+
+12: \(m^{(t)}(v,0),m^{(t)}(v,1)\leftarrow \mathbf{M}_{\mathcal{V}}\left(x^{(t)}(v)\right)\)  
+
+13: end for  
+
+14: for \(C\in \mathcal{C}\) do  
+
+15: \(y^{(t)}(C) = \bigoplus_{v\in \mathcal{V}(C)}m^{(t)}\left(v,L_{E}(C,v)\right)\)  
+
+16: \(m^{(t)}(C,0),m^{(t)}(C,1) = \mathbf{M}_{\mathcal{C}}\left(y^{(t)}(C)\right)\)  
+
+17: end for  
+
+18: for \(v\in \mathcal{V}\) do  
+
+19: \(y^{(t)}(v) = \bigoplus_{C\in \mathcal{V}(v)\cap \mathcal{C}}m^{(t)}(C,L_{E}(C,v))\)  
+
+20: \(z^{(t)}(v) = \mathbf{U}_{\mathcal{V}}\left(x^{(t)}(v) + y^{(t)}(v)\right) + x^{(t)}(v)\)  
+
+21: end for  
+
+22: for \(X\in \mathcal{X}\) do  
+
+23: \(z^{(t)}(X) = \mathbf{U}_{\mathcal{X}}\left(\bigoplus_{v\in D_{X}}z^{(t)}(v)\right)\)  
+
+24: end for  
+
+25: for \(v\in \mathcal{V}\) do  
+
+26: \(h^{(t)}(v)\leftarrow \mathbf{G}\left(h^{(t - 1)}(v),z^{(t)}(v) + z^{(t)}(X)\right)\)  
+
+27: \(o^{(t)}(v)\leftarrow \mathbf{O}(h^{(t)}(v))\)  
+
+28: end for  
+
+29: for \(v\in \mathcal{V}\) do  
+
+30: \(\phi^{(t)}(v)\leftarrow \frac{\exp\left(o^{(t)}(v)\right)}{\sum_{v^{\prime}\in \mathcal{V}(X_{v})}\exp\left(o^{(t)}(v^{\prime})\right)}\)  
+
+31: end for  
+
+32: \(\alpha^{(t)}\sim \phi^{(t)}\)  
+
+33: \(L_{V}^{(t)},L_{E}^{(t)}\leftarrow \mathrm{LABEL}(\mathcal{I},\alpha^{(t)})\)  
+
+34: \(r^{(t)}\leftarrow \max \{Q_{\mathcal{I}}(\alpha^{(t)}) - q^{(t)},0\}\)  
+
+35: \(q^{(t + 1)}\leftarrow \max \{q^{(t)},Q_{\mathcal{I}}(\alpha^{(t)})\}\)  
+
+36: end for  
+
+37: return \(\theta\) , \(\alpha\) , \(r\)  
+
+Sample initial assignment uniformly.  
+
+Get vertex + edge labels.  
+
+Init. best prior quality.  
+
+\(\mathbf{h}\) is the learned initial state.  
+
+Values generate latent state.  
+
+Values generate two messages.  
+
+Constraints receive messages.  
+
+Constraints generate messages.  
+
+Values receive messages from constraints.  
+
+Values receive messages.  
+
+Variables receive states from values.  
+
+Update recurrent states.  
+
+Values predict scores.  
+
+Apply softmax within each domain  
+
+Sample next assignment.  
+
+Relabel graph.  
+
+Get Reward.  
+
+Update best prior quality.

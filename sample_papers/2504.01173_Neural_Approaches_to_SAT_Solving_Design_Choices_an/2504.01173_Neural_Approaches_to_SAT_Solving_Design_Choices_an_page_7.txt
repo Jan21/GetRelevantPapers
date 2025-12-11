@@ -1,0 +1,27 @@
+To simplify inference, the cumulative transition matrices \(\overline{\mathbf{Q}}_{t} = \mathbf{Q}_{1}\mathbf{Q}_{2}\cdot \cdot \cdot \mathbf{Q}_{t}\) , which directly gives us \(p(\mathbf{x}_{t}|\mathbf{x}_{0})\) are being used. For the Boolean case, this allows us to efficiently sample \(\mathbf{x}_{t}\) given \(\mathbf{x}_{0}\) using:  
+
+\[p(\mathbf{x}_{t}|\mathbf{x}_{0}) = \mathrm{Cat}(\mathbf{x}_{t};\mathbf{p} = \tilde{\mathbf{x}}_{0}\overline{\mathbf{Q}}_{t}) \quad (3)\]  
+
+where \(\tilde{\mathbf{x}}_{0} \in \{0,1\}^{n \times 2}\) is the one- hot encoding of \(\mathbf{x}_{0}\) , with each variable represented by a vector \((1,0)\) for value 0 or \((0,1)\) for value 1. The Cat operation refers to the categorical distribution, which samples \(\mathbf{x}_{t}\) based on the probability vector \(\mathbf{p}\) .  
+
+#### 3.4.2 Learning the Reverse Process  
+
+The core idea of diffusion models is to learn the reverse process - how to gradually denoise a corrupted sample to recover the original data distribution. In our case, we train a GNN to progressively recover a satisfiable assignment \(\mathbf{x}_{0}\) starting from a random initial assignment. The trained model is used to sample from a distribution \(p(\mathbf{x}_{t - 1}|\mathbf{x}_{t})\) which can be used to obtain a an assignment \(\mathbf{x}_{0}\) from random assignment \(\mathbf{x}_{T}\) as explained bellow. There are multiple ways of training the neural network used in the diffusion model. One can train it to directly model the distribution \(p(\mathbf{x}_{t - 1}|\mathbf{x}_{t})\) . In the method introduced by Austin et al. Austin et al. [2021], the network is trained to predict the original uncorrupted input \(\mathbf{x}_{0}\) which is then used to sample from the the posterior \(p(\mathbf{x}_{t - 1}|\mathbf{x}_{t})\) using Bayes' rule. This approach provides stronger learning signals during training, as the target \(\mathbf{x}_{0}\) remains fixed regardless of a timestep and we use it within this work.  
+
+#### 3.4.3 Categorical Posterior Sampling  
+
+As mentioned above, our model is trained to predict \(\mathbf{x}_{0}\) directly and we use this prediction during inference to sample \(\mathbf{x}_{t - 1}\) given \(\mathbf{x}_{t}\) . This is accomplished through categorical posterior sampling, which uses the distribution \(p_{\theta}(\mathbf{x}_{0}|\mathbf{x}_{t},t)\) to compute the posterior \(p(\mathbf{x}_{t - 1}|\mathbf{x}_{t},\mathbf{x}_{0})\) .  
+
+By applying Bayes' rule and the Markov property of the diffusion process, we can derive:  
+
+\[p(\mathbf{x}_{t - 1}|\mathbf{x}_{t})\approx \sum_{\mathbf{x}_{0}}p(\mathbf{x}_{t - 1}|\mathbf{x}_{t},\mathbf{x}_{0})p_{\theta}(\mathbf{x}_{0}|\mathbf{x}_{t},t) \quad (4)\]  
+
+For the categorical case, this is computed using:  
+
+\[p(\mathbf{x}_{t - 1}|\mathbf{x}_{t})\approx \sum_{\mathbf{x}_{0}}\frac{p(\mathbf{x}_{t - 1}|\mathbf{x}_{0})p(\mathbf{x}_{t}|\mathbf{x}_{t - 1})}{p(\mathbf{x}_{t}|\mathbf{x}_{0})} p_{\theta}(\mathbf{x}_{0}|\mathbf{x}_{t},t) \quad (5)\]  
+
+The diffusion model replaces the distribution \(p_{\theta}(\mathbf{x}_{0}|\mathbf{x}_{t},t)\) with a function approximator (GNN in our case) \(f_{\theta}(\mathbf{x}_{t},t)\) Therefore, we can train the model using a simple procedure (predicting \(\mathbf{x}_{0}\) ) and during inference, we can use a sampling process (iteratively sampling \(\mathbf{x}_{t - 1}\) given \(\mathbf{x}_{t}\) ), which tries to recover a uncorrupted input in several steps. A useful feature of diffusion models is that the number of sampling steps during inference can be chosen by the user after the model is already trained.  
+
+#### 3.4.4 Inference Schedule  
+
+During inference, we can accelerate the generation process by using fewer denoising steps than were used during training or use more denoising steps with the hope to increase the quality of outputs. The tuple of time steps used for inference \((T,T - 1,\ldots ,t_{0})\) is called a schedule. The function approximator in the diffusion model is normally conditioned by the sample at a given time step and also the time step itself \((f_{\theta}(\mathbf{x}_{t},t))\) but as we show in Section 5.4.1, the time step conditioning is not needed. This means that in our case the schedule is defined only by the number of time steps used.

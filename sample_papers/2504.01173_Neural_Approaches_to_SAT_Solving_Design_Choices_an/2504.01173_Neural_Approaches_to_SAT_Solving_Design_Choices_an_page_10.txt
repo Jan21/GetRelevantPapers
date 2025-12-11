@@ -1,0 +1,23 @@
+Apart from the RNN- based update functions, we also experiment with LSTM- based update functions which have been used in the original NeuroSAT architecture Selsam et al. [2018]. The LSTM- based updates follow a similar pattern but maintain an additional cell state alongside the hidden state. In Section 5.2 we show that different update functions are suitable for different settings.  
+
+After each update step, we apply L2 normalization to all node embeddings to stabilize training:  
+
+\[\mathbf{h}_{i}^{(t)} = \frac{\mathbf{h}_{i}^{(t)}}{\|\mathbf{h}_{i}^{(t)}\|_{2}} \quad (11)\]  
+
+Node classification After \(T\) iterations of message passing, we use the final node embeddings to predict variable assignments. For the variable- clause graph, we apply a linear layer to each variable embedding to produce two logits (representing scores for value true and false): \(\mathbf{y}_{v} = \mathbf{W}\mathbf{h}_{v}^{(T)} + \mathbf{b}\) . The assignment is then determined by applying softmax and taking the argmax: \(\hat{a}_{v} = \arg \max_{i}(\mathrm{softmax}(\mathbf{y}_{v})_{i})\) .  
+
+For the literal- clause graph, we focus on the embeddings of positive literals only, as they directly correspond to variables. During training, we use cross- entropy loss between these predicted assignments and the ground truth assignments.  
+
+For satisfiability prediction, we can determine whether a formula is satisfiable by checking if the predicted assignment satisfies all clauses. The model is thus trained to find assignments that minimize the number of unsatisfied clauses, effectively solving the MaxSAT problem even when trained only with assignment supervision.  
+
+### 4.3 Supervision Tasks and Objectives  
+
+There are several obvious supervision objectives and prediction tasks which can be used to train the model. The original NeuroSAT model was trained to predict the satisfiability status of a given formula using binary cross- entropy. Later, several authors tried different training tasks and objectives which have been summarized in a review paper by Li et al. Li et al. [2023]. We reimplement these objective and task for our setup and also introduce a novel training objective which in certain settings results in significant improvements of the model performance. These objective are briefly described below.  
+
+Satisfiability Classification This is the task which was used by Selsam et al. [2018] for training the original NeuroSAT architecture. The model is trained to predict whether the formula is satisfiable or not through graph- level embedding aggregation using global mean pooling. The loss is computed by binary cross- entropy between the prediction \(\hat{y}\) and ground truth \(y\in \{0,1\}\) .. \(\mathcal{L}_{\mathrm{sat}} = -(y\log \hat{y} +(1 - y)\log (1 - \hat{y}))\)  
+
+Unsupervised Training For unsupervised training, we define the loss using clause validity Ozolins et al. [2022], where \(\hat{x}_{i}\) represents the model's predicted continuous probability of a variable being true:  
+
+\[V_{c}(\hat{x}) = 1 - \prod_{i\in c^{+}}(1 - \hat{x}_{i})\prod_{i\in c^{-}}\hat{x}_{i},\quad \mathcal{L}_{\phi}(\hat{x}) = -\sum_{c\in \phi}\log (V_{c}(\hat{x})), \quad (12)\]  
+
+where \(c^{+}\) and \(c^{- }\) are the sets of variables that occur in clause \(c\) in positive and negative form respectively. This loss reaches its minimum only when the prediction \(\hat{x}\) is a satisfying assignment. We note that alternative unsupervised formulations exist Amizadeh et al. [2018], and comprehensive evaluations reported by Li et al. Li et al. [2023] suggest that these two different

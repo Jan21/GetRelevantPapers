@@ -1,0 +1,23 @@
+[39] Yann Ollivier. Ricci curvature of markov chains on metric spaces. Journal of Functional Analysis, 256(3):810- 864, 2009. 3, 13  
+
+[40] Emils Ozolins, Karlis Freivalds, Andis Draguns, Eliza Gaile, Ronalds Zakovskis, and Sergejs Kozlovics. Goal- Aware Neural SAT Solver. In 2022 International Joint Conference on Neural Networks (IJCNN), pages 1- 8, July 2022. doi: 10.1109/IJCNN55064.2022.9892733. URL http://arxiv.org/abs/2106.07162. arXiv:2106.07162 [cs]. 1, 4, 8  
+
+[41] Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, et al. Pytorch: An imperative style, high- performance deep learning library. Advances in neural information processing systems, 32, 2019. 7  
+
+[42] Daniel Paulin. Mixing and concentration by ricci curvature. Journal of Functional Analysis, 270(5):1623- 1662, 2016. 13  
+
+[43] Gabriel Peyré, Marco Cuturi, et al. Computational optimal transport: With applications to data science. Foundations and Trends® in Machine Learning, 11(5- 6):355- 607, 2019. 13  
+
+[44] Areejit Samal, RP Sreejith, Jiao Gu, Shiping Liu, Emil Saucan, and Jürgen Jost. Comparative analysis of two discretizations of ricci curvature for complex networks. Scientific reports, 8(1): 8650, 2018. 3, 5, 14  
+
+[45] Franco Scarselli, Marco Gori, Ah Chung Tsoi, Markus Hagenbuchner, and Gabriele Monfardini. The graph neural network model. IEEE transactions on neural networks, 20(1):61- 80, 2008. 1, 3  
+
+[46] Daniel Selsam, Matthew Lamm, Benedikt Bünz, Percy Liang, David L. Dill, and Leonardo De Moura. Learning a SAT solver from single- bit supervision. 7th International Conference on Learning Representations, ICLR 2019, pages 1- 11, 2019. arXiv: 1802.03685. 1, 4, 7, 8, 20  
+
+[47] Jake Topping, Francesco Di Giovanni, Benjamin Paul Chamberlain, Xiaowen Dong, and Michael M Bronstein. Understanding over- squashing and bottlenecks on graphs via curvature. In International Conference on Learning Representations, 2022. 2, 3, 4, 5, 6, 8, 13, 14, 15, 17  
+
+[48] Wenxi Wang, Yang Hu, Mohit Tiwari, Sarfraz Khurshid, Kenneth McMillan, and Risto Miikkulainen. NeuroComb: Improving SAT Solving with Graph Neural Networks, June 2022. URL http://arxiv.org/abs/2110.14053. arXiv:2110.14053 [cs] version: 2. 9  
+
+[49] Ze Ye, Kin Sum Liu, Tengfei Ma, Jie Gao, and Chao Chen. Curvature graph network. In International Conference on Learning Representations, 2019. 18  
+
+[50] Lenka Zdeborová. Statistical physics of hard optimization problems. Acta Physica Slovaca, 59 (3):169- 303, 2009. 1, 2

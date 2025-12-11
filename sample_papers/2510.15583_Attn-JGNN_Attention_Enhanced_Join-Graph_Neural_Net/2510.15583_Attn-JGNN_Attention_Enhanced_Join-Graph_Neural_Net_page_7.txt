@@ -1,0 +1,19 @@
+clauses, global attention requires \(O((n + m)^{2})\) computations to model interactions between all pairs of nodes. In Attn- JGNN, we address this issue by applying attention mechanisms per cluster (after tree decomposition of the factor graph). This reduces the computational complexity to \(O(kw^{2})\) , where k is the number of clusters and w is the maximum tree- width of the clusters. The advantage of this design becomes more pronounced as the problem scale increases.  
+
+We propose three tailored attention mechanisms to optimize Attn- JGNN, detailed below. In our work, we adopted three attention mechanisms to optimize the model, which are introduced in this section. In the Attention mechanism, Attention(Q,K,V) is the core computing module used to dynamically weight aggregated information based on the interaction of Query, Key, and Value. In Scaled Dot- Product Attention defined as:  
+
+\[A t t e n t i o n(Q,K,V) = s o f t m a x(\frac{Q K^{T}}{\sqrt{d_{k}}})V \quad (6)\]  
+
+Hierarchical attention mechanism The hierarchical attention mechanism in Attn- JGNN aims to efficiently capture local and global dependencies in the graph via multi- granularity information aggregation. This design reduces computational overhead while enhancing the model's ability to reason about complex constraints.  
+
+Local: The microscopic interaction between the attention- focused variable and the clause within the cluster (such as the polarity conflict of variables within the clause). The contribution weights of \(x_{1}\) and \(x_{2}\) to \(\phi_{1}\) are calculated in the cluster \(C_{1} = \{x_{1},x_{2},\phi_{1} = (x_{1}\vee \neg x_{2})\}\) so that high weights are assigned to variable assignments that are more likely to satisfy the clause; Variables and clauses inside cluster \(C\) calculate attention weights:  
+
+\[\alpha_{i n t r a} = L e k y R e L U(\frac{(W_{Q}h_{i})^{T}(W_{K}h_{j})}{\sqrt{d}}),\quad \forall x_{i},x_{j}\in C_{k} \quad (7)\]  
+
+For variable node \(x_{i}\) and clause node \(\phi_{j}\) in cluster \(C\) , the message passing formula is:  
+
+\[\begin{array}{r l} & {m_{x_{i}\to \phi_{j}}^{(k)} = \alpha_{i n t r a}\cdot \prod_{u\in \mathcal{N}(x_{i})\backslash \phi_{j}}m_{u\to x_{i}}^{(k)}}\\ & {}\\ & {m_{\phi_{j}\to x_{i}}^{(k)} = \alpha_{i n t r a}\cdot \sum_{C_{k}\backslash \{x_{i}\}}\phi_{j}(C_{k})\cdot \prod_{v\in \mathcal{N}(\phi_{j})\backslash x_{i}}m_{v\to \phi_{j}}^{(k)}} \end{array} \quad (9)\]  
+
+Update clause and variable feature:  
+
+\[h_{j} = \sum_{x_{i}\in C_{k}}\alpha_{i n t r a}W_{V}h_{i} \quad (10)\]

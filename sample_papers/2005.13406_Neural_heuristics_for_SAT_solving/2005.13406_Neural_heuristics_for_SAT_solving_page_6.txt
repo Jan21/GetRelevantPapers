@@ -1,0 +1,9 @@
+[SS18] Taro Sekiyama and Kohei Suenaga. Automated proof synthesis for propositional logic with deep neural networks. CoRR, abs/1805.11799, 2018.  
+
+[VCC+17] Petar Velickovic, Guillem Cucurull, Arantxa Casanova, Adriana Romero, Pietro Liò, and Yoshua Bengio. Graph attention networks. CoRR, abs/1710.10903, 2017.  
+
+[VLW+20] Pashootan Vaezipoor, Gil Lederman, Yuhuai Wu, Roger Grosse, and Fahiem Bacchus. Learning clause deletion heuristics with reinforcement learning. In 5th Conference on Artificial Intelligence and Theorem Proving, 2020.  
+
+[WTWD17] Mingzhe Wang, Yihe Tang, Jian Wang, and Jia Deng. Premise selection for theorem proving by deep graph embedding. CoRR, abs/1709.09994, 2017.  
+
+[Zho18] Zhang Zhongwei. Simple SAT solver with CDCL implemented in Python. https://github.com/zlii/pysat/, 2018.

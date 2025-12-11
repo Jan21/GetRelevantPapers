@@ -1,0 +1,9 @@
+[16] Zhanfu Yang, Fei Wang, Ziliang Chen, Guannan Wei, and Tiark Rompf. Graph neural reasoning for 2- quantified boolean formula solvers. CoRR, abs/1904.12084, 2019.  
+
+[17] Kexin Yi, Jiajun Wu, Chuang Gan, Antonio Torralba, Pushmeet Kohli, and Joshua B. Tenenbaum. Neural- symbolic VQA: disentangling reasoning from vision and language understanding. CoRR, abs/1810.02338, 2018.  
+
+[18] Manzil Zaheer, Satwik Kottur, Siamak Ravanbakhsh, Barnabas Poczos, Ruslan R Salakhutdinov, and Alexander J Smola. Deep sets. In Advances in neural information processing systems, pages 3391- 3401, 2017.  
+
+[19] Pan Zhang, Abolfazl Ramezanpour, Lenka Zdeborová, and Riccardo Zecchina. Message passing for quantified boolean formulas. CoRR, abs/1202.2536, 2012.  
+
+[20] David Zheng, Vinson Luo, Jiajun Wu, and Joshua B. Tenenbaum. Unsupervised learning of latent physical properties using perception- prediction networks. CoRR, abs/1807.09244, 2018.

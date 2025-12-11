@@ -1,0 +1,13 @@
+# Learning Branching Heuristics from Graph Neural Networks  
+
+Congsong Zhang \(^{1}\) , Yong Gao \(^{2}\) , and James Nastos \(^{3}\)  
+
+\(^{1,2}\) Department of Computer Science, University of British Columbia Okanagan, Kelowna, BC, Canada \(^{3}\) Department of Computer Science, Okanagan College, Kelowna, BC, Canada \(^{1}\) congsong.zhang@ubc.ca \(^{2}\) yong.gao@ubc.ca \(^{3}\) JNastos@okanagan.bc.ca  
+
+## Abstract  
+
+Backtracking has been widely used for solving problems in artificial intelligence (AI), including constraint satisfaction problems and combinatorial optimization problems. Good branching heuristics can efficiently improve the performance of backtracking by helping prune the search space and leading the search to the most promising direction. In this paper, we first propose a new graph neural network (GNN) model designed using the probabilistic method. From the GNN model, we introduce an approach to learn a branching heuristic for combinatorial optimization problems. In particular, our GNN model learns appropriate probability distributions on vertices in given graphs from which the branching heuristic is extracted and used in a backtracking search. Our experimental results for the (minimum) dominating- clique problem show that this learned branching heuristic performs better than the minimum- remaining- values heuristic in terms of the number of branches of the whole search tree. Our approach introduces a new way of applying GNNs towards enhancing the classical backtracking algorithm used in AI.  
+
+## 1 Introduction  
+
+Using machine learning (ML), especially deep learning, to solve fundamental problems in artificial intelligence (AI) such as constraint satisfaction problems (CSPs) and combinatorial optimization problems (COPs) has attracted great attention. For example, ML techniques play an important role in SATzilla [1], a portfolio- based Boolean- satisfaction- problem (SAT) solver that is able to select

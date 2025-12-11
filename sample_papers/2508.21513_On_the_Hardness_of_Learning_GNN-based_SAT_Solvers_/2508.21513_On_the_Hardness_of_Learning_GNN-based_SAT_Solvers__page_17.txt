@@ -1,0 +1,47 @@
+Given that both limits and expectations preserve weak inequalities, by sandwiching we obtain:  
+
+\[\frac{2}{k} -2 = \lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)]\leq \lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[R i c(i,j)]\leq \lim_{\alpha \to 0}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = \frac{2}{k} -2, \quad (37)\]  
+
+## A.3 Details on Test-Time Rewiring  
+
+Graph rewiring is the process of modifying a graph's connectivity by adding, removing, or reweighting edges to optimize information flow. In our case, we make use of the rewiring procedure presented by Topping et al. [47], which consists of a discrete and stochastic Ricci flow, guided by the BFC. At each iteration, the edge with the most negative curvature (i.e., the structurally most "strained" connection) is identified. Candidate rewiring edges are then generated between the neighborhoods of the two endpoints of this edge. A new edge is stochastically selected either at random (with probability \(p\) ) or by maximizing the curvature improvement obtained from its addition. The selected edge is added to the graph and the corresponding curvature values are updated. By repeating this procedure for a fixed number of iterations, the algorithm progressively increases the average curvature of the graph, yielding a rewired version that contains information bottlenecks that are weaker compared to the input. Algorithm 1 contains the pseudocode for our rewiring algorithm. We would like to stress here that this modifies the constraints of the Boolean Satisfiability Problem (SAT) problem under consideration, but the goal of this procedure is to show that "flatter" problems will in fact be easier to solver for Graph Neural Network (GNN)- based solvers.  
+
+Algorithm 1: Balanced Forman Curvature Stochastic Rewiring  
+
+Input: Graph \(G = (V,E)\) with edge BFC values \(R i c(i,j),\forall (i,j)\in E\) , probability value \(p\in [0,1]\) , number of iterations \(N\in \mathbb{N}\)  
+
+Output: Rewired graph \(G^{\prime}\) with updated BFC values  
+
+for \(t\gets 1\) to \(N\) do  
+
+Select edge \((i,j)\) with most negative curvature \(R i c(i,j)\)  
+
+From the neighbors \(S_{1}(i)\) and \(S_{1}(j)\) form candidate edge set  
+
+\[C = \{(k,l):k\in S_{1}(i),l\in S_{1}(j),k\neq l,(k,l)\notin E\}\]  
+
+if \(C = \emptyset\) then  
+
+L continue  
+
+With probability \(p\) , choose a random edge \((k,l)\in C\)  
+
+Otherwise, for each \((k,l)\in C\)  
+
+1. Compute updated curvature \(R i c^{\prime}(i,j)\) after adding \((k,l)\)  
+
+2. Evaluate improvement score \(\Delta_{k l} = -(R i c(i,j) - R i c^{\prime}(i,j))\)  
+
+Select \((k,l)\) with maximum \(\Delta_{k l}\)  
+
+Add edge \((k,l)\) to \(G\) and update neighborhood sets;  
+
+Update curvatures \(R i c(i,j)\) and \(R i c(k,l)\) accordingly;  
+
+Finalize bipartite structure of literals and clauses \((L,C)\) ensuring no intra- partition edges and set \(G^{\prime} = G\) for \(t = N\)  
+
+return \(G^{\prime}\)  
+
+## A.4 Some initial ideas for curvature-aware solvers  
+
+As discussed during the conclusion, while we were able to identify a cause for the hardness of learning GNN- based SAT solvers and also provided heuristics to identify the hardness of a given dataset, we did not propose new modeling principles. In this section, we provide some starting points and experiments for simple implementations of curvature aware solvers that could lead to future improvements. The goal of our implementations was to maintain efficiency and rely on straightforward ideas that could lead to performance improvements. For these purposes, we introduce two simple curvature- aware variants of message passing. The first is an adaptation of Ye et al.

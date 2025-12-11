@@ -1,0 +1,15 @@
+Table 8: Experimental results demonstrating the impact of hidden dimension size (d_model) on model performance and training duration. ‘Embedding Size (d_model)’ refers to the dimensionality of the hidden representations within the GNN. ‘Accuracy’ indicates the performance metric achieved by the model. ‘Time (hours)’ specifies the total time required to train the model for each corresponding dimension size.  
+
+<table><tr><td>Embedding Size (d_model)</td><td>Accuracy</td><td>Time (hours)</td></tr><tr><td>16</td><td>0.782</td><td>1.62</td></tr><tr><td>32</td><td>0.852</td><td>1.66</td></tr><tr><td>48</td><td>0.860</td><td>1.70</td></tr><tr><td>64</td><td>0.869</td><td>1.87</td></tr><tr><td>96</td><td>0.861</td><td>2.32</td></tr><tr><td>128</td><td>0.864</td><td>2.99</td></tr><tr><td>256</td><td>0.877</td><td>7.55</td></tr></table>  
+
+## 1. Partial Assignment Extraction and Local Unit Propagation  
+
+In each diffusion step, a belief value between 0 and 1 is calculated for every variable. A value closer to 1 indicates a stronger inclination toward being true, and vice versa. We set a threshold to select variables with high belief and assign them accordingly to obtain a partial assignment. This partial assignment is then used to perform unit propagation for clause simplification. The unit propagation algorithm works as follows:  
+
+If a clause contains a literal that is already satisfied by the current assignment, the clause is marked as satisfied. If all literals in a clause have been assigned but none satisfy it, a conflict signal is returned. For clauses that are not fully assigned, the unassigned literals are retained to form a simplified clause set. For unit clauses obtained during the simplification process (i.e., clauses containing only a single literal), the corresponding unassigned variable is directly assigned the appropriate value, further advancing the local solving process.  
+
+## 2. Multi-Threshold Strategy and Recursive Solving  
+
+In the partial assignment extraction step, setting a lower threshold allows for the selection of as many assignments as possible at each step, thereby greatly simplifying the problem; however, it is more likely to select unreliable assignments that may lead to contradictions. To balance this, we adopt a multi- threshold list, starting from the lowest threshold. For each given threshold, if a new partial assignment is obtained, unit propagation is used to update the clauses and evaluate:  
+
+If the simplified clause set becomes empty, all clauses are satisfied and the final solution is directly returned. If a conflict occurs or the recursive call at the next level fails, the threshold is raised; if the highest threshold is reached, the process moves to the next recursive level and performs another diffusion step. If unit propagation succeeds but the problem is not yet completely solved, the process recurses to the next level, performing a diffusion step on the updated clauses. If the recursion reaches a preset maximum depth and the clauses still cannot be satisfied, the recursion at that level fails.

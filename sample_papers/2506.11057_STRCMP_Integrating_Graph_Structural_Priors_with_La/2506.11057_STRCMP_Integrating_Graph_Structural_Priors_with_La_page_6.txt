@@ -1,0 +1,31 @@
+The composite model generates solver- specific, structure- aware code through standard EA operators (selection, crossover, mutation), producing higher- quality algorithm implementation within fewer iterations – a capability empirically validated in our experiments. By integrating this model into EA- based algorithm discovery frameworks, we achieve superior optimization performance while maintaining compatibility with existing evolutionary algorithm design paradigms, suggesting broader applicability across LLM- driven optimization methodologies.  
+
+### 4.2 Theoretical Analysis  
+
+In the following, we give the theoretical analysis why fusing the structure prior into the generative model helps algorithm discovery for solving CO problem on the basis of information theory [38] and multi- modal co- learning [39]. Specifically, we prove that a generative model with an additional prior will not lower the upper bound of its performance on the downstream task. Note that we leave all proofs into the Appendix A due to the space limitation.  
+
+Definition 1 (Upper Bound of Model Performance). The performance upper bound of generative model, denoted by \(\operatorname {sup}(\mathcal{P})\) , is utilized to measure the maximum expected performance of a generative model for a downstream task \(p(\mathbf{w}|\mathbf{c})\) , where \(\mathbf{w}\) is the generated content conditional on the different kinds of prior \(\mathbf{c}\) . Formally, \(\operatorname {sup}(\mathcal{P})\) associated with kinds of prior \(\mathbf{c}\) can be expressed as  
+
+\[\operatorname {sup}(\mathcal{P}_{\mathcal{C}}) = \sum_{\mathbf{C}\in \mathcal{C}}\sum_{\mathbf{c}\in \mathbf{C}}p(\mathbf{c})\max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w}), \quad (4)\]  
+
+where \(\Phi\) is the performance evaluator for given generated content \(\mathbf{w}\) ; \(\mathcal{C}\) is the complete set of different priors and \(\mathbf{C}\) is a type of prior belonging to the prior set \(\mathcal{C}\) .  
+
+Theorem 1. Given a prior dataset \(\mathcal{D}\) whose data samples comprises \(M\) types of prior \(\mathbf{C} = \{\mathbf{C}_{1},\dots,\mathbf{C}_{M}\}\) , the distinct priors follow respective true distribution \(p(\mathbf{C}_{i}|\mathbf{w})\) . Let \(\mathbf{c}_{i}\) be a sample drawn from the distribution, i.e., \(\mathbf{c}_{i}\sim p(\mathbf{C}_{i}|\mathbf{w})\) . A generative model with an additional type of prior will not lower the upper bound of model performance \(\operatorname {sup}(\mathcal{P})\) .  
+
+Remark 1. Theorem 1 establishes that introducing additional priors cannot reduce a generative model's performance upper bound, while decreasing its entropy. Consequently, integrating combinatorial optimization structural priors into LLMs does not degrade their performance in generating code for solving CO problems.  
+
+Definition 2 (Performance- Enhancing Prior). Assume a type of prior \(\mathbf{C}\) can boost the performance of a generative model compared to the one without the prior, then \(\mathbf{C}\) is the performance- enhancing prior to the generative model. It can be formally expressed as  
+
+\[\exists \mathbf{w}^{\prime}\neq \mathbf{w}^{*},p(\mathbf{w}^{\prime}|\mathbf{c})\Phi (\mathbf{w}^{\prime})_{\mathbf{c}\in \mathcal{C}} > p(\mathbf{w}^{*}|\mathbf{c})\Phi (\mathbf{w}^{*})_{\mathbf{c}\in \mathcal{C}\backslash \{\mathbf{c}\}}, \quad (5)\]  
+
+where \(\mathbf{w}^{*} = \arg \max_{\mathbf{w}}p(\mathbf{w}|\mathbf{c})\Phi (\mathbf{w})_{\mathbf{c}\in \mathcal{C}\backslash \{\mathbf{c}\}}\) .  
+
+Theorem 2. If prior \(\mathbf{C}_{p e}\) is a performance- enhancing prior, a generative model neglecting prior \(\mathbf{C}_{p e}\) will decrease the upper bound of model performance. It can be expressed as  
+
+\[\sup (\mathcal{P}_{\mathcal{C}\backslash \{\mathbf{C}_{p e}\}}) < \sup (\mathcal{P}_{\mathcal{C}}) \quad (6)\]  
+
+Remark 2. Theorem 2 demonstrates that generative models equipped with performance- enhancing priors achieve superior performance relative to their prior- free counterparts. Specifically, the structural prior serves as such performance- enhancing prior for LLMs in code generation tasks targeting CO problems, which is empirically validated through our comprehensive experiments.  
+
+## 5 Experimental Evaluation  
+
+To empirically evaluate the efficacy of our proposed STRCMP in solving combinatorial optimization problems, we conduct extensive experiments across two fundamental CO problem classes: mixed- integer linear programming and Boolean satisfiability, evaluated on over nine benchmark datasets. We benchmark our approach against five well- established baselines encompassing both neural optimization methods and contemporary LLM- based approaches. We aim to answer the following research questions:

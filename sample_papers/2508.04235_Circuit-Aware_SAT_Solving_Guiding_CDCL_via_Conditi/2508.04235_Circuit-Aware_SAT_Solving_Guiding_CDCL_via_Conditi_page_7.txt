@@ -1,0 +1,35 @@
+<center>Figure 5: Number of solved instances as a function of solving time using probability-based clause filtering. A total of 130 small case in LECUNSAT dataset. TIMEOUT = 400s. </center>  
+
+Table 5: Average Par2 of 20 large cases in LECUNSAT using probability-based clause filtering. TIMEOUT \(= 1000\mathrm{s}\)   
+
+<table><tr><td>Threshold</td><td>Baseline</td><td>Ours.Solving</td><td>Ours.Overall</td></tr><tr><td>0.85</td><td rowspan="3">1828.83</td><td>1560.72</td><td>1563.45</td></tr><tr><td>0.9</td><td>1406.19</td><td>1408.03</td></tr><tr><td>0.95</td><td>1396.13</td><td>1399.34</td></tr><tr><td></td><td></td><td>1429.60</td><td>1432.48</td></tr></table>  
+
+### 5.3 Clause Probability for Clause Management  
+
+We validate our clause probability metric using a simple protocol. The solver runs until 50,000 conflicts are reached, after which all learnt clauses are extracted. Our CASCADE- model computes each clause's probability (as defined in Section 3.1) and retains only those below a predefined threshold. We apply this filtering in CaDiCaL with varying thresholds \(\tau\) , and evaluate performance using the PAR- 2 (Par2) score, which penalizes timeouts with twice the cutoff time to reflect both efficiency and robustness.  
+
+We evaluate our probability- guided clause filtering metric on LECUNSAT dataset (150 instances, split into 130 small and 20 hardest cases). Two configurations are compared: (1) the CaDiCaL baseline with mainstream LBD- based metric, and (2) our method with probability- based filtering. Total time includes both solving and model inference time.  
+
+We test thresholds, 0.8, 0.85, 0.9, and 0.95, as shown in Figure 5 and Table 5. On 130 small cases, our methods consistently outperform the baseline by solving more instances within the same time limit. For the 20 challenging cases, our methods significantly outperform the baseline even when accounting for inference time.  
+
+These results demonstrate that our filtering method identifies and preserves more useful clauses than the default LBD heuristic (see Appendix A5). The optimal threshold of 0.9 reflects a trade- off: low thresholds yield high- quality but sparse clauses, weakening propagation; high thresholds increase quantity but introduce noise.  
+
+Table 6: Average Par2 of 150 SAT cases in LECSAT using probability-based phase selection with preprocessing.   
+
+<table><tr><td>Method</td><td>Threshold</td><td>Solving</td><td>Overall</td></tr><tr><td>Preprocessing Only</td><td>-</td><td>13.39</td><td>13.39</td></tr><tr><td>Preprocessing</td><td>0.01</td><td>3.26</td><td>5.01</td></tr><tr><td>+</td><td>0.005</td><td>1.04</td><td>2.89</td></tr><tr><td>CASCADE</td><td>0.003</td><td>6.29</td><td>8.35</td></tr></table>  
+
+Table 7: Average Par2 of 150 UNSAT cases using probability-based clause filtering with preprocessing.   
+
+<table><tr><td>Setting</td><td>Threshold</td><td>Solving</td><td>Overall</td></tr><tr><td>Preprocessing Only</td><td>-</td><td>304.42</td><td>304.42</td></tr><tr><td rowspan="3">Preprocessing + CASCADE</td><td>0.8</td><td>245.61</td><td>248.82</td></tr><tr><td>0.85</td><td>228.98</td><td>231.76</td></tr><tr><td>0.9</td><td>221.50</td><td>224.95</td></tr><tr><td></td><td>0.95</td><td>223.91</td><td>226.34</td></tr></table>  
+
+### 5.4 Effectiveness of Inprocessing Beyond Preprocessing  
+
+To further validate the distinct effectiveness of our proposed inprocessing framework beyond preprocessing techniques, we compare the two strategies:  
+
+- Preprocessing-only: We adopt the preprocessing techniques proposed in prior work (Shi et al. 2025c), to transform the circuit into a solver-friendly format.- Preprocessing + CASCADE: Building on the same preprocessing technique, we integrate it into the inprocessing stage via our CASCADE framework.  
+
+As shown in Table 6 and Table 7, even when strong preprocessing technique has been applied, integrating our inprocessing framework leads to substantial additional speedups. For SAT cases, the best setting reduces the average PAR2 from 13.39 to 2.89 (a \(4.6 \times\) improvement), while for UNSAT cases, our clause filtering achieves a reduction from 304.42 to 224.95. This highlights the complementary nature of the two techniques, and demonstrates that inprocessing contributes dynamic guidance during solving—providing essential capabilities that static preprocessing alone cannot achieve.  
+
+## 6 Conclusion  
+
+In this work, we propose CASCADE, a novel framework incorporating the inherent circuit information from CSAT instance into dynamic CDCL reasoning. By using a GNN- based model to estimate conditional probabilities of unassigned variable, CASCADE dynamically guides two key CDCL heuristics in the modern SAT solvers: variable phase selection and clause management. Extensive experiments on industry- standard benchmarks demonstrate that CASCADE achieves significant performance gains, reducing solving time by up to \(90\%\) through probability- guided phase selection and achieving an additional \(23.5\%\) reduction via clause filtering in logic equivalence scenarios.

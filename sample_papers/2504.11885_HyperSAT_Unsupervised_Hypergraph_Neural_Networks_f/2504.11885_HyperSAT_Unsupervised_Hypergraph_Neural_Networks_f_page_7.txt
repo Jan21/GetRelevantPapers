@@ -1,0 +1,25 @@
+### 4.2. Analytical Experiment  
+
+We first evaluate the performance of unsupervised methods, HyperSAT and HypOp, with a focus on their convergence. We evaluate the convergence using the primary task loss \(\mathcal{L}_{\mathrm{task}}\) from Eq. (8), which represents the sum of the weights of unsatisfied clauses. We illustrate the evolution curves of loss for HyperSAT and HypOp on the uuf250- 1065 dataset in Figure 3 as an example. All models can converge within 300 epochs. Moreover, the loss of HyperSAT is around 52, while the loss of HypOp is around 139. We can observe that HyperSAT achieves better performance than HypOp. Specifically, HyperSAT decreases the loss more quickly and achieves a lower loss value. The experimental results demonstrate that HyperSAT can be used in learning to solve Weighted MaxSAT problems.  
+
+<center>Figure 3. The evolution of loss for HyperSAT and HypOp during an inference process of 300 epochs on the uuf250-1065 dataset. </center>  
+
+### 4.3. Result  
+
+We evaluate the performance of HyperSAT against baseline algorithms HypOp and (Liu et al., 2023) on various datasets. The primary evaluation metric is the average weighted sum of unsatisfied clauses. The experiments are conducted on datasets with the number of variables ranging from 100 to 250, and the number of clauses varying between 430 and 1065. The results are shown in Table 2.  
+
+As presented in the table, HyperSAT consistently achieves lower values for the average weighted sum of unsatisfied clauses compared to the baseline algorithms (Liu et al., 2023) and HypOp across multiple datasets. For example, on the uf100- 430 dataset, HyperSAT significantly outperforms both baselines with a result of 15.64. This result represents a substantial improvement over the results of (Liu et al., 2023) (32.48) and HypOp (99.15). This trend is observed across all datasets, where HyperSAT always exceeds the  
+
+Table 2. The average weighted sum of unsatisfied clauses of Weighted MaxSAT problems.   
+
+<table><tr><td>DATASET</td><td>LIU ET AL. (2023)</td><td>HYPOP</td><td>HYPERSAT</td></tr><tr><td>UF100-430</td><td>32.48</td><td>99.15</td><td>15.64</td></tr><tr><td>UUF100-430</td><td>41.65</td><td>102.44</td><td>20.46</td></tr><tr><td>UF200-860</td><td>67.38</td><td>158.46</td><td>28.98</td></tr><tr><td>UUF200-860</td><td>81.68</td><td>171.34</td><td>35.55</td></tr><tr><td>UF250-1065</td><td>79.06</td><td>170.60</td><td>33.24</td></tr><tr><td>UUF250-1065</td><td>100.04</td><td>182.39</td><td>41.64</td></tr></table>  
+
+performance of the baselines. The average weight of unsatisfied clauses is reduced by approximately \(50\%\) compared to (Liu et al., 2023) and over \(80\%\) compared to HypOp. On the uf200- 860 and uuf200- 860 datasets, HyperSAT achieves reductions of \(56.99\%\) and \(56.48\%\) compared to (Liu et al., 2023), respectively, and reductions of \(81.71\%\) and \(79.25\%\) compared to HypOp. Similarly, on the uf250- 1065 and uuf250- 1065 datasets, HyperSAT continues to outperform the baselines. The reductions compared to (Liu et al., 2023) are \(57.96\%\) and \(58.38\%\) , respectively, while the reductions compared to HypOp are \(80.52\%\) and \(77.17\%\) . Importantly, even with the larger datasets, HyperSAT maintains or even enhances its efficacy. This demonstrates that HyperSAT scales well and performs better. These results show that HyperSAT consistently provides substantial improvements over both baseline algorithms across a range of datasets, including those with larger problem sizes. As a result, it validates its robustness and effectiveness in reducing the weighted sum of unsatisfied clauses.  
+
+### 4.4. Ablation Study  
+
+We conduct an ablation study to evaluate the contribution of each key component in our proposed model. By systematically removing components, we analyze their impact on performance and highlight the importance of each component. The experiments are designed to isolate the impact of the following components: (i) the hypergraph modeling of literal nodes rather than variable nodes; (ii) the transformer module with the cross- attention mechanism; (iii) the shared representation constraint loss. The results of the ablation study are shown in Table 3.  
+
+Effect of Hypergraph Modeling of Literal Nodes: The performance drops by \(52.77\%\) when the hypergraph modeling of variable nodes is used instead of literal nodes. The results demonstrate the importance and superiority of modeling the Weighted MaxSAT instance as a hypergraph with literal nodes.  
+
+Effect of Transformer with Cross- Attention: We disable the transformer module with the cross- attention mechanism to assess its importance. Without this module, the model experiences a performance drop of \(11.54\%\) . This signifi

@@ -1,0 +1,13 @@
+Data and Time- efficiency The BPGAT architecture can be claimed data- efficient, as it requires only 1000 CNF small random formulae for (pre)training. Generating such training set requires \(\sim 5s\) with the procedure described in Section 4.1.  
+
+For what concerns time efficiency, the BPGAT architecture is able to process (independently on the size of the formulae), all test instances described in this work, in a maximum of \(3s\) , without leveraging GPU acceleration. This is much less than the time needed by the exact solver sharpSAT and by the approximate solver ApproxMC, as shown in Figure 2.  
+
+<center>Fig. 2. Runtime comparison (in seconds) of the mean time for counting the number of satisfying assignments of a formula for the datasets used in the scalability experiments. </center>  
+
+## 5 Related Work  
+
+In [2] a graph neural network model is proposed to solve the weighted disjunctive normal form counting problem (weighted #DNF). Differently from CNF #SAT, there is an approximate algorithm that admits a fully polynomial randomized approximation scheme (FPRAS), which allows the generation of hundreds of thousands of training data points, as opposed to our method which is forced to learn in a limited data regime.  
+
+A quite significant body of work has been recently developed to learn how to solve \(NP\) - complete combinatorial optimization problems leveraging graph neural networks [5]. Among them, methods tackling the Boolean satisfiability problem (SAT) are of particular interest for this work. They are divided into approaches leveraging GNNs as end- to- end solvers [18,22,3] (i.e. trained to output the solution directly from the input instance), and approaches in which the network is used as a computational tool to learn data- driven heuristics, in the loop of modern branch and bound solvers [30,16].  
+
+As already mentioned, our architecture builds upon the model of [15]. Besides the architectural differences that have been underlined in Section 3, the main distinction between the two models resides in the training protocol. Indeed, in [15] training data

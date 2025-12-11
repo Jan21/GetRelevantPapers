@@ -1,0 +1,23 @@
+25. Emils Ozolins, Karlis Freivalds, Andis Draguns, Eliza Gaile, Ronaldas Zakovskis, and Sergejs Kozlovics. Goal-aware neural SAT solver. In International Joint Conference on Neural Networks, IJCNN 2022, Padua, Italy, July 18-23, 2022, pages 1-8. IEEE, 2022.  
+
+26. Dan Roth. On the hardness of approximate reasoning. Artif. Intell., 82(1-2):273-302, 1996.  
+
+27. Gaia Saveri. Graph neural networks for propositional model counting. In 30th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2022, Bruges, Belgium, October 5-7, 2022, 2022.  
+
+28. Daniel Selsam, Matthew Lamm, Benedikt Bünz, Percy Liang, Leonardo de Moura, and David L. Dill. Learning a SAT solver from single-bit supervision. In 7th International Conference on Learning Representations, ICLR 2019, New Orleans, LA, USA, May 6-9, 2019. OpenReview.net, 2019.  
+
+29. Shubham Sharma, Subhajit Roy, Mate Soos, and Kuldeep S. Meel. GANAK: A scalable probabilistic exact model counter. In Sarit Kraus, editor, Proceedings of the Twenty-Eighth International Joint Conference on Artificial Intelligence, IJCAI 2019, Macao, China, August 10-16, 2019, pages 1169-1176. ijcai.org, 2019.  
+
+30. Mate Soos, Stephan Gocht, and Kuldeep S. Meel. Tinted, detached, and lazy CNF-XOR solving and its applications to counting and sampling. In Shuvendu K. Lahiri and Chao Wang, editors, Computer Aided Verification - 32nd International Conference, CAV 2020, Los Angeles, CA, USA, July 21-24, 2020, Proceedings, Part I, volume 12224 of Lecture Notes in Computer Science, pages 463-484. Springer, 2020.  
+
+31. Mate Soos and Kuldeep S. Meel. BIRD: engineering an efficient CNF-XOR SAT solver and its applications to approximate model counting. In The Thirty-Third AAAI Conference on Artificial Intelligence, AAAI 2019, The Thirty-First Innovative Applications of Artificial Intelligence Conference, IAAI 2019, The Ninth AAAI Symposium on Educational Advances in Artificial Intelligence, EAAI 2019, Honolulu, Hawaii, USA, January 27 - February 1, 2019, pages 1592-1599. AAAI Press, 2019.  
+
+32. Marc Thurley. sharpSAT - counting models with advanced component caching and implicit BCP. In Armin Biere and Carla P. Gomes, editors, Theory and Applications of Satisfiability Testing - SAT 2006, 9th International Conference, Seattle, WA, USA, August 12-15, 2006, Proceedings, volume 4121 of Lecture Notes in Computer Science, pages 424-429. Springer, 2006.  
+
+33. Pashootan Vaezipoor, Gil Lederman, Yuhuai Wu, Chris J. Maddison, Roger B. Grosse, Sanjit A. Seshia, and Fahiem Bacchus. Learning branching heuristics for propositional model counting. In Thirty-Fifth AAAI Conference on Artificial Intelligence, AAAI 2021, Thirty-Third Conference on Innovative Applications of Artificial Intelligence, IAAI 2021, The Eleventh Symposium on Educational Advances in Artificial Intelligence, EAAI 2021, Virtual Event, February 2-9, 2021, pages 12427-12435. AAAI Press, 2021.  
+
+34. Leslie G. Valiant. The complexity of enumeration and reliability problems. SIAM J. Comput., 8(3):410-421, 1979.  
+
+35. Fang Wu, Siyuan Li, and Stan Z. Li. Discovering the representation bottleneck of graph neural networks. IEEE Trans. Knowl. Data Eng., 36(12):7998-8008, 2024.  
+
+36. Jiong Yang and Kuldeep S. Meel. Rounding meets approximate model counting. In Constantin Enea and Akash Lal, editors, Computer Aided Verification - 35th International Conference, CAV 2023, Paris, France, July 17-22, 2023, Proceedings, Part II, volume 13965 of Lecture Notes in Computer Science, pages 132-162. Springer, 2023.

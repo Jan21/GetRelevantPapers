@@ -1,0 +1,41 @@
+[18] Forman. Bochner's method for cell complexes and combinatorial ricci curvature. Discrete & Computational Geometry, 29:323- 374, 2003. 3, 14  
+
+[19] Karlis Freivalds and Sergejs Kozlovics. Denoising Diffusion for Sampling SAT Solutions, November 2022. URL http://arxiv.org/abs/2212.00121. arXiv:2212.00121 [cs]. 1  
+
+[20] Justin Gilmer, Samuel S Schoenholz, Patrick F Riley, Oriol Vinyals, and George E Dahl. Neural message passing for quantum chemistry. In International conference on machine learning, pages 1263- 1272. PMLR, 2017. 1, 3  
+
+[21] Andi Han, Dai Shi, Lequan Lin, and Junbin Gao. From continuous dynamics to graph neural networks: Neural diffusion and beyond. Transactions on Machine Learning Research, 2024. 9  
+
+[22] Masato Inagaki. Spectral convergence of graph laplacians with ricci curvature bounds and in non- collapsed ricci limit spaces. arXiv preprint arXiv:2506.07427, 2025. 13  
+
+[23] Jurgen Jost and Shiping Liu. Ollivier's ricci curvature, local clustering and curvature- dimension inequalities on graphs. Discrete & Computational Geometry, 51(2):300- 322, 2014. 4  
+
+[24] Richard M Karp. Reducibility among combinatorial problems. In Complexity of computer computations, pages 85- 103. Springer, 1972. 1  
+
+[25] TN Kipf. Semi- supervised classification with graph convolutional networks. arXiv preprint arXiv:1609.02907, 2016. 8  
+
+[26] Florent Krzakala, Andrea Montanari, Federico Ricci- Tersenghi, Guilhem Semerjian, and Lenka Zdeborová. Gibbs states and the set of solutions of random constraint satisfaction problems. Proceedings of the National Academy of Sciences, 104(25):10318- 10323, 2007. 1, 2  
+
+[27] Qimai Li, Zhichao Han, and Xiao- Ming Wu. Deeper insights into graph convolutional networks for semi- supervised learning. In Proceedings of the AAAI conference on artificial intelligence, volume 32, 2018. 1  
+
+[28] Zhaoyu Li, Jinpei Guo, and Xujie Si. G4sabench: Benchmarking and advancing sat solving with graph neural networks. Transactions on Machine Learning Research, 2024. 1, 2, 3, 4, 7, 8, 9, 18  
+
+[29] Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. In International Conference on Learning Representations, 2019. 7  
+
+[30] Raffaele Marino, Giorgio Parisi, and Federico Ricci- Tersenghi. The backtracking survey propagation algorithm for solving random k- sat problems. Nature communications, 7(1):12996, 2016. 1  
+
+[31] Joao Marques- Silva. Practical applications of boolean satisfiability. In 2008 9th International Workshop on Discrete Event Systems, pages 74- 80, 2008. doi: 10.1109/WODES.2008.4605925. 1  
+
+[32] Stephan Mertens, Marc Mezard, and Riccardo Zecchina. Threshold values of random k- sat from the cavity method. Random Structures & Algorithms, 28(3):340- 373, 2006. doi: https://doi.org/10.1002/rsa.20090. 7, 20, 21  
+
+[33] Marc Mezard and Andrea Montanari. Information, physics, and computation. Oxford University Press, 2009. 1, 2  
+
+[34] Marc Mezard, Giorgio Parisi, and Miguel Angel Virasoro. Spin glass theory and beyond: An Introduction to the Replica Method and Its Applications, volume 9. World Scientific Publishing Company, 1987. 2  
+
+[35] David Mojžišek, Jan űla, Ziwei Li, Ziyu Zhou, and Mikoláš Janota. Neural approaches to sat solving: Design choices and interpretability. arXiv preprint arXiv:2504.01173, 2025. 8  
+
+[36] Rémi Monasson and Riccardo Zecchina. Statistical mechanics of the random k- satisfiability model. Physical Review E, 56(2):1357, 1997. 1  
+
+[37] M. Mezard, G. Parisi, and R. Zecchina. Analytic and algorithmic solution of random satisfiability problems. Science, 297(5582):812- 815, 2002. doi: 10.1126/science.1073287. URL https://www.science.org/doi/abs/10.1126/science.1073287. 2  
+
+[38] Khang Nguyen, Nong Minh Hieu, Vinh Duc Nguyen, Nhat Ho, Stanley Osher, and Tan Minh Nguyen. Revisiting over- smoothing and over- squashing using ollivier- ricci curvature. In International Conference on Machine Learning, pages 25956- 25979. PMLR, 2023. 2, 3, 8

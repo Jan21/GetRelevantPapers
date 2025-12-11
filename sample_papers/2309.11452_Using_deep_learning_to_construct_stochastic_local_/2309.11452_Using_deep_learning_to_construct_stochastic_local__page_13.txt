@@ -1,0 +1,17 @@
+## A Appendix  
+
+## A.1 Evaluating the loss in practice  
+
+In Sec.2.4 of the main text, we motivated the goal to find an oracle factory that minimises the total loss (12). However, in practice we don't have access to \(\mathcal{P}\) . As is common practice, we instead estimate the loss using samples from a training set \(\mathcal{X} = (X_{i},\phi_{i})_{i = 1}^{N}\) of \(N\) instances that we assume to be sampled independently from \(\mathcal{P}\) . Here, \(X_{i} = \{x^{i,j}\}_{j = 1}^{N_{i}}\) describes a set of unique \(N_{i}\) assignments for the problem instance \(\phi_{i}\) . For each assignment \(x^{i,j}\) , let \(e^{i,j}\) denote the number of clauses it violates. For every instance, we can calculate \(LL\) loss by first explicitly constructing the dependency graph \(\mathcal{D}_{F_{\theta}(\phi)}(\phi)\) . This is relatively simple in our case because, due to the simple Bernoulli structure of our output oracles, we know that the neighbourhood of a given clause node \(j\) is simply the set of clause nodes, whose corresponding variable sets intersect with that of \(c_{j}\) , i.e. \(\Gamma (j)\coloneqq \{j^{\prime}\in [m]|j^{\prime}\neq j,V(c_{j^{\prime}})\cap V(c_{j})\neq \emptyset \}\) . Given a batch \(B\subset [|\mathcal{X}|]\) of instances, we estimate the LL loss by calculating the \(z\) - norm of the whole loss vector, creating the dependency graph of the batch as the union of the dependency graphs of batch elements.  
+
+Regarding the Gibbs loss, we follow Ref. [17] and generate, for a given batch \(B\) , an estimator  
+
+\[\hat{L}_{G i b b s}(\theta) = -\sum_{i\in B}\sum_{j}^{N_{i}}\omega_{i j}\log \left(P_{F_{\theta}(\phi)}(x^{i,j})\right) \quad (20)\]  
+
+with the Gibbs weights:  
+
+\[\omega_{i j} = \frac{\exp\left(-\beta\phi(x^{i,j})\right)}{\sum_{k = 1}^{N_{i}}\exp\left(-\beta\phi(x^{i,k})\right)} \quad (21)\]  
+
+## A.2 Detailed plots for the experiments  
+
+Fig. 8 and Fig. 9 provide more detail of the experiments. We provide them in this technical appendix for the interested reader.

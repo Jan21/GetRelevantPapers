@@ -1,0 +1,27 @@
+{
+  "image": "2110.14053_NeuroBack_Improving_CDCL_SAT_Solving_using_Graph_N_page_12.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "text",
+      "boxes": [
+        [
+          174.0,
+          102.0,
+          824.0,
+          159.0
+        ]
+      ],
+      "raw": "[[174, 102, 824, 159]]",
+      "pixel_boxes": [
+        [
+          444,
+          336,
+          2103,
+          525
+        ]
+      ]
+    }
+  ]
+}

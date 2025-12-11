@@ -1,0 +1,17 @@
+<center>Figure 2: Overview of the proposed STRCMP.  Combinatorial Structure Extraction. We utilize a graph neural network (GNN) to encode the topological structure of combinatorial optimization problems into latent embeddings, capturing problem-specific structural invariants.  Structure-Aware Code Generation: (a) Data Curation: For a given CO problem's mathematical model, target solver and the specific prompt, an LLM generates candidate algorithm in the form of code snippets, which are automatically validated via the solver execution to generate performance metrics. This yields a curated dataset comprising (mathematical model, code snippet, metric) triplets. (b) Post Training: A composite architecture integrating a frozen pretrained GNN with an LLM is fine-tuned on this dataset, ensuring code generation respects both the CO's intrinsic topology and solver-specific syntax.  Evolutionary Code Refinement. Drawing on [20], the composite model is embedded within an evolutionary framework to evolve the algorithm discovery process through performance-driven iterations. </center>  
+
+where \(x\) denotes decision variables subject to solution space \(S(q)\) ; \(c(x;q)\) represents the objective function to minimize, and \(f(x;q)\) corresponds to constraint penalties (zero when all constraints are satisfied). In SAT problems, the objective function \(c(x;q)\) is absent since only constraint satisfaction is required. Conversely, MILP problems feature both objective and constraint functions.  
+
+Generation Task. Given a combinatorial optimization problem \(Q\) , our goal is to find an algorithm \(A\) that can consistently solve \(Q\) well:  
+
+\[\min_{A\sim \mathcal{A}}\mathbb{E}_{q\sim Q,x\sim A(q)}[c(x;q) + f(x;q)] \quad (2)\]  
+
+where \(\mathcal{A}\) denotes the algorithm search space. This work focuses on symbolic search spaces where \(\mathcal{A}\) comprises algorithms representable as code snippets executable within a combinatorial optimization solver. We resort to a generative model to synthesize the target algorithm through code generation.  
+
+## 4 Proposed Solution  
+
+The proposed framework is illustrated in Figure 2. We first describe the technical interplay among components within the proposed framework, highlighting design motivations and synergistic interactions. Subsequently, we provide a theoretical analysis demonstrating that integrating structural priors into LLMs enhances performance in solving combinatorial optimization problems.  
+
+### 4.1 Methodology  
+
+\(\bullet\) Combinatorial Structure Extraction. Combinatorial optimization problem is equivalently converted to a bipartite graph. Thus, the intrinsic structure of the combinatorial optimization problem can be easily captured by a graph neural network, as has been done in many previous work [16, 24, 14].

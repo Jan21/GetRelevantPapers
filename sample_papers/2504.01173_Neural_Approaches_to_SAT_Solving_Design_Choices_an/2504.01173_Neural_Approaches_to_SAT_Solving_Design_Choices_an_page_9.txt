@@ -1,0 +1,21 @@
+Node Embeddings Each node in the bi- partite graph of the formula is associated with a \(d\) - dimensional embedding vector ( \(d = 64\) in most of our experiments as a conclusion from an experiment in A.1.4). We initialize these embeddings randomly from a standard normal distribution. For a formula with \(n\) variables and \(m\) clauses, we have:  
+
+In the literal-clause graph: \(2n\) literal embeddings \(\mathbf{l}_{i}\in \mathbb{R}^{d}\) and \(m\) clause embeddings \(\mathbf{c}_{j}\in \mathbb{R}^{d}\) In the variable- clause graph: \(n\) variable embeddings \(\mathbf{v}_{i}\in \mathbb{R}^{d}\) and \(m\) clause embeddings \(\mathbf{c}_{j}\in \mathbb{R}^{d}\)  
+
+Message Passing Mechanism The core of our architecture is a two- phase message passing procedure that alternates between updating clause representations and unknown node representations (literals or variables, depending on the graph type). This process is repeated for a configurable number of iterations \(T\) .  
+
+We primarily use an RNN- based update mechanism, where the node embeddings are the hidden states of the RNN that evolve through message passing iterations. For the variable- clause graph, the message passing at iteration \(t\) is defined as:  
+
+\[\begin{array}{r l} & {\mathbf{h}_{c}^{(t)} = \mathrm{RNN}_{c}\left(\sum_{v\in \mathcal{N}(c)}\mathbf{M}_{v c}(\mathbf{h}_{v}^{(t - 1)},p_{v c}),\mathbf{h}_{c}^{(t - 1)}\right)}\\ & {\mathbf{h}_{v}^{(t)} = \mathrm{RNN}_{v}\left(\sum_{c\in \mathcal{N}(v)}\mathbf{M}_{c v}(\mathbf{h}_{c}^{(t)},p_{v c}),\mathbf{h}_{v}^{(t - 1)}\right)} \end{array} \quad (6)\]  
+
+Here, \(\mathbf{h}_{c}^{(t)}\) and \(\mathbf{h}_{v}^{(t)}\) are the hidden states that serve as the actual clause and variable node embeddings for clause nodes and variable nodes respectively. \(\mathbf{M}_{v c}\) and \(\mathbf{M}_{c v}\) are the message transformation functions that operate on the source node embedding and the edge polarity. For the variable- clause graph, we implement these transformation functions as two MLPs that process positive and negative edges differently:  
+
+\[\mathbf{M}_{v c}(\mathbf{h}_{v},p) = \left\{ \begin{array}{ll}\mathrm{MLP}_{\mathrm{pos}}(\mathbf{h}_{v}) & \mathrm{if} p > 0\\ \mathrm{MLP}_{\mathrm{neg}}(\mathbf{h}_{v}) & \mathrm{if} p< 0 \end{array} \right. \quad (8)\]  
+
+For the literal- clause graph, the message passing mechanism also uses operation, called "Flip" bellow, that enforces the logical relationship between complementary literals:  
+
+\[\begin{array}{r l} & {\mathbf{h}_{c}^{(t)} = \mathrm{RNN}_{c}\left(\sum_{l\in \mathcal{N}(c)}\mathbf{h}_{l}^{(t - 1)},\mathbf{h}_{c}^{(t - 1)}\right)}\\ & {\mathbf{h}_{l}^{(t)} = \mathrm{RNN}_{l}\left(\left[\sum_{c\in \mathcal{N}(l)}\mathbf{h}_{c}^{(t)},\mathrm{Flip}(\mathbf{h}_{l}^{(t - 1)})\right],\mathbf{h}_{l}^{(t - 1)}\right)} \end{array} \quad (10)\]  
+
+where \([\cdot ,\cdot ]\) denotes vector concatenation. The \(\mathrm{Flip}(\cdot)\) operation exchanges the embeddings of positive literals with their corresponding negative literals and vice versa. The update function for a given literal embedding can therefore take into account the embedding of the complementary literal.  
+
+We note, that the \(\mathrm{Flip}(\cdot)\) operation incurs a significant computational cost, particularly for large formulas. In contrast, the variable- clause graph representation eliminates this expensive operation by dedicating only one node for each variable and directly encoding its polarity in edge features. This efficiency makes the variable- clause approach particularly well- suited for larger formulas where computational demands become a critical factor.

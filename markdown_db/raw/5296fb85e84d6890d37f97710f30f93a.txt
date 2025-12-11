@@ -1,0 +1,54 @@
+# Large-Scale Self-Supervised Learning with TensorFlow
+
+## Abstract
+
+This paper presents a self-supervised learning framework implemented in TensorFlow for large-scale image representation learning. We train on ImageNet-21K dataset containing 14 million images using distributed training across multiple TPU pods.
+
+## Introduction
+
+Self-supervised learning has emerged as a powerful paradigm for learning visual representations without manual labels. Our approach uses contrastive learning to learn meaningful features from unlabeled data.
+
+## Methodology
+
+### Architecture
+
+We use a Vision Transformer (ViT) architecture implemented in TensorFlow 2.x. The model consists of:
+
+- Patch embedding layers
+- Multi-head self-attention blocks
+- MLP heads for contrastive learning
+
+### Training Procedure
+
+The model is trained using self-supervised contrastive learning. We use InfoNCE loss to maximize agreement between augmented views of the same image.
+
+## Experiments
+
+### Dataset
+
+We train on ImageNet-21K, which contains 14 million images across 21,000 categories. This large-scale dataset enables learning rich visual representations.
+
+### Training Setup
+
+- Framework: TensorFlow 2.8
+- Hardware: 64 TPU v4 pods
+- Training time: 2 weeks
+- Batch size: 4096
+- Model parameters: 1.2 billion
+
+### Results
+
+Our method achieves strong performance on downstream tasks through transfer learning and fine-tuning.
+
+## Implementation
+
+Code will be released upon publication. The implementation requires significant computational resources for training.
+
+## Conclusion
+
+We demonstrate the effectiveness of self-supervised learning at scale using TensorFlow and large datasets.
+
+## References
+
+1. Chen, T., et al. "A simple framework for contrastive learning of visual representations." ICML 2020.
+2. Dosovitskiy, A., et al. "An image is worth 16x16 words: Transformers for image recognition at scale." ICLR 2021.

@@ -1,0 +1,37 @@
+Table 4: Comparison of the time taken to compute the features required for each method from .cnf files. We report the mean and standard deviation in seconds over the instances for each dataset.   
+
+<table><tr><td></td><td>LEC</td><td>SC</td></tr><tr><td>Best base solver</td><td>-</td><td>-</td></tr><tr><td>SATzilla07</td><td>6.767</td><td>35.932</td></tr><tr><td>SATzilla12</td><td>8.643</td><td>194.155</td></tr><tr><td>ArgoSmArT</td><td>6.472</td><td>41.266</td></tr><tr><td>CNN</td><td>1.353</td><td>2.401</td></tr><tr><td>GraSS (ours)</td><td>1.232</td><td>33.862</td></tr></table>  
+
+by grouping them by which quartile (0- 25%, 25- 50%, 50- 75% or 75- 100%) their best runtime achieved on any solver falls into, and compares the performance of SATzilla12 and GraSS on each subgroup. As can be seen, SATzilla12 performs better on easy instances, while GraSS performs better on hard instances.  
+
+Finally, as described in Subsection 4.4, our timing results only report the time taken by the solvers in optimizing the instances. In particular, this means we exclude from the numbers the time taken to compute the features necessary to take the decision, which is dependent on the storage format used to save the instances. For our experiments, we chose to save them on a hard drive in the standard .cnf text file format [6], and we report for completeness the time taken to compute the features for each method in Table 4. Other storage formats would lead to different timings.  
+
+### 4.6 Ablation Study  
+
+We extend our analysis by considering the impact of various methodological choices on performance over the LEC benchmark.  
+
+We first evaluate the impact of the graph neural network architecture, by comparing our approach with a variant that uses the same convolution weights for every edge, effectively treating it as a homogeneous graph (Homogeneous). We also compare with a NeuroSAT- style architecture (NeuroSAT variant) inspired by Selsam et al. [38], which was originally designed for satisfiability prediction (sat/unsat). Their model also uses a literal- clause graph to encode instances, although with learned initial node embeddings, and uses a very deep LSTM- GNN hybrid architecture with 26 layers and custom graph convolution operations. We implement the same, but replace the final layer which computes a scalar "vote" for every literal, and takes the average vote before a sigmoid activation, by an averaging of the literal embeddings, followed by a linear layer and a softmax activation. We also use 4 layers instead of 26 for tractability on our dataset, whose instances are substantially larger than those in the original paper. As can be seen in Table 5, our approach improves over these alternatives in every metric.  
+
+We next evaluate our choice of node features. We compare it against random normal values (Random), as in Selsam et al. [38]); a one- hot vector indicating whether the node represents a clause, positive or negative literal (Node- type), as used in Li et al. [29], Yolcu and Póczos [48] and You et al. [49]; and Laplacian Positional Encodings (Laplacian PE), as introduced in Dwivedi et al. [13]. We also compare against a variant of our approach consisting of the same  
+
+Table 5: Exploration of alternative architectures on the LEC benchmark. We report the average and standard deviation over 5 train-test folds.   
+
+<table><tr><td></td><td>Avg Runtime (s) ↓</td><td>Solved (%) ↑</td><td>ACC ↑</td></tr><tr><td>Homogeneous</td><td>343.339±0.987</td><td>77.4±0.2</td><td>0.464±0.009</td></tr><tr><td>NeuroSAT variant</td><td>383.132±5.284</td><td>74.3±1.0</td><td>0.423±0.008</td></tr><tr><td>GraSS (ours)</td><td>341.549±1.440</td><td>77.7±0.2</td><td>0.480±0.006</td></tr></table>  
+
+Table 6: Exploration of alternative node features on the LEC benchmark. We report the average and standard deviation over 5 train-test folds.   
+
+<table><tr><td></td><td>Avg Runtime (s) ↓</td><td>Solved (%) ↑</td><td>ACC ↑</td></tr><tr><td>Random</td><td>352.258±2.114</td><td>76.2±0.5</td><td>0.444±0.008</td></tr><tr><td>Node-type</td><td>344.088±1.603</td><td>77.1±0.3</td><td>0.474±0.002</td></tr><tr><td>Laplacian PE</td><td>347.632±1.274</td><td>76.9±0.3</td><td>0.454±0.003</td></tr><tr><td>Custom</td><td>343.143±1.621</td><td>77.3±0.3</td><td>0.476±0.003</td></tr><tr><td>Custom + PE (ours)</td><td>341.549±1.440</td><td>77.7±0.2</td><td>0.480±0.006</td></tr></table>  
+
+hand- designed features, but without the clause positional embeddings (Custom). As can be seen in Table 6, our choices outperform these alternative approaches in every metric.  
+
+## 5 LIMITATIONS  
+
+Although our experiments strongly establish the superiority of our approach in the presented scenario, several limitations can be noted. Deep learning methods are well- known to be data hungry, and perform best in regimes where training sets are large. It is plausible that in scenarios where a limited number of timed instances are available, performance would not be competitive against simpler models. In addition, in many scenarios it might be desirable to learn online, updating models as examples stream in: our method cannot be readily adapted to this situation, as training requires runtime labels on every solver for each instance, and adapting graph neural networks to online learning is challenging [42].  
+
+## 6 CONCLUSION  
+
+This work proposed a novel supervised approach to SAT solver selection, based on representing instances as literal- clause graphs and training a graph neural network to select, from this representation, a SAT solver among a fixed portfolio so as to minimize solving runtime. The graph representations are endowed with node features that encode domain knowledge, and in the case of clause nodes, also position within the SAT formula. The resulting scheme is shown to outperform competing approaches on two benchmarks, one from an industrial circuit design application and one from the annual SAT solver competitions.  
+
+## REFERENCES  
+
+[1] David L. Applegate, Robert E. Bixby, Vašek Chvátal, and William J. Cook. 2007. The Traveling Salesman Problem: A Computational Study. Princeton University Press.  [2] Tomas Balyo, Marijn J. H. Heule, Markus Iser, Matti Järvisalo, and Martin Suda. 2022. SAT Competition. https://satcompetition.github.io/2022

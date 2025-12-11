@@ -1,0 +1,63 @@
+a DAG comprising two basic gate types: and gates for binary conjunctions and not gates for logic inversion.  
+
+We adopt the aggregator \(Aggr_{and}\) and \(Aggr_{not}\) for and gates and not gates respectively, following DeepGate4 framework(Zheng et al. 2025).  
+
+Virtual and Gates for Joint Probabilities To expose joint probabilities directly in the graph, we insert virtual and gates in \(\mathcal{G}\) : for any node \(A\) conditioned on \(C\) , we add  
+
+\[A_{joint} = A\wedge C, \quad (3)\]  
+
+so the model can observe the joint probability \(P(A\wedge C)\) directly, denoted as \(P(A_{joint})\) , without intermediate arithmetic computations. When encode the virtual and gate, we directly adopt the \(Aggr_{and}\) to get the embedding and predict the joint probability as:  
+
+\[h^{A_{joint}} = Aggr(h^{A},h^{C}),\hat{P} (A_{joint}) = \phi (h^{A_{joint}}), \quad (4)\]  
+
+where \(\phi\) is a 3- layer MLPs.  
+
+Virtual div Gates for Conditional Probabilities As joint probabilities can be modeled via virtual and gates, computing conditional probabilities such as  
+
+\[P(A\mid C) = \frac{P(A\wedge C)}{P(C)} = \frac{P(A_{joint})}{P(C)} \quad (5)\]  
+
+can lead to amplified errors, especially when \(P(C)\) is small. Details are shown in Appendix A2.  
+
+Nodes with extremely low probabilities- - referred to as polar nodes (i.e., those with truth- table probabilities below 0.1)- are empirically harder to learn and tend to amplify prediction errors. These nodes require special attention to ensure accurate and reliable modeling.  
+
+To address this, we introduce virtual div gates to represent conditional probabilities directly within the graph. Each such gate takes two inputs: the numerator, which is a virtual and gate representing the joint event \(A_{\mathrm{joint}} = A\wedge C\) , and the denominator, which corresponds to the condition node \(C\) .  
+
+Then with aggregator \(Aggr_{div}\) designed for div gate, we first get the embedding with:  
+
+\[h^{A_{cond}} = Aggr_{div}(h^{A_{joint}},h^{C}). \quad (6)\]  
+
+Then predict the probability with task head \(\phi\) :  
+
+\[\hat{P} (A_{cond}) = \phi (h^{A_{cond}}) \quad (7)\]  
+
+This design enables the model to predict \(P(A\mid C)\) directly from graph context, reducing error sensitivity to small denominators.  
+
+### 3.3 Two-Stage Training Strategy  
+
+We train the network with a two- stage training strategy:  
+
+1. Pattern-Based Pre-training. Previous works (Shi et al. 2023, 2024; Zheng et al. 2025; Liu et al. 2024) initialize PI embeddings using input probabilities, however, it will lead to information distortion. As shown in Table 1, distinct input subsets (0-3 and 4-7) may share the same empirical PI probability (0.5), despite differing in actual assignments. This  
+
+Table 1: Example of simulation patterns and probability.   
+
+<table><tr><td>Pattern ID</td><td>P1</td><td>P2</td><td>P3</td><td>P4</td><td>Node x</td><td>Node y</td><td>Node z</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>3</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr><tr><td>4</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td></tr><tr><td>5</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr><tr><td>6</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr><td>7</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr></table>  
+
+illustrates a key limitation: probabilities are coarse- grained and may fail to capture fine- grained circuit behavior.  
+
+To address this, we use 100 random patterns per minibatch to compute fine- grained probability features, which are fed into the model. This supervision enables our model to capture both statistical trends and functional semantics.  
+
+Suppose the circuit contains \(n\) nodes in total, where the first \(m\) nodes are designated as primary inputs (PIs). For each primary input (PI) node, a 100- bit simulation trace is encoded into an initial embedding using an autoencoder. Embeddings for all other nodes are then propagated level- by- level through the circuit.  
+
+The stage- 1 training loss is defined as:  
+
+\[\begin{array}{l}{\mathcal{L}_{\mathrm{stage1}} = w_{1}\cdot \frac{1}{n - m}\sum_{i = m + 1}^{n}L1(P_{i} - \hat{P}_{i})}\\ {+\ w_{2}\cdot \frac{1}{m}\sum_{j = 1}^{m}L1(P_{j} - \hat{P}_{j})} \end{array} \quad (8)\]  
+
+Here, the L1 Loss function is defined as:  
+
+\[\mathrm{L1}(a,b) = |a - b| \quad (9)\]  
+
+where \(P_{i}\) denotes the ground- truth probability of the \(i\) - th node, and \(\hat{P}_{i}\) is the predicted value. The second term focuses on PI nodes, encouraging accurate reconstruction of their probabilities, since their embeddings are initialized from actual simulation data.  
+
+2. Workload-Aware Fine-tuning. Although training on batches of 100 patterns helps capture fine-grained circuit behaviors, our ultimate goal is to generalize to the statistical properties of large-scale pattern distributions.  
+
+To bridge this gap and enhance data diversity, we perform 200 simulations, each using 100 random patterns with designated PI workloads drawn from \(\{0.1,0.2,\ldots ,0.9\}\) (detailed in Appendix A4). For each PI, the 100- bit trace in a simulation is averaged into a single probability, resulting in a 200- dimensional vector that captures its behavior under diverse input distributions. This vector is then passed through an MLP to produce the PIs' initial embedding. For internal nodes, ground- truth probabilities are computed by aggregating predictions over all \(200\times 100 = 20,000\) input patterns, serving as training targets in stage- 2.

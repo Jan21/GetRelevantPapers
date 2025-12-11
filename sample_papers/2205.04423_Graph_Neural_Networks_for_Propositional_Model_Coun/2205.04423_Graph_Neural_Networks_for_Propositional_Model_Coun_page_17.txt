@@ -1,0 +1,21 @@
+while factors' beliefs \(\{b_{j}(x_{\mathcal{N}(f_{j})})\}_{j = 1}^{m}\) are computed as:  
+
+\[\begin{array}{r l r} & {} & {b_{j}(x_{\mathcal{N}(f_{j})}) = \frac{f_{j}(x_{\mathcal{N}(f_{j})})}{Z_{j}}\prod_{x_{i}\in \mathcal{N}(f_{j})}m_{i\rightarrow j}^{(T)}(x_{i})}\\ & {} & {Z_{j} = \sum_{x_{\mathcal{N}(f_{j})}}f_{j}(x_{\mathcal{N}(f_{j})})\prod_{x_{i}\in \mathcal{N}(f_{j})}m_{i\rightarrow j}^{(T)}} \end{array} \quad (14)\]  
+
+Using results of Equations 13 and 14, it is possible to compute the Bethe Free Energy \(F\) of Equation 3.  
+
+In order to avoid underflow errors when implementing BP, message updates of Equation 2 are usually performed in log- space, so that they read as follows:  
+
+\[\begin{array}{r l} & {\hat{m}_{i\rightarrow j}^{(k + 1)}(x_{i}) = \sum_{c\in \mathcal{N}(x_{i})\backslash j}\hat{m}_{c\rightarrow i}^{(k)}(x_{i})}\\ & {\hat{m}_{j\rightarrow i}^{(k + 1)}(x_{i}) = \mathrm{LSE}_{x_{1},\ldots ,x_{k}\in \mathcal{N}(f_{j})\backslash x_{i}}\bigg(f_{j}(x_{i},x_{1},\ldots ,x_{k}) + }\\ & {\qquad +\sum_{x_{v}\in \mathcal{N}(f_{j})\backslash x_{i}}\hat{m}_{v\rightarrow i}^{(k)}(x_{v})} \end{array} \quad (15)\]  
+
+where LSE stands for log- sum- exp function, defined as:  
+
+\[\mathrm{LSE}_{x_{j}\backslash x_{i}}(f_{j}(x_{j})) = \ln \big(\sum_{x_{j}\backslash x_{i}}\exp (f_{j}(x_{j}))\big) \quad (16)\]  
+
+## A.2 Graph Neural Networks  
+
+Graph Neural Networks (GNNs) [21] are a class of deep learning models that natively handle graph- structured data, with the goal of learning, for each vertex \(v\) in the input graph \(G = (V,E)\) , a state embedding \(\mathbf{h}_{v} \in \mathbb{R}^{d}\) , encoding information coming from neighboring nodes. The Message Passing Neural Network (MPNN) model [11] provides a general framework for GNNs, abstracting commonalities between many existing approaches in the literature. As the name suggests, the defining characteristic of MPNNs is that they use a form of neural message passing in which real- valued vector messages are exchanged between nodes (in particular between 1- hop neighboring vertices), for a fixed number of iterations.  
+
+In detail, during each message passing iteration \(t\) in a MPNN, the hidden representation \(\mathbf{h}_{v}^{(t)}\) of each node \(v\) is updated according to the information \(\mathbf{m}_{v}^{(t)}\) aggregated from its neighborhood \(\mathcal{N}(v)\) as:  
+
+\[\begin{array}{r l} & {\mathbf{m}_{v}^{(t + 1)} = \sum_{w\in \mathcal{N}(v)}M_{t}(\mathbf{h}_{v}^{(t)},\mathbf{h}_{w}^{(t)})}\\ & {\mathbf{h}_{v}^{(t + 1)} = U_{t}(\mathbf{h}_{v}^{(t)},\mathbf{m}_{v}^{(t + 1)})} \end{array} \quad (17)\]

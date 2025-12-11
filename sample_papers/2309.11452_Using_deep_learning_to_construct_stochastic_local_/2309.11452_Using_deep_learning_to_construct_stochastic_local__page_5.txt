@@ -1,0 +1,45 @@
+\(k\) - SAT instance \(\phi\) in which each clause carries at most \(k\) literals and each variable appears in at most \(\frac{2^{k}}{(k + 1)\epsilon}\) clauses. Then, by setting \(\mu (j) = e / 2^{k}\) for all \(j\) and using the fact that \((1 + 1 / r)^{r}\leq e\) for all \(r > 0\) , we find that the uniform oracle over \(I_{n}\) satisfies (6) and hence the MT algorithm would find a solution to \(\phi\) despite it being not tuned to \(\phi\) at all.  
+
+As such, Proposition 2.1 strongly motivates the search for oracles that satisfy (6). Moreover, more recent results further motivate the construction of oracles that satisfy (6) only approximately or for instances that are in fact unsatisfiable. In particular, results in Ref. [14] imply the following:  
+
+Proposition 2.2. Given a formula \(\phi\) in CNF- form, and a map \(\mu :[m]\to [0,\infty)\) , there exists a simple extension to the MT algorithm that takes as input \(\phi\) , \(\mu\) and an oracle \(O\) , that runs an expected \(\sum_{j}\mu (j)\) number of steps and whose output \(x\) , for every \(j\in [m]\) , violates clause \(c_{j}\) with probability  
+
+\[\mathrm{Prob}(c_{j}(x) = 1)\leq \max (0,\epsilon_{O,\mu}(j)), \quad (7)\]  
+
+where \(\epsilon_{O,\mu}(j) = P_{O}(j|\phi)\cdot \Pi_{j^{\prime}\in \Gamma^{+}(j)}(1 + \mu (j^{\prime})) - \mu (j)\) .  
+
+This proposition implies that it is in our interest to construct oracles that minimize the set of \(\epsilon_{O,\mu}(j)\) , even if we're not able to satisfy condition (6) or work on satisfiable instances, such as in the case of the MaxSAT optimization problem, which is concerned with solvers that return elements in \(\Pi (\phi)\) also for unsatisfiable instances.  
+
+### 2.4 Learning oracle factories with the LLL loss  
+
+So far we've been concerned with single instances and oracles for them. Of course, in practice we're often confronted instead with a whole class of instances that is distributed with respect to some measure \(\mathcal{P}\) over the space of possible instances \(\Phi\) . What we're then really interested in is a solver that performs well when fed with samples from \(\mathcal{P}\) . As such, when using oracle- based SLS solvers, we're not primarily interested in single oracles but instead oracle factories, which we define as functions \(F\) from \(\Phi\) to the space of random variables, such that, for any \(\phi\) , \(F(\phi)\) is an oracle for \(\phi\) .  
+
+Given a practical SAT application, here represented abstractly by \(\mathcal{P}\) , and an SLS solver \(S\) , we can then formulate our main goal as finding  
+
+\[\arg \max_{F}\mathrm{Prob}_{\phi \sim \mathcal{P},x\sim S(\phi ,F(\phi))}(x\in \Pi (\phi)), \quad (8)\]  
+
+that is, that oracle factory that maximises the probability that \(S\) returns a solution.  
+
+We take a variational approach to this task and optimize a parametrized oracle factory \(F_{\theta}\) , where \(\theta\) are some set of parameters in a parameter space \(\Theta\) . In particular, we introduce a novel loss function that is inspired by the propositions above: For a given value of \(\theta\) , introduce an additional parametrized functional \(\mu_{\theta}[\phi ]\) that maps an instance \(\phi\) to a function from \([m]\) to the reals. We then define the Lovász Local (LLL) loss as  
+
+\[L_{LLL,z}(\theta ,\phi) = \| (\max (0,\epsilon_{F_{\theta}(\phi),\mu_{\theta}[\phi ]}(j)))_{j\in [m]}\|_{z}, \quad (9)\]  
+
+where \(\| \cdot \|_{z}\) indicates the usual \(p\) - norm. This loss is motivated by the propositions above, which imply that a smaller loss leads to better performance of (variants of) the MT algorithm.2  
+
+The second loss term, that we here use mostly to avoid the model's overfitting on solution instances, is the cross entropy between the thermal distribution  
+
+\[\gamma_{\beta ,\phi}(x) = \frac{e^{-\beta\phi(x)}}{Z_{\beta}(\phi)},\quad Z_{\beta}(\phi) = \sum_{x\in I_{n}}e^{-\beta \phi (x)} \quad (10)\]  
+
+with respect to some inverse temperature \(\beta >0\) and the output distribution, i.e.  
+
+\[L_{Gibbs}(\theta ,\phi) = -\mathbb{E}_{\gamma_{\beta ,\phi}}\log (P_{F_{\theta}(\phi)}) \quad (11)\]  
+
+The total loss is then a linear combination of these two loss functions,  
+
+\[L(\theta ,\phi) = \gamma_{1}L_{Gibbs}(\theta ,\phi) + \gamma_{2}L_{LLL,z}(\theta ,\phi), \quad (12)\]  
+
+where \(\gamma_{1},\gamma_{2}\geq 0\) are hyperparameters and the effective goal becomes to find  
+
+\[\arg \min_{\theta \in \Theta}\mathbb{E}_{\phi \sim \mathcal{P}}L(\theta ,\phi). \quad (13)\]  
+
+In section 1 of the technical appendix, we provide details on how we evaluate this loss in practice.

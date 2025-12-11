@@ -1,0 +1,35 @@
+## References  
+
+Audemard, G. and Simon, L. (2009). Predicting learnt clauses quality in modern sat solvers. In IJCAI, volume 9, pages 399- 404. Citeseer.  
+
+Audemard, G. and Simon, L. (2017). Glucose and syrup in the sat'17. Proceedings of SAT Competition, pages 16- 17.  
+
+Biere, A., Faller, T., Fazekas, K., Fleury, M., Froleyks, N., and Pollitt, F. (2024). CaDiCaL 2.0. In Gurfinkel, A. and Ganesh, V., editors, Computer Aided Verification - 36th International Conference, CAV 2024, Montreal, QC, Canada, July 24- 27, 2024, Proceedings, Part I, volume 14681 of Lecture Notes in Computer Science, pages 133- 152. Springer.  
+
+Biere, A., Heule, M., and van Maaren, H., editors (2021). Handbook of satisfiability, volume 185. IOS press, 2nd edition.  
+
+Cameron, C., Hartford, J., Lundy, T., Truong, T., Milligan, A., Chen, R., and Leyton- Brown, K. (2024). Unsat solver synthesis via monte carlo forest search. In International Conference on the Integration of Constraint Programming, Artificial Intelligence, and Operations Research, pages 170- 189. Springer.  
+
+Cappart, Q., Chetelat, D., Khalil, E. B., Lodi, A., Morris, C., and Veličković, P. (2021). Combinatorial optimization and reasoning with graph neural networks. In Zhou, Z.- H., editor, Proceedings of the Thirtieth International Joint Conference on Artificial Intelligence, IJCAI- 21, pages 4348- 4355. International Joint Conferences on Artificial Intelligence Organization. Survey Track.  
+
+Christiano, P. F., Leike, J., Brown, T., Martic, M., Legg, S., and Amodei, D. (2017). Deep reinforcement learning from human preferences. In Guyon, I., Luxburg, U. V., Bengio, S., Wallach, H., Fergus, R., Vishwanathan, S., and Garnett, R., editors, Advances in Neural Information Processing Systems, volume 30. Curran Associates, Inc.  
+
+Courtois, N., O'Neil, S., and Quisquater, J.- J. (2009). Practical algebraic attacks on the hitag2 stream cipher. volume 5735, pages 167- 176.  
+
+Crawford, J. M. and Auton, L. D. (1996). Experimental results on the crossover point in random 3- sat. Artificial intelligence, 81(1- 2):31- 57.  
+
+Eén, N. and Sörensson, N. (2003). An extensible sat- solver. In International conference on theory and applications of satisfiability testing, pages 502- 518. Springer.  
+
+Guo, D., Yang, D., Zhang, H., Song, J., Zhang, R., Xu, R., Zhu, Q., Ma, S., Wang, P., Bi, X., et al. (2025). Deepseek- r1: Incentivizing reasoning capability in llms via reinforcement learning. arXiv preprint arXiv:2501.12948.  
+
+Han, J. M. (2020). Learning cubing heuristics for sat from drat proofs.  
+
+Heule, M., Dufour, M., Van Zwieten, J., and Van Maaren, H. (2005). March_eq: Implementing additional reasoning into an efficient look- ahead sat solver. In Theory and Applications of Satisfiability Testing: 7th International Conference, SAT 2004, Vancouver, BC, Canada, May 10- 13, 2004, Revised Selected Papers 7, pages 345- 359. Springer.  
+
+Heule, M. J. and Van Maaren, H. (2006). March_dl: Adding adaptive heuristics and a new branching strategy. Journal on Satisfiability, Boolean Modelling and Computation, 2(1- 4):47- 59.  
+
+Khalil, E., Dai, H., Zhang, Y., Dilkina, B., and Song, L. (2017). Learning combinatorial optimization algorithms over graphs. Advances in neural information processing systems, 30.  
+
+Khalil, E. B., Morris, C., and Lodi, A. (2022). Mip- gnn: A data- driven framework for guiding combinatorial solvers. In Proceedings of the AAAI Conference on Artificial Intelligence, volume 36, pages 10219- 10227.  
+
+Kullmann, O. (2021). Fundaments of branching heuristics. In Handbook of Satisfiability, pages 351- 390. IOS Press.

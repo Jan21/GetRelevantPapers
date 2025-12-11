@@ -1,0 +1,37 @@
+## B Experiment Details  
+
+In this section, we will provide additional details on our experimental setup baselines. We also provide detailed instancelevel results for our graph coloring and MAXCUT experiments, since these use structured benchmark instances. In Table 10 we provide an overview of all external software used in our experiments.  
+
+## B.1 MODEL RB  
+
+The MODEL RB defines an easy way to generate theoretically hard random CSP instances by randomly choosing a number of disallowed tuples of a fixed arity.  
+
+A class of random CSP instances of model RB is denoted \(\mathrm{RB}(k,n,\alpha ,r,p)\) where each instance consists of \(n\geq 2\) variables with domain size \(d = n^{\alpha}\) for \(a > 0\) . Each instance has \(m = r n\ln n\) constraints for \(r > 0\) of arity \(k\geq 2\) , with each constraint disallowing \(t = p d^{k}\) randomly selected tuples. Note that the selection of scopes and tuples is performed with repetition. This is due to the fact that the number of repeated constraints and tuples are asymptotically smaller than the total number of constraints and tuples and thus can be neglected. The hardest of the MODEL RB instances occur around the critical value \(p_{cr} = 1 - e^{- \alpha /r}\) of \(p\) (Xu and Li 2003).  
+
+Data Our training data consists of randomly generated MODEL RB instances with 30 variables and arity 2. We randomly select \(d\in (n^{1 / k},2n^{1 / k}]\) and \(m\in\) \([n\log_{k}d,2n\log_{k}d]\) and generate instances with \(p = 0,9p_{cr}\) slightly smaller than the critical values of \(p\) to increase the number of satisfiable instances seen during training. To generate one instance we build \(m\) constraints, each by randomly selecting scope of \(k\) distinct variables with repetition and then randomly selecting with repetition a relation of \(t\) distinct disallowed tuples. Our validation data contains 200 instances sampled from the exact same distribution.  
+
+The test dataset is obtained from the XCSP project (Audemard et al. 2020) and contains 50 satisfiable MODEL RB instances with 50 variables, each with domain size 22 and about 500 constraints of arity 2. More specifically, we use all instances of the Random- RB- 2- 50- 23f dataset as our test data.  
+
+Baselines We used three state- of- the- art CSP- solvers from the XCSP Competition as baselines: Picat (Zhou 2022), ACE (Lecoutre 2022), and CoSoCo (Audemard 2018). Picat is a SAT- based solver and the winner of the most recent XCSP Competition (Audemard et al. 2020). ACE and CoSoCo are based on constraint propagation. We include CoSoCo because it demonstrated very strong performance specifically on binary MODEL RB instances in previous CSP Competitions. Indeed, it also is the best performing baseline in our experiment.  
+
+## B.2 Vertex Coloring  
+
+A CSP instance of \(k\) - COL with the input Graph \(G = (V,E)\) has a variable \(x_{v}\) for each vertex \(v\in G(V)\) , the domain \(\mathcal{D} = \{1,\dots,k\}\) for each variable, and a constraint \(C = ((x_{v},x_{u}),R_{\neq}^{k})\) for each edge \(vu\in G(E)\) . Here, the  
+
+Relation \(R_{\neq}^{k} = \{(i,j)|1\leq i,j\leq k;i\neq j\}\) implies the color inequality of connected nodes.  
+
+We consider the decision problem of \(k\) - COL. That is, we provide the number of colors \(k\) as part of the input instance and ask whether or not a conflict- free \(k\) - coloring exists for the given graph. If ANYCSP fails at this task, then it produces a coloring with unsatisfied constraints. We do point out that not all of our baselines use this setup. The greedy heuristic and DSATUR are constructive and yield solutions that are always conflict- free but may have a sub- optimal number of colors. HybridEA initially constructs a (sub- optimal) conflict- free coloring and then iteratively attempts to lower the number of colors through tabu search and evolutionary optimization. For all of these methods, we can measure whether or not they produce a conflict- free solution with the optimal number of colors within a given timeout. However, we should keep these differences in mind during a comparison.  
+
+Data To generate training graphs we mix the following 3 distributions uniformly:  
+
+- Erdős-Rényi graphs with \(n = 50\) vertices and edge probability \(p \sim U[0.1, 0.3]\) - Barabási-Albert graphs with \(n = 50\) vertices and parameter \(m \sim U[2, 10]\) - Random geometric graphs with \(n = 50\) vertices distributed uniformly at random in a 2-dimensional \(1 \times 1\) square. The edge threshold radius is drawn uniformly from \(r \sim U[0.15, 0.3]\) .  
+
+For each graph \(G\) drawn from this distribution we then choose a number of colors \(k \in [3, 10]\) as follows: We first apply a linear time greedy coloring heuristic as implemented by NetworkX (Hagberg, Swart, and S Chult 2008) to color the graph without conflict. If the greedy heuristic required \(k'\) colors for \(G\) , then we pose the problem of coloring \(G\) with \(k\) colors as the training CSP instance, where \(k\) is chosen as:  
+
+\[k = \max \{3,\min \{10,k' - 1\} \} \quad (22)\]  
+
+Intuitively, ANYCSP has to color each graph with 1 color less than the greedy heuristic. Some of these instances are unsatisfiable, which is not a problem for our reward scheme and training procedure. We found this simple method to be very effective at quickly generating graph coloring instances around the threshold of satisfiability with minimal fine- tuning. The 200 validation instances are generated with the same parameters and procedure, except that we increase the number of vertices for all three graph types to \(n = 200\) .  
+
+Baselines RUNCSP was trained on the same data distribution used in its experiments on structured coloring instances (in the Appendix of Tönshoff et al. (2021)). We use a PyTorch implementation of RUNCSP and train each model for a total of 100K steps to ensure convergence. Recall that RUNCSP requires us to fix one \(k\) before training and we train one model for each \(k \in \{4, \ldots , 9\}\) . We consider a graph solved by RUNCSP if the model trained for the graph's chromatic number is able to find a conflict- free coloring.  
+
+To evaluate the CSP solvers Picat and CoSoCo in this experiment we reduce each coloring instance to a CSP instance

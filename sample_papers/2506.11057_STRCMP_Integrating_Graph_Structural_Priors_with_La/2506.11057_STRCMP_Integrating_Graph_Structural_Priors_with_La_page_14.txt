@@ -1,0 +1,65 @@
+## Contents  
+
+1 Introduction 1  
+
+2 Related Work 3  
+
+3 Problem Statement 3  
+
+4 Proposed Solution 4  
+
+4.1 Methodology 4  
+
+4.2 Theoretical Analysis 6  
+
+5 Experimental Evaluation 6  
+
+5.1 Settings 7  
+
+5.2 Implementation 7  
+
+5.3 Results 8  
+
+6 Conclusion 9  
+
+A Proofs 15  
+
+B Implementation Details 16  
+
+B.1 Combinatorial Structure Extraction 16  
+
+B.2 Structure-Aware Code Generation 18  
+
+C Baseline Details 19  
+
+C.1 Solver Adoption 19  
+
+C.2 Baselines Setting 19  
+
+C.2.1 Neural Combinatorial Optimization 19  
+
+C.2.2 Evolutionary Code Optimization 20  
+
+D Dataset Details 21  
+
+D.1 SAT Domain 21  
+
+D.2 MILP Domain 21  
+
+E Metric Details 22  
+
+E.1 Metrics related to MILP 22  
+
+E.2 Metrics related to SAT 22  
+
+F Discussion 23  
+
+G Additional Experimental Results 24  
+
+G.1 Optimization Performance Result 24  
+
+G.2 Convergence Comparison Result 25  
+
+G.3 Ablation Studies Result 27  
+
+H Experiment Statistical Significance 28

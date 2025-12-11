@@ -1,0 +1,29 @@
+## A Method Details  
+
+## A.1 Graph Representation and Architecture  
+
+We represent a formula \(\phi\) as a graph \(G(\phi) = (V(\phi),E(\phi))\) . This is a standard "Literal- Clause Graph" used in prior work, such as NeuroSAT Selsam et al. (2019). Formally, the vertices of this graph \(V(\phi) = \mathrm{Lit}(\phi) \cup \mathrm{Cls}(\phi)\) are the literals and clauses of \(\phi\) . The edges \(E(\phi) = E_{LC}(\phi) \cup E_{LL}(\phi)\) connect literals with the clauses they occur in and with the opposing literal of the same variable:  
+
+\[\begin{array}{r l} & {E_{L L}(\phi) = \{(x,\neg x)\mid x\in \mathcal{X}(\phi)\}}\\ & {E_{L C}(\phi) = \bigcup_{C\in \mathrm{Cls}(\phi)}\{(C,\ell)\mid \ell \in C\}} \end{array} \quad (12)\]  
+
+## A.2 Message-Passing Neural Network  
+
+For each vertex \(v\in \operatorname {Lit}(\phi)\cup \operatorname {Cls}(\phi)\) we obtain an initial embedding \(h^{0}(v)\in \mathbb{R}^{d}\)  
+
+\[h^{0}(v) = \mathbf{Enc}(\log (\deg (v) + 1)). \quad (13)\]  
+
+Here \(d\) is the latent embedding dimension of the model, and Enc is a trainable 2- layer MLP that is applied to the log- normalized degree of \(v\)  
+
+The GNN model then stacks \(L\in \mathbb{N}\) message passing layers. For \(t\in \{1,\ldots ,L\}\) , the \(t\) - th layer takes as input the previous embedding \(h^{t - 1}\) and outputs a refined embedding \(h^{t}\) by performing a message pass. This message pass is split into two phases. First, each clause \(c\in \mathrm{Cls}\) aggregates information from its associated literals:  
+
+\[h^{t + 1}(c) = \mathbf{U}_{\mathrm{Cls}}\left(h^{t}(c),\bigoplus_{\ell \in c}h^{\ell}(\ell)\right). \quad (14)\]  
+
+Here, \(\mathbf{U}_{\mathrm{Cls}}\) is a trainable MLP, and \(\bigoplus\) is an order- invariant aggregation. Throughout all experiments, we use element- wise mean for aggregation. In the second phase, each literal \(\ell \in \operatorname {Lit}\) aggregates the updated embeddings from the clauses it occurs in:  
+
+\[h^{t + 1}(\ell) = \mathbf{U}_{\mathrm{Lit}}\left(h^{\ell}(\ell),h^{\ell}(-\ell),\bigoplus_{c,\ell \in c}h^{t + 1}(c)\right). \quad (15)\]  
+
+Here, \(\mathbf{U}_{\mathrm{Lit}}\) is another trainable MLP that additionally also takes the embedding of the opposing literal \(- \ell\) as input. This model architecture is conceptually similar to that of NeuroSAT. One major difference is that we use a more standard fixed- depth feed- forward GNN instead of a recurrent model. Note that all MLPs used in our model have two layers, and the hidden layer is always SiLU- activated and has hidden dimension \(2d\) . The final output is a variable embedding \(y:\mathrm{Var}(\phi)\to \mathbb{R}^{2}\) , which is obtained by concatenating the two literal embeddings associated with each variable \(x\) and then applying a final 2- layer MLP Dec:  
+
+\[y(x) = \mathbf{Dec}([h^{L}(x),h^{L}(\neg x)]). \quad (16)\]  
+
+Note that we choose Dec as a 2- layer MLP with input dimension \(2d\) , hidden dimension \(2d\) , and output dimension 2. No activation is applied to the output, and the weights and biases of the final layer of Dec are initialized as zeros. This ensures that at the beginning of training, the initial GNN \(N_{\theta_{0}}\) assigns \(\mu (x) = 0\) and \(\rho (x) = 0\) to all variables. We found this to be a stable configuration for initializing training. In particular, \(\mu (x) = 0\) ensures that the log- normally distributed weight policy \(\pi_{\theta_{0}}^{w}(x)\) has a mode of approximately 1 for all variables while \(\rho (x) = 0\) ensures that the polarity of each variable is initially distributed uniformly.

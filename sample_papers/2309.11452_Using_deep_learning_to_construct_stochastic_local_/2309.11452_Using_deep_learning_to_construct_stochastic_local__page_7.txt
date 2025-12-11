@@ -1,0 +1,25 @@
+<center>Figure 2: Example for the encoding of a single clause into LCG representation. </center>  
+
+\(V_{C}\) with the \(i\) - th node in \(N_{V}^{- }\) . The initial edge embeddings e are, again, simply one- hot encodings of which of these two groups a given edge falls into. Figure 2 contains a graphical depiction of the LCG representation.  
+
+#### 2.5.2 Defining the GNN's output  
+
+Let \(I N_{\theta}(\phi)\) denote the output of the IN when feeding an instance \(\phi\) into it using the above LCG representation. Recall that we require an oracle \(F_{\theta}(\phi)\) as well as the functional \(\mu_{\theta}(\phi)\) as output from the GNN in order to evaluate the loss (12). Due to the final layer, the output features across all nodes are one- dimensional. Let \(\mathbf{n}^{C}\) denote the vector of outgoing node features for the \(m\) clause nodes, and similarly \(\mathbf{n}^{+}\) and \(\mathbf{n}^{- }\) for the \(n\) nodes in \(N_{V}^{+}\) and \(N_{V}^{- }\) respectively. We then define the oracle \(F_{\theta}(\phi)\) the random variable over \(\{0,1\}\) with measure  
+
+\[P_{F_{\theta}(\phi)}(x) = \Pi_{i}\left(\widetilde{w}_{i}^{x_{i}}(1 - \widetilde{w}_{i})^{(1 - x_{i})}\right), \quad (16)\]  
+
+where  
+
+\[\widetilde{w}_{i} = \frac{\mathbf{n}_{i}^{+}}{\mathbf{n}_{i}^{+} + \mathbf{n}_{i}^{-}}. \quad (17)\]  
+
+In other words, the output oracle generates an assignment \(x\) simply by sampling the value of the \(i\) - th variable as a Bernoulli trial with success probability \(\widetilde{w}_{i}\) , and does so independently for each variable. We further define the functional \(\mu_{\theta}[\phi ]\) via the mapping  
+
+\[\mu_{\theta}[\phi ](j) = \frac{\widetilde{w}_{j}}{1 - \widetilde{w}_{j}}, \quad (18)\]  
+
+where4  
+
+\[\widetilde{w}_{j} = \mathrm{sigmoid}(\mathbf{n}_{j}^{C}). \quad (19)\]  
+
+## 3 Experiments  
+
+We train the above model on a training set of random 3- SAT instances, in which each clause holds at most 3 literals, of varying difficulty. Here, our measure of difficulty is the ratio \(\alpha = m / n\) . Random instances with lower \(\alpha\) are more likely to be satisfiable and also, in general, easier to decide. We evaluate the resulting models on a test set of random 3- SAT instances, again of varying difficulty. These experiments are motivated by the fact that numerical results have shown that the original MT- algorithm experiences a barrier at around \(\alpha = 2.45\) . For lower values it tends to find solutions quickly, while taking exponential time for higher values [28], see Fig. 3. A similar statement seems to hold true for the WalkSAT algorithm around \(\alpha = 2.8\) . We were interested in the ability of the GNN- boosted variants of these algorithms to solve instances in the "hard" regime.

@@ -1,0 +1,35 @@
+While no runtime results other than those in Ref. [20, 21] are known to us for the WalkSAT algorithm [22], we include it here for its strong performance in competitions, especially the oracle- like working of the ProbSAT algorithm from Ref. [23] that served as an inspiration for Algorithm 2.  
+
+## 2 Methods  
+
+### 2.1 SAT  
+
+The SAT decision problem is to decide whether a given formula \(\phi\) , that is, a formula consisting of \(n\) Boolean variables connected by the Boolean operators (conjunction \(\wedge\) , disjunction \(\vee\) and negation \(\neg\) ), admits a truth value assignment \(x \in \{0,1\}^{n}\) to the \(n\) variables such that the formula, as a whole, evaluates to true under this assignment. For every formula, there exists an equivalent formula that is in conjunctive normal form (CNF) which is a conjunction of clauses,  
+
+\[\phi = (c_{1}\wedge c_{2}\wedge \ldots \wedge c_{m}), \quad (1)\]  
+
+where each clause is a disjunction of literals (i.e. variables or their negation),  
+
+\[c_{j} = (l_{1}^{(j)}\vee l_{2}^{(j)}\vee \ldots \vee l_{k}^{(j)}). \quad (2)\]  
+
+SAT is NP- complete (see Refs. [1, 2]) and has many applications in industry. For example, it can be used to verify hardware and software, to plan and schedule, and to solve problems in cryptography.  
+
+Notationwise, in the following we write \([n] \equiv \{1,\ldots ,n\}\) , \(c \in \phi\) to denote that the clause \(c\) is present in a CNF- formula \(\phi\) , \(V(c) \subseteq [n]\) to denote the set of variables present in \(c\) . We further split \(V(c)\) into disjoint subsets \(V^{+}(c)\) and \(V^{- }(c)\) , depending on whether the variables appear in \(c\) with or without negation, respectively. For any assignment \(x\) and any subset \(V \subseteq [n]\) of variables, we write \(x|_{V} = (x_{v})_{v \in V}\) to denote the truncated assignment on \(V\) , \(c(x) \in \{0,1\}\) to indicate whether a clause is violated or not, and \(\phi (x) = \sum_{j} c_{j}(x)\) to denote the number of violated clauses. Finally, we write \(X_{n} \equiv \{0,1\}^{n}\) and, for an instance \(\phi\) , we denote as \(\Pi (\phi) \subset X_{n}\) the set of assignments with the minimal number of violated constraints across \(I_{n}\) . An instance is satisfiable if there exists an \(x\) such that \(\phi (x) = 0\) and unsatisfiable otherwise.  
+
+### 2.2 Oracle-based SLS  
+
+There exist many solvers to address the general SAT problem. One class of them are Stochastic Local Search (SLS) algorithms. In their simplest form, they work as follows:  
+
+1. Given a SAT instance \(\phi\) in conjunctive normal form (CNF), generate an initial candidate \(x\) via an initialise sub-routine.  
+
+2. If \(x\) violates any clause, choose one violated clause \(c\) at random and update \(x\) on the variables that appear in \(c\) via a sub-routine update, keeping the remainder of \(x\) unchanged.  
+
+3. Repeat step 2 until no clause is violated or a stopping criterion is met. Output \(x\) .  
+
+Hence, to specify a simple SLS solver amounts to specifying the initialise and update sub-routines.  
+
+Possibly the two simplest non- trivial SLS algorithms are the Moser- Tardos (MT) algorithm and the simple WalkSAT algorithm. The MT algorithm initialises an assignment randomly and updates an assignment \(x\) by randomly sampling a new assignment \(x^{\prime}\) and setting \(x\) to \(x^{\prime}\) on all variables in the clause \(c\) . WalkSAT also initialises an assignment randomly, however to update it randomly chooses one of the variables that appear in \(c\) and flips the assignment of that variable.  
+
+Both of the above algorithms heavily use samples drawn uniformly at random. However, it seems intuitively clear that they would perform better if instead, they sampled from distributions that are fine- tuned to the instance \(\phi\) and the current state \(x\) of the solver. To formalise this, we introduce the notion of a (sampling) oracle. A sampling oracle for instance \(\phi\) is a random variable \(O\) over the sample space \(\{0,1\}^{n}\) . Oracle- based SLS solvers are then SLS solvers who accept an oracle as part of the input and whose sub- routines utilise either samples \(x \sim O\) from \(O\) or the values of the latter's probability measure \(P_{O}\) in its definition.  
+
+We define the oracle- based MT and the oracle- based WalkSAT algorithms in Algorithm 1 and Algorithm 2 respectively. Both of these algorithms generalise their non oracle- based counterpart, since the latter are simply the special cases of the former for the case that the uniform oracle is used. The choice of sampling probabilities in the update set of

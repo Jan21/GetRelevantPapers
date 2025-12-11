@@ -1,0 +1,25 @@
+# IB-Net: Initial Branch Network for Variable Decision in Boolean Satisfiability  
+
+Tsz Ho Chan \(^{1}\) , Wenyi Xiao \(^{1}\) , Junhua Huang \(^{1}\) and Huiling Zhen \(^{1}\) and Guangji Tian \(^{2}\) and Mingxuan Yuan \(^{1*}\)  
+
+\(^{1}\) Noah's Ark Lab, Huawei  
+
+\(^{2}\) Hisilicon, Huawei  
+
+chantszho1@huawei.com, xiaowenyi2@huawei.com, huangjunhua15@huawei.com, zhenhuiling2@huawei.com, tianguangji@hisilicon.com, Yuan.Mingxuan@huawei.com  
+
+## Abstract  
+
+Boolean Satisfiability problems are vital components in Electronic Design Automation, particularly within the Logic Equivalence Checking process. Currently, SAT solvers are employed for these problems and neural network is tried as assistance to solvers. However, as SAT problems in the LEC context are distinctive due to their predominantly unsatisfiability nature and a substantial proportion of UNSAT- core \(^{1}\) variables, existing neural network assistance has proven unsuccessful in this specialized domain. To tackle this challenge, we propose IB- Net, an innovative framework utilizing graph neural networks and novel graph encoding techniques to model unsatisfiable problems and interact with state- of- the- art solvers. Extensive evaluations across solvers and datasets demonstrate IB- Net's acceleration, achieving an average runtime speedup of \(5.0\%\) on industrial data and \(8.3\%\) on SAT competition data empirically. This breakthrough advances efficient solving in LEC workflows. \(^{2}\)  
+
+## 1 Introduction  
+
+In computational theory and complexity, the Boolean Satisfiability (SAT) problem stands as a cornerstone. This decision problem, underpinned by the task of identifying the possibility of truth assignment to the Boolean expression, is known to be NP- complete and computationally demanding [Cook, 1971]. SAT is fundamental to various practical applications, including software verification, hardware design, and more [Kasi and Sarma, 2013] [Leino, 2010]. Those problems will first be reduced into the SAT formula and then apply SAT solvers. During the development of SAT solvers, various techniques have been applied to boost the efficiency of the solving process. There are currently two major categories, Stochastic Local Search (SLS) based solvers and Conflict Driven Clause Learning (CDCL) based solvers. SLS  
+
+solvers perform initial assignments for all variables in the formula and repeatedly flip the variable assignment to maximize the internal score, which leads to a solution. The foundation of CDCL solvers are clause learning and deep backtracking search, which make assignment for one variable each time until the conflict occurs to perform analysis and backtracking.  
+
+Following the ubiquity of SAT, its implication is particularly critical in Electronic Design Automation (EDA), the suite of software used in designing electronic systems and chips. Specifically, Logic Equivalence Checking (LEC), an essential step in verifying the correctness of a circuit design after transformation in the EDA process, leverages the efficiency of SAT solvers. LEC aims to determine whether two circuits are functionally equivalent by encoding the checking problem into Boolean expressions and applying the SAT solver. As this process is to detect the potential fault in transformation, which should exist with a small possibility, we would expect that most SAT problems in LEC are unsatisfiability (UNSAT): no possible variables assignment can be found. The SAT solver will be called by LEC for numerous times for each circuit design during the design verification stage. Thus the performance of applied SAT solvers would be the critical point to boost the efficiency of LEC process.  
+
+In recent years, there have been some studies utilizing neural networks (NN), mostly graph neural networks (GNN), to solve SAT problems directly or assist current SAT solvers. NeuroSAT pioneers the usage of NN in SAT by proposing an end- to- end model to predict the satisfiability of an SAT problem and further predict the assignment of variables [Selsam et al., 2019]. NLocalSAT adopts the model design of NeuroSAT and uses the model to boost SLS solvers offline, modifying the initial variable assignment with the output of NN for one time [Zhang et al., 2021]. However, it utilizes SAT/UNSAT for the instances as the supervision signal, which is invalid in the LEC verification scenario. Although Neurocore focuses on UNSAT problems, it computes the variable assignment periodically, which is not suitable for high- frequency verification in LEC [Selsam and Bjørner, 2019].  
+
+Therefore, we propose the Initial Branch Network (IBNet), a framework that targets UNSAT problems and interacts with state- of- the- art CDCL solver to perform offline onetime branch initialization and boost efficiency of end- to- end SAT- solving process. We design Weighted Literal- Incidence

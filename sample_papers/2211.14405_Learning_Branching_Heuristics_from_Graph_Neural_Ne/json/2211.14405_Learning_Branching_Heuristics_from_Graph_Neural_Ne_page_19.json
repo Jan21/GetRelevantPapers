@@ -1,0 +1,47 @@
+{
+  "image": "2211.14405_Learning_Branching_Heuristics_from_Graph_Neural_Ne_page_19.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "table",
+      "boxes": [
+        [
+          218.0,
+          180.0,
+          780.0,
+          408.0
+        ]
+      ],
+      "raw": "[[218, 180, 780, 408]]",
+      "pixel_boxes": [
+        [
+          556,
+          594,
+          1990,
+          1347
+        ]
+      ]
+    },
+    {
+      "label": "table_caption",
+      "boxes": [
+        [
+          228.0,
+          155.0,
+          767.0,
+          171.0
+        ]
+      ],
+      "raw": "[[228, 155, 767, 171]]",
+      "pixel_boxes": [
+        [
+          581,
+          512,
+          1957,
+          564
+        ]
+      ]
+    }
+  ]
+}

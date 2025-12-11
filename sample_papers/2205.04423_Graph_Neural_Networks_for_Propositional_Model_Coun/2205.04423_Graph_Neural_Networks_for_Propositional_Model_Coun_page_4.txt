@@ -1,0 +1,19 @@
+also allows to distinguish between two formulae differing only for literals' negation, which in principle have the same factor graph representation). This intuition enables the adoption of probabilistic reasoning methods as approximate solvers for #SAT [14]. On SAT instances, BP works by iteratively passing messages between variables and clauses until a fixed point is reached. From the fixed point, an approximation of the partition function \(Z\) is computed, which serves as an approximation to the number of models of the input formula.  
+
+### 2.2 Graph Attention Networks  
+
+Graph Neural Networks [21] are deep learning models that address graph- related task, being natively able to process graph- structured inputs. The key idea behind GNNs is to compute a continuous representation of the nodes of the input graph that strongly depends on the structure of the graph. In particular, the Message Passing Neural Network model (MPNNs) [11], which provides a general framework for GNNs, uses a form of neural message passing, in which real- valued vector messages are exchanged between neighboring nodes, for a fixed number of iterations, in such a way that at each iteration each vertex aggregates information from its immediate neighbors.  
+
+Graph Attention Networks (GATs) [27] are a type of GNN endowed with a self- attention mechanism, that allows the network to aggregate the information coming from different nodes of the input graph putting different focus (i.e. a different weight) on some entities, and fade out the rest. More in detail, given an input graph \(G = (V,E)\) and a set of continuous embeddings for the nodes of the graph \(\mathbf{h} = \{\mathbf{h}_{1},\ldots ,\mathbf{h}_{|V|}\}\) with \(\mathbf{h}_{i}\in \mathbb{R}^{d}\) , the graph attentional layer computes the attention coefficients between node \(i\) and node \(j\) as:  
+
+\[\alpha_{i j} = \frac{\exp(\mathrm{LeakyReLU}(\mathbf{a}^{T}[\mathrm{concat}(W\mathbf{h}_{i},W\mathbf{h}_{j})]))}{\sum_{k\in \mathcal{N}(i)}\exp(\mathrm{LeakyReLU}(\mathbf{a}^{T}[\mathrm{concat}(W\mathbf{h}_{i},W\mathbf{h}_{k})]))} \quad (5)\]  
+
+for all pairs of neighboring nodes, where \(W\in \mathbb{R}^{d\times d}\) is a learnable matrix and \(\mathbf{a}\in \mathbb{R}^{2d}\) is the set of parameters of a single- layer feedforward neural network. To update node representation and obtain a new set of node features \(\mathbf{h}^{'} = \{\mathbf{h}_{1}^{'},\ldots ,\mathbf{h}_{|V|}^{'}\}\) the following is computed:  
+
+\[\mathbf{h}_{i}^{'} = \sigma \bigg(\sum_{j\in \mathcal{N}(i)}\alpha_{i j}W\mathbf{h}_{j}\bigg) \quad (6)\]  
+
+being \(\sigma\) a non- linear differentiable function. In order to stabilize the learning process of self- attention, a multi- head attention (similar to that of [26]) is applied by replicating the operations of the layer (Equations 5 and 6) independently \(K\) times and aggregating the results as:  
+
+\[\mathbf{h}_{i}^{'} = \left\| \sum_{k = 1}^{K}\sigma \left(\sum_{j\in \mathcal{N}(i)}\alpha_{i j}^{k}W^{k}\mathbf{h}_{j}\right)\right. \quad (7)\]  
+
+where \(\|\) denotes a feature- wise aggregation function such as concatenation, sum or average.

@@ -1,0 +1,37 @@
+Algorithm 2: Training ANYCSP  
+
+Input: Initial parameters \(\theta\) , training distribution \(\Omega\) , train_steps \(\in \mathbb{N}\) , batch_size \(\in \mathbb{N}\) , \(T_{\mathrm{train}} \in \mathbb{N}\) , \(\mathrm{lr} > 0\) , \(\lambda \in (0,1]\)  
+
+Output: Trained parameters \(\theta\)  
+
+1: for \(s \in \{1, \ldots , \mathrm{train\_steps}\}\) do  
+
+2: for \(i \in \{1, \ldots , \mathrm{batch\_size}\}\) do  
+
+3: \(\mathcal{F} \sim \Omega\)  
+
+4: \(\phi_{\theta}, \alpha , \mathbf{r} \leftarrow \pi_{\theta}(\mathcal{F}, T_{\mathrm{train}})\)  
+
+5: for \(t \in \{1, \ldots , T_{\mathrm{train}}\}\) do  
+
+6: \(G_{t} \leftarrow \sum_{k = t}^{T} \lambda^{k - t} r^{(k)}\)  
+
+7: end for  
+
+8: \(\nabla_{\theta} J_{i} \leftarrow \nabla_{\theta} \sum_{t = 1}^{T} \left(G_{t} \sum_{X \in \mathcal{X}} \log \left(\phi_{\theta}^{(t)} (\alpha^{(t)} (X)) + \epsilon\right)\right)\)  
+
+9: end for  
+
+10: \(\theta \leftarrow \theta + \frac{\mathrm{lr}}{\mathrm{batch\_size}} \sum_{i} \nabla_{\theta} J_{i}\)  
+
+11: end for  
+
+12: return \(\theta\)  
+
+\(\triangleright\) This loop is parallel across all \(i\) . \(\triangleright\) Sample training instance. \(\triangleright\) Apply policy network.  
+
+Policy gradient for \(i\) - th instance in batch.  
+
+\(\triangleright\) Average gradients and ascent.  
+
+<center>Figure 6: A 2-coloring for a grid graph with size \(12 \times 12\) found by ANYCSP. Conflicting edges are shown in red. </center>

@@ -1,0 +1,17 @@
+characteristics and patterns present in these datasets, enabling them to perform well on a wide range of problem complexities.  
+
+<center>Figure 11: Classification accuracy of unsat-core variables across different difficulty levels. The x-axis denotes testing datasets and the y-axis denotes training datasets. </center>  
+
+Evaluation across different datasets. Figure 12 shows the generalization results across different datasets. Both NeuroSAT and GGNN demonstrate good generalization performance to datasets that are different from their training data, except for the CA dataset. This discrepancy can be attributed to the specific characteristics of the CA dataset, where the number of unsat- core variables is significantly smaller compared to the number of variables not in the unsat core. In contrast, other datasets have a different distribution, where the number of unsat- core variables is much larger. This variation in distribution presents a challenge for the models' generalization ability on the CA dataset.  
+
+<center>Figure 12: Classification accuracy of unsat-core variables across different datasets. The x-axis denotes testing datasets and the y-axis denotes training datasets. </center>  
+
+## D Advancing Evaluation  
+
+## D.1 Implementation details  
+
+To create the augmented datasets, we leverage CaDiCaL (Fleury & Heisinger, 2020) to generate a DART proof (Wetzler et al., 2014) for each SAT instance, which tracks the clause learning procedure and records all the learned clauses during the solving process. These learned clauses are then added to each instance, with a maximum limit of 1,000 clauses. For experiments on augmented datasets, we keep all training settings identical to those used for the original datasets.  
+
+For contrastive pretraining experiments, we treat each original formula and its augmented counterpart as a positive pair and all other instances in a mini- batch as negative pairs. We use an MLP projection to map the graph embedding \(z_{i}\) of each formula to \(m_{i}\) and employ the SimCLR's contrastive loss (Chen et al., 2020), where the loss function for a positive pair of examples \((i,j)\) in a mini- batch of size \(2N\) is defined as:  
+
+\[\mathcal{L}_{i,j} = -\log \frac{\exp(\sin(m_{i},m_{j}) / \tau)}{\sum_{k = 1}^{2N}\mathbb{1}_{[k\neq i]}\exp(\sin(m_{i},m_{k}) / \tau)}. \quad (8)\]

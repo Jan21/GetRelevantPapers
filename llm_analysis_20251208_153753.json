@@ -1,0 +1,895 @@
+{
+  "results": [
+    {
+      "doc_id": "5296fb85e84d6890d37f97710f30f93a",
+      "title": "Large-Scale Self-Supervised Learning with TensorFlow",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Large-Scale Self-Supervised Learning with TensorFlow - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "2978d81eacedcc22568390d974b63d9b",
+      "title": "Deep Learning for Image Classification with PyTorch",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Deep Learning for Image Classification with PyTorch - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "c5c51bb0ce0b29139bc147b16406a611",
+      "title": "Efficient Neural Networks for MNIST Classification",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Efficient Neural Networks for MNIST Classification - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "db18ac8883db1a9144cb82763df8b8b0",
+      "title": "Efficient CNN Architecture for CIFAR-10 Classification",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Efficient CNN Architecture for CIFAR-10 Classification - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: HTTPSConnectionPool(host='openrouter.ai', port=443): Read timed out. (read timeout=30)"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "c315cbf5fc60285b9e90d40ff7090b5a",
+      "title": "Graph Neural Networks for Propositional Model Coun",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Graph Neural Networks for Propositional Model Coun - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "818d75376cda814e0f95d7b14883ea8d",
+      "title": "STRCMP Integrating Graph Structural Priors with La",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "STRCMP Integrating Graph Structural Priors with La - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "7c9d87a54a294365ad41a782a0200f78",
+      "title": "Addressing Variable Dependency in GNN based SAT So",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Addressing Variable Dependency in GNN based SAT So - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "83ab2bd7b585c97101b99d26fafebf19",
+      "title": "Neural heuristics for SAT solving",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Neural heuristics for SAT solving - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "a0ac4c54c1df325b9494211e467bfc4d",
+      "title": "Learning Branching Heuristics from Graph Neural Ne",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Learning Branching Heuristics from Graph Neural Ne - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "da14976f78933e5c4c39d53db9705621",
+      "title": "One Model Any CSP Graph Neural Networks as Fast Gl",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "One Model Any CSP Graph Neural Networks as Fast Gl - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "71cb5cd4a4e3658c9e73df930df6a0e1",
+      "title": "Neural Approaches to SAT Solving Design Choices an",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Neural Approaches to SAT Solving Design Choices an - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "960a3cc47a619e0ae16407fb45a58435",
+      "title": "A unified pre training and adaptation framework fo",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "A unified pre training and adaptation framework fo - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "c0d56776510218968a38f9f4a9d4e0e9",
+      "title": "Attn JGNN Attention Enhanced Join Graph Neural Net",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Attn JGNN Attention Enhanced Join Graph Neural Net - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: HTTPSConnectionPool(host='openrouter.ai', port=443): Read timed out. (read timeout=30)"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "fc136d6364c6e0fa586846bd1bdc6408",
+      "title": "G4SATBench Benchmarking and Advancing SAT Solving",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "G4SATBench Benchmarking and Advancing SAT Solving - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "46b65358d382a78f15182fe583348ec2",
+      "title": "Circuit Aware SAT Solving Guiding CDCL via Conditi",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Circuit Aware SAT Solving Guiding CDCL via Conditi - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "9dfe8a7b63cb43b47cb5e188d19e214f",
+      "title": "HyperSAT Unsupervised Hypergraph Neural Networks f",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "HyperSAT Unsupervised Hypergraph Neural Networks f - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "38a6100f8a1976a22dbac38a66b0421e",
+      "title": "GraSS Combining Graph Neural Networks with Expert",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "GraSS Combining Graph Neural Networks with Expert - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "ac3f9f5343377be2d869bdfaf7a87622",
+      "title": "On the Hardness of Learning GNN based SAT Solvers",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "On the Hardness of Learning GNN based SAT Solvers - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "87ad0dd8785bdc058db3d41ee492de21",
+      "title": "Can Graph Neural Networks Learn to Solve MaxSAT Pr",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Can Graph Neural Networks Learn to Solve MaxSAT Pr - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "08d3123d0d72b2e7090c85f5894a4d99",
+      "title": "DeepGate2 Functionality Aware Circuit Representati",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "DeepGate2 Functionality Aware Circuit Representati - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "9d9cf73ce3ea598240dec3d0490f78a4",
+      "title": "Learning from Algorithm Feedback One Shot SAT Solv",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Learning from Algorithm Feedback One Shot SAT Solv - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "a9cb544ef31b581fdf9860eab55512bf",
+      "title": "Using deep learning to construct stochastic local",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Using deep learning to construct stochastic local - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "276c92a9f75ec42d28cf72510257deda",
+      "title": "Graph Neural Reasoning May Fail in Certifying Bool",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Graph Neural Reasoning May Fail in Certifying Bool - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "247555210734f65824867d1d2260c5c0",
+      "title": "Understanding GNNs for Boolean Satisfiability thro",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "Understanding GNNs for Boolean Satisfiability thro - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "d718c5c662baa3c007cdb0ed1cad77db",
+      "title": "IB Net Initial Branch Network for Variable Decisio",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "IB Net Initial Branch Network for Variable Decisio - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    },
+    {
+      "doc_id": "85db9e5aac62b5b1758102f95edbd8ee",
+      "title": "NeuroBack Improving CDCL SAT Solving using Graph N",
+      "overall_score": 0.5,
+      "recommendation": "Review",
+      "summary": "NeuroBack Improving CDCL SAT Solving using Graph N - Review (LLM Score: 0.50)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.0,
+          "evidence": "LLM evaluation failed: OpenRouter API error 401: {\"error\":{\"message\":\"No cookie auth credentials found\",\"code\":401}}"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 26,
+    "include": 0,
+    "exclude": 0,
+    "review": 26,
+    "method": "LLM"
+  }
+}

@@ -1,0 +1,23 @@
+where \(M_{t}\) is called message function and \(U_{t}\) is called message update function: both are arbitrary differentiable functions (typically implemented as neural networks).  
+
+After running \(T\) iterations of this message passing procedure, a readout phase is executed to compute the final embedding \(\mathbf{y}_{v}\) of each node \(v\) as:  
+
+\[\mathbf{y}_{v} = R(\{\mathbf{h}_{v}^{(T)}|v\in G\}) \quad (18)\]  
+
+where \(R\) (the readout function) needs again to be a differentiable function, invariant to permutations of the node states.  
+
+Hence, the intuition behind MPNNs is that at each iteration every node aggregates information from its immediate graph neighbors, so as iterations progress each node embedding contains information from further reaches of the graph.  
+
+Our model can be regarded as a MPNN taking as input the factor graph representing the input CNF SAT formula, whose message passing phase is the one detailed in Equations 11 and 12, and the readout step is that of Equation 9. It is worth noting that the distinction between factor and variable nodes makes the input graph heterogeneous. This is reflected into the MPNN architecture by using different update functions for factor and variable node embeddings, hence splitting each message passing iteration into two different phases: first every factor receives messages from its neighboring variables, then every variable receives messages from its neighboring factors.  
+
+## B Comparison with BPNN  
+
+In order to experimentally show the performance improvement given by augmenting the BPNN architecture (detailed in Section 3.1) with a GAT- style attention mechanism, we also implemented and tested BPNN. The two MLPs of Equation 8 are implemented as 3- layer feedforward network, with ReLU activation between hidden layers; \(\mathrm{MLP}_{3}\) of Equation 9 and the learned operator \(\Delta\) that transforms factor- to- variable messages are the same as BPGAT, detailed in Section 4.1.  
+
+Table 6 shows the results of testing both BPNN and BPGAT on the test sets described in Section 4.2, built to evaluate the scalability of the models. For all the benchmarks, BPGAT outperforms BPNN both in terms of RMSE and of MRE. A summary of these experiments is also reported on Figure 3.  
+
+Table 6. RMSE/MRE comparison between BPGAT and BPNN on datasets of Boolean random formulae.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>BPNN</td></tr><tr><td>Test 1</td><td>0.1276/0.001366 0.3140/0.004072</td><td></td></tr><tr><td>Test 2</td><td>0.3100/0.003201 1.3623/0.01786</td><td></td></tr><tr><td>Test 3</td><td>0.1748/0.001471 0.3046/0.004131</td><td></td></tr><tr><td>Test 4</td><td>1.2061/0.007433 2.9112/0.01681</td><td></td></tr></table>  
+
+We also performed a comparison of the generalization capabilities of BPNN and BPGAT under different training regimes, namely:

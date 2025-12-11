@@ -1,0 +1,31 @@
+### 5.2 Qualitative Results  
+
+5.2.1 Evolution of Literal Embeddings. To further support our claim about the connection to SDP, we tested whether the evolution of literal embeddings in NeuroSAT actually corresponds to an optimization process that maximizes the SDP objective (2.3). The test was performed on several hundred 2- CNF random formulas, since their SDP formulation is simple to state.  
+
+An SDP solver optimizes the matrix \(Y\) (whose entries could be interpreted as dot products of vectors corresponding to Boolean variables). To observe the behavior of the SDP objective function on the evolving literal embeddings from NeuroSAT, we need to compute matrix \(Y\) after each MP iteration of the GNN. For each iteration \(t\) of the GNN, we obtain the matrix \(Y(t) = L^{(t)}L^{(t)T}\) where \(L^{(t)}\) represents the matrix of centered and normalized embeddings of positive literals. The first row of \(L^{(t)}\) corresponds to the vector \(y_{0}\) representing the value true and therefore is not present in the MP graph for NeuroSAT. Thus, we therefore set \(y_{0}\) to the average true vector described in Section 4.  
+
+In Figure 4 we show how the objective function changes after each iteration \(t\) for 3 randomly selected instances. We also include the objective value obtained with an SDP solver as a reference. As can be seen, the  
+
+<center>Figure 4: A plot showing how the SDP objective value computed from the NeuroSAT embeddings (in blue) changes after each iteration of MP. The horizontal red line represents the value of the same objective obtained with an SDP solver. </center>  
+
+5.2.2 Training directly with the MAX- SAT SDP objective function. To outline one possible future work direction, we tried to train the GNN with a loss function that is minimized when the maximum number of clauses is satisfied. Given a set of variables \(\{x_{1},x_{2},\ldots ,x_{n}\} = X\) corresponding to each variable in the boolean formula, one special variable \(x_{0}\) corresponding to value true, and a set of clauses \(\{c_{1},c_{2},\ldots ,c_{m}\} = C\) , where each clause \(c_{i}\) is a set of literals (variables with a polarity), the objective function \(v(C)\) for an integer- valued problem can be defined as:  
+
+\[v(C) = \sum_{c\in C}\left(\prod_{l\in c}\frac{1 - sgn(l)\cdot x_{l}\cdot x_{0}}{2}\right)\]  
+
+\(\operatorname {sgn}(l)\) is a variable polarity in clause \(c\) and evaluates to 1 for a positive occurrence of the variable \(x_{l}\) and to \(- 1\) for a negative occurrence. The variable \(x_{l}\in X\) can take the value \(- 1\) or 1 (corresponding to false and true). If we set \(x_{0}\) to 1 then the product for a clause \(c\) will yield 0 if at least for one of the variables \(x_{l}\) in the clause, \(sgn(l)\cdot x_{l}\cdot x_{0} = 1\) , which is the case when this clause is satisfied. To use this as a loss function for the supervision of NeuroSAT,  
+
+we lift boolean variables to be unit vectors \(y_{0},y_{1},y_{2},\ldots ,y_{n}\) in a high- dimensional space. The objective is to minimize the following differentiable expression by optimizing these unit vectors:  
+
+\[v(C) = \sum_{c\in C}\left(\prod_{l\in c}\frac{1 - sgn(l)y_{l}\cdot y_{0}}{2}\right).\]  
+
+The scalar product of the unit vectors \(y_{l}\cdot y_{0}\) is a real number between \(- 1\) and 1. The vector \(y_{0}\) is sampled randomly as a unit vector and is kept fixed, whereas other variable vectors are sampled randomly, fed into NeuroSAT as initial embeddings for positive literals, updated by MP iterations, and normalized after each update. We supervise the negative literals with the same objective with the exception that the \(\operatorname {sgn}(l)\) returns \(- 1\) for positive and 1 for a negative literal occurrence.  
+
+In order to compare the network trained with the SDP MAX- SAT objective with NeuroSAT trained with classification loss, we need a Boolean variable assignment. To extract the assignment of individual variables, we compute an inner product with the vector \(y_{0}\) (representing the value true) and assign the variable to true if it is positive and to false in the other case.  
+
+Once we have the assignment, we can classify the formula as SAT/UNSAT by checking whether the solution satisfies the formula. The model trained with MAX- SAT SDP objective accurately classifies only \(\sim 73\%\) of all problems (vs. \(\sim 85\%\) in the case of the NeuroSAT trained by the classification loss). On the other hand, when trained with this objective function, the model starts to quickly improve even when trained only on the formulas of the largest size (i.e. 40 variables) without a curriculum. This suggests that a possible combination of loss functions, one that tries to maximize the number of satisfied formulas and one that penalizes the model for incorrect classification, may be beneficial. We leave the investigation of this idea for future work.  
+
+### 5.3 Quantitative Results  
+
+5.3.1 Training Convergence with the Curriculum. To demonstrate the effectiveness of the proposed curriculum, we compare the training process with two baselines. The first is the publicly available implementation of NeuroSAT 4 and the second is our model without curriculum. We stop training each model once it reaches the validation accuracy reported in the original paper (85%). As visible in Figure 3, our model with the curriculum reaches this accuracy in approximately 30 minutes, while the other two baselines need to be trained for several hours. All models were trained on 1 GPU (NVIDIA A100).  
+
+5.3.2 Sampling and Decimation. In Table 1, we show the increase in accuracy due to the enhancements described in Section 4. Together with the results on randomly generated problems, we also show results on three different structured problems whose details are described in the Supplementary material S3.2. The results show a noticeable increase in the number of solved problems for both enhancements (sampling and decimation). For decimation, we use only two passes, which means that if the first application of the

@@ -1,0 +1,45 @@
+# Algorithm 3 A single IN layer  
+
+1: for \(k\in \{1\dots |E|\}\) do  
+
+2: \(\mathbf{e}_{k}^{\prime}\leftarrow \eta^{E}\left(\mathbf{e}_{k},\mathbf{n}_{r_{k}},\mathbf{n}_{s_{k}}\right)\)  
+
+3: end for  
+
+4: for \(i\in \{1\dots |N|\}\) do  
+
+5: let \(E_{i}^{\prime} = \left\{(\mathbf{e}_{k}^{\prime},r_{k},s_{k})\right\}_{r_{k} = i, k = 1:|E|}\)  
+
+6: \(\overline{{\mathbf{e}}}_{i}^{\prime}\leftarrow \rho^{E}\left(E_{i}^{\prime}\right)\)  
+
+7: \(\mathbf{n}_{i}^{\prime}\leftarrow \eta^{N}\left(\overline{{\mathbf{e}}}_{i}^{\prime},\mathbf{n}_{i},\right)\)  
+
+8: end for  
+
+9: let \(N^{\prime} = \{\mathbf{n}^{\prime}\}_{i = 1:|N|}\)  
+
+10: let \(E^{\prime} = \left\{(\mathbf{e}_{k}^{\prime},r_{k},s_{k})\right\}_{k = 1:|E|}\)  
+
+11: return \((E^{\prime},N^{\prime})\)  
+
+### 2.5 Graph Neural Networks as oracle factories  
+
+In principle, many different ML models qualify as parametrized oracle factories. All that is required to train an ML model with our loss is for it to return both an oracle factory \(F_{\theta}\) as well as the parametrized functional \(\mu_{\theta}\) , in order to evaluate the LLL loss.  
+
+Here we follow the common strategy to use a GNN as a deep learning model. In particular, we use an Interaction Network [16, 24]. Like all other GNNs, this type of network maps graphs to graphs. Consider a graph \(G = (N,E)\) with a set of nodes \(N = \{\mathbf{n}_{i}\}_{i = 1:|N|}\) and a set of edges \(E = \left\{(\mathbf{e}_{k},r_{k},s_{k})\right\}_{k = 1:|E|}\) , where \(\mathbf{n}_{i}\in \mathbb{R}^{d_{N}}\) are feature vectors of the nodes, for some \(d_{N}\in \mathbb{N}\) , \(\mathbf{e}_{k}\in \mathbb{R}^{d_{E}}\) are feature vectors of the edges, for some \(d_{E}\in \mathbb{N}\) , and \(r_{k},s_{k}\in [|N|]\) are indices of the receiver and source nodes for the \(k\) - th edge, respectively. A single layer of the InteractionNetwork takes \(G\) as input and updates both edge and node features based on a message passing algorithm whose pseudocode is shown as Algorithm 3. This algorithm requires the specification of a node update function \(\eta^{N}\) , an edge update function \(\eta^{E}\) as well as an edge aggregation function \(\rho^{E}\) . Note that, depending on the update and aggregation functions, the dimensions of the features in \(G^{\prime}\) might be different from those of \(G\) .  
+
+Here, we use as update functions \(\eta^{N}\) and \(\eta^{V}\) simple neural networks of the form  
+
+\[\eta = L N\circ R L\circ F L_{d_{u}}\circ R L\circ F L_{d_{u - 1}}\circ \ldots \circ F L_{d_{1}}, \quad (14)\]  
+
+where \(L N\) is a layer normalisation layer [25], \(R L\) is a rectified linear unit layer [26] and \(F L_{d}\) is a fully connected layer from an input feature dimension to an output dimension \(d\) . Hence, specifying an update function in our case requires a list \((d_{t})_{t = 1}^{u}\) of layer dimensions, one for each of the \(u\) layers. As an edge aggregation function we simply use summation over the elements of \(E_{i}^{\prime}\) .  
+
+A full application of an IN consists of the consecutive application of several single IN layers, followed by a fully connected layer \(F L_{1}\) to ensure that outgoing features across nodes and edges are one- dimensional. That is, for an IN consisting of \(l\) layers, the output of the IN is  
+
+\[I N_{\theta}(G) = F L_{1}\circ I N_{\theta_{l}}\circ I N_{\theta_{l - 1}}\circ \ldots I N_{\theta_{1}}(G). \quad (15)\]  
+
+Here, \(\theta_{r}\) denotes the parameter vector for the \(r\) - th layer, whose values specify the entries of the fully connected layers in its update functions. We have \(\theta = (\theta_{F L},\theta_{l},\theta_{l - 1},\ldots ,\theta_{1})\) , where \(\theta_{F L}\) are the parameters in the last layer.  
+
+#### 2.5.1 Representing SAT instances as graphs  
+
+Since, GNNs map graphs to graphs, in order to feed a SAT instance into a Graph network, we need to represent it as a graph. Fortunately, there exist various simple graph representations of Boolean formulas. We use the common LCG representation:3 Let \(\phi\) be a SAT formula in CNF form with \(n\) variables \((v_{i})_{i = 1}^{n}\) and \(m\) clauses \((c_{j})_{j = 1}^{m}\) . We introduce a directed tripartite graph \(G = (N,E)\) , consisting of one set \(N_{C}\) of \(m\) nodes, one per constraint, as well as two sets \(N_{V}^{+}\) and \(N_{V}^{- }\) of \(n\) nodes each, one per variable. The initial node embeddings \(\mathbf{n}\) are one- hot encodings for which of these three sets a given node belongs to. The edge set \(E\) further consists of two groups. The first group connects the \(i\) - th node in \(N_{V}^{+}\) with the \(i\) - th node in \(N_{V}^{- }\) , for \(i\in [n]\) . The second group connects, for each clause \(c_{j}\in \phi\) and every variable \(v_{i}\in V^{+}(c_{j})\) , the \(j\) - th node in \(V_{C}\) with the \(i\) - th node in \(N_{V}^{+}\) , and also for every variable \(v_{i}\in V^{- }(c_{j})\) , the \(j\) - th node in

@@ -1,0 +1,35 @@
+<center>Figure 3: Runtime variation introduced by permutation. Thirty SAT instances are randomly sampled from SAT Competition data, and the order of variables (left) and clauses (right) are shuffled twenty times. The instances are then solved by Kissat 3.0 with a 5,000s cutoff, and the collected runtimes are plotted in ascending order of mean runtime. </center>  
+
+where \(\rho_{k}\) is the "message aggregation" function for edge type \(k\) , \(\psi_{k}\) is the learnable "update" function, and \(\delta\) is the "edge- type aggregation" function.  
+
+We apply this framework to our neural network as follows. For clarify, a diagram of the architecture is provided as Figure 1. The clause, positive and negative literal node embeddings are initialized with the 17-, 3-, and 3- dimensional feature vectors described in Table 7,  
+
+\[x_{\mathrm{clause},i}\longleftarrow \mathrm{features}_{\mathrm{clause},i}\quad \forall \mathrm{clause~node~}i\] \[x_{\mathrm{poslit},i}\longleftarrow \mathrm{features}_{\mathrm{poslit},i}\quad \forall \mathrm{positive~literal~node~}i\] \[x_{\mathrm{neglit},i}\longleftarrow \mathrm{features}_{\mathrm{neglit},i}\quad \forall \mathrm{negative~literal~node~}i\]  
+
+These are then transformed by two rounds of convolutions. We set \(\phi_{k}\) and \(\psi_{k}\) as in the classical graph convolutions of Kipf and Welling [27], with a relu nonlinearity and mean aggregation functions for \(\rho_{k}\) and \(\delta\) . That is, we compute  
+
+\[x_{\mathrm{clause},i}\longleftarrow \mathrm{relu}\left(b + \sum_{j\in N_{\mathrm{poslit}}(i)}\frac{W_{\mathrm{poslit}}x_{\mathrm{poslit},j}}{\sqrt{\mathrm{deg}(i)\mathrm{deg}(j)}}\right)\] \[+\sum_{j\in N_{\mathrm{poslit}}(i)}\frac{W_{\mathrm{neglit}}x_{\mathrm{neglit},j}}{\sqrt{\mathrm{deg}(i)\mathrm{deg}(j)}}\Big)\]  
+
+### 3.4 Training  
+
+We train in a supervised fashion on a dataset of training SAT instances, for which runtimes have been collected ahead of time on each solver of interest. Since our model produces a distribution over the \(K\) possible solvers, we could treat the problem as simple classification with a cross- entropy loss. However, this would not be well- aligned with our objective of minimizing solving runtime, since it would equally penalize incorrect predictions, irrespective of the amount of additional runtime induced by the selection of a  
+
+  
+
+suboptimal solver. Instead, we propose the regret- like loss  
+
+\[\mathcal{L} = \frac{1}{N}\sum_{i = 1}^{N}\left(\sum_{k = 1}^{K}p_{i}^{k}t_{i}^{k} - t_{i}^{*}\right)^{2}, \quad (1)\]  
+
+where \(p_{i}^{k}\) and \(t_{i}^{k}\) are the model probability and runtime for instance \(i = 1,\ldots ,N\) and solver \(k = 1,\ldots ,K\) , respectively, and \(t_{i}^{*} = \min_{k}t_{i}^{k}\) is the best time achieved by any solver on the instance. This has the advantage of more directly optimizing final runtime, taking into account that not all mistakes are equally impactful on solving time. We minimize this loss using the Adam [26] algorithm with early stopping.  
+
+### 3.5 Inference  
+
+At test- time, to predict which SAT solver to use, we convert the SAT instance into our graph representation, compute its node features, and feed the graph to our trained GNN model, which outputs a probability distribution over the solvers of interest. The solver with highest probability is chosen for solving the instance, with the runtime being reported.  
+
+## 4 EXPERIMENTS  
+
+We now compare the performance of our proposed approach against competitors in the literature. We implement our model using the pytorch [35] and dgl [43] libraries. We train the model on a single Nvidia Tesla V100 GPU with a learning rate of \(1e - 3\) for up to 100 epochs, and use the same GPU at test- time.  
+
+### 4.1 Base solvers  
+
+We train and evaluate on a portfolio of seven top- performing solvers from recent SAT Competitions [3, 14]: (a) Kissat- 3.0, (b) bulky, (c) HyWalk, (d) MOSS, (e) mabgb, (f) ESA and (g) UCB. Among them, Kissat- 3.0 and bulky are based on Kissat, which is the winner of the 2020 SAT Competition and is known for its efficient data structure design [14]. The other five solvers are based on UCB and

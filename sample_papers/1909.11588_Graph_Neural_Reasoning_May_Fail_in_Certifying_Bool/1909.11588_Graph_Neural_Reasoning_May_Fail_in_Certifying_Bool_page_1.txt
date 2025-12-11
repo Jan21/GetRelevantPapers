@@ -1,0 +1,19 @@
+# Graph Neural Reasoning May Fail in Certifying Boolean Unsatisfiability  
+
+Ziliang Chen\*  Department of Computer Science  Sun Yat- sen University  GuangZhou, Guangdong, China  c.ziliang@yahoo.com  
+
+Zhanfu Yang\*  Department of Computer Science  Purdue University  West Lafayette, IN, USA  yang1676@purdue.edu  
+
+## Abstract  
+
+It is feasible and practically- valuable to bridge the characteristics between graph neural networks (GNNs) and logical reasoning. Despite considerable efforts and successes witnessed to solve Boolean satisfiability (SAT), it remains a mystery of GNN- based solvers for more complex predicate logic formulae. In this work, we conjectures with some evidences, that generally- defined GNNs present several limitations to certify the unsatisfiability (UNSAT) in Boolean formulae. It implies that GNNs may probably fail in learning the logical reasoning tasks if they contain proving UNSAT as the sub- problem included by most predicate logic formulae.  
+
+## 1 Introduction  
+
+Logical reasoning problems span from simple propositional logic to complex predicate logic and high- order logic, with known theoretical complexities from NP- completeness [3] to semi- decidable and undecidable [2]. Testing the ability and limitation of machine learning tools on logical reasoning problems leads to a fundamental understanding of the boundary of learnability and robust AI, helping to address interesting questions in decision procedures in logic, program analysis, and verification as defined in the programming language community.  
+
+There have been arrays of successes in learning propositional logic reasoning [1, 12], which focus on Boolean satisfiability (SAT) problems as defined below. A Boolean logic formula is an expression composed of Boolean constants ( \(\top\) : true, \(\bot\) : false), Boolean variables \((x_{i})\) , and propositional connectives such as \(\wedge\) , \(\vee\) , \(\neg\) (for example \((x_{1} \vee \neg x_{2}) \wedge (\neg x_{1} \vee x_{2})\) ). The SAT problem asks if a given Boolean formula can be satisfied (evaluated to \(\top\) ) by assigning proper Boolean values to the literal variables. A crucial feature of the logical reasoning domain (as is visible in the SAT problem) is that the inputs are often structural, where logical connections between entities (variables in SAT problems) are the key information.  
+
+SAT and its variant problems are almost NP- complete or even more complicated in the complexity. The fact motivates the emergence of sub- optimal heuristic that trades off the solver performance to rapid reasoning. In terms of the fast inference process, deep learning models are favored as learnable heuristic solvers [1, 12, 16]. Among them Graph Neural Networks (GNNs) have grasped amount of attentions, since the message- passing process delivers the transparency to interpret the inference within GNNs, thus, revealing the black box behind neural logical reasoning in the failure instances.  
+
+However, it should be noticed that logical decision procedures is more complex that just reading the formulas correctly. It is unclear if GNN embeddings (from simple message- passing) contain all the information needed to reason about complex logical questions on top of the graph structures

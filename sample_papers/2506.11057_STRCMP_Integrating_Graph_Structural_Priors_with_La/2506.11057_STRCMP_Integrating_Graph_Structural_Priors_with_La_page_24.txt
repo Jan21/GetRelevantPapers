@@ -1,0 +1,13 @@
+## G Additional Experimental Results  
+
+## G.1 Optimization Performance Result  
+
+Table 5: The optimization performance result w.r.t. PAR-2 score between different methods over SAT domain.   
+
+<table><tr><td rowspan="2">Compared Methods</td><td colspan="4">PAR-2 Score (↓)</td></tr><tr><td>CNP</td><td>CoinsGrid</td><td>PRP</td><td>Zamkeller</td></tr><tr><td>AutoSAT</td><td>644.72</td><td>1098.69</td><td>639.34</td><td>807.75</td></tr><tr><td>EasySAT</td><td>649.42</td><td>1595.75</td><td>2000</td><td>829.38</td></tr><tr><td>STRCMP</td><td>624.15</td><td>1124.09</td><td>1804.46</td><td>270.62</td></tr><tr><td>STRCMP (DPO Only)</td><td>643.45</td><td>1098.69</td><td>482.92</td><td>265.94</td></tr><tr><td>STRCMP (SFT Only)</td><td>643.23</td><td>1098.47</td><td>1837.86</td><td>227.69</td></tr><tr><td>STRCMP w/o GNN</td><td>645.67</td><td>1098.34</td><td>1820.38</td><td>646.12</td></tr></table>  
+
+Table 6: The optimization performance result w.r.t. Solving Time between different methods over SAT domain.   
+
+<table><tr><td rowspan="2">Compared Methods</td><td colspan="4">Solving Time (↓)</td></tr><tr><td>CNP</td><td>CoinsGrid</td><td>PRP</td><td>Zamkeller</td></tr><tr><td>AutoSAT</td><td>32472</td><td>19158</td><td>22967</td><td>20772</td></tr><tr><td>EasySAT</td><td>32942</td><td>26064</td><td>50000</td><td>21810</td></tr><tr><td>STRCMP</td><td>31415</td><td>18971</td><td>46223</td><td>7990</td></tr><tr><td>STRCMP (DPO Only)</td><td>32345</td><td>19158</td><td>21146</td><td>7765</td></tr><tr><td>STRCMP (SFT Only)</td><td>32323</td><td>19151</td><td>46893</td><td>6929</td></tr><tr><td>STRCMP w/o GNN</td><td>32567</td><td>19147</td><td>47019</td><td>17014</td></tr></table>  
+
+<center>Figure 8: Convergence comparison (w.r.t. PAR-2) between evolutionary-based algorithm discovery frameworks on PRP dataset of SAT domain. </center>

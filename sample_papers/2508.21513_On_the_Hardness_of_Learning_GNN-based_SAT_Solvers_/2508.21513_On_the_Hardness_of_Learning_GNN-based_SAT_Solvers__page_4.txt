@@ -1,0 +1,31 @@
+## 3 Curvature of Random k-SAT Problems and Its Relationship with GNNs  
+
+Setting and Notation. We consider random \(k\) - SAT problems with \(N\) variables and \(M\) clauses, with \(\alpha = M / N\) and \(k,N,M\in \mathbb{N}\) . These problems are represented through a simple bipartite graph \(G = (V,E)\) , where the node set is a literal- clause bipartition \(V = L\cup C\) , with \(L\cap C = \emptyset\) and \(|L| = 2N,|C| = M\) . The edge set takes the form \(E = \{(i,j)\in V\times V:i\sim j,i\in L,j\in C\}\) where \(i\sim j\) indicates a connection between nodes. Given \(v\in V\) , we denote its degree by \(d_{v}\) . Finally, we denote the expected value of the random variable \(X\) with probability distribution \(\mathrm{P}\) by \(\mathbb{E}_{P}[X]\) and \(\mathbb{E}_{p\sim P}[X]\) the expectation over samples drawn from \(P\) . Unless noted otherwise, when we refer to the expected value in simulations, we imply its estimate via the sample mean statistic.  
+
+Data Model. Our bipartite formulation is a simplification of the input graphs considered in many GNN- based solvers [40, 46]. Recent literature [28] refers to this data structure as a Literal- Clause Graph (LCG). Following an Erdős–Rényi- like procedure, each clause is assigned \(k\) literals independently at random with probability \(p\) . Assuming that all literals are equally likely to appear in a given clause, we obtain the following degree distributions:  
+
+\[\begin{array}{c}{P(d_{j} = h) = \delta (h - k)}\\ {P(d_{i} = h) = \binom{M}{h} p^{h}(1 - p)^{M - h},} \end{array} \quad (3)\]  
+
+where \(\delta (\cdot)\) represents the Dirac delta function, \(\binom{\cdot}{}\) the binomial coefficient, and \(p\coloneqq \frac{k}{2N}\) . In the limit \(M,N\to \infty\) , we can approximate the Binomial form of the literal degree distribution with a Poisson distribution:  
+
+\[P(d_{i} = h) = \frac{\lambda^{h}e^{-\lambda}}{h!}, \quad (5)\]  
+
+with \(\lambda = M p = \textstyle {\frac{1}{2}}\alpha k\) . We will be interested in using this approximation to calculate properties of the graph RC, which is an edge level property, therefore the case \(d_{i} = 0\) should be truncated. This fact leads us to propose an alternative probability mass function based on zero- truncated Poisson distribution the for the literal degrees:  
+
+\[P^{*}(d_{i} = h) = P(d_{i} = h:h\geq 1) = \frac{P(d_{i} = h)}{1 - P(d_{i} = 0)} = \frac{\lambda^{h}}{h!(e^{\lambda} - 1)}. \quad (6)\]  
+
+Characterizing Average Curvature. We will now proceed by showing that the above bipartite representation of SAT problems has significant implications on the average RC. Most importantly, we will precisely characterize the average behavior of a specific definition curvature, namely the BFC, which in turn has strong implications on oversquashing in GNNs. The proofs of all statements are deferred to Appendix A.2.  
+
+We start from an established lower bound of the OC.  
+
+Definition 3.1 (OC lower bound in bipartite graphs [5, 23]). For any edge \(i\sim j\) in a simple, unweighted bipartite graph \(G\) , we have that that:  
+
+\[\underline{{\kappa}}(i,j) = -2\cdot \max \{0,1 - \frac{1}{d_{i}} -\frac{1}{d_{j}}\} \leq \kappa (i,j)\leq 0, \quad (7)\]  
+
+where \(\kappa\) is the OC. The above lower bound can be redefined by alternatively stating the condition encoded inside the maximum function in Equation 7:  
+
+\[\underline{{R}}(i,j) = \left\{ \begin{array}{l l}{0} & {\mathrm{if~min}\{d_{i},d_{j}\} = 1}\\ {\frac{2}{d_{i}} +\frac{2}{d_{j}} -2} & {\mathrm{otherwise}} \end{array} \right. \quad (8)\]  
+
+This alternative definition shows that Equation 8 is also a lower bound for the BFC s.t., \(\underline{{R}}(i,j)\leq\) \(R i c(i,j)\) . This statement is a direct consequence of the definition of the BFC, and a proof is given inside the proof of Theorem 3.1. Furthermore, we also have that \(- 2< R i c(i,j)\leq \kappa (i,j)\leq 0\) , which is a direct consequence of the facts that \(\kappa (i,j)\geq R i c(i,j)\) [47] and Equation 7. Starting from these statements, we can proceed to show that the average behavior of the graph RC is naturally dictated by average degree of the literals, given that \(d_{j} = k\) always holds. The literal degree distribution is a zero- truncated Poisson distribution, from which the average degree of a literal \(i\) can be calculated as:  
+
+\[\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}] = \frac{\lambda e^{\lambda}}{e^{\lambda} - 1} \quad (9)\]

@@ -1,0 +1,27 @@
+adjustment and loss function regularization. For each clause \(C_{i}\) , define its satisfaction score \(s_{i}\) :  
+
+\[s_{i} = s i g m o i d(\sum_{x_{j}\in \phi_{i}}(2b_{j}(x_{j}) - 1)p o l a r i t y(x_{j},\phi_{i})) \quad (16)\]  
+
+where, \(b_{j}(x_{j})\) is the current assignment probability of \(x_{j}\) ; \(polarity(x_{j}, \phi_{i})\) represents the polarity of \(x_{j}\) in the clause \(\phi_{i}\) . \(s_{i} \in (0,1)\) , where the closer to 1 means that the clause \(\phi_{i}\) is more likely to be satisfied. Add the following regularization terms to the loss function:  
+
+\[\mathcal{L}_{c o n s} = -\delta \sum_{i = 1}^{m}l n s_{i}, \quad (17)\]  
+
+Combining the RMSE and the constrained aware regularization term, the total loss function is:  
+
+\[\mathcal{L}_{t o t a l} = \mathcal{L}_{R M S E} + \mathcal{L}_{c o n s} \quad (18)\]  
+
+The constraint awareness mechanism acts on the other mechanisms, implicitly adjusting the message passing process, using \(s_{i}\) weighted messages when propagating within and between clusters:  
+
+\[\alpha_{i n t r a} = L e k y R e L U(\frac{(W_{q}h_{i})^{T}(W_{k}h_{j}) + \gamma s_{i}}{\sqrt{d}}) \quad (19)\]  
+
+### 3.3 #SAT  
+
+In join- graph, we need to modify the Bethe formula to fit the specific structure of the join- graph:  
+
+\[F_{B e t h e - J o i n} = \sum_{\alpha}[H(b_{C_{\alpha}}) - \sum_{v\in C_{\alpha}}(d_{v}^{\alpha} - 1)H(b_{v})] \quad (20)\]  
+
+\(H(b_{C_{\alpha}})\) is the joint distribution entropy of variables and clauses within cluster \(C_{\alpha}\) , \(H(b_{v})\) is the entropy of the local variable, are the \(G A T1\) and \(G A T2\) outputs respectively, which are used as the input of the MLP layer after the pooling operation, the goal of the MLP is to approximate \(F_{B e t h e - J o i n}\) by the hierarchical structure of the join- graph. Its inputs and specific implementation are as follows:  
+
+\[h_{C_{\alpha}} = [H(b_{C_{\alpha}}), \sum_{v \in C_{\alpha}}(d_{v}^{\alpha} - 1)H(b_{v})], h_{G} = \frac{1}{|C_{\alpha}|} \sum_{\alpha} h_{C_{\alpha}} \quad (21)\]  
+
+\[H(b_{C_{\alpha}}) = G A T1(\frac{1}{|C_{\alpha}|} \sum_{j \in C_{\alpha}} h_{j}), H(b_{v}) = G A T2(h_{x}) \quad (22)\]

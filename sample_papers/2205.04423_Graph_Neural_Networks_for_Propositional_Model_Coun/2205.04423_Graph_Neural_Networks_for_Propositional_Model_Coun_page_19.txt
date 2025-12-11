@@ -1,0 +1,13 @@
+<center>Fig. 3. Summary of the results of the experiments done on BPNN and BPGAT to test their scalability. Notation is the same of Table 6. </center>  
+
+- We fine-tuned the two models following the protocol described in Section 4.1. Results are shown in Table 7, where FT_BPGAT and FT_BPNN denote the fine-tuned BPGAT and BPNN architectures, respectively;  
+
+- We trained, for every distribution, the two models from scratch for 500 epochs, with 250 labeled examples. Results are shown in Table 8, where TS_BPGAT and TS_BPNN denote the specifically-trained BPGAT and BPNN, respectively;  
+
+- We tested both BPGAT and BPNN trained on random Boolean formulae (with the training protocol and the data generating procedures described in Section 4.1). Results are shown in Table 9.  
+
+It is worth noting that, in all scenarios, BPGAT outperforms BPNN both in terms of RMSE and MRE. Moreover it is possible to observe that BPNN undergoes the same trend as BPGAT (Section 4.2): fine-tuning the architecture (pre- trained on random formulae) gives a better performance than training the model from scratch, using distribution- specific datasets. A summary of these experiments is also reported on Figure 4.  
+
+Table 7. RMSE/MRE comparison of BPGAT and BPNN fine-tuned for the specific distribution.   
+
+<table><tr><td>Dataset</td><td>FT_BPGAT</td><td>FT_BPNN</td></tr><tr><td>Network</td><td>0.2580/0.005271</td><td>0.3187/0.007469</td></tr><tr><td>Domset</td><td>0.5508/0.04252</td><td>1.0646/0.08392</td></tr><tr><td>Color</td><td>1.2110/0.1774</td><td>2.9254/0.8046</td></tr><tr><td>Clique</td><td>0.007834/0.002475</td><td>0.01201/0.004069</td></tr></table>

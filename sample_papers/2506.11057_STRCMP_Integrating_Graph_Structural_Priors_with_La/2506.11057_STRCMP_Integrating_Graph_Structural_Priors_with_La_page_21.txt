@@ -1,0 +1,25 @@
+population- based search. The algorithm space is defined via 13 interpretable variable features, with LLMs enabling code- level manipulations during initialization, crossover, and mutation. We slightly adjusted **LLM4Solver**’s optimization focus from diving heuristics to cut selection for MILP solver for fair comparison with previous work [15, 16]. All configurations of this algorithm take the default used in [15, 16] for fair comparison.  
+
+## D Dataset Details  
+
+## D.1 SAT Domain  
+
+Chromatic- Number- of- the- Plane (CNP). This problem requires coloring graph vertices such that adjacent nodes have distinct colors.  
+
+Profitable- Robust- Production (PRP). This problem seeks robust production plans maintaining profitability under uncertain/fluctuating conditions. The generation setting of PRP adhere to [29].  
+
+CoinsGrid. This problem, based on Tony Hurlimann’s coin puzzle, involves arranging coins on a grid with row- wise, column- wise, and distance- based constraints. The generation setting of CoinsGrid adhere to [29].  
+
+Zamkeller. This problem requires finding a permutation of integers from 1 to \(n\) that maximizes differential alternations in subsequences divisible by integers 1 to \(k\) ( \(1 < k < n\) ). Instance generation follows [29].  
+
+Table 3: The statistical description of used SAT datasets. Const. and Var. stand for constraints and variables respectively.   
+
+<table><tr><td>Dataset</td><td>Size</td><td># Const. (mean)</td><td># Const. (std)</td><td># Var. (mean)</td><td># Var. (std)</td></tr><tr><td>CNP</td><td>150</td><td>261,260</td><td>352,379</td><td>8,798</td><td>8,893</td></tr><tr><td>CoinsGrid</td><td>78</td><td>1,116,972</td><td>1,068,009</td><td>154,828</td><td>148,571</td></tr><tr><td>PRP</td><td>80</td><td>2,120,983</td><td>1,346,344</td><td>317,635</td><td>201,185</td></tr><tr><td>Zamkeller</td><td>80</td><td>310,804</td><td>335,102</td><td>24,592</td><td>22,190</td></tr></table>  
+
+## D.2 MILP Domain  
+
+Easy. The SCIP 8.0.0 solver solves MILP instances in the Easy dataset within one minute. This dataset comprises three synthetic problems: Set Covering [41], Maximum Independent Set [42], and Multiple Knapsack [43]. We select these classes because: (1) they serve as standard benchmarks for MILP solver evaluation [44], and (2) they encompass diverse MILP problem structures encountered in practice. Following [44, 43], we generate set covering instances (500 rows \(\times\) 1000 columns), Maximum Independent Set instances (500- node graphs with affinity 4), and multiple knapsack instances (60 items, 12 knapsacks). For each dataset within this category, we generate 1,000 training instances and hold 100 instances as test set. Besides, we set the timelimit as 60 seconds for solving problem instances within this dataset.  
+
+Medium. The SCIP 8.0.0 solver requires at least five minutes to solve this set of instances optimally. Following [54, 55, 53], this dataset combines \(\mathrm{MIK}^6\) [46] (MILPs with knapsack constraints) and CORLAT \(^{7}\) [47] (real- world grizzly bear corridor planning in Northern Rockies). Each problem set is partitioned into \(80\%\) training and \(20\%\) test instances. Furthermore, we set the timelimit as 120 seconds for solving problem instances within this dataset.  
+
+Hard. The SCIP 8.0.0 solver requires more than one hour to solve Hard dataset instances to optimality. These datasets \(^{8}\) include Load Balancing from the NeurIPS 2021 ML4CO competition [48]. Load Balancing instances model server task allocation under resource constraints. Same as Medium dataset, each problem set in Hard dataset is also partitioned into \(80\%\) training and \(20\%\) test instances. Additionally, we set the timelimit as 360 seconds for solving problem instances within this dataset.

@@ -1,0 +1,23 @@
+<center>Figure 1: The workflow of our method. SAT instances are represented as literal-clause graphs with hand-designed attributes. Rounds of heterogeneous graph convolutions are applied, which modify the attributes. The attributes of the clause and variable nodes are then averaged, before being fed to a linear layer followed by a softmax over the various solvers. The convolutions and the linear layer are trained to minimize by gradient descent a runtime-sensitive classification loss computed from runtimes collected on training SAT instances. </center>  
+
+require a fixed- dimensional vector of features as input, irrespective of the actual instance size (number of clauses and variables). This necessarily implies that some aspects of a SAT problem are not taken into account when performing solver selection.  
+
+In recent years, machine learning has been revolutionized by deep learning models trained on raw descriptions of data points such as image pixels or text strings [18]. In particular, surprising success has been found in a variety of combinatorial optimization tasks by representing optimization problems as graphs, and feeding them as inputs to graph neural networks [5]. Such models are able to take the complete representation of a problems as input, in a size- independent way, and see patterns where humans have been unable to distinguish any.  
+
+In this work, we propose GraSS (Graph Neural Network SAT Solver Selector), the first graph neural network (GNN) based method for automatic SAT solver selection. We represent instances as literal- clause graphs [19], thus encoding the entirety of the information pertaining to an instance. To improve performance further, we also endow the graph with hand- designed features representing domain- knowledge about which aspects of the graph should be particularly useful for solver selection, as well as positional encodings for the clauses to allow for order- specific effects. Our GNN model consists of learned graph convolutions operating over each type of edge, with a node- specific pooling operation prior to a linear classifier. We train our model in a supervised manner with a runtime- sensitive classification loss. The training data consists of a collection of instances for which the runtimes of multiple solvers have been collected.  
+
+On both a large- scale industrial circuit design benchmark, and on instances from the Anniversary Track of the 2022 SAT Competition [2], we report improvements in performance compared to seven competitive solvers, as well as state- of- the- art machine learning approaches. We also perform a complete ablation study to rigorously test the importance of each component of our proposed pipeline.   
+
+In summary, our contributions are as follows.  
+
+We propose the first approach for SAT solver selection that makes complete use of the SAT instance data, by representing each instance as an attributed graph and using a GNN model. We propose a model architecture that is tailored to the tripartite graph representations. We design novel node- level features to incorporate domain- specific knowledge. We report for the first time the value of including positional encodings for clauses in the graphical representation of an instance for a SAT- related machine learning task. We introduce a novel runtime- sensitive classification loss, which could be of value for general algorithm selection tasks. We report state- of- the- art empirical performance on two hard SAT benchmarks and conduct extensive ablation studies to confirm the value of our architectural choices.  
+
+Collectively, these elements strongly suggest our approach should be regarded as a new standard in the field of SAT solver selection.  
+
+## 2 RELATED WORK  
+
+### 2.1 SAT Solver Selection  
+
+There exists a rich literature describing machine learning models for the selection of the optimal SAT solver for a given instance. This approach is sometimes referred to as portfolio- based SAT solving. A detailed summary is provided by Holden et al. [20, Section 6].  
+
+SATzilla [46] and its successors [45, 47] are a family of classification models that have won multiple prizes in the SAT Competition (2007 and 2009) and the SAT Challenge (2012). SATzilla uses hand- selected features to characterize each SAT instance for best solver selection. The latest version of SATzilla [45] consists of a feature

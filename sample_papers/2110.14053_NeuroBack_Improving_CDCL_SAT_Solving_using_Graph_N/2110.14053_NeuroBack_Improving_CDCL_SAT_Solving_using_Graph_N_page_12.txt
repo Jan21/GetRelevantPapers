@@ -1,0 +1,1 @@
+formula size threshold based on their machine's memory capacity. Alternatively, they might simply establish a memory threshold for each solver instance based on their machine's memory capacity and allow model inference to proceed until this threshold is reached, which typically incurs an overhead of no more than a few seconds.

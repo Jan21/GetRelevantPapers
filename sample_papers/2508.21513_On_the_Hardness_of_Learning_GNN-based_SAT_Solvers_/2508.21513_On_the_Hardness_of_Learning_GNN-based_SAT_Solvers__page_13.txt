@@ -1,0 +1,35 @@
+## A Appendix  
+
+In what follows, we provide supplementary material that complements the main manuscript. The appendix is organized as follows:  
+
+1. Appendix A.1 begins with background on graph Ricci curvature, where we review both the Ollivier and Balanced Forman discretizations in order to give the reader an intuitive and formal foundation for subsequent results.  
+
+2. In Appendix A.2, we provide detailed proofs of the propositions and theorems discussed in the manuscript.  
+
+3. Appendix A.3 describes the test-time graph rewiring procedure used in our experiments, including a full presentation of the stochastic curvature-guided algorithm.  
+
+4. In Appendix A.4, we outline preliminary ideas and implementations for curvature-aware solvers, along with empirical results that illustrate their potential.  
+
+5. Finally, Appendix A.5 contains additional plots and visualizations that further clarify the relationship between curvature, problem hardness, and solver behavior.  
+
+## A.1 Ricci curvature of graphs  
+
+In this section, we provide, for the sake of completeness, both definitions and intuitive explanations of the two types of graph Ricci Curvature (RC) mentioned in this paper. The definitions are taken from Bhattacharya and Mukherjee [5] and Topping et al. [47] respectively, we simply report them here in a synthesized manner. We kindly refer the reader to the aforementioned works for more details.  
+
+## A.1.1 Ollivier Ricci curvature (OC)  
+
+The formulation of Ollivier [39] aligns with the intuition from differential geometry: edges with negative curvature act as structural bottlenecks, separating dense regions and limiting smooth information propagation. Edges with positive curvature in the other hand facilitate smooth information propagation and are indicators of community structure. Graph Ollivier- Ricci Curvature (OC) is very well studied and has being linked to properties of graph Lapacians and mixing times of Markov Chain Monte Carlo (MCMC) methods [22, 42]. The intuitive idea of this discretization is to directly implement the idea from differential geometry: we use a ratio between the amount of "mass" moved around of an edge neighborhood with the shortest path distance, i.e., the graph geodesic. Let us formalize this concept.  
+
+For two probability measures \(\mu_{1},\mu_{2}\) on a metric space \((X,d)\) , the the Wasserstein distance between them is defined as  
+
+\[W_{1}(\mu_{1},\mu_{2}) = \inf_{\nu \in M(\mu_{1},\mu_{2})}\int_{X\times X}d(x,y)\mathrm{d}\nu (x,y), \quad (12)\]  
+
+where \(M(\mu_{1},\mu_{2})\) is the collection of probability measures on \(X\times X\) with marginals \(\mu_{1}\) and \(\mu_{2}\) . The Wasserstein distance is the result of the solution to a famous problem called Optimal Transport [43]. Intuitively, this distance measures the optimal cost to move one pile of sand to another one with the same mass.  
+
+Let a metric measure space \((X,d,m)\) be a metric space \((X,d)\) , with a collection of probability measures \(m = \{m_{x}:x\in X\}\) indexed by the points of \(X\) . The (coarse) Ricci curvature of a metric measure space is defined as follows:  
+
+Definition A.1 (Ollivier [39]). On any metric measure space \((X,d,m)\) , for any two distinct points \(x,y\in X\) , the (coarse) Ricci curvature of \((X,d,m)\) of \((x,y)\) is defined as:  
+
+\[\kappa (x,y)\coloneqq 1 - \frac{W_{1}(m_{x},m_{y})}{d(x,y)} \quad (13)\]  
+
+Extending this definition to graphs requires some additional steps. Consider a locally finite and possibly weighted simple graph \(G = (V,E)\) , where each edge \((i,j)\in E\) is assigned a positive weight \(w_{ij} = w_{ji}\) . The graph is equipped with the standard shortest path graph distance \(d_{G}\) , that is, for \(i,j\in V\) , \(d_{G}(i,j)\) is the length of the shortest path in \(G\) connecting nodes \(i\) and \(j\) . For \(i\in V\)

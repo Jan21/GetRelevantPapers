@@ -1,0 +1,37 @@
+## REFERENCES  
+
+Model counting competition 2020 url, 2020. https://mccompetition.org/2021/mc_description.html.  
+
+Model counting competition 2021 url, 2021. https://mccompetition.org/2021/mc_description.html.  
+
+Model counting competition 2022 url, 2022. https://mccompetition.org/2022/mc_description.html.  
+
+Sat competition 2022. https://satcompetition.github.io/2022/, 2022. Accessed: 2023- 08- 10.  
+
+Sat competition 2023. https://satcompetition.github.io/2023/, 2023. Accessed: 2023- 11- 23.  
+
+Tasniem Al- Yahya, Mohamed El Bachir Abdelkrim Menai, and Hassan Mathkour. Boosting the performance of cdc1- based sat solvers by exploiting backbones and backdoors. Algorithms, 15(9): 302, 2022.  
+
+Gilles Audemard and Laurent Simon. On the glucose sat solver. International Journal on Artificial Intelligence Tools, 27(01):1840001, 2018.  
+
+Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint arXiv:1607.06450, 2016.  
+
+Peter W Battaglia, Jessica B Hamrick, Victor Bapst, Alvaro Sanchez- Gonzalez, Vinicius Zambaldi, Mateusz Malinowski, Andrea Tacchetti, David Raposo, Adam Santoro, Ryan Faulkner, et al. Relational inductive biases, deep learning, and graph networks. arXiv preprint arXiv:1806.01261, 2018.  
+
+Armin Biere and Mathias Fleury. Chasing target phases. In Workshop on the Pragmatics of SAT, 2020.  
+
+Armin Biere and Mathias Fleury. Gimsatul, IsaSAT and Kissat entering the SAT Competition 2022. In Tomas Balyo, Marijn Heule, Markus Iser, Matti Järvisalo, and Martin Suda (eds.), Proc. of SAT Competition 2022 - Solver and Benchmark Descriptions, volume B- 2022- 1 of Department of Computer Science Series of Publications B, pp. 10- 11. University of Helsinki, 2022.  
+
+Armin Biere, Mathias Fleury, and Maximilian Heisinger. Cadical, kissat, paracooba entering the sat competition 2021. 2021. URL https://api.semanticscholar.org/CorpusID: 238996423.  
+
+Armin Biere, Nils Froleyks, and Wenxi Wang. Cadiback: Extracting backbones with cadical. In 26th International Conference on Theory and Applications of Satisfiability Testing (SAT 2023). Schloss Dagstuhl- Leibniz- Zentrum für Informatik, 2023.  
+
+Deli Chen, Yankai Lin, Wei Li, Peng Li, Jie Zhou, and Xu Sun. Measuring and relieving the oversmoothing problem for graph neural networks from the topological view. In Proceedings of the AAAI conference on artificial intelligence, volume 34, pp. 3438- 3445, 2020.  
+
+Martin Davis, George Logemann, and Donald Loveland. A machine program for theorem- proving. Communications of the ACM, 5(7):394- 397, 1962.  
+
+Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, et al. An image is worth 16x16 words: Transformers for image recognition at scale. arXiv preprint arXiv:2010.11929, 2020.  
+
+Niklas Eén and Niklas Sörensson. An extensible sat- solver. In International conference on theory and applications of satisfiability testing, pp. 502- 518. Springer, 2003.  
+
+Matthias Fey and Jan E. Lenssen. Fast graph representation learning with PyTorch Geometric. In ICLR Workshop on Representation Learning on Graphs and Manifolds, 2019.

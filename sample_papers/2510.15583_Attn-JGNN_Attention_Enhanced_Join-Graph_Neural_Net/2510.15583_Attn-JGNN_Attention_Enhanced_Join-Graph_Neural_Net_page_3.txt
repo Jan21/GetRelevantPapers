@@ -1,0 +1,19 @@
+attention layers are respectively responsible for message passing within and between clusters to improve the solution efficiency. We added a constraining awareness module in the loss function in the form of a regularization term, which prioritizes easily satisfied clauses and penalizes variable assignments that violate the constraints. Meanwhile, a dynamic attention mechanism is adopted. By dynamically increasing or decreasing the number of attention heads along with the time step, the training speed is improved and the resource consumption is reduced.  
+
+In the ablation experiment, we proved that the above three improvements were effective. And IJGP is significantly superior to the BP algorithm. The experimental results on the BIRD and SATLIB benchmark datasets show that, with RMSE as the metric, compared with NSNet and BPGAT, the solution accuracy of Attn- JGNN has increased by \(31\%\) and \(45\%\) respectively.  
+
+This paper constructs a neural network framework Attn- JGNN. This framework applies the hierarchical attention mechanism to the join- graph of the IJGP algorithm and optimizes the framework through two methods: constraint awareness and dynamic trimming of the attention head. It breaks through the limitations of the graph structure imposed by traditional propagation algorithms and is more efficient when combined with attention.  
+
+## 2 Preliminaries  
+
+### 2.1 Satisfiability Problems  
+
+In propositional logic, a Boolean formula is composed of Boolean variables and logical operators (e.g., negation \((\neg)\) , conjunction \((\wedge)\) , and disjunction \((\vee)\) ). It is standard practice to represent Boolean formulas in Conjunctive Normal Form (CNF), which takes the form of a conjunction of clauses—where each clause is a disjunction of literals (a literal is either a variable or its negation). Given a CNF formula, the SAT (Satisfiability Problem) asks whether there exists any variable assignment that satisfies the formula. In contrast, the goal of #SAT (Propositional Model Counting Problem) is to count the total number of such satisfying assignments (also called "models").  
+
+### 2.2 Iterative Join-Graph Propagation  
+
+IJGP (Iterative Join- Graph Propagation) is an approximate inference algorithm designed primarily to compute marginal probabilities in probabilistic graphical models (e.g., Markov Random Fields (MRFs) and Bayesian Networks (BNs)). It constructs a join- graph and performs iterative message passing over this graph to efficiently approximate complex probability distributions.  
+
+For a given probabilistic graphical model, its joint probability distribution can be expressed as a product of factors:  
+
+\[P(X) = \left(\frac{1}{Z}\right)\prod_{i = 1}^{m}\phi_{i}(C_{i}) \quad (1)\]

@@ -1,0 +1,33 @@
+Graph to encode the Boolean formula and employ GNN to predict the possibility of UNSAT- core variables. By proposing novel graph node feature embedding and loss function, we address the imbalanced data distribution of problems in LEC (mostly UNSAT problems and large UNSAT- core). We evaluate IB- Net and previous works with CDCL solvers on both the open SAT Competition dataset and the real industrial dataset. IB- Net achieves a \(5.0\%\) runtime reduction per problem in the whole LEC pipeline, while other benchmarks have no effect or even runtime increase. For the open SAT Competition dataset, IB- Net gains an \(8.3\%\) runtime reduction, much higher than other works. Such experimental results show the efficiency- boosting of IB- Net. All runtimes are computed with network construction and inference time inclusive.  
+
+## 2 Related Work  
+
+The EDA field has leveraged the power of NN for various applications. The complexity of EDA tasks, including verification like LEC, provides a fertile ground for applying machine learning techniques to improve efficiency and robustness. In early work, these approaches focused mainly on data processing and process optimization. NN- based data argumentation and instance preprocessing are applied to accelerate the verification process [Huang et al., ]. Huang et al. further demonstrated the utility of NNs in EDA by designing a machine learning model to predict cut ranking for dealing with combinatorial optimization problems [Huang et al., 2022].  
+
+As SAT solver is widely applied in EDA, the combination of NN and SAT problem has also been tried. Graph Neural Network has emerged as a powerful tool for capturing the relational information inherent in graph structures, which has naturally led to their application in SAT constraint problem- solving [Lopera et al., 2021]. The application of GNN is approached in two ways: end- to- end solving and heuristic solver guidance. In the first vein, GNN is trained to learn the underlying structure and patterns in SAT problems and to directly predict satisfying assignments or indicate unsatisfiability [Selsam et al., 2019] [Amizadeh et al., 2019] [Xu et al., 2018]. While the idea of using GNN as a solver is enticing, it also presents challenges. The complex nature of SAT problems leads to unreliability and low performance in models, especially in the industrial context. On the other hand, the use of GNN as heuristics to SAT solvers constitutes another effective application. In these approaches, GNN is typically employed to predict key aspects of the solving process, such as variable importance or ranking, thereby guiding the solver to solve efficiently [Selsam and Bjørner, 2019] [Zhang et al., 2021] [Li et al., 2018] [Balunovic et al., 2018]. Unlike the first approach, these methods just provide information that potentially accelerates the solving process while the solving process is still done by the solver. Thus the reliability and complexity of SAT problem solving is ensured. In light of existing methodologies, our work IB- Net, a model designed to enhance the robustness and efficiency of SAT solvers through heuristic guidance and explore solver- GNN interaction, aims to address SAT solver usage in specific industrial scenarios.  
+
+## 3 IB-Net approach  
+
+### 3.1 Overview  
+
+To address our goal to assist the CDCL solvers targeting UNSAT problems, we propose the framework in Fig. 1. It is a combination of a neural network and a method to interact with solvers. For an input Boolean formula, it will firstly be converted into a Weighted Literal- Incidence Graph (WLIG) and fed into GNN for node feature updating, then gather the output as possibility to be UNSAT- core for variables. These output are assigned to SAT CDCL solver to initialize variable decision queue and decision score to guide the solving process. To make IB- Net more suitable for dealing with UNSAT problem, we made several improvement along the pipeline, which will be discussed in following subsections.  
+
+### 3.2 Graph Formulation  
+
+A propositional logic formula is a Boolean expression that contains conjunctions, disjunctions, variables, negations, and constants. The Boolean formula can be expressed in conjunctive normal form (CNF) with conjunction of disjunctions of variables (possibly negated variables) by transformation with linear length in linear time [Tseitin, 1983]. The SAT instance in CNF is a conjunction of clauses while a clause is a disjunction of literals (the variables and negated variables). The SAT instances are already converted into CNF before accessed by model and solvers, which is a common step when apply solvers.  
+
+To make use of the structure information within the formula, we convert SAT instance S into WLIG G. But in WLIG, the literal set of S are nodes and the common incidence of literals are edges, i.e. \((l_{1}, l_{2})\) hold edge if \(l_{1}\) and \(l_{2}\) appear in the same clause and the weight on edge account for the number of common incidences. The adjacent matrix \(A\) of graph G will be the input to the graph model.  
+
+### 3.3 Neural Network Model  
+
+We use a weighted GCN (W GCN) [Zhao et al., 2021] as our first network to extract features of variables and a multi- layer perceptron (MLP) to output the possibility of variables presented in UNSAT- core. The W GCN can perfectly match the design of WLIG to utilize the edge weight and enhance the message exchange.  
+
+The W GCN accepts the adjacency matrix as input to build the graph structure. Apart from that, to address features of literals, we initialize the embedding for a literal node with vector \(h \in \mathbf{R}^{2d}\) . The vector \(h\) is produced by concatenating the degree of node \(D \in \mathbf{R}\) and the literal type of node \(T \in \mathbf{R}\) vertically and then feeding to a linear transformation \(L_{init}\) : \(\mathbf{R}^{1 \times 2} \to \mathbf{R}^{1 \times 2d}\) to produce sparse node embedding.  
+
+\[h_{i} = L_{init}(D_{i} \oplus T_{i}), H = [h_{1}, h_{2}, \ldots , h_{N}]^{T} \quad (1)\]  
+
+The node embedding vectors \(H\) will be updated by aggregating embedding from its neighbors during each iteration of W GCN. Namely, a single iteration can be represented:  
+
+\[H^{(l + 1)} = \mathrm{ReLU}(L_{out}(A'H^{(l)}\oplus \mathrm{Flip}(H^{(l)}))), \quad (2)\]  
+
+where \(H^{(l)}\) represents the node features after the \(l\) - th iteration. We detail the computation process inside the W GCN unit as follows.

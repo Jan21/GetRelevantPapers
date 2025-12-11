@@ -1,0 +1,27 @@
+# Algorithm 1 DPLL Solver  
+
+1: Input: Formula \(\phi\) 2: function SOLVE \((\phi)\) 3: # Simplify formula 4: \(\phi \leftarrow \mathrm{UNIT - PROPAGATION}(\phi)\) 5: \(\phi \leftarrow \mathrm{PURE - LITERAL - ELIMINATION}(\phi)\) 6: 7: if \(\phi = \emptyset\) : return SAT 8: if \(\emptyset \in \phi\) : return UNSAT 9: 10: # Decide next branching variable 11: \(\ell \leftarrow \mathrm{PICK - LITERAL}(\phi)\) 12: return \(\mathrm{SOLVE}(\phi \land \{\ell \}) \vee \mathrm{SOLVE}(\phi \land \{\neg \ell \})\) 13: end function  
+
+# Algorithm 2 Decision Heuristic  
+
+1: Input: Formula \(\phi\) 2: function PICK- LITERAL \((\phi)\) 3: \(\hat{x}\leftarrow \mathrm{argmax}_{x}\mathrm{SCORE}(x)\) 4: return \(\hat{x}\) if PICK- SIGN \((\hat{x})\) else \(\neg \hat{x}\) 5: end function  
+
+# Algorithm 3 Guided Decision Heuristic  
+
+1: Input: Formula \(\phi\) , Parameters \(\mathcal{W} = (w, p)\) 2: function PICK- LITERAL- GUIDED \((\phi , \mathcal{W})\) 3: \(\hat{x} \leftarrow \mathrm{argmax}_{x} w(x) \cdot \mathrm{SCORE}(x)\) 4: return \(\hat{x}\) if \(p(\hat{x}) = 1\) else \(\neg \hat{x}\) 5: end function  
+
+Figure 1: DPLL SAT solver and branching heuristics. Algorithm 1: A DPLL SAT solver performs backtracking search to solve a given CNF formula \(\phi\) . At each search step, the formula is simplified through unit propagation and pure literal elimination before selecting the next branching literal. Algorithm 2: Branching heuristics are often implemented by choosing the variable that maximizes some hand- crafted scoring function. Algorithm 3: We propose to extend existing branching heuristics by incorporating given variable weights into the branching decisions that scale the associated score of each variable. We additionally choose the sign of each literal according to a provided polarity.  
+
+heuristics. Further related work is proposed by Han (2020), who accelerate cube- and- conquer solvers with supervised learning, Liu et al. (2024), who suggest improving clause deletion heuristics in CDCL SAT solvers with GNNs, and Zhai and Ge (2025), who use RL to speed up parallelized divide- and- conquer solvers.  
+
+## 2 RLAF-guided SAT Solvers  
+
+### 2.1 Guided Branching Heuristics  
+
+We modify existing SAT solvers to incorporate external variable weights into their branching heuristic. Let some base SAT solver be given. We assume that this solver is a DPLL- derived backtracking search algorithm. We further assume that the branching heuristic is implemented by first selecting a variable \(\hat{x} = \mathrm{argmax}_{x} \mathrm{Score}(x)\) that maximizes some variable scoring function Score before picking a literal sign according to some secondary heuristic, as illustrated in Algorithm 2. Many existing branching heuristics, such as VSIDS and look- ahead heuristics, fit the generic algorithm pattern while relying on different definitions of variable scores. Note that these scores usually depend on the current partial assignment of the search as well as information extracted in previous search steps, such as encountered conflicts. We can modify this decision heuristic to incorporate additional variable weights \(w: \mathrm{Var}(\phi) \to \mathbb{R}_{>0}\) for the given input formula \(\phi\) :  
+
+\[\hat{x} = \mathrm{argmax}_{x} w(x) \cdot \mathrm{Score}(x) \quad (1)\]  
+
+These weights are passed to the modified solver as additional input and modulate its branching heuristic by scaling the variable- wise scores. In this manner, we can inject prior knowledge of variable importance into the solver's branching decisions without sacrificing its original heuristic. Naturally, choosing a useful variable weighting \(w\) by hand is difficult. Instead, our focus is on learning to infer effective variable weights from the input formula's structure using a deep neural network.  
+
+In addition to these weights, we may also specify a mapping \(p: \mathrm{Var}(\phi) \to \{0, 1\}\) that assigns a polarity \(p(x)\) to each variable \(x\) . When \(x\) is chosen as a decision variable, the polarity determines which value is assigned to \(x\) first. Specifying polarities for variables is a common function for modern SAT solvers, and well- chosen values can have a significant impact on run time, especially on satisfiable instances. In this work, we will infer variable- wise polarities alongside the variable weights \(w\) with a learned GNN model. Overall, the modified solver \(\mathrm{Solve}(\phi , \mathcal{W})\) takes as input a CNF formula \(\phi\) as well as a variable parameterization \(\mathcal{W} = (w, p)\) that assigns a weight \(w(x) \in \mathbb{R}_{>0}\) and polarity \(p(x) \in \{0, 1\}\) to each variable \(x \in \mathrm{Var}(\phi)\) .

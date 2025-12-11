@@ -1,0 +1,37 @@
+### 7.2 Conclusion  
+
+7.2 ConclusionIn this work, we present G4SATBench, a benchmark study that comprehensively evaluates GNN models in SAT solving. G4SATBench offers curated synthetic SAT datasets sourced from various domains and difficulty levels and benchmarks a wide range of GNN- based SAT solvers under diverse settings. Our empirical analysis yields valuable insights into the performances of GNN- based SAT solvers and further provides a deeper understanding of their capabilities and limitations. We hope the proposed G4SATBench will serve as a solid foundation for GNN- based SAT solving and inspire future research in this exciting field.  
+
+## Acknowledgments  
+
+AcknowledgmentsThis work was supported, in part, by Individual Discovery Grants from the Natural Sciences and Engineering Research Council of Canada, and the Canada CIFAR AI Chair Program.  
+
+## References  
+
+Saeed Amizadeh, Sergiy Matusevych, and Markus Weimer. Learning to solve Circuit- SAT: An unsupervised differentiable approach. In International Conference on Learning Representations (ICLR), 2019a.  
+
+Saeed Amizadeh, Sergiy Matusevych, and Markus Weimer. PDP: A general neural framework for learning constraint satisfaction solvers. arXiv preprint arXiv:1903.01969, 2019b.  
+
+Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint arXiv:1607.06450, 2016.  
+
+Adrian Balint and Andreas Fröhlich. Improving stochastic local search for sat with a new probability distribution. In Theory and Applications of Satisfiability Testing- SAT 2010: 13th International Conference, SAT 2010, Edinburgh, UK, July 11- 14, 2010. Proceedings 13, pp. 10- 15. Springer, 2010.  
+
+Armin Biere, Marijn Heule, and Hans van Maaren. Handbook of Satisfiability, volume 185. IOS press, 2009.  
+
+Béla Bollobás and Paul Erdős. Cliques in random graphs. In Mathematical Proceedings of the Cambridge Philosophical Society, 1976.  
+
+Benedikt Bünz and Matthew Lamm. Graph neural networks and boolean satisfiability. arXiv preprint arXiv:1702.03592, 2017.  
+
+Chris Cameron, Rex Chen, Jason Hartford, and Kevin Leyton- Brown. Predicting propositional satisfiability via end- to- end learning. In AAAI Conference on Artificial Intelligence (AAAI), 2020.  
+
+Ting Chen, Simon Kornblith, Mohammad Norouzi, and Geoffrey E. Hinton. A simple framework for contrastive learning of visual representations. In International Conference on Machine Learning (ICML), 2020.  
+
+Ziliang Chen and Zhanfu Yang. Graph neural reasoning may fail in certifying boolean unsatisfiability. arXiv preprint arXiv:1909.11588, 2019.  
+
+James M. Crawford and Larry D. Auton. Experimental results on the crossover point in random 3- SAT. Artificial Intelligence, 1996.  
+
+Haonan Duan, Pashootan Vaezipoor, Max B. Paulus, Yangjun Ruan, and Chris J. Maddison. Augment with care: Contrastive learning for combinatorial problems. In International Conference on Machine Learning (ICML), 2022.  
+
+Matthias Fey and Jan Eric Lenssen. Fast graph representation learning with pytorch geometric. arXiv preprint arXiv:1903.02428, 2019.  
+
+ABKFM Fleury and Maximilian Heisinger. Cadical, kissat, paracooba, plingeling and treengeling entering the sat competition 2020. SAT COMPETITION, 2020.

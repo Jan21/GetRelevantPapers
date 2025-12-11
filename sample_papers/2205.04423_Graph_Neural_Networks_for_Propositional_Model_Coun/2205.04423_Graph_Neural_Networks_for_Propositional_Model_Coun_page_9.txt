@@ -1,0 +1,21 @@
+### 4.2 Results  
+
+The objective of our experiments is twofold: evaluating both BPGAT scalability and generalization capabilities. In order to assess the performance of the model, both Root Mean Squared Error (RMSE) and Mean Relative Error (MRE) metrics are reported, evaluated between the logarithm of the ground truth number of models of the input formulae \(\ln Z\) and the output of the model \(\ln \hat{Z}\) .  
+
+As a baseline, we used ApproxMC [9,23], the state- of- the- art approximate #SAT solver, which is a randomized hashing algorithm that provides Probably Approximately Correct (PAC) guarantees.  
+
+It would have been meaningful and interesting to compare BPGAT against other guarantee- less counters, such as ApproxCount [29] or SampleApprox [28], but unfortunately we couldn't access any open- source implementation of them.  
+
+Scalability In order to assess the ability of our model to scale to larger problem sizes than the one seen during training, we generated several datasets following the procedure detailed in Section 4.1.  
+
+Table 1 shows the statistics of the datasets used in this testing phase, each containing 300 labeled instances. All datasets are much larger than the one seen during training, and in particular 'Test 4' contains formulae having a number of variables which is more than ten times more the one in the training set, and a number of clauses which is almost ten times more than the ones in the training set.  
+
+Table 2 shows the results obtained, in terms of RMSE and MRE, by BPGAT and ApproxMC.  
+
+It is worth noting that for all the datasets tested, BPGAT outperforms ApproxMC in terms of MRE (although not in terms of RMSE). Such higher RMSE is a consequence of few outliers with a large prediction error for BPGAT (as shown in Figure 1), while most of its predictions are close to the ground truth labels, as certified by the consistently lower MRE.  
+
+Table 1. Average number of variables, average number of clauses, average number of solutions and average time employed (in seconds) by the exact solver sharpSAT of the datasets used to test scalability.   
+
+<table><tr><td>Dataset</td><td>Avg#var</td><td>Avg#cl</td><td>Avg#sol</td><td>Avg t (s)</td></tr><tr><td>Test 1</td><td>61.8</td><td>76.89</td><td>1.76e+19</td><td>26.71</td></tr><tr><td>Test 2</td><td>60.43</td><td>143.61</td><td>6.23e+14</td><td>211.45</td></tr><tr><td>Test 3</td><td>124.07</td><td>75.26</td><td>1.14e+21</td><td>28.5</td></tr><tr><td>Test 4</td><td>377.59</td><td>275.11</td><td>7.18e+145</td><td>286.95</td></tr></table>  
+
+Out- of- distribution generalization The second set of tests we performed aims at evaluating the generalization capabilities of our model. The problem classes we perform experiments with are both SAT- encoded combinatorial problems ( \(k\) - dominating set, graph

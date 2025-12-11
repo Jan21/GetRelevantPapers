@@ -1,0 +1,23 @@
+Definition 1. [12] Let \(M\) be a finite universal set \(\{x_{1},x_{2},\ldots ,x_{n}\}\) and \(R\) be a random subset of \(M\) sampled by \(\mathbb{P}(x_{i}\in R) = p_{i}\) . Suppose these samples are mutually independent. An event \(\mathcal{A}\) is a collection of subsets of \(M\) . \(\mathcal{A}\) is an increasing event if a set \(S\) is in \(\mathcal{A}\) implies that every superset of \(S\) is in \(\mathcal{A}\) . Similarly, \(\mathcal{A}\) is a decreasing event if a set \(S\) is in \(\mathcal{A}\) implies that every subset of \(S\) is in \(\mathcal{A}\) .  
+
+Given two increasing events \(\mathcal{A}\) and \(B\) and two decreasing events \(C\) and \(\mathcal{D}\) , the correlation inequality [12] shows that  
+
+\[\begin{array}{r l} & {\mathbb{P}(\mathcal{A}\cap \mathcal{B})\geq \mathbb{P}(\mathcal{A})\cdot \mathbb{P}(\mathcal{B}),}\\ & {\mathbb{P}(\mathcal{C}\cap \mathcal{D})\geq \mathbb{P}(\mathcal{C})\cdot \mathbb{P}(\mathcal{D}),}\\ & {\mathbb{P}(\mathcal{A}\cap \mathcal{C})\leq \mathbb{P}(\mathcal{A})\cdot \mathbb{P}(\mathcal{C}).} \end{array} \quad (1)\]  
+
+By induction, if \(\{\mathcal{A}_{i}\}_{i\in [n]}\) are all increasing or all decreasing events,  
+
+\[\mathbb{P}(\bigwedge_{i\in [n]}\mathcal{A}_{i})\geq \prod_{i\in [n]}\mathbb{P}(\mathcal{A}_{i}). \quad (2)\]  
+
+Given a graph \(G(V,E)\) , denote by \(C_{S}\) the event that \(S\) is a clique. For a non- adjacent pair of vertices \(v_{i}\) and \(v_{j}\) , denote by \(B_{i j}\) the event that \(v_{i}\) and \(v_{j}\) are both in \(S\) , so \(\mathbb{P}(B_{i j}) = p_{i}p_{j}\) . Clearly, \(C_{S}\) is equivalent to \(\bigwedge_{i,j}\overline{{B_{i j}}}\) , and \(\overline{{B_{i j}}}\) 's are decreasing events. Thus, by (2),  
+
+\[\mathbb{P}(C_{S}) = \mathbb{P}(\bigwedge_{\{v_{i},v_{j}\} \notin E}\overline{{B_{i j}}})\geq \prod_{\{v_{i},v_{j}\} \notin E}\mathbb{P}(\overline{{B_{i j}}}). \quad (3)\]  
+
+Clearly, maximizing \(\prod_{\{v_{i},v_{j}\} \notin E}\mathbb{P}(\overline{{B_{i j}}})\) helps in maximizing \(\mathbb{P}(C_{S})\) . Hence, our loss function for the maximum- clique problem is  
+
+\[\mathcal{L} = -\ln \left(\mathbb{E}(|S|)\right) - \sum_{\{v_{i},v_{j}\} \notin E}\ln \left(\mathbb{P}(\overline{{B_{i j}}})\right). \quad (4)\]  
+
+We apply the probability distributions output from the GNN model using the loss function (4) to the greedy approximation algorithm for the maximum- clique problem in [8]. See Table 1 for the experimental results.  
+
+### 3.3 Loss Function for (Minimum) Dominating-Clique Problem  
+
+The maximum- clique problem belongs to the kind of combinatorial problems that the properties of solutions are defined locally. We would like to turn our focus towards solving combinatorial problems whose solutions have both local and global conditions. Also, previous studies of applying GNNs for combinatorial optimization problems usually use the probability distributions from GNN models for greedy approximation algorithms. Thus, we also look for a method to apply the probability distributions from GNN models to exact algorithms.

@@ -1,0 +1,31 @@
+<center>Figure 1: Example of the constraint value graph \(G(\mathcal{F},\alpha)\) for a given CSP instance \(\mathcal{F}\) and an assignment \(\alpha\) . The graph contains vertices for the variables, values and constraints of \(\mathcal{F}\) . Each value is connected to its variable and labeled with the assignment \(\alpha\) . Each constraint is connected to the values of its variables. This edge set is labeled such that a label of 1 for edge \((C,\nu)\) states that choosing value \(\upsilon\) will satisfy the constraint \(C\) if no other variables involved in \(C\) change their values. </center>  
+
+the constraint relations \(R^{C}\) is compactly encoded through a binary labeling of the constraint edges. For each assignment \(\alpha\) we introduce a vertex labeling \(L_{V}\) and an edge labeling \(L_{E}\) . The vertex labeling \(L_{V}\) is a binary encoding of \(\alpha\) , that is, \(L_{V}(\nu) = 1\) if \(\nu \in \alpha\) and \(L_{V}(\nu) = 0\) for each \(\nu \in \mathcal{V} \setminus \alpha\) . The edge labeling \(L_{E}\) encodes how changes to \(\alpha\) affect each constraint. For every constraint \(C \in \mathcal{C}\) and value \((X_{i}, d) \in \mathcal{V}_{X_{i}}\) of variable \(X_{i}\) in the scope \((X_{1}, \ldots , X_{k})\) of \(C\) we define the edge label to be \(L_{E}(C, \nu) = 1\) if  
+
+\[(\alpha (X_{1}), \ldots , \alpha (X_{i - 1}), d, \alpha (X_{i + 1}), \ldots , \alpha (X_{k})) \in R^{C}.\]  
+
+and \(L_{E}(C, \nu) = 0\) otherwise. Intuitively, the edge labels encode for each constraint edge \((C, \nu)\) whether or not choosing the value \(\nu\) for its variable would satisfy \(C\) under the condition that all other variables involved in \(C\) retain their current value in \(\alpha\) . We call the labeled graph \(G(\mathcal{F}, \alpha)\) obtained this way the constraint value graph of \(\mathcal{F}\) at \(\alpha\) . Figure 1 provides a visual example of our construction.  
+
+### 4.1 Architecture  
+
+We construct a recurrent GNN \(\pi_{\theta}\) that maps constraint value graphs to soft assignments and serves as a trainable policy for our reinforcement- learning setup. Here, the real vector \(\theta\) contains the trainable parameters of \(\pi_{\theta}\) . The input of \(\pi_{\theta}\) in iteration \(t\) is the current graph \(G(\mathcal{F}, \alpha^{(t - 1)})\) and recurrent vertex states \(h^{(t - 1)}\) . The output is a new soft assignment \(\phi^{(t)}\) for \(\mathcal{F}\) as well as updated recurrent states:  
+
+\[\phi^{(t)}, h^{(t)} = \pi_{\theta}\left(G(\mathcal{F}, \alpha^{(t - 1)}), h^{(t - 1)}\right) \quad (1)\]  
+
+The next assignment \(\alpha^{(t)}\) can then be sampled from \(\phi^{(t)}\) before the process is repeated. Here, we will provide an overview of the GNN architecture while we give a detailed formal description in Appendix A.  
+
+In a nutshell, our architecture is a recurrent heterogeneous GNN that uses distinct trainable functions for each of the three vertex types in the constraint value graph. The main hyperparameters of \(\pi_{\theta}\) are the latent dimension \(d \in \mathbb{N}\) and the aggregation function \(\bigoplus\) which we either choose as an element- wise SUM, MEAN or MAX function. As a rule of thumb, we found MAX- aggregation to perform best on decision problems while MEAN- aggregation seems more suitable  
+
+for maximization tasks. This coincides with observations of Joshi et al. (2020).  
+
+\(\pi_{\theta}\) associates a recurrent state \(h^{(t)}(\nu) \in \mathbb{R}^{d}\) with each value \(\nu \in \mathcal{V}\) and uses a GRU cell to update these states after each round of message passing. Variables and constraints do not have recurrent states. We did consider versions with stateful constraints and variables, but these did not perform better while being slower. All remaining functions for message generation and combination are parameterized by standard MLPs with at most one hidden layer. In each iteration \(t\) , \(\pi_{\theta}\) performs 4 directed message passes in the following order: (1) values to constraints, (2) constraints to values, (3) values to variables, (4) variables to values. The first two message passes incorporate the node and edge labels and enable the values to gather information about how changes to the current assignment effect each constraint. The final two message passes allow the values of each domain to negotiate the next variable assignment. Note that this procedure is carried out once in each search iteration \(t\) . As the recurrent states can carry aggregated information across search iterations we found a single round of message passes per iteration sufficient.  
+
+Finally, \(\pi_{\theta}\) generates a new soft assignment \(\phi^{(t)}\) . To this end, each value \(\nu \in \mathcal{V}_{X}\) of each variable \(X\) predicts a scalar real number \(o^{(t)}(\nu) = \mathbf{O}(h^{(t)}(\nu))\) from its updated latent state with a shared MLP \(\mathbf{O}:\mathbb{R}^{d}\to \mathbb{R}\) . We can then apply the softmax function within each domain to produce a soft value assignment:  
+
+\[\phi^{(t)}(\nu) = \frac{\exp\left(o^{(t)}(\nu)\right)}{\sum_{\nu^{\prime}\in\mathcal{V}_{X}}\exp\left(o^{(t)}(\nu^{\prime})\right)} \quad (2)\]  
+
+This procedure leverages a major strength of our graph construction: By modeling values as vertices we can directly process arbitrary domains with one GNN. For larger domains, we simply add more value vertices to the graph.  
+
+### 4.2 Global Search as an RL Problem  
+
+We deploy the policy GNN \(\pi_{\theta}\) as a trainable search heuristic. Note that a single GNN \(\pi_{\theta}\) can search for solutions on any given CSP instance. ANYCSP takes a CSP instance \(\mathcal{I}\) and a parameter \(T \in \mathbb{N}\) as input and outputs a sequence

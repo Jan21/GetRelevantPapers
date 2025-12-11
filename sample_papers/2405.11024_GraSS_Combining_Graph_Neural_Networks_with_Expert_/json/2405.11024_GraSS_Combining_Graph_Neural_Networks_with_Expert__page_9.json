@@ -1,0 +1,47 @@
+{
+  "image": "2405.11024_GraSS_Combining_Graph_Neural_Networks_with_Expert__page_9.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "text",
+      "boxes": [
+        [
+          85.0,
+          103.0,
+          483.0,
+          895.0
+        ]
+      ],
+      "raw": "[[85, 103, 483, 895]]",
+      "pixel_boxes": [
+        [
+          216,
+          340,
+          1232,
+          2956
+        ]
+      ]
+    },
+    {
+      "label": "text",
+      "boxes": [
+        [
+          515.0,
+          108.0,
+          912.0,
+          826.0
+        ]
+      ],
+      "raw": "[[515, 108, 912, 826]]",
+      "pixel_boxes": [
+        [
+          1314,
+          356,
+          2327,
+          2728
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<center>(a) Performance of different graph construc- (b) Performance of different supervising sig- (c) Performance of different Loss functions tion strategies nals </center>  
+
+<center>Figure 4: The ablation study </center>  
+
+Table 4: Model performance on LEC dataset and SAT Competition dataset   
+
+<table><tr><td></td><td></td><td>Kissat</td><td>NeuroCore</td><td>NeuroSAT</td><td>NLocalSAT</td><td>IB-Net</td></tr><tr><td rowspan="4">LEC</td><td>A.RT</td><td>383s</td><td>460s</td><td>673s</td><td>680s</td><td>364s</td></tr><tr><td>Imp.</td><td>0s</td><td>-73s</td><td>-285s</td><td>-292s</td><td>19s</td></tr><tr><td>Imp. %</td><td>0%</td><td>-18.8%</td><td>-73%</td><td>-75%</td><td>5%</td></tr><tr><td>Halted</td><td>0</td><td>350</td><td>7800</td><td>7900</td><td>0</td></tr><tr><td></td><td>Halted %</td><td>0%</td><td>0.50%</td><td>10%</td><td>10%</td><td>0%</td></tr><tr><td rowspan="4">SAT Comp</td><td>A.RT</td><td>179s</td><td>174s</td><td>176s</td><td>174s</td><td>164s</td></tr><tr><td>Imp.</td><td>0s</td><td>5s</td><td>3s</td><td>5s</td><td>15s</td></tr><tr><td>Imp. %</td><td>0%</td><td>3%</td><td>2%</td><td>3%</td><td>8.3%</td></tr><tr><td>Halted</td><td>1161</td><td>1150</td><td>1161</td><td>1158</td><td>1130</td></tr><tr><td></td><td>Halted %</td><td>35.5%</td><td>35.2%</td><td>35.5%</td><td>35.5%</td><td>34%</td></tr></table>  
+
+instances while IB- Net can further reduce halted instances.  
+
+As we mainly target the UNSAT problem in LEC, we present Table 5 to explore the detailed performance of different approaches on three subsets that constitute a significant proportion of the LEC industrial dataset. It can be observed that across these subsets, IB- Net consistently leads the board, even outperforming its improvements on the overall LEC data, which validates the position of IB- Net as a universally effective approach.  
+
+From Table 3 and Table 4, we can observe a consistency between the quality of UNSAT- core prediction and the improvement in runtime efficiency when dealing with UNSAT problems. It is plausible that the solver spends more time eliminating variables outside UNSAT- core from the decision queue, thus negatively impacting the performance. By fine  
+
+Table 5: Model runtime performance on three main circuits in LEC dataset.   
+
+<table><tr><td></td><td></td><td>Kissat</td><td>NeuroCore</td><td>NeuroSAT</td><td>NLocalSAT</td><td>IB-Net</td></tr><tr><td rowspan="4">Circuit1</td><td>A.RT</td><td>442s</td><td>502s</td><td>683s</td><td>685s</td><td>422s</td></tr><tr><td>Imp.</td><td>0s</td><td>-60s</td><td>-241s</td><td>-243s</td><td>20s</td></tr><tr><td>Imp. %</td><td>0%</td><td>-13%</td><td>-54%</td><td>-55%</td><td>4.5%</td></tr><tr><td>A.RT</td><td>335s</td><td>419s</td><td>635s</td><td>640s</td><td>321s</td></tr><tr><td rowspan="3">Circuit2</td><td>Imp.</td><td>0s</td><td>-84s</td><td>-300s</td><td>-305s</td><td>14s</td></tr><tr><td>Imp. %</td><td>0%</td><td>-25%</td><td>-89%</td><td>-91%</td><td>4.2%</td></tr><tr><td>A.RT</td><td>360s</td><td>425s</td><td>674s</td><td>695s</td><td>341s</td></tr><tr><td rowspan="2">Circuit3</td><td>Imp.</td><td>0s</td><td>-65s</td><td>-314s</td><td>-334s</td><td>19s</td></tr><tr><td>Imp. %</td><td>0%</td><td>-18%</td><td>-87%</td><td>-92%</td><td>5.2%</td></tr></table>  
+
+tuning the UNSAT dataset, our approach promises to offer more precise and time- efficient solution for SAT problems.  
+
+### 5.2 Ablation Study  
+
+We run experiments on LEC datasets with certain settings changed while other settings kept to further assess factors that may influence the effectiveness of our method on SAT problems in LEC context, shown in Fig. 4.  
+
+## Graph Construction  
+
+In previous approaches, Literal- Clause Graph construction is applied as the common way to set both literal and clause as node and affiliation between clause and literal as edge. The change from LCG to WLIG give up the useless clause information in UNSAT- core prediction and focus more on literal connection.

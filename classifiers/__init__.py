@@ -3,7 +3,7 @@ Classifier modules for paper classification.
 """
 
 from .base_classifier import BaseClassifier
-from .vllm_classifier import VLLMClassifier
 from .openrouter_classifier import OpenRouterClassifier
+from .bedrock_classifier import BedrockClassifier
 
-__all__ = ['BaseClassifier', 'VLLMClassifier', 'OpenRouterClassifier']
+__all__ = ['BaseClassifier', 'OpenRouterClassifier', 'BedrockClassifier']

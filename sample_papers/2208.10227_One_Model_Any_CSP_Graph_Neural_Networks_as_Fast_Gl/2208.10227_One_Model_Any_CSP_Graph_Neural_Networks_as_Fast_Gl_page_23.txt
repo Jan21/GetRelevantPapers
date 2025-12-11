@@ -1,0 +1,9 @@
+<center>Figure 7: Number of unsat clauses in the best found solution on our MAX-5-SAT test instances. We plot the average over 50 instances as a function in the number of search steps \(t\) . We compare ANYCSP and its two ablation versions. </center>  
+
+Table 12: Get results of out ablation models.   
+
+<table><tr><td>METHOD</td><td>|V|=800</td><td>|V|=1K</td><td>|V|=2K</td><td>|V|≥3K</td></tr><tr><td>ANYCSPloc</td><td>14.22</td><td>26.00</td><td>84.00</td><td>197.50</td></tr><tr><td>ANYCSPqual</td><td>30.11</td><td>12.89</td><td>42.56</td><td>200.75</td></tr><tr><td>ANYCSP</td><td>1.22</td><td>2.44</td><td>13.11</td><td>51.63</td></tr></table>  
+
+Table 13: Ablation results on Max-\(k\) -SAT instances.   
+
+<table><tr><td>METHOD</td><td>3CNF</td><td>5CNF</td></tr><tr><td>ANYCSPloc</td><td>1697.08</td><td>1498.46</td></tr><tr><td>ANYCSPqual</td><td>1921.70</td><td>1471.00</td></tr><tr><td>ANYCSP</td><td>1537.46</td><td>1103.14</td></tr></table>

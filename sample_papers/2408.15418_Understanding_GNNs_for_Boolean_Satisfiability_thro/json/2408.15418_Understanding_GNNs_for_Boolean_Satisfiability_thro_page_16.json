@@ -1,0 +1,47 @@
+{
+  "image": "2408.15418_Understanding_GNNs_for_Boolean_Satisfiability_thro_page_16.png",
+  "width": 2550,
+  "height": 3300,
+  "detections": [
+    {
+      "label": "table_caption",
+      "boxes": [
+        [
+          198.0,
+          104.0,
+          799.0,
+          118.0
+        ]
+      ],
+      "raw": "[[198, 104, 799, 118]]",
+      "pixel_boxes": [
+        [
+          505,
+          343,
+          2039,
+          389
+        ]
+      ]
+    },
+    {
+      "label": "table",
+      "boxes": [
+        [
+          274.0,
+          143.0,
+          728.0,
+          291.0
+        ]
+      ],
+      "raw": "[[274, 143, 728, 291]]",
+      "pixel_boxes": [
+        [
+          699,
+          472,
+          1858,
+          961
+        ]
+      ]
+    }
+  ]
+}
