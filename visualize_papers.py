@@ -21,59 +21,47 @@ def visualize_table(papers: List[Dict]):
         return
 
     # Check if papers have classification labels
-    has_labels = any('vllm_relevant' in p or 'openrouter_relevant' in p for p in papers)
+    has_labels = any('relevant' in p for p in papers)
 
     if has_labels:
         # Group papers by classification
-        both_yes = [p for p in papers if p.get('vllm_relevant', False) and p.get('openrouter_relevant', False)]
-        both_no = [p for p in papers if not p.get('vllm_relevant', False) and not p.get('openrouter_relevant', False)]
-        disagreements = [p for p in papers if not p.get('models_agree', False)]
+        relevant = [p for p in papers if p.get('relevant', False)]
+        not_relevant = [p for p in papers if not p.get('relevant', False)]
 
-        # Reorder: both_yes, disagreements, both_no
-        ordered_papers = both_yes + disagreements + both_no
+        # Reorder: relevant first, then not relevant
+        ordered_papers = relevant + not_relevant
 
-        # Print header with classification columns
-        print(f"\n{'='*140}")
-        print(f"{'#':<4} {'Year':<6} {'Cites':<6} {'VLLM':<6} {'OR':<6} {'Agree':<6} {'Title':<100}")
-        print(f"{'='*140}")
+        # Print header with classification column
+        print(f"\n{'='*120}")
+        print(f"{'#':<4} {'Year':<6} {'Cites':<6} {'Rel':<5} {'Title':<95}")
+        print(f"{'='*120}")
 
         # Print section headers and rows
         current_section = None
         for i, paper in enumerate(ordered_papers, 1):
             # Determine which section we're in
-            if paper in both_yes and current_section != 'both_yes':
-                print(f"\n{'--- BOTH MODELS: YES ---':^140}\n")
-                current_section = 'both_yes'
-            elif paper in disagreements and current_section != 'disagreements':
-                print(f"\n{'--- MODELS DISAGREE ---':^140}\n")
-                current_section = 'disagreements'
-            elif paper in both_no and current_section != 'both_no':
-                print(f"\n{'--- BOTH MODELS: NO ---':^140}\n")
-                current_section = 'both_no'
+            if paper in relevant and current_section != 'relevant':
+                print(f"\n{'--- RELEVANT ---':^120}\n")
+                current_section = 'relevant'
+            elif paper in not_relevant and current_section != 'not_relevant':
+                print(f"\n{'--- NOT RELEVANT ---':^120}\n")
+                current_section = 'not_relevant'
 
-            title = paper.get('title', 'N/A')[:97] + '...' if len(paper.get('title', '')) > 100 else paper.get('title', 'N/A')
+            title = paper.get('title', 'N/A')[:92] + '...' if len(paper.get('title', '')) > 95 else paper.get('title', 'N/A')
             year = str(paper.get('year', 'N/A'))
             citations = str(paper.get('citationCount', 0))
-            vllm = '✓' if paper.get('vllm_relevant', False) else '✗'
-            openrouter = '✓' if paper.get('openrouter_relevant', False) else '✗'
-            agree = '✓' if paper.get('models_agree', False) else '✗'
+            rel = '✓' if paper.get('relevant', False) else '✗'
 
-            print(f"{i:<4} {year:<6} {citations:<6} {vllm:<6} {openrouter:<6} {agree:<6} {title:<100}")
+            print(f"{i:<4} {year:<6} {citations:<6} {rel:<5} {title:<95}")
 
-        print(f"{'='*140}")
+        print(f"{'='*120}")
 
         # Print statistics
-        vllm_count = sum(1 for p in papers if p.get('vllm_relevant', False))
-        or_count = sum(1 for p in papers if p.get('openrouter_relevant', False))
-        agree_count = sum(1 for p in papers if p.get('models_agree', False))
+        relevant_count = sum(1 for p in papers if p.get('relevant', False))
 
         print(f"\nTotal papers: {len(papers)}")
-        print(f"Both YES: {len(both_yes)} ({100 * len(both_yes) / len(papers):.1f}%)")
-        print(f"Disagreements: {len(disagreements)} ({100 * len(disagreements) / len(papers):.1f}%)")
-        print(f"Both NO: {len(both_no)} ({100 * len(both_no) / len(papers):.1f}%)")
-        print(f"VLLM relevant: {vllm_count} ({100 * vllm_count / len(papers):.1f}%)")
-        print(f"OpenRouter relevant: {or_count} ({100 * or_count / len(papers):.1f}%)")
-        print(f"Models agree: {agree_count} ({100 * agree_count / len(papers):.1f}%)\n")
+        print(f"Relevant: {relevant_count} ({100 * relevant_count / len(papers):.1f}%)")
+        print(f"Not relevant: {len(not_relevant)} ({100 * len(not_relevant) / len(papers):.1f}%)\n")
 
     else:
         # Print header without classification columns

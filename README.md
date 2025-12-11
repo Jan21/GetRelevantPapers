@@ -1,8 +1,8 @@
 # Search and Classify Workflow
 
-A workflow for finding and classifying relevant papers using multiple search sources and dual LLM-based classification:
+A workflow for finding and classifying relevant papers using multiple search sources and AWS Bedrock with Deepseek:
 1. **Search**: Find papers using Semantic Scholar or ASTA Corpus
-2. **Classify**: Filter papers using dual LLM classifiers (VLLM + OpenRouter)
+2. **Classify**: Filter papers using AWS Bedrock with Deepseek model
 3. **Download**: Download PDFs from arXiv for relevant papers
 4. **Visualize**: View classified papers in a table format
 
@@ -10,22 +10,24 @@ A workflow for finding and classifying relevant papers using multiple search sou
 
 1. **Python packages**:
    ```bash
-   pip install hydra-core omegaconf requests openai
+   pip install -r requirements.txt
    ```
 
-2. **Environment variables** (optional but recommended):
+2. **AWS Configuration**:
+   ```bash
+   # Configure AWS credentials (choose one method)
+   aws configure  # Interactive setup
+   
+   # OR set environment variables
+   export AWS_ACCESS_KEY_ID="your_access_key"
+   export AWS_SECRET_ACCESS_KEY="your_secret_key"
+   export AWS_REGION="us-east-1"
+   ```
+
+3. **Environment variables** (optional):
    ```bash
    export SEMANTIC_SCHOLAR_API_KEY="your_key"  # For Semantic Scholar (optional)
    export ASTA_API_KEY="your_key"              # For ASTA Corpus
-   export OPENROUTER_API_KEY="your_key"        # For OpenRouter classifier
-   ```
-
-3. **vLLM server** (optional, for local classification):
-   ```bash
-   vllm serve Qwen/Qwen3-4B-Instruct-2507-FP8 \
-       --gpu-memory-utilization 0.9 \
-       --max-model-len 2048 \
-       --port 8000
    ```
 
 ## Configuration
@@ -34,9 +36,8 @@ All settings are configured via `config.yaml` using Hydra. Key sections:
 
 - **ASTA**: Search queries and API settings for ASTA Corpus
 - **Search**: Semantic Scholar API settings
-- **VLLM**: Local vLLM server configuration
-- **OpenRouter**: Cloud-based classifier configuration
-- **Classification**: Research description and classifier selection
+- **Bedrock**: AWS Bedrock configuration with Deepseek model
+- **Classification**: Research description and output settings
 - **Download**: PDF download settings
 
 You can override any config value using Hydra syntax:
@@ -77,7 +78,7 @@ python semantic_scholar.py
 
 ### Step 2: Classify Papers
 
-Filter papers using dual LLM-based classification (VLLM and/or OpenRouter):
+Filter papers using AWS Bedrock with Deepseek model:
 
 ```bash
 python classify_papers.py
@@ -85,17 +86,17 @@ python classify_papers.py
 
 **Configuration** (in `config.yaml`):
 - `classification.research_description`: Detailed criteria for relevance
-- `classification.use_vllm`: Enable/disable VLLM classifier (default: true)
-- `classification.use_openrouter`: Enable/disable OpenRouter classifier (default: true)
 - `classification.output_prefix`: Output file prefix (default: "classified")
 - `classification.display_results`: Show results summary (default: true)
 - `classification.display_limit`: Number of papers to display (default: 10)
+- `bedrock.region`: AWS region (default: "us-east-1")
+- `bedrock.model_id`: Bedrock model ID for Deepseek
+- `bedrock.max_tokens`: Maximum tokens in response (default: 10)
+- `bedrock.temperature`: Temperature for generation (default: 0.1)
 
 **Output**:
 - `classified_papers.json` - All papers with classification labels:
-  - `vllm_relevant`: Boolean (if VLLM enabled)
-  - `openrouter_relevant`: Boolean (if OpenRouter enabled)
-  - `models_agree`: Boolean (if both enabled)
+  - `relevant`: Boolean indicating if paper matches criteria
 
 ### Step 3: Download PDFs (Optional)
 
@@ -110,7 +111,7 @@ python download_papers.py
 - `download.delay`: Delay between downloads in seconds (default: 1.0)
 
 **Behavior**:
-- Only downloads papers where both classifiers agree (if both enabled)
+- Downloads papers classified as relevant
 - Searches arXiv by title if URL not found in paper metadata
 - Skips papers not available on arXiv
 
@@ -234,18 +235,14 @@ The output file contains all papers with classification labels:
     "year": 2023,
     "citationCount": 42,
     "authors": [...],
-    "vllm_relevant": true,
-    "openrouter_relevant": true,
-    "models_agree": true,
+    "relevant": true,
     ...
   },
   {
     "paperId": "def456",
     "title": "Image Classification with Deep Learning",
     ...
-    "vllm_relevant": false,
-    "openrouter_relevant": false,
-    "models_agree": true,
+    "relevant": false,
     ...
   }
 ]
@@ -255,23 +252,17 @@ The output file contains all papers with classification labels:
 
 ```
 ================================================================================
-CLASSIFYING 200 PAPERS WITH: VLLM + OpenRouter
+CLASSIFYING 200 PAPERS WITH: AWS Bedrock (Deepseek)
 ================================================================================
 
 [1/200] Graph Neural Networks for SAT Solving...
-  VLLM: ✓ YES
-  OpenRouter: ✓ YES
-  Agreement: ✓
+  Bedrock: ✓ YES
 
 [2/200] Image Classification with Deep Learning...
-  VLLM: ✗ NO
-  OpenRouter: ✗ NO
-  Agreement: ✓
+  Bedrock: ✗ NO
 
 [3/200] NeuroSAT: Learning a SAT Solver...
-  VLLM: ✓ YES
-  OpenRouter: ✗ NO
-  Agreement: ✗ DISAGREE
+  Bedrock: ✓ YES
 
 ...
 
@@ -279,10 +270,7 @@ CLASSIFYING 200 PAPERS WITH: VLLM + OpenRouter
 CLASSIFICATION COMPLETE
 ================================================================================
 Total papers: 200
-VLLM relevant: 35 (17.5%)
-OpenRouter relevant: 42 (21.0%)
-Both relevant: 28 (14.0%)
-Models agree: 185 (92.5%)
+Relevant: 42 (21.0%)
 ================================================================================
 ```
 
@@ -296,12 +284,11 @@ Models agree: 185 (92.5%)
   - 1000 papers: ~20 seconds (10 requests × 2s delay)
 
 ### Classification Speed
-Depends on enabled classifiers:
-- **VLLM only** (with GPU): ~1-2 seconds per paper
-- **OpenRouter only**: ~2-3 seconds per paper
-- **Both enabled**: ~3-5 seconds per paper
-- **100 papers**: ~5-8 minutes (both enabled)
-- **500 papers**: ~25-40 minutes (both enabled)
+Using AWS Bedrock:
+- **Per paper**: ~1-3 seconds (depends on network latency)
+- **100 papers**: ~3-5 minutes
+- **500 papers**: ~15-25 minutes
+- **1000 papers**: ~30-50 minutes
 
 ## Troubleshooting
 
@@ -329,20 +316,29 @@ export ASTA_API_KEY="your_key"
 
 ### Classification Issues
 
-**Problem**: vLLM connection error
+**Problem**: AWS Bedrock connection error
 **Solution**:
 ```bash
-# Check if vLLM server is running
-curl http://0.0.0.0:8000/v1/models
+# Verify AWS credentials
+aws sts get-caller-identity
 
-# Restart server if needed
-vllm serve Qwen/Qwen3-4B-Instruct-2507-FP8 --port 8000
+# Reconfigure if needed
+aws configure
 ```
 
-**Problem**: OpenRouter API key error
-**Solution**: Set environment variable:
+**Problem**: Model access denied
+**Solution**:
+- Go to AWS Console → Bedrock → Model access
+- Request access to the Deepseek/desired model
+- Wait for approval (usually instant)
+
+**Problem**: Invalid model ID
+**Solution**:
 ```bash
-export OPENROUTER_API_KEY="your_key"
+# List available models in your region
+aws bedrock list-foundation-models --region us-east-1
+
+# Update config.yaml with valid model ID
 ```
 
 **Problem**: All papers classified as irrelevant
@@ -350,35 +346,28 @@ export OPENROUTER_API_KEY="your_key"
 - Make research description more inclusive in `config.yaml`
 - Check if papers have abstracts
 - Try broader criteria
-- Review a few papers manually to understand why they're being rejected
-
-**Problem**: Too many false positives
-**Solution**:
-- Make research description more specific
-- Add exclusion criteria
-- Use both classifiers and require agreement (both must say YES)
-- Manually review results
-
-**Problem**: Models disagree frequently
-**Solution**:
-- This is normal - different models have different interpretations
-- Review disagreements manually
-- Adjust research description to be more explicit
-- Consider using only one classifier if disagreements are problematic
+- Test with a few papers manually first
 
 ## Advanced Usage
 
-### Using Only One Classifier
+### Using OpenRouter Instead of Bedrock
 
-To use only VLLM (disable OpenRouter):
-```bash
-python classify_papers.py classification.use_openrouter=false
+If you prefer OpenRouter:
+
+1. Modify `classify_papers.py`:
+```python
+from classifiers import OpenRouterClassifier
+
+# In classify_papers function:
+classifier = OpenRouterClassifier(cfg)
 ```
 
-To use only OpenRouter (disable VLLM):
+2. Set environment variable:
 ```bash
-python classify_papers.py classification.use_vllm=false
+export OPENROUTER_API_KEY="your_key"
 ```
+
+3. Run classification as normal
 
 ### Combining Results from Multiple Searches
 
@@ -398,17 +387,17 @@ unique_papers = {p['paperId']: p for p in all_papers if p.get('paperId')}
 
 print(f"Found {len(unique_papers)} unique papers")
 
-# Filter for papers relevant by both models
-both_relevant = [
+# Filter for relevant papers
+relevant = [
     p for p in unique_papers.values()
-    if p.get('vllm_relevant', False) and p.get('openrouter_relevant', False)
+    if p.get('relevant', False)
 ]
 
-print(f"Found {len(both_relevant)} papers relevant by both models")
+print(f"Found {len(relevant)} relevant papers")
 
 # Save combined results
 with open("combined_relevant.json", 'w') as f:
-    json.dump(both_relevant, f, indent=2)
+    json.dump(relevant, f, indent=2)
 ```
 
 ### Custom Filtering
@@ -420,11 +409,10 @@ import json
 with open("classified_papers.json") as f:
     papers = json.load(f)
 
-# Filter for papers where both models agree and are relevant
+# Filter for relevant papers from recent years with high citations
 high_confidence_relevant = [
     p for p in papers
-    if p.get('vllm_relevant', False) 
-    and p.get('openrouter_relevant', False)
+    if p.get('relevant', False)
     and p.get('year', 0) >= 2020
     and p.get('citationCount', 0) >= 20
 ]

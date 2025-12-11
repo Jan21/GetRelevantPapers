@@ -1,0 +1,146 @@
+{
+  "results": [
+    {
+      "doc_id": "5296fb85e84d6890d37f97710f30f93a",
+      "title": "Large-Scale Self-Supervised Learning with TensorFlow",
+      "overall_score": 0.185,
+      "recommendation": "Exclude",
+      "summary": "Large-Scale Self-Supervised Learning with TensorFlow - Exclude (Score: 0.18)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "No",
+          "confidence": 0.8,
+          "evidence": "Found negative: tensorflow, tensorflow"
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.6,
+          "evidence": "More positive (7) than negative (5)"
+        },
+        "small_dataset": {
+          "answer": "No",
+          "confidence": 0.9,
+          "evidence": "Found negative: imagenet, imagenet, million images"
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.3,
+          "evidence": "No clear evidence"
+        },
+        "has_repo": {
+          "answer": "No",
+          "confidence": 0.8,
+          "evidence": "Found negative: will be released, will be released"
+        }
+      }
+    },
+    {
+      "doc_id": "2978d81eacedcc22568390d974b63d9b",
+      "title": "Deep Learning for Image Classification with PyTorch",
+      "overall_score": 0.875,
+      "recommendation": "Include",
+      "summary": "Deep Learning for Image Classification with PyTorch - Include (Score: 0.88)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: pytorch, pytorch"
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: supervised, supervised, classification"
+        },
+        "small_dataset": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: cifar, cifar"
+        },
+        "quick_training": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: single nvidia v100 gpu, single nvidia v100 gpu"
+        },
+        "has_repo": {
+          "answer": "Yes",
+          "confidence": 0.8,
+          "evidence": "Found: github.com, github.com"
+        }
+      }
+    },
+    {
+      "doc_id": "c5c51bb0ce0b29139bc147b16406a611",
+      "title": "Efficient Neural Networks for MNIST Classification",
+      "overall_score": 0.8799999999999999,
+      "recommendation": "Include",
+      "summary": "Efficient Neural Networks for MNIST Classification - Include (Score: 0.88)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: pytorch, pytorch, torch."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: supervised, labeled training data, cross-entropy"
+        },
+        "small_dataset": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: mnist, mnist"
+        },
+        "quick_training": {
+          "answer": "Yes",
+          "confidence": 0.7,
+          "evidence": "Found: single gtx 1080 gpu"
+        },
+        "has_repo": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: github.com, github.com, repository"
+        }
+      }
+    },
+    {
+      "doc_id": "db18ac8883db1a9144cb82763df8b8b0",
+      "title": "Efficient CNN Architecture for CIFAR-10 Classification",
+      "overall_score": 0.8999999999999999,
+      "recommendation": "Include",
+      "summary": "Efficient CNN Architecture for CIFAR-10 Classification - Include (Score: 0.90)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: pytorch, pytorch, torch."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: supervised, supervised, classification"
+        },
+        "small_dataset": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: cifar, cifar, small dataset"
+        },
+        "quick_training": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: single gpu, single nvidia rtx 3080 gpu"
+        },
+        "has_repo": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "Found: github.com, github.com, code is publicly available"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "include": 3,
+    "exclude": 1,
+    "review": 0
+  }
+}
