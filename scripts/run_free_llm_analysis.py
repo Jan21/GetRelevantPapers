@@ -3,8 +3,13 @@
 Run Free LLM Analysis on All Papers
 """
 
+import sys
 from pathlib import Path
-from simple_free_llm import SimpleFreeEvaluator
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from unimportant.simple_free_llm import SimpleFreeEvaluator
 from src.core.markdown_parser import DocumentDatabase
 from src.core.vector_store import SimpleVectorStore
 

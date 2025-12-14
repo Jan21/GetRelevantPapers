@@ -5,6 +5,7 @@ Uses only built-in Python modules + http.server
 """
 
 import os
+import sys
 import json
 import urllib.parse
 from pathlib import Path
@@ -14,13 +15,16 @@ import threading
 import webbrowser
 import time
 
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from src.core.markdown_parser import MarkdownParser, DocumentDatabase
 from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
 from src.core.analyzer import PaperAnalyzer
 
 # Try to import Bedrock evaluator
 try:
-    from bedrock_evaluator import ParallelBedrockEvaluator
+    from src.evaluators.bedrock_evaluator import ParallelBedrockEvaluator
     BEDROCK_AVAILABLE = True
 except ImportError:
     BEDROCK_AVAILABLE = False
@@ -28,7 +32,7 @@ except ImportError:
 
 # Try to import LLM evaluator (fallback)
 try:
-    from llm_evaluator import LLMPaperEvaluator
+    from src.evaluators.llm_evaluator import LLMPaperEvaluator
     LLM_AVAILABLE = True
 except ImportError:
     LLM_AVAILABLE = False

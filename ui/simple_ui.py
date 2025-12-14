@@ -7,10 +7,14 @@ and viewing results.
 """
 
 import os
+import sys
 import json
 from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.core.markdown_parser import MarkdownParser, DocumentDatabase
 from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
@@ -19,7 +23,7 @@ from txt_to_markdown import TxtToMarkdownConverter
 
 # Try to import LLM evaluator
 try:
-    from llm_evaluator import LLMPaperEvaluator
+    from src.evaluators.llm_evaluator import LLMPaperEvaluator
     LLM_AVAILABLE = True
 except ImportError:
     LLM_AVAILABLE = False

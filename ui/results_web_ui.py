@@ -5,6 +5,7 @@ Shows actual fucking results with all 5 criteria for every paper
 """
 
 import os
+import sys
 import json
 import urllib.parse
 from pathlib import Path
@@ -12,6 +13,9 @@ from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import threading
 import webbrowser
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.core.markdown_parser import MarkdownParser, DocumentDatabase
 from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
