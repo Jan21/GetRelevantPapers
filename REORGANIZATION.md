@@ -12,63 +12,59 @@
 
 ### 2. Created Organized Directory Structure
 
+**Important workflow scripts kept at root for easy access:**
+- `asta.py` - ASTA Corpus search
+- `semantic_scholar.py` - Semantic Scholar search
+- `classify_papers.py` - Paper classification
+- `download_papers.py` - PDF downloader
+- `visualize_papers.py` - Results visualization
+- `main.py` - Main analysis pipeline
+- `txt_to_markdown.py` - Text converter
+
+**Organized supporting code:**
+
 ```
 GetRelevantPapers/
+├── asta.py, semantic_scholar.py, classify_papers.py, etc. (ROOT - easy access)
+│
 ├── src/                         # Source code
 │   ├── core/                    # Core functionality
 │   │   ├── analyzer.py
 │   │   ├── markdown_parser.py
-│   │   ├── vector_store.py
-│   │   ├── semantic_scholar.py
-│   │   ├── download_papers.py
-│   │   └── txt_to_markdown.py
+│   │   └── vector_store.py
 │   │
 │   └── evaluators/              # Analysis evaluators
 │       ├── llm_evaluator.py
 │       ├── free_llm_evaluator.py
-│       ├── bedrock_evaluator.py
-│       └── classifiers/
+│       └── bedrock_evaluator.py
+│
+├── classifiers/                 # Paper classifiers (root for import ease)
 │
 ├── ui/                          # User interfaces
 │   ├── minimal_web_ui.py        # Main web UI (port 3444)
 │   ├── simple_ui.py             # Terminal UI
-│   ├── web_ui.py
-│   ├── results_web_ui.py
-│   ├── realtime_analysis_ui.py
-│   └── visualize_papers.py
+│   └── ...
 │
 ├── scripts/                     # Utility scripts
-│   ├── classify_papers.py
-│   ├── realtime_analysis.py
-│   ├── run_free_llm_analysis.py
-│   ├── quick_start.sh
-│   └── run.sh
 │
 ├── data/                        # Data storage
 │   ├── markdown_db/
 │   ├── vector_store/
-│   ├── converted_papers/
-│   └── classified_papers.json
+│   └── converted_papers/
 │
 ├── docs/                        # Documentation
-│   ├── QUICKSTART.md
-│   ├── PIPELINE_OVERVIEW.md
-│   ├── BEDROCK_SETUP.md
-│   └── ...
 │
 ├── archive/                     # Archived data
-│   ├── old_analysis_results/    # All *_analysis_*.json files
-│   └── outputs/                 # Historical run outputs
+│   ├── old_analysis_results/
+│   └── outputs/
 │
 ├── infrastructure/              # Deployment
-│   ├── Dockerfile
 │   └── terraform/
 │
-└── unimportant/                 # Test/deprecated files
-    ├── test_papers/
-    ├── asta.py
+└── unimportant/                 # Test/deprecated files only
     ├── simple_free_llm.py
-    └── ...
+    ├── test_simple.html
+    └── test_papers/
 ```
 
 ### 3. Updated All Import Paths
@@ -161,16 +157,29 @@ git push origin --force --all
 
 ## Quick Start After Reorganization
 
-The main entry points remain the same:
+**Main workflow scripts are at root level for easy access:**
 
 ```bash
-# Web UI (recommended)
+# Search for papers
+python asta.py                    # Using ASTA Corpus
+python semantic_scholar.py        # Using Semantic Scholar
+
+# Classify papers
+python classify_papers.py
+
+# Download PDFs
+python download_papers.py
+
+# Visualize results
+python visualize_papers.py classified_papers.json
+
+# Web UI (port 3444)
 python ui/minimal_web_ui.py
 
 # Terminal UI
 python ui/simple_ui.py
 
-# CLI analysis
+# Full analysis pipeline
 python main.py --input-dir data/converted_papers
 ```
 

@@ -446,36 +446,40 @@ GetRelevantPapers/
 ├── README.md                    # This file
 ├── config.yaml                  # Hydra configuration file
 ├── requirements.txt             # Python dependencies
+│
+├── MAIN WORKFLOW SCRIPTS (Root Level):
+├── asta.py                      # Search papers using ASTA Corpus
+├── semantic_scholar.py          # Search papers using Semantic Scholar
+├── classify_papers.py           # Classify papers using LLM classifiers
+├── download_papers.py           # Download PDFs from arXiv
+├── visualize_papers.py          # Visualize classified papers
 ├── main.py                      # Main analysis script
+├── txt_to_markdown.py           # Convert text to markdown
 │
 ├── src/                         # Source code
 │   ├── core/                    # Core functionality
 │   │   ├── analyzer.py          # Regex-based paper analyzer
 │   │   ├── markdown_parser.py   # Markdown parsing & document DB
-│   │   ├── vector_store.py      # Vector embeddings & search
-│   │   ├── semantic_scholar.py  # Semantic Scholar API
-│   │   ├── download_papers.py   # PDF downloader
-│   │   └── txt_to_markdown.py   # Text to markdown converter
+│   │   └── vector_store.py      # Vector embeddings & search
 │   │
 │   └── evaluators/              # Analysis evaluators
 │       ├── llm_evaluator.py     # OpenRouter LLM evaluator
 │       ├── free_llm_evaluator.py # Free LLM evaluator
-│       ├── bedrock_evaluator.py # AWS Bedrock evaluator
-│       └── classifiers/         # Paper classifiers
-│           ├── base_classifier.py
-│           ├── bedrock_classifier.py
-│           └── openrouter_classifier.py
+│       └── bedrock_evaluator.py # AWS Bedrock evaluator
+│
+├── classifiers/                 # Paper classifiers
+│   ├── base_classifier.py
+│   ├── bedrock_classifier.py
+│   └── openrouter_classifier.py
 │
 ├── ui/                          # User interfaces
 │   ├── minimal_web_ui.py        # Main web UI (port 3444)
 │   ├── simple_ui.py             # Terminal UI
 │   ├── web_ui.py                # Full web UI
 │   ├── results_web_ui.py        # Results viewer
-│   ├── realtime_analysis_ui.py  # Real-time analysis UI
-│   └── visualize_papers.py      # Paper visualization
+│   └── realtime_analysis_ui.py  # Real-time analysis UI
 │
 ├── scripts/                     # Utility scripts
-│   ├── classify_papers.py       # Classification script
 │   ├── realtime_analysis.py     # Real-time analysis
 │   ├── run_free_llm_analysis.py # Free LLM analysis
 │   ├── quick_start.sh           # Quick start script
@@ -509,15 +513,20 @@ GetRelevantPapers/
 
 ## Files
 
-**Main Entry Points:**
-- `main.py` - Main analysis script
-- `ui/minimal_web_ui.py` - Web UI (port 3444)
-- `ui/simple_ui.py` - Terminal UI
+**Main Workflow Scripts (Root Level):**
+- `asta.py` - Search papers from ASTA Corpus
+- `semantic_scholar.py` - Search papers from Semantic Scholar  
+- `classify_papers.py` - Classify papers using LLM
+- `download_papers.py` - Download PDFs from arXiv
+- `visualize_papers.py` - Visualize classified papers
+- `main.py` - Main analysis pipeline
+- `txt_to_markdown.py` - Convert text to markdown
 
-**Source Code:**
+**Core Components:**
 - `src/core/` - Core analysis functionality
 - `src/evaluators/` - LLM-based evaluators
-- `ui/` - User interfaces
+- `classifiers/` - Paper classifiers
+- `ui/` - User interfaces (web + terminal)
 - `scripts/` - Utility scripts
 
 **Data:**

@@ -10,7 +10,7 @@ from typing import List, Dict
 import hydra
 from omegaconf import DictConfig
 
-from src.evaluators.classifiers import BedrockClassifier
+from classifiers import BedrockClassifier
 
 
 def load_papers(filename: str) -> List[Dict]:
