@@ -14,9 +14,9 @@ import threading
 import webbrowser
 import time
 
-from markdown_parser import MarkdownParser, DocumentDatabase
-from vector_store import SimpleVectorStore, CriteriaAnalyzer
-from analyzer import PaperAnalyzer
+from src.core.markdown_parser import MarkdownParser, DocumentDatabase
+from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
+from src.core.analyzer import PaperAnalyzer
 
 # Try to import FREE LLM evaluator
 try:
@@ -51,8 +51,8 @@ class RealtimeAnalysisHandler(BaseHTTPRequestHandler):
         """Initialize analysis components"""
         print("🔧 Setting up analysis components...")
         
-        db_path = Path("markdown_db")
-        vector_path = Path("vector_store")
+        db_path = Path("data/markdown_db")
+        vector_path = Path("data/vector_store")
         
         RealtimeAnalysisHandler.parser = MarkdownParser()
         RealtimeAnalysisHandler.db = DocumentDatabase(db_path)
@@ -116,8 +116,8 @@ class RealtimeAnalysisHandler(BaseHTTPRequestHandler):
         """Serve the latest analysis results (truncated for browser performance)"""
         try:
             # Find the most recent results files
-            regex_files = list(Path(".").glob("regex_analysis_*.json"))
-            llm_files = list(Path(".").glob("free_llm_analysis_*.json")) + list(Path(".").glob("llm_analysis_*.json"))
+            regex_files = list(Path("archive/old_analysis_results").glob("regex_analysis_*.json"))
+            llm_files = list(Path("archive/old_analysis_results").glob("free_llm_analysis_*.json")) + list(Path("archive/old_analysis_results").glob("llm_analysis_*.json"))
             
             results = {
                 'regex': None,

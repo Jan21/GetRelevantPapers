@@ -12,9 +12,9 @@ from typing import Dict, List, Optional
 from dataclasses import dataclass
 from datetime import datetime
 
-from markdown_parser import DocumentDatabase
-from vector_store import SimpleVectorStore, CriteriaAnalyzer
-from analyzer import CriterionResult, PaperResult
+from src.core.markdown_parser import DocumentDatabase
+from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
+from src.core.analyzer import CriterionResult, PaperResult
 
 
 class OllamaClient:

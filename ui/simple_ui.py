@@ -12,9 +12,9 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional
 
-from markdown_parser import MarkdownParser, DocumentDatabase
-from vector_store import SimpleVectorStore, CriteriaAnalyzer
-from analyzer import PaperAnalyzer
+from src.core.markdown_parser import MarkdownParser, DocumentDatabase
+from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
+from src.core.analyzer import PaperAnalyzer
 from txt_to_markdown import TxtToMarkdownConverter
 
 # Try to import LLM evaluator
@@ -36,8 +36,8 @@ class SimpleUI:
         """Initialize analysis components"""
         print("🔧 Setting up analysis components...")
         
-        self.db_path = Path("markdown_db")
-        self.vector_path = Path("vector_store")
+        self.db_path = Path("data/markdown_db")
+        self.vector_path = Path("data/vector_store")
         
         self.parser = MarkdownParser()
         self.db = DocumentDatabase(self.db_path)
@@ -443,7 +443,7 @@ class SimpleUI:
         print("=" * 40)
         
         # Find result files
-        result_files = list(Path(".").glob("*_analysis_*.json"))
+        result_files = list(Path("archive/old_analysis_results").glob("*_analysis_*.json"))
         
         if not result_files:
             print("❌ No analysis results found")
@@ -531,7 +531,7 @@ class SimpleUI:
         try:
             # Convert TXT to markdown
             print("📝 Converting TXT files to markdown...")
-            output_dir = Path("converted_papers")
+            output_dir = Path("data/converted_papers")
             converted_files = self.txt_converter.process_all_papers(sample_dir, output_dir)
             print(f"✅ Converted {len(converted_files)} papers")
             
@@ -617,7 +617,7 @@ class SimpleUI:
         print()
         
         print(f"📁 File Structure:")
-        for path in [self.db_path, self.vector_path, Path("converted_papers"), Path("sample_papers")]:
+        for path in [self.db_path, self.vector_path, Path("data/converted_papers")]:
             if path.exists():
                 print(f"   ✅ {path}")
             else:

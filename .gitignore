@@ -1,6 +1,9 @@
 downloaded_papers/
 outputs/
 sample_papers/
+archive/old_analysis_results/*.json
+data/vector_store/*.pkl
+unimportant/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

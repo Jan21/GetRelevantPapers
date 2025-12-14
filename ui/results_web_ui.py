@@ -13,9 +13,9 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import threading
 import webbrowser
 
-from markdown_parser import MarkdownParser, DocumentDatabase
-from vector_store import SimpleVectorStore, CriteriaAnalyzer
-from analyzer import PaperAnalyzer
+from src.core.markdown_parser import MarkdownParser, DocumentDatabase
+from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
+from src.core.analyzer import PaperAnalyzer
 
 # Try to import LLM evaluator
 try:
@@ -39,8 +39,8 @@ class ResultsHandler(BaseHTTPRequestHandler):
         """Initialize analysis components"""
         print("🔧 Setting up analysis components...")
         
-        db_path = Path("markdown_db")
-        vector_path = Path("vector_store")
+        db_path = Path("data/markdown_db")
+        vector_path = Path("data/vector_store")
         
         ResultsHandler.parser = MarkdownParser()
         ResultsHandler.db = DocumentDatabase(db_path)
@@ -104,7 +104,7 @@ class ResultsHandler(BaseHTTPRequestHandler):
         try:
             # Find the most recent results file
             pattern = f"{method}_analysis_*.json"
-            files = list(Path(".").glob(pattern))
+            files = list(Path("archive/old_analysis_results").glob(pattern))
             if not files:
                 return None
             

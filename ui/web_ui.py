@@ -21,9 +21,9 @@ except ImportError:
     FLASK_AVAILABLE = False
     print("Flask not available. Install with: pip install flask")
 
-from markdown_parser import MarkdownParser, DocumentDatabase
-from vector_store import SimpleVectorStore, CriteriaAnalyzer
-from analyzer import PaperAnalyzer
+from src.core.markdown_parser import MarkdownParser, DocumentDatabase
+from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
+from src.core.analyzer import PaperAnalyzer
 from txt_to_markdown import TxtToMarkdownConverter
 
 # Try to import LLM evaluator
@@ -58,8 +58,8 @@ class PaperAnalysisUI:
     
     def setup_components(self):
         """Initialize analysis components"""
-        self.db_path = Path("markdown_db")
-        self.vector_path = Path("vector_store")
+        self.db_path = Path("data/markdown_db")
+        self.vector_path = Path("data/vector_store")
         
         self.parser = MarkdownParser()
         self.db = DocumentDatabase(self.db_path)
@@ -109,7 +109,7 @@ class PaperAnalysisUI:
         def view_results():
             """View analysis results"""
             # Get latest results
-            results_files = list(Path(".").glob("*_analysis.json"))
+            results_files = list(Path("archive/old_analysis_results").glob("*_analysis.json"))
             if results_files:
                 latest_file = max(results_files, key=lambda p: p.stat().st_mtime)
                 with open(latest_file, 'r') as f:

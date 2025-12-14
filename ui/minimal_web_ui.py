@@ -14,9 +14,9 @@ import threading
 import webbrowser
 import time
 
-from markdown_parser import MarkdownParser, DocumentDatabase
-from vector_store import SimpleVectorStore, CriteriaAnalyzer
-from analyzer import PaperAnalyzer
+from src.core.markdown_parser import MarkdownParser, DocumentDatabase
+from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
+from src.core.analyzer import PaperAnalyzer
 
 # Try to import Bedrock evaluator
 try:
@@ -48,8 +48,8 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
         """Initialize analysis components"""
         print("🔧 Setting up analysis components...")
         
-        db_path = Path("markdown_db")
-        vector_path = Path("vector_store")
+        db_path = Path("data/markdown_db")
+        vector_path = Path("data/vector_store")
         
         PaperAnalysisHandler.parser = MarkdownParser()
         PaperAnalysisHandler.db = DocumentDatabase(db_path)
@@ -627,7 +627,7 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
     def serve_results(self):
         """Serve results page"""
         # Find latest results file
-        result_files = list(Path(".").glob("*_analysis_*.json"))
+        result_files = list(Path("archive/old_analysis_results").glob("*_analysis_*.json"))
         
         if result_files:
             latest_file = max(result_files, key=lambda p: p.stat().st_mtime)

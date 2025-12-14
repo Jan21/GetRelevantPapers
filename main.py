@@ -12,13 +12,13 @@ import argparse
 from pathlib import Path
 import sys
 
-from markdown_parser import MarkdownParser, DocumentDatabase
-from vector_store import SimpleVectorStore, CriteriaAnalyzer
-from analyzer import PaperAnalyzer
+from src.core.markdown_parser import MarkdownParser, DocumentDatabase
+from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
+from src.core.analyzer import PaperAnalyzer
 
 # Try to import LLM evaluator
 try:
-    from llm_evaluator import LLMPaperEvaluator
+    from src.evaluators.llm_evaluator import LLMPaperEvaluator
     LLM_AVAILABLE = True
 except ImportError as e:
     print(f"LLM evaluator not available: {e}")
@@ -30,8 +30,8 @@ def setup_system(use_llm=False):
     print("Setting up system...")
     
     # Create directories
-    db_path = Path("markdown_db")
-    vector_path = Path("vector_store")
+    db_path = Path("data/markdown_db")
+    vector_path = Path("data/vector_store")
     
     # Initialize components
     parser = MarkdownParser()

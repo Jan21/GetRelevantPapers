@@ -13,9 +13,9 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional
 
-from markdown_parser import MarkdownParser, DocumentDatabase
-from vector_store import SimpleVectorStore, CriteriaAnalyzer
-from analyzer import PaperAnalyzer
+from src.core.markdown_parser import MarkdownParser, DocumentDatabase
+from src.core.vector_store import SimpleVectorStore, CriteriaAnalyzer
+from src.core.analyzer import PaperAnalyzer
 
 # Try to import LLM evaluator
 try:
@@ -39,8 +39,8 @@ class RealTimeAnalyzer:
         """Initialize analysis components"""
         print("🔧 Setting up analysis components...")
         
-        self.db_path = Path("markdown_db")
-        self.vector_path = Path("vector_store")
+        self.db_path = Path("data/markdown_db")
+        self.vector_path = Path("data/vector_store")
         
         self.parser = MarkdownParser()
         self.db = DocumentDatabase(self.db_path)
@@ -194,7 +194,7 @@ class RealTimeAnalyzer:
         print("=" * 40)
         
         # First, process the converted papers
-        converted_dir = Path("converted_papers")
+        converted_dir = Path("data/converted_papers")
         if not converted_dir.exists():
             print("❌ Converted papers directory not found")
             return

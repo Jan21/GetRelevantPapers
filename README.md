@@ -443,32 +443,87 @@ python asta.py && python classify_papers.py && python download_papers.py
 
 ```
 GetRelevantPapers/
-├── config.yaml              # Hydra configuration file
-├── asta.py                  # Search papers using ASTA Corpus
-├── semantic_scholar.py      # Search papers using Semantic Scholar
-├── classify_papers.py       # Classify papers using dual LLM classifiers
-├── download_papers.py       # Download PDFs from arXiv
-├── visualize_papers.py      # Visualize classified papers
-├── run.sh                   # Example workflow script
-├── classifiers/             # Classifier implementations
-│   ├── base_classifier.py   # Base class for classifiers
-│   ├── vllm_classifier.py   # VLLM-based classifier
-│   └── openrouter_classifier.py  # OpenRouter-based classifier
-├── downloaded_papers/        # Directory for downloaded PDFs
-├── outputs/                 # Log files from runs
-└── README.md                # This file
+├── README.md                    # This file
+├── config.yaml                  # Hydra configuration file
+├── requirements.txt             # Python dependencies
+├── main.py                      # Main analysis script
+│
+├── src/                         # Source code
+│   ├── core/                    # Core functionality
+│   │   ├── analyzer.py          # Regex-based paper analyzer
+│   │   ├── markdown_parser.py   # Markdown parsing & document DB
+│   │   ├── vector_store.py      # Vector embeddings & search
+│   │   ├── semantic_scholar.py  # Semantic Scholar API
+│   │   ├── download_papers.py   # PDF downloader
+│   │   └── txt_to_markdown.py   # Text to markdown converter
+│   │
+│   └── evaluators/              # Analysis evaluators
+│       ├── llm_evaluator.py     # OpenRouter LLM evaluator
+│       ├── free_llm_evaluator.py # Free LLM evaluator
+│       ├── bedrock_evaluator.py # AWS Bedrock evaluator
+│       └── classifiers/         # Paper classifiers
+│           ├── base_classifier.py
+│           ├── bedrock_classifier.py
+│           └── openrouter_classifier.py
+│
+├── ui/                          # User interfaces
+│   ├── minimal_web_ui.py        # Main web UI (port 3444)
+│   ├── simple_ui.py             # Terminal UI
+│   ├── web_ui.py                # Full web UI
+│   ├── results_web_ui.py        # Results viewer
+│   ├── realtime_analysis_ui.py  # Real-time analysis UI
+│   └── visualize_papers.py      # Paper visualization
+│
+├── scripts/                     # Utility scripts
+│   ├── classify_papers.py       # Classification script
+│   ├── realtime_analysis.py     # Real-time analysis
+│   ├── run_free_llm_analysis.py # Free LLM analysis
+│   ├── quick_start.sh           # Quick start script
+│   └── run.sh                   # Workflow script
+│
+├── data/                        # Data storage
+│   ├── markdown_db/             # Parsed document database
+│   ├── vector_store/            # Vector embeddings
+│   ├── converted_papers/        # Converted markdown papers
+│   └── classified_papers.json   # Classification results
+│
+├── docs/                        # Documentation
+│   ├── QUICKSTART.md
+│   ├── PIPELINE_OVERVIEW.md
+│   ├── BEDROCK_SETUP.md
+│   ├── DEPLOYMENT_SUMMARY.md
+│   └── ...
+│
+├── archive/                     # Archived data
+│   ├── old_analysis_results/    # Historical analysis results
+│   └── outputs/                 # Old output logs
+│
+├── infrastructure/              # Deployment
+│   ├── Dockerfile
+│   └── terraform/               # Terraform configs
+│
+└── unimportant/                 # Test/deprecated files
+    ├── test_papers/
+    └── ...
 ```
 
 ## Files
 
-- `config.yaml` - Main configuration file (Hydra)
-- `asta.py` - Search papers from ASTA Corpus
-- `semantic_scholar.py` - Search papers from Semantic Scholar
-- `classify_papers.py` - Classify papers using VLLM and/or OpenRouter
-- `download_papers.py` - Download PDFs from arXiv for relevant papers
-- `visualize_papers.py` - Display classified papers in table format
-- `run.sh` - Example workflow script
-- `classifiers/` - Classifier implementations
+**Main Entry Points:**
+- `main.py` - Main analysis script
+- `ui/minimal_web_ui.py` - Web UI (port 3444)
+- `ui/simple_ui.py` - Terminal UI
+
+**Source Code:**
+- `src/core/` - Core analysis functionality
+- `src/evaluators/` - LLM-based evaluators
+- `ui/` - User interfaces
+- `scripts/` - Utility scripts
+
+**Data:**
+- `data/` - Databases and converted papers
+- `archive/` - Historical results
+- `docs/` - Documentation
 
 ## Next Steps
 

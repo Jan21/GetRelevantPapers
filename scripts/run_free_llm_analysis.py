@@ -5,16 +5,16 @@ Run Free LLM Analysis on All Papers
 
 from pathlib import Path
 from simple_free_llm import SimpleFreeEvaluator
-from markdown_parser import DocumentDatabase
-from vector_store import SimpleVectorStore
+from src.core.markdown_parser import DocumentDatabase
+from src.core.vector_store import SimpleVectorStore
 
 def main():
     """Run free LLM analysis on all papers"""
     print("🆓 Starting FREE LLM Analysis on all papers...")
     
     # Setup
-    db_path = Path("markdown_db")
-    vector_path = Path("vector_store")
+    db_path = Path("data/markdown_db")
+    vector_path = Path("data/vector_store")
     
     db = DocumentDatabase(db_path)
     vector_store = SimpleVectorStore(vector_path)
