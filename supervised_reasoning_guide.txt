@@ -1,0 +1,231 @@
+"""
+EXPERT REASONING GUIDE FOR PAPER EVALUATION
+============================================
+
+This guide teaches you how to deeply reason about research papers.
+Use this methodology for each criterion.
+
+═══════════════════════════════════════════════════════════════════
+CRITERION: SUPERVISED LEARNING - DEEP REASONING FRAMEWORK
+═══════════════════════════════════════════════════════════════════
+
+FUNDAMENTAL QUESTION: Does this method learn from LABELED EXAMPLES?
+
+━━━ WHAT IS SUPERVISED LEARNING? ━━━
+
+CORE DEFINITION:
+A learning paradigm where a model learns a mapping f: X → Y by training on 
+pairs (x, y) where:
+- x is the input
+- y is the LABEL/TARGET (the "supervision signal")
+- The model is EXPLICITLY TOLD what the correct output should be
+
+THE KEY TEST: "Is there a human-provided or pre-computed LABEL/TARGET?"
+
+━━━ SUPERVISED LEARNING TYPES & EXAMPLES ━━━
+
+1. CLASSIFICATION (discrete labels)
+   ✓ Image classification: (image, class_label)
+   ✓ Text classification: (document, category)
+   ✓ Object detection: (image, {bounding_boxes + class_labels})
+   ✓ SAT solving: (formula, satisfiable/unsatisfiable) ← SUPERVISED!
+   ✓ Theorem proving: (theorem, proof_label or solvable/unsolvable)
+   ✓ Code classification: (code_snippet, bug_type)
+
+2. REGRESSION (continuous labels)
+   ✓ House price prediction: (features, price)
+   ✓ Time series forecasting: (history, future_value)
+   ✓ Age estimation: (face_image, age)
+
+3. STRUCTURED PREDICTION (complex labels)
+   ✓ Semantic segmentation: (image, pixel-wise_labels)
+   ✓ Named Entity Recognition: (sentence, entity_tags)
+   ✓ Graph prediction: (input_graph, labeled_graph)
+   ✓ Sequence-to-sequence with labels: (input_seq, target_seq)
+
+4. RANKING/SCORING (ordered labels)
+   ✓ Learning to rank: (query-doc pairs, relevance_scores)
+   ✓ Preference learning: (item_pairs, preference_labels)
+
+━━━ DOMAIN-SPECIFIC SUPERVISED EXAMPLES ━━━
+
+SAT SOLVING & COMBINATORIAL PROBLEMS:
+✓ Training on (SAT formula, satisfiability label) → SUPERVISED
+✓ Training on (SAT formula, solution assignment) → SUPERVISED
+✓ Predicting satisfiability from formula features → SUPERVISED
+✓ Learning heuristics from labeled training data → SUPERVISED
+✓ Imitation learning from expert solver traces → SUPERVISED
+
+THEOREM PROVING:
+✓ Training on (theorem, provable/unprovable) → SUPERVISED
+✓ Premise selection with labeled premises → SUPERVISED
+✓ Tactic prediction with labeled tactics → SUPERVISED
+
+GRAPH NEURAL NETWORKS:
+✓ Node classification with node labels → SUPERVISED
+✓ Graph classification with graph labels → SUPERVISED
+✓ Link prediction with labeled edges → SUPERVISED
+✓ Graph property prediction with labels → SUPERVISED
+
+COMPUTER VISION:
+✓ Any task with bounding boxes → SUPERVISED
+✓ Any task with pixel-level annotations → SUPERVISED
+✓ Any task with image-level labels → SUPERVISED
+
+NLP:
+✓ Sentiment analysis with sentiment labels → SUPERVISED
+✓ Machine translation (source, target pairs) → SUPERVISED
+✓ Question answering with answer labels → SUPERVISED
+
+━━━ NOT SUPERVISED - DISTINGUISH CAREFULLY ━━━
+
+1. SELF-SUPERVISED LEARNING (no human labels)
+   ✗ Contrastive learning (SimCLR, MoCo) - creates pseudo-tasks
+   ✗ Masked language modeling (BERT) - predicts masked tokens
+   ✗ Image inpainting - fills in missing regions
+   ✗ Rotation prediction - predicts image rotation
+   KEY: These create their OWN labels from unlabeled data
+
+2. UNSUPERVISED LEARNING (no labels at all)
+   ✗ Clustering (K-means, DBSCAN) - finds patterns without labels
+   ✗ Autoencoders - learns compression without labels
+   ✗ Dimensionality reduction (PCA, t-SNE)
+   ✗ Anomaly detection without labeled anomalies
+
+3. REINFORCEMENT LEARNING (reward signals, not labels)
+   ✗ Q-learning, policy gradients - learns from REWARDS not labels
+   ✗ AlphaGo - learns from game outcomes (rewards)
+   ✗ Robot control - learns from reward functions
+   KEY: RL has REWARDS (scalar feedback) not LABELS (correct answers)
+
+4. WEAKLY SUPERVISED / SEMI-SUPERVISED
+   ~ Few labels + many unlabeled examples
+   ~ Noisy labels
+   ~ Label only SOME data
+   DECIDE: If PRIMARILY uses labeled data → YES
+          If PRIMARILY uses unlabeled data → NO
+
+━━━ REASONING CHAIN FOR SUPERVISED DETECTION ━━━
+
+STEP 1: Identify the TASK
+- What is the model trying to predict?
+- Is there a clear TARGET or GROUND TRUTH?
+
+STEP 2: Identify the TRAINING DATA
+- Does training data have LABELS?
+- Are there (input, output) PAIRS?
+- Look for: "labeled dataset", "annotations", "ground truth"
+
+STEP 3: Identify the LOSS FUNCTION
+Supervised losses:
+  ✓ Cross-entropy loss (requires labels)
+  ✓ Mean Squared Error with targets (requires labels)
+  ✓ Classification loss (requires labels)
+  ✓ Hinge loss (requires labels)
+Not supervised:
+  ✗ Contrastive loss (self-supervised)
+  ✗ Reconstruction loss (unsupervised)
+  ✗ Policy gradient loss (RL)
+
+STEP 4: Identify EVALUATION METRICS
+Supervised metrics:
+  ✓ Accuracy (requires true labels)
+  ✓ Precision/Recall/F1 (requires true labels)
+  ✓ Mean Absolute Error (requires true values)
+  ✓ IoU with ground truth (requires true annotations)
+
+STEP 5: Look for LABELED DATASETS
+Common supervised datasets:
+  ✓ CIFAR-10/100 (60K labeled images)
+  ✓ MNIST (70K labeled digits)
+  ✓ ImageNet (1.2M labeled images)
+  ✓ COCO (labeled object detection)
+  ✓ Any dataset described as "annotated" or "labeled"
+
+━━━ EDGE CASES & DIFFICULT EXAMPLES ━━━
+
+CASE: "We train on CIFAR-10"
+REASONING: CIFAR-10 has 10 CLASS LABELS → SUPERVISED ✓
+
+CASE: "We use a pre-trained model"
+REASONING: Is the FINE-TUNING supervised?
+- Fine-tune with labels → YES ✓
+- Fine-tune without labels → NO ✗
+
+CASE: "GNN for SAT solving"
+REASONING: 
+- If trained on (formula, sat/unsat label) → SUPERVISED ✓
+- If trained on (formula, solution) → SUPERVISED ✓
+- If unsupervised graph embedding → NOT supervised ✗
+
+CASE: "Imitation learning"
+REASONING: Learning from EXPERT DEMONSTRATIONS (labeled behavior) → SUPERVISED ✓
+
+CASE: "Few-shot learning"
+REASONING: Still uses LABELED examples (just fewer) → SUPERVISED ✓
+
+CASE: "Transfer learning"
+REASONING: Check the TARGET task:
+- If target has labels → SUPERVISED ✓
+- If just feature extraction → depends on use case
+
+━━━ CONFIDENCE LEVELS ━━━
+
+HIGH CONFIDENCE (0.90-0.99):
+- Explicit mention: "supervised learning", "labeled data"
+- Clear supervised dataset (CIFAR, MNIST, ImageNet)
+- Supervised metrics (accuracy, F1 on test labels)
+- Classification or regression task with labels
+
+MEDIUM CONFIDENCE (0.60-0.89):
+- Implicit supervised task (prediction with evaluation)
+- Mentions "training set" and "test set"
+- Uses standard supervised architecture
+- No explicit mention but clear supervised signals
+
+LOW CONFIDENCE (0.30-0.59):
+- Ambiguous methodology
+- Could be supervised or self-supervised
+- Limited information about training
+
+UNKNOWN (0.00-0.29):
+- Insufficient information
+- Cannot determine from provided content
+
+━━━ COMMON MISTAKES TO AVOID ━━━
+
+MISTAKE 1: "It uses neural networks" → Must be supervised
+WRONG: Neural networks can be supervised, unsupervised, self-supervised, or RL
+FIX: Look for LABELS in the training data
+
+MISTAKE 2: "It has a loss function" → Must be supervised  
+WRONG: All learning has loss functions
+FIX: Check if loss requires LABELS
+
+MISTAKE 3: "It's about classification" → Must be supervised
+WRONG: Unsupervised clustering is also "classification"
+FIX: Check if classes are PRE-DEFINED with labels
+
+MISTAKE 4: "It doesn't say 'supervised'" → Not supervised
+WRONG: Many papers don't explicitly state paradigm
+FIX: INFER from methodology, data, and evaluation
+
+━━━ FINAL CHECKLIST ━━━
+
+Answer YES to supervised if:
+☑ Training uses labeled data / annotations / ground truth
+☑ Task is prediction with known correct answers
+☑ Evaluation compares predictions to true labels
+☑ Uses supervised loss function (cross-entropy, MSE with targets)
+☑ Uses labeled datasets (CIFAR, MNIST, ImageNet, etc.)
+
+Answer NO to supervised if:
+☑ Self-supervised (creates own pseudo-tasks)
+☑ Unsupervised (no labels at all)
+☑ Reinforcement learning (rewards not labels)
+☑ Purely representation learning without labels
+
+═══════════════════════════════════════════════════════════════════
+END OF SUPERVISED LEARNING REASONING GUIDE
+═══════════════════════════════════════════════════════════════════
+"""

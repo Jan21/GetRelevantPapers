@@ -197,11 +197,41 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
         .live-paper-title {{ flex: 1; font-weight: 500; }}
         .live-paper-progress {{ min-width: 60px; text-align: right; font-size: 0.85em; }}
         .live-criteria-tags {{ display: flex; gap: 4px; flex-wrap: wrap; }}
-        .live-tag {{ padding: 2px 6px; border-radius: 3px; font-size: 0.75em; font-weight: bold; }}
+        .live-tag {{ padding: 2px 6px; border-radius: 3px; font-size: 0.75em; font-weight: bold; cursor: help; position: relative; }}
         .live-tag.yes {{ background: #28a745; color: white; }}
         .live-tag.no {{ background: #dc3545; color: white; }}
         .live-tag.unknown {{ background: #6c757d; color: white; }}
         .live-tag.pending {{ background: #e9ecef; color: #6c757d; }}
+        
+        /* Tooltip styles */
+        .live-tag[title]:hover::after {{
+            content: attr(title);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            white-space: normal;
+            width: 300px;
+            font-size: 0.9em;
+            font-weight: normal;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            line-height: 1.4;
+        }}
+        .live-tag[title]:hover::before {{
+            content: '';
+            position: absolute;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+            z-index: 1000;
+        }}
         
         .live-recommendation {{ min-width: 80px; text-align: center; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }}
         .live-recommendation.Include {{ background: #28a745; color: white; }}
@@ -408,7 +438,20 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
                 const criteriaHtml = Object.keys(CRITERIA_NAMES).map(crit => {{
                     const answer = (paper.criteria && paper.criteria[crit]) || 'pending';
                     const className = answer.toLowerCase();
-                    return `<span class="live-tag ${{className}}">${{CRITERIA_NAMES[crit]}}</span>`;
+                    
+                    // Get evidence for tooltip
+                    let evidence = '';
+                    let confidence = '';
+                    if (paper.criteria_evidence && paper.criteria_evidence[crit]) {{
+                        evidence = paper.criteria_evidence[crit].evidence || 'No evidence provided';
+                        confidence = paper.criteria_evidence[crit].confidence || '';
+                        const confidenceStr = confidence ? ` (confidence: ${{(confidence * 100).toFixed(0)}}%)` : '';
+                        const newline = '\\n';
+                        const tooltip = `${{CRITERIA_NAMES[crit]}}: ${{answer}}${{confidenceStr}}${{newline}}${{newline}}Evidence: ${{evidence}}`;
+                        return `<span class="live-tag ${{className}}" title="${{tooltip.replace(/"/g, '&quot;')}}">${{CRITERIA_NAMES[crit]}}</span>`;
+                    }} else {{
+                        return `<span class="live-tag ${{className}}">${{CRITERIA_NAMES[crit]}}</span>`;
+                    }}
                 }}).join('');
                 
                 // Recommendation
@@ -485,7 +528,7 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
                 if (data.error) {{
                     alert('Error: ' + data.error);
                 }} else {{
-                    alert(`Analysis Complete!\\nScore: ${{data.overall_score.toFixed(2)}}\\nRecommendation: ${{data.recommendation}}`);
+                    alert(`Analysis Complete!\nScore: ${{data.overall_score.toFixed(2)}}\nRecommendation: ${{data.recommendation}}`);
                 }}
                 btn.disabled = false;
                 btn.textContent = `Analyze (${{method.toUpperCase()}})`;
@@ -560,7 +603,7 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
                 if (data.error) {{
                     alert('Error: ' + data.error);
                 }} else {{
-                    alert(`Analysis Complete!\\nScore: ${{data.overall_score.toFixed(2)}}\\nRecommendation: ${{data.recommendation}}`);
+                    alert(`Analysis Complete!\nScore: ${{data.overall_score.toFixed(2)}}\nRecommendation: ${{data.recommendation}}`);
                 }}
                 btn.disabled = false;
                 btn.textContent = `Analyze (${{method.toUpperCase()}})`;
@@ -723,6 +766,12 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
                     if method == 'bedrock' and self.bedrock_analyzer:
                         print("🚀 Starting PARALLEL Bedrock analysis...")
                         results = self.bedrock_analyzer.analyze_all_papers_parallel()
+                        
+                        # Store results for tooltips
+                        if not hasattr(PaperAnalysisHandler, '_paper_results'):
+                            PaperAnalysisHandler._paper_results = {}
+                        for result in results:
+                            PaperAnalysisHandler._paper_results[result.doc_id] = result
                         
                         # Save results
                         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -944,6 +993,7 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
                         "status": status.status,
                         "progress": status.progress,
                         "criteria": status.criteria_results,
+                        "criteria_evidence": self._get_criteria_evidence(status.doc_id),
                         "score": status.overall_score,
                         "recommendation": status.recommendation,
                         "error": status.error
@@ -968,6 +1018,22 @@ class PaperAnalysisHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'application/json')
         self.end_headers()
         self.wfile.write(json.dumps(progress_data).encode())
+    
+    def _get_criteria_evidence(self, doc_id):
+        """Get evidence for each criterion from completed analysis"""
+        if not hasattr(PaperAnalysisHandler, '_paper_results'):
+            PaperAnalysisHandler._paper_results = {}
+        
+        if doc_id in PaperAnalysisHandler._paper_results:
+            result = PaperAnalysisHandler._paper_results[doc_id]
+            return {
+                name: {
+                    "evidence": eval.evidence[:150],  # Truncate for tooltip
+                    "confidence": eval.confidence
+                }
+                for name, eval in result.evaluations.items()
+            }
+        return {}
     
     def log_message(self, format, *args):
         """Override to reduce log noise"""
@@ -998,4 +1064,4 @@ def run_server(port=3444):
 
 
 if __name__ == "__main__":
-    run_server(3444)
+    run_server(3445)  # Changed from 3444 due to zombie process

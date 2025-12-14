@@ -1,0 +1,895 @@
+{
+  "results": [
+    {
+      "doc_id": "818d75376cda814e0f95d7b14883ea8d",
+      "title": "STRCMP Integrating Graph Structural Priors with La",
+      "overall_score": 0.1875,
+      "recommendation": "Exclude",
+      "summary": "STRCMP Integrating Graph Structural Priors with La - Exclude (Score: 0.19)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.7,
+          "evidence": "The content does not provide clear information on whether the method uses labeled examples for training."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No information about the dataset size or whether the method emphasizes small datasets."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No details on training time or hardware requirements."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No mention of a public repository or availability of code."
+        }
+      }
+    },
+    {
+      "doc_id": "da14976f78933e5c4c39d53db9705621",
+      "title": "One Model Any CSP Graph Neural Networks as Fast Gl",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "One Model Any CSP Graph Neural Networks as Fast Gl - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The content mentions graph coloring and solving CSP instances, but does not explicitly state if these tasks involve labeled data or if the method is supervised."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or type is provided in the content."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time or hardware requirements are mentioned in the content."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the availability of a public repository is provided in the content."
+        }
+      }
+    },
+    {
+      "doc_id": "c315cbf5fc60285b9e90d40ff7090b5a",
+      "title": "Graph Neural Networks for Propositional Model Coun",
+      "overall_score": 0.4,
+      "recommendation": "Exclude",
+      "summary": "Graph Neural Networks for Propositional Model Coun - Exclude (Score: 0.40)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The paper mentions 'Graph Neural Networks for Propositional Model Counting', which implies training on labeled instances where the model counting property is known."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No specific dataset or dataset size mentioned in the provided content."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about training time or hardware requirements provided."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No mention of a public repository or code availability in the provided content."
+        }
+      }
+    },
+    {
+      "doc_id": "5296fb85e84d6890d37f97710f30f93a",
+      "title": "Large-Scale Self-Supervised Learning with TensorFlow",
+      "overall_score": 0.0625,
+      "recommendation": "Exclude",
+      "summary": "Large-Scale Self-Supervised Learning with TensorFlow - Exclude (Score: 0.06)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "No",
+          "confidence": 0.95,
+          "evidence": "The paper explicitly states that the implementation uses TensorFlow 2.8."
+        },
+        "supervised": {
+          "answer": "No",
+          "confidence": 0.99,
+          "evidence": "The paper describes a self-supervised learning framework using contrastive learning on the ImageNet-21K dataset, which does not rely on labeled examples."
+        },
+        "small_dataset": {
+          "answer": "No",
+          "confidence": 0.99,
+          "evidence": "The paper trains on ImageNet-21K, which contains 14 million images, far exceeding 100K samples."
+        },
+        "quick_training": {
+          "answer": "No",
+          "confidence": 0.99,
+          "evidence": "The training process requires 64 TPU v4 pods and takes 2 weeks, indicating significant computational resources and long training time."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The paper mentions that code will be released upon publication, but does not provide a current URL or confirm availability."
+        }
+      }
+    },
+    {
+      "doc_id": "7c9d87a54a294365ad41a782a0200f78",
+      "title": "Addressing Variable Dependency in GNN based SAT So",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "Addressing Variable Dependency in GNN based SAT So - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The content discusses Boolean variables and satisfying assignments but does not explicitly mention training on labeled examples or using a supervised learning paradigm."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or type is provided in the content."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time, hardware requirements, or model size are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about a public repository or code availability is provided in the content."
+        }
+      }
+    },
+    {
+      "doc_id": "c5c51bb0ce0b29139bc147b16406a611",
+      "title": "Efficient Neural Networks for MNIST Classification",
+      "overall_score": 0.976,
+      "recommendation": "Include",
+      "summary": "Efficient Neural Networks for MNIST Classification - Include (Score: 0.98)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Yes",
+          "confidence": 0.95,
+          "evidence": "The paper explicitly states 'We implement using PyTorch' and provides a GitHub repository with PyTorch code."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.99,
+          "evidence": "The paper describes a classification task on the MNIST dataset, which uses labeled images of handwritten digits (0-9) for training."
+        },
+        "small_dataset": {
+          "answer": "Yes",
+          "confidence": 0.99,
+          "evidence": "The MNIST dataset contains 70,000 images in total, with 60,000 used for training and 10,000 for testing, which is well within the \u2264100K sample limit."
+        },
+        "quick_training": {
+          "answer": "Yes",
+          "confidence": 0.95,
+          "evidence": "The paper mentions that the model can be trained in just 2 hours on a single GTX 1080 GPU."
+        },
+        "has_repo": {
+          "answer": "Yes",
+          "confidence": 0.99,
+          "evidence": "The full implementation is available at https://github.com/author/mnist-pytorch."
+        }
+      }
+    },
+    {
+      "doc_id": "a0ac4c54c1df325b9494211e467bfc4d",
+      "title": "Learning Branching Heuristics from Graph Neural Ne",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "Learning Branching Heuristics from Graph Neural Ne - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The provided content focuses on information entropy calculations and does not explicitly mention any supervised learning tasks or labeled datasets."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or type is provided in the content."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time, hardware requirements, or model size are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No mention of a public repository or code availability is provided in the content."
+        }
+      }
+    },
+    {
+      "doc_id": "2978d81eacedcc22568390d974b63d9b",
+      "title": "Deep Learning for Image Classification with PyTorch",
+      "overall_score": 0.9744999999999999,
+      "recommendation": "Include",
+      "summary": "Deep Learning for Image Classification with PyTorch - Include (Score: 0.97)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Yes",
+          "confidence": 0.95,
+          "evidence": "The paper explicitly states 'We implement using PyTorch' and provides a GitHub repository with PyTorch code."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.99,
+          "evidence": "The paper uses CIFAR-10, which is a labeled dataset, and mentions training and evaluation metrics like accuracy, indicating supervised learning."
+        },
+        "small_dataset": {
+          "answer": "Yes",
+          "confidence": 0.98,
+          "evidence": "The paper uses CIFAR-10, which contains 60,000 images (50,000 training + 10,000 test), fitting the criteria of a small dataset (<=100K samples)."
+        },
+        "quick_training": {
+          "answer": "Yes",
+          "confidence": 0.95,
+          "evidence": "The paper mentions that the model can be trained efficiently on a single GPU in under 12 hours."
+        },
+        "has_repo": {
+          "answer": "Yes",
+          "confidence": 0.99,
+          "evidence": "The complete implementation is available at https://github.com/author/pytorch-classification."
+        }
+      }
+    },
+    {
+      "doc_id": "db18ac8883db1a9144cb82763df8b8b0",
+      "title": "Efficient CNN Architecture for CIFAR-10 Classification",
+      "overall_score": 0.976,
+      "recommendation": "Include",
+      "summary": "Efficient CNN Architecture for CIFAR-10 Classification - Include (Score: 0.98)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Yes",
+          "confidence": 0.95,
+          "evidence": "The paper explicitly states 'Framework: PyTorch 2.0' and mentions 'PyTorch 2.0' in the training setup."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.99,
+          "evidence": "The paper evaluates on CIFAR-10, which contains labeled images, and uses a cross-entropy loss function for supervised learning."
+        },
+        "small_dataset": {
+          "answer": "Yes",
+          "confidence": 0.99,
+          "evidence": "The paper evaluates on CIFAR-10, which contains 60,000 images, fitting the criteria of a small dataset (<=100K samples)."
+        },
+        "quick_training": {
+          "answer": "Yes",
+          "confidence": 0.95,
+          "evidence": "The paper mentions 'Training time: 8 hours' using a single GPU, RTX 3080, indicating quick training."
+        },
+        "has_repo": {
+          "answer": "Yes",
+          "confidence": 0.99,
+          "evidence": "The paper provides a link to a GitHub repository: https://github.com/author/efficient-cnn-pytorch, which includes model architecture code, training scripts, pretrained weights, and documentation."
+        }
+      }
+    },
+    {
+      "doc_id": "71cb5cd4a4e3658c9e73df930df6a0e1",
+      "title": "Neural Approaches to SAT Solving Design Choices an",
+      "overall_score": 0.1875,
+      "recommendation": "Exclude",
+      "summary": "Neural Approaches to SAT Solving Design Choices an - Exclude (Score: 0.19)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.7,
+          "evidence": "The content discusses node embeddings and update functions but does not explicitly mention training on labeled examples or the use of ground truth labels."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No information about the dataset size or emphasis on small data is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No details about training time or hardware requirements are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No mention of a public repository or code availability is provided."
+        }
+      }
+    },
+    {
+      "doc_id": "46b65358d382a78f15182fe583348ec2",
+      "title": "Circuit Aware SAT Solving Guiding CDCL via Conditi",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "Circuit Aware SAT Solving Guiding CDCL via Conditi - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No implementation details or framework mentions found in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The provided content does not explicitly mention the learning paradigm or labels used for training."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No dataset details provided in the content."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No training time or hardware details mentioned in the content."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No repository or code availability details mentioned in the content."
+        }
+      }
+    },
+    {
+      "doc_id": "960a3cc47a619e0ae16407fb45a58435",
+      "title": "A unified pre training and adaptation framework fo",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "A unified pre training and adaptation framework fo - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The content discusses inference and local search methods for constraint optimization problems but does not explicitly mention supervised learning paradigms or labeled datasets."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or type is provided in the content."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time, hardware requirements, or model size are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about a public repository or code availability is provided in the content."
+        }
+      }
+    },
+    {
+      "doc_id": "fc136d6364c6e0fa586846bd1bdc6408",
+      "title": "G4SATBench Benchmarking and Advancing SAT Solving",
+      "overall_score": 0.4125,
+      "recommendation": "Exclude",
+      "summary": "G4SATBench Benchmarking and Advancing SAT Solving - Exclude (Score: 0.41)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The provided content does not explicitly mention the deep learning framework used."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The paper mentions evaluating models on SAT instances with known satisfiability labels (SAT/UNSAT), indicating supervised learning."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The provided content does not mention the size or name of the dataset used."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The provided content does not mention training time or hardware requirements."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The provided content does not mention a public repository or URL for code."
+        }
+      }
+    },
+    {
+      "doc_id": "c0d56776510218968a38f9f4a9d4e0e9",
+      "title": "Attn JGNN Attention Enhanced Join Graph Neural Net",
+      "overall_score": 0.4,
+      "recommendation": "Exclude",
+      "summary": "Attn JGNN Attention Enhanced Join Graph Neural Net - Exclude (Score: 0.40)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The method uses supervised ground truth labels (e.g., 'supervised ground truth log Z') and loss functions that require labels (e.g., 'the loss function is designed as follows')."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or specific datasets used."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about training time or hardware requirements."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No mention of a public repository or code availability."
+        }
+      }
+    },
+    {
+      "doc_id": "38a6100f8a1976a22dbac38a66b0421e",
+      "title": "GraSS Combining Graph Neural Networks with Expert",
+      "overall_score": 0.225,
+      "recommendation": "Exclude",
+      "summary": "GraSS Combining Graph Neural Networks with Expert - Exclude (Score: 0.23)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.7,
+          "evidence": "The content mentions node features for SAT instances but does not explicitly state whether the learning paradigm is supervised or not."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or emphasis on small data is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time or hardware requirements are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the availability of a public repository is provided."
+        }
+      }
+    },
+    {
+      "doc_id": "9dfe8a7b63cb43b47cb5e188d19e214f",
+      "title": "HyperSAT Unsupervised Hypergraph Neural Networks f",
+      "overall_score": 0.1875,
+      "recommendation": "Exclude",
+      "summary": "HyperSAT Unsupervised Hypergraph Neural Networks f - Exclude (Score: 0.19)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.7,
+          "evidence": "The content discusses neural networks for SAT solvers but does not explicitly mention whether the learning paradigm is supervised or not."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No information about the dataset size or emphasis on small data is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No details about training time or hardware requirements are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No mention of a public repository or code availability is provided."
+        }
+      }
+    },
+    {
+      "doc_id": "ac3f9f5343377be2d869bdfaf7a87622",
+      "title": "On the Hardness of Learning GNN based SAT Solvers",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "On the Hardness of Learning GNN based SAT Solvers - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No implementation details or framework mentions in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The provided content does not explicitly mention the learning paradigm or the presence of labeled examples."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No dataset details or size mentioned in the provided content."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information on training time or hardware requirements in the provided content."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No repository or code availability mentioned in the provided content."
+        }
+      }
+    },
+    {
+      "doc_id": "08d3123d0d72b2e7090c85f5894a4d99",
+      "title": "DeepGate2 Functionality Aware Circuit Representati",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "DeepGate2 Functionality Aware Circuit Representati - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The content does not provide sufficient details about the learning paradigm or the presence of labeled examples."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or emphasis on small data is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time, hardware requirements, or model size are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the availability of a public repository is provided."
+        }
+      }
+    },
+    {
+      "doc_id": "87ad0dd8785bdc058db3d41ee492de21",
+      "title": "Can Graph Neural Networks Learn to Solve MaxSAT Pr",
+      "overall_score": 0.4,
+      "recommendation": "Exclude",
+      "summary": "Can Graph Neural Networks Learn to Solve MaxSAT Pr - Exclude (Score: 0.40)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The method involves training on instances with known satisfiability (SAT/UNSAT labels) and predicting assignments, indicating supervised learning."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or type is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time or hardware requirements are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the availability of a public repository is provided."
+        }
+      }
+    },
+    {
+      "doc_id": "9d9cf73ce3ea598240dec3d0490f78a4",
+      "title": "Learning from Algorithm Feedback One Shot SAT Solv",
+      "overall_score": 0.4,
+      "recommendation": "Exclude",
+      "summary": "Learning from Algorithm Feedback One Shot SAT Solv - Exclude (Score: 0.40)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The paper mentions training on SAT instances with known satisfiability labels (SAT/UNSAT), indicating a supervised learning paradigm."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or emphasis on limited data is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time or hardware requirements are provided."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No mention of a public repository or code availability is provided."
+        }
+      }
+    },
+    {
+      "doc_id": "83ab2bd7b585c97101b99d26fafebf19",
+      "title": "Neural heuristics for SAT solving",
+      "overall_score": 0.4,
+      "recommendation": "Exclude",
+      "summary": "Neural heuristics for SAT solving - Exclude (Score: 0.40)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The paper mentions solving SAT problems, which inherently involves training on labeled instances (SAT/UNSAT). The architecture described also suggests learning from input formulas and their corresponding labels."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or emphasis on small data is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time or hardware requirements are given."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No mention of a public repository or code availability."
+        }
+      }
+    },
+    {
+      "doc_id": "a9cb544ef31b581fdf9860eab55512bf",
+      "title": "Using deep learning to construct stochastic local",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "Using deep learning to construct stochastic local - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The provided content does not explicitly mention whether the method uses labeled examples or not."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or type is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time or hardware requirements are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the availability of a public repository is provided."
+        }
+      }
+    },
+    {
+      "doc_id": "247555210734f65824867d1d2260c5c0",
+      "title": "Understanding GNNs for Boolean Satisfiability thro",
+      "overall_score": 0.4125,
+      "recommendation": "Exclude",
+      "summary": "Understanding GNNs for Boolean Satisfiability thro - Exclude (Score: 0.41)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The paper mentions training on SAT instances with known satisfiability labels (SAT/UNSAT), indicating a supervised learning paradigm."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The content does not provide explicit information about the size of the dataset used."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time or hardware requirements are provided."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No mention of a public repository or code availability."
+        }
+      }
+    },
+    {
+      "doc_id": "d718c5c662baa3c007cdb0ed1cad77db",
+      "title": "IB Net Initial Branch Network for Variable Decisio",
+      "overall_score": 0.4125,
+      "recommendation": "Exclude",
+      "summary": "IB Net Initial Branch Network for Variable Decisio - Exclude (Score: 0.41)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The method involves predicting the possibility of UNSAT-core variables using a GNN, which implies training on labeled instances (SAT/UNSAT)."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No specific dataset size mentioned, but the context suggests evaluation on SAT Competition and industrial datasets."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information on training time or hardware requirements provided."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No mention of a public repository or availability of code."
+        }
+      }
+    },
+    {
+      "doc_id": "276c92a9f75ec42d28cf72510257deda",
+      "title": "Graph Neural Reasoning May Fail in Certifying Bool",
+      "overall_score": 0.25,
+      "recommendation": "Exclude",
+      "summary": "Graph Neural Reasoning May Fail in Certifying Bool - Exclude (Score: 0.25)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "The content discusses theoretical evidences and reasoning about GNNs and their limitations in solving certain problems, but does not explicitly mention supervised learning paradigms or labeled datasets."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about the dataset size or type is provided in the content."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No details about training time, hardware requirements, or model size are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No mention of a public repository or code availability is provided in the content."
+        }
+      }
+    },
+    {
+      "doc_id": "85db9e5aac62b5b1758102f95edbd8ee",
+      "title": "NeuroBack Improving CDCL SAT Solving using Graph N",
+      "overall_score": 0.4,
+      "recommendation": "Exclude",
+      "summary": "NeuroBack Improving CDCL SAT Solving using Graph N - Exclude (Score: 0.40)",
+      "evaluations": {
+        "pytorch": {
+          "answer": "Unknown",
+          "confidence": 0.6,
+          "evidence": "No explicit mention of PyTorch or any other framework in the provided content."
+        },
+        "supervised": {
+          "answer": "Yes",
+          "confidence": 0.9,
+          "evidence": "The context suggests that the method is training on SAT instances with known satisfiability labels (SAT/UNSAT), indicating a supervised learning paradigm."
+        },
+        "small_dataset": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No specific dataset size or mention of small dataset emphasis is provided."
+        },
+        "quick_training": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No explicit training time or hardware details are mentioned."
+        },
+        "has_repo": {
+          "answer": "Unknown",
+          "confidence": 0.5,
+          "evidence": "No information about a public repository is provided."
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 26,
+    "include": 3,
+    "exclude": 23,
+    "review": 0,
+    "method": "Bedrock-Parallel"
+  }
+}
