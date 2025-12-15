@@ -534,6 +534,126 @@ GetRelevantPapers/
 - `archive/` - Historical results
 - `docs/` - Documentation
 
+## User Interfaces
+
+This project provides multiple user interfaces for interacting with the paper analysis pipeline:
+
+### Web UI (Recommended)
+
+The main web interface provides a modern, real-time dashboard for paper analysis.
+
+#### Starting the Web UI
+
+```bash
+python ui/minimal_web_ui.py
+```
+
+**Default Port:** 3444  
+**Access URL:** http://localhost:3444
+
+#### Features
+
+- **Real-time Analysis Dashboard**
+  - Live progress tracking for paper analysis
+  - Visual status indicators for each paper
+  - Criteria evaluation with tooltips showing evidence
+  - Overall statistics and completion metrics
+
+- **Multiple Analysis Methods**
+  - **Regex Analysis**: Fast pattern-based evaluation
+  - **Bedrock Analysis (Parallel)**: AWS Bedrock with parallel processing for speed
+  - **LLM Analysis**: OpenRouter-based evaluation (if configured)
+
+- **Paper Management**
+  - Browse all papers in the database
+  - View paper details and sections
+  - Analyze individual papers on demand
+
+- **Results Viewing**
+  - Summary statistics (Include/Exclude/Review counts)
+  - Detailed criteria breakdown for each paper
+  - Score-based recommendations
+
+#### Usage
+
+1. Start the web UI:
+```bash
+python ui/minimal_web_ui.py
+```
+
+2. Open http://localhost:3444 in your browser
+
+3. Click "Analyze All" with your preferred method:
+   - **Regex**: Fastest, uses pattern matching
+   - **Bedrock**: Most accurate, uses AWS AI (requires AWS credentials)
+   - **LLM**: Alternative AI-based analysis (requires OpenRouter API key)
+
+4. Watch real-time progress as papers are analyzed
+
+5. Review results with detailed criteria evaluation and evidence
+
+### Terminal UI
+
+A command-line interface with interactive menus for users who prefer terminal-based workflows.
+
+#### Starting the Terminal UI
+
+```bash
+python ui/simple_ui.py
+```
+
+#### Features
+
+- **Upload/Process Papers**
+  - Process single markdown files
+  - Batch process directories
+  - Convert TXT files to markdown
+  - Process sample papers
+
+- **Paper Analysis**
+  - Choose between Regex and LLM analysis
+  - Analyze all papers or select specific ones
+  - View progress and results in terminal
+
+- **Paper Browsing**
+  - List all papers in database
+  - View detailed paper information
+  - Check section contents
+
+- **Results Management**
+  - View historical analysis results
+  - Browse by date and method
+  - See top-ranked papers
+
+- **System Information**
+  - Database statistics
+  - Vector store status
+  - Available analysis methods
+
+#### Usage
+
+```bash
+python ui/simple_ui.py
+```
+
+Navigate menus using number keys:
+- `1` - Upload/Process Papers
+- `2` - Analyze Papers (Regex)
+- `3` - Analyze Papers (LLM)
+- `4` - View Papers
+- `5` - View Results
+- `6` - Process Sample Papers
+- `7` - System Info
+- `0` - Exit
+
+### Other UIs
+
+Additional specialized interfaces are available in the `ui/` directory:
+
+- `web_ui.py` - Full-featured web interface with extended functionality
+- `results_web_ui.py` - Dedicated results visualization interface
+- `realtime_analysis_ui.py` - Streaming analysis with live updates
+
 ## Next Steps
 
 After classification:
