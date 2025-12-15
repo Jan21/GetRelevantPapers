@@ -15,6 +15,13 @@ import threading
 import webbrowser
 import time
 
+# Load environment variables from .env file if it exists
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, skip
+
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -1068,4 +1075,4 @@ def run_server(port=3444):
 
 
 if __name__ == "__main__":
-    run_server(3445)  # Changed from 3444 due to zombie process
+    run_server(3444)
