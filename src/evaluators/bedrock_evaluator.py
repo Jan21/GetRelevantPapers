@@ -976,8 +976,145 @@ REMEMBER: Use the MULTI-STEP REASONING FRAMEWORKS above. Don't just keyword matc
             summary=f"{title} - {recommendation} (Score: {overall_score:.2f})"
         )
     
+    def analyze_paper_separate_criteria(self, doc_id: str, update_callback=None) -> Optional[PaperResult]:
+        """Analyze single paper with SEPARATE API calls for each criterion (5 calls per paper)"""
+        # Get document
+        doc_meta = self.document_db.get_document(doc_id)
+        if not doc_meta:
+            return None
+        
+        sections = self.document_db.get_document_sections(doc_id)
+        if not sections:
+            return None
+        
+        title = doc_meta['title']
+        
+        # Initialize status
+        with self.status_lock:
+            self.paper_statuses[doc_id] = PaperStatus(
+                doc_id=doc_id,
+                title=title,
+                status="running",
+                progress=0,
+                criteria_results={},
+                overall_score=0.0,
+                recommendation="Pending"
+            )
+        
+        if update_callback:
+            update_callback(doc_id, "running", 0)
+        
+        print(f"🔍 Analyzing (SEPARATE): {title}")
+        
+        # Evaluate EACH criterion separately (5 API calls)
+        evaluations = {}
+        criteria_list = list(self.criteria.keys())
+        total_criteria = len(criteria_list)
+        
+        for idx, criterion_name in enumerate(criteria_list):
+            # Get relevant content for this specific criterion
+            relevant_sections = self.criteria_analyzer.get_section_content_for_criteria(
+                doc_id, criterion_name, top_k=2
+            )
+            
+            content_parts = []
+            for section_info in relevant_sections:
+                key = section_info['section_key']
+                if key in sections:
+                    content_parts.append(f"{sections[key][:500]}")
+            
+            content = "\n".join(content_parts) if content_parts else str(sections)[:1000]
+            
+            # Evaluate THIS criterion with separate API call
+            print(f"  📊 Criterion {idx+1}/{total_criteria}: {criterion_name}")
+            result = self._evaluate_criterion(doc_id, criterion_name, content)
+            evaluations[criterion_name] = result
+            
+            # Update status after each criterion
+            progress = int(((idx + 1) / total_criteria) * 100)
+            with self.status_lock:
+                if doc_id in self.paper_statuses:
+                    self.paper_statuses[doc_id].criteria_results[criterion_name] = result.answer
+                    self.paper_statuses[doc_id].progress = progress
+            
+            if update_callback:
+                update_callback(doc_id, "running", progress)
+        
+        # Calculate final score
+        overall_score = self._calculate_score(evaluations)
+        recommendation = self._make_recommendation(evaluations, overall_score)
+        
+        # Update final status
+        with self.status_lock:
+            if doc_id in self.paper_statuses:
+                self.paper_statuses[doc_id].status = "completed"
+                self.paper_statuses[doc_id].progress = 100
+                self.paper_statuses[doc_id].overall_score = overall_score
+                self.paper_statuses[doc_id].recommendation = recommendation
+        
+        if update_callback:
+            update_callback(doc_id, "completed", 100)
+        
+        print(f"✅ {title}: {recommendation} ({overall_score:.2f})")
+        
+        return PaperResult(
+            doc_id=doc_id,
+            title=title,
+            evaluations=evaluations,
+            overall_score=overall_score,
+            recommendation=recommendation,
+            summary=f"{title} - {recommendation} (Score: {overall_score:.2f})"
+        )
+    
+    def analyze_all_papers_separate_criteria(self, update_callback=None) -> List[PaperResult]:
+        """Analyze all papers with SEPARATE criterion evaluation (5 API calls per paper)"""
+        documents = self.document_db.list_documents()
+        
+        # Initialize all statuses
+        with self.status_lock:
+            for doc_info in documents:
+                doc_id = doc_info['doc_id']
+                self.paper_statuses[doc_id] = PaperStatus(
+                    doc_id=doc_id,
+                    title=doc_info['title'],
+                    status="pending",
+                    progress=0,
+                    criteria_results={},
+                    overall_score=0.0,
+                    recommendation="Pending"
+                )
+        
+        print(f"\n🔬 Starting SEPARATE criteria analysis of {len(documents)} papers...")
+        print(f"   Total API calls: {len(documents) * 5}")
+        
+        results = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            # Submit all papers for analysis
+            future_to_doc = {
+                executor.submit(self.analyze_paper_separate_criteria, doc_info['doc_id'], update_callback): doc_info
+                for doc_info in documents
+            }
+            
+            # Process as they complete
+            for future in concurrent.futures.as_completed(future_to_doc):
+                doc_info = future_to_doc[future]
+                try:
+                    result = future.result()
+                    if result:
+                        results.append(result)
+                except Exception as e:
+                    print(f"❌ Error analyzing {doc_info['title']}: {e}")
+                    # Mark as failed
+                    with self.status_lock:
+                        if doc_info['doc_id'] in self.paper_statuses:
+                            self.paper_statuses[doc_info['doc_id']].status = "failed"
+                            self.paper_statuses[doc_info['doc_id']].error = str(e)
+        
+        print(f"\n✅ Analysis complete! {len(results)}/{len(documents)} papers analyzed")
+        return results
+    
     def analyze_all_papers_parallel(self, update_callback=None) -> List[PaperResult]:
-        """Analyze all papers in parallel"""
+        """Analyze all papers in parallel (ONE mega-prompt per paper)"""
         documents = self.document_db.list_documents()
         
         # Initialize all statuses

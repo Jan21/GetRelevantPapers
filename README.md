@@ -467,7 +467,7 @@ GetRelevantPapers/
 │       ├── free_llm_evaluator.py # Free LLM evaluator
 │       └── bedrock_evaluator.py # AWS Bedrock evaluator
 │
-├── classifiers/                 # Paper classifiers
+├── src/classifiers/             # Paper classifiers
 │   ├── base_classifier.py
 │   ├── bedrock_classifier.py
 │   └── openrouter_classifier.py
@@ -525,7 +525,7 @@ GetRelevantPapers/
 **Core Components:**
 - `src/core/` - Core analysis functionality
 - `src/evaluators/` - LLM-based evaluators
-- `classifiers/` - Paper classifiers
+- `src/classifiers/` - Paper classifiers
 - `ui/` - User interfaces (web + terminal)
 - `scripts/` - Utility scripts
 
@@ -545,7 +545,7 @@ The main web interface provides a modern, real-time dashboard for paper analysis
 #### Starting the Web UI
 
 ```bash
-python ui/minimal_web_ui.py
+python src/ui/minimal_web_ui.py
 ```
 
 **Default Port:** 3444  
@@ -561,7 +561,8 @@ python ui/minimal_web_ui.py
 
 - **Multiple Analysis Methods**
   - **Regex Analysis**: Fast pattern-based evaluation
-  - **Bedrock Analysis (Parallel)**: AWS Bedrock with parallel processing for speed
+  - **Bedrock Analysis (Parallel)**: AWS Bedrock with parallel processing - 1 mega-prompt per paper
+  - **Bedrock Analysis (Separate)**: AWS Bedrock with separate criterion calls - 5 API calls per paper
   - **LLM Analysis**: OpenRouter-based evaluation (if configured)
 
 - **Paper Management**
@@ -578,19 +579,46 @@ python ui/minimal_web_ui.py
 
 1. Start the web UI:
 ```bash
-python ui/minimal_web_ui.py
+python src/ui/minimal_web_ui.py
 ```
 
 2. Open http://localhost:3444 in your browser
 
 3. Click "Analyze All" with your preferred method:
    - **Regex**: Fastest, uses pattern matching
-   - **Bedrock**: Most accurate, uses AWS AI (requires AWS credentials)
+   - **Bedrock (Parallel)** 🚀: Most accurate, uses AWS AI with 1 mega-prompt per paper (requires AWS credentials)
+   - **Bedrock (Separate)** 🔬: AWS AI with 5 separate criterion calls per paper - more granular progress tracking
    - **LLM**: Alternative AI-based analysis (requires OpenRouter API key)
 
 4. Watch real-time progress as papers are analyzed
 
 5. Review results with detailed criteria evaluation and evidence
+
+#### Bedrock Analysis Methods Comparison
+
+The Web UI offers two Bedrock analysis approaches:
+
+| Feature | Parallel (🚀) | Separate (🔬) |
+|---------|--------------|---------------|
+| **API Calls** | 1 per paper | 5 per paper |
+| **Prompt Type** | Mega-prompt with all criteria | Individual prompts per criterion |
+| **Progress Granularity** | Per-paper completion | Per-criterion completion (20%, 40%, 60%, 80%, 100%) |
+| **Cost** | Lower (fewer calls) | Higher (5x more calls) |
+| **Reasoning** | Cross-criterion coherence | Independent evaluations |
+| **Best For** | Production analysis, cost efficiency | Debugging, detailed tracking, comparison |
+
+**When to use Parallel (🚀):**
+- Analyzing many papers efficiently
+- Lower cost is important
+- Want coherent cross-criterion reasoning
+
+**When to use Separate (🔬):**
+- Need detailed progress tracking
+- Debugging criterion-specific issues
+- Comparing evaluation methods
+- Want more frequent UI updates
+
+See `ANALYSIS_METHODS_COMPARISON.md` for detailed comparison and `test_separate_criteria.py` to test both methods.
 
 ### Terminal UI
 

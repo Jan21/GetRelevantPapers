@@ -63,9 +63,8 @@ python download_papers.py
 - `requirements.txt` - Python dependencies
 
 ### Classifiers
-- `classifiers/bedrock_classifier.py` - AWS Bedrock integration
-- `classifiers/openrouter_classifier.py` - OpenRouter (backup option)
-- `classifiers/base_classifier.py` - Base class
+- `src/classifiers/bedrock_classifier.py` - AWS Bedrock integration
+- `src/classifiers/base_classifier.py` - Base class
 
 ## Configuration (config.yaml)
 

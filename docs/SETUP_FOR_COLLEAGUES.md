@@ -45,7 +45,7 @@ AWS_REGION=us-east-1
 Then load it before running the app:
 ```bash
 export $(cat .env | xargs)
-python ui/minimal_web_ui.py
+python src/ui/minimal_web_ui.py
 ```
 
 #### Method 3: Direct Environment Variables
@@ -55,7 +55,7 @@ export AWS_ACCESS_KEY_ID="your_access_key"
 export AWS_SECRET_ACCESS_KEY="your_secret_key"
 export AWS_REGION="us-east-1"
 
-python ui/minimal_web_ui.py
+python src/ui/minimal_web_ui.py
 ```
 
 ### Verify Setup
@@ -121,7 +121,7 @@ You don't need to change these unless instructed.
 Once AWS is configured:
 
 ```bash
-python ui/minimal_web_ui.py
+python src/ui/minimal_web_ui.py
 ```
 
 The web UI will open at http://localhost:3444 and you should see the "🚀 Analyze All (Bedrock - PARALLEL)" button.

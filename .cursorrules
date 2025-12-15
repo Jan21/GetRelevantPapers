@@ -2,35 +2,35 @@
 
 ## Web UI Configuration
 - **Default Port**: 3444
-- **Web UI Command**: `python minimal_web_ui.py`
+- **Web UI Command**: `python src/ui/minimal_web_ui.py`
 - **Access URL**: http://localhost:3444
 
 ## Project Structure
 - Main pipeline: `main.py`
-- Interactive UI: `simple_ui.py` 
-- Web UI: `minimal_web_ui.py` (PORT 3444)
-- Analysis: `analyzer.py` (regex) + `llm_evaluator.py` (LLM)
-- Data: `markdown_db/` + `vector_store/` + `converted_papers/`
+- Web UI: `src/ui/minimal_web_ui.py` (PORT 3444)
+- Analysis: `src/core/analyzer.py` (regex) + `src/evaluators/bedrock_evaluator.py` (Bedrock LLM)
+- Classifiers: `src/classifiers/bedrock_classifier.py` (for colleague's workflow)
+- Data: `data/markdown_db/` + `data/vector_store/` + `data/converted_papers/`
 
 ## Development Commands
 ```bash
 # Start Web UI on port 3444
-python minimal_web_ui.py
-
-# Terminal UI
-python simple_ui.py
+python src/ui/minimal_web_ui.py
 
 # CLI Analysis
-python main.py --input-dir converted_papers
+python main.py --input-dir data/converted_papers
 
-# Process sample papers
-python main.py --input-dir sample_papers --output sample_analysis.json
+# Colleague's Workflow (Search & Classify)
+python asta.py                    # Search papers
+python classify_papers.py         # Classify with Bedrock
+python download_papers.py         # Download PDFs
+python visualize_papers.py        # Visualize results
 ```
 
 ## Key Features
-- 22 converted sample papers in `converted_papers/`
+- 22 converted sample papers in `data/converted_papers/`
 - 5 Deep Researcher criteria evaluation
-- Dual analysis methods (regex + LLM)
+- Bedrock-based analysis (parallel processing)
 - Interactive web interface on port 3444
 - Vector search for section relevance
 - Persistent document database
